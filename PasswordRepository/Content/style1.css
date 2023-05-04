@@ -1,0 +1,67 @@
+﻿/* This is for the Home Page*/
+#homepagebg {
+    background-image: url("https://mdbootstrap.com/img/new/fluid/city/018.jpg");
+    height: 100vh;
+}
+
+@@media (min-width: 992px) {
+    #intro {
+        margin-top: -58.59px;
+    }
+}
+
+.cover {
+    object-fit: cover;
+    width: 50px;
+    margin: 20px;
+    height: 100px;
+}
+
+.btn-outline-secondary {
+    color: white;
+}
+
+    .btn-outline-secondary:hover {
+        color: black;
+        background-color: white;
+    }
+
+.navbar-dark {
+    color: white;
+}
+
+.navbar-custom {
+    height: 100px;
+}
+
+.navbar-nav > li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-item {
+    color: white;
+}
+
+#navmenu {
+    font-family: 'Envy Code R';
+}
+
+#header1 {
+    font-family: 'JetBrains Mono';
+}
+
+#getstartedbtn {
+    width: 300px;
+    height: 100px;
+    font-size: 30px;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+img.no-resize {
+    min-height: 869px;
+    min-width: 847px;
+}

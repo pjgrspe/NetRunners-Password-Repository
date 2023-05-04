@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PassRepositoryDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_LOGIN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
+          <Property Name="STATUS" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_USER_DETAILS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
+          <Property Name="DATE_MODIFIED" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_TBL_USER_DETAILS_TBL_LOGIN">
+          <End Role="TBL_LOGIN" Type="Self.TBL_LOGIN" Multiplicity="1" />
+          <End Role="TBL_USER_DETAILS" Type="Self.TBL_USER_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_LOGIN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_USER_DETAILS">
+              <PropertyRef Name="UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PassRepositoryDbModelStoreContainer">
+          <EntitySet Name="TBL_LOGIN" EntityType="Self.TBL_LOGIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_USER_DETAILS" EntityType="Self.TBL_USER_DETAILS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_USER_DETAILS_TBL_LOGIN" Association="Self.FK_TBL_USER_DETAILS_TBL_LOGIN">
+            <End Role="TBL_LOGIN" EntitySet="TBL_LOGIN" />
+            <End Role="TBL_USER_DETAILS" EntitySet="TBL_USER_DETAILS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PassRepositoryDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_LOGIN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="STATUS" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_USER_DETAILS" Relationship="Self.FK_TBL_USER_DETAILS_TBL_LOGIN" FromRole="TBL_LOGIN" ToRole="TBL_USER_DETAILS" />
+        </EntityType>
+        <EntityType Name="TBL_USER_DETAILS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATE_MODIFIED" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBL_LOGIN" Relationship="Self.FK_TBL_USER_DETAILS_TBL_LOGIN" FromRole="TBL_USER_DETAILS" ToRole="TBL_LOGIN" />
+        </EntityType>
+        <Association Name="FK_TBL_USER_DETAILS_TBL_LOGIN">
+          <End Role="TBL_LOGIN" Type="Self.TBL_LOGIN" Multiplicity="1" />
+          <End Role="TBL_USER_DETAILS" Type="Self.TBL_USER_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_LOGIN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_USER_DETAILS">
+              <PropertyRef Name="UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PassRepositoryDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_LOGIN" EntityType="Self.TBL_LOGIN" />
+          <EntitySet Name="TBL_USER_DETAILS" EntityType="Self.TBL_USER_DETAILS" />
+          <AssociationSet Name="FK_TBL_USER_DETAILS_TBL_LOGIN" Association="Self.FK_TBL_USER_DETAILS_TBL_LOGIN">
+            <End Role="TBL_LOGIN" EntitySet="TBL_LOGIN" />
+            <End Role="TBL_USER_DETAILS" EntitySet="TBL_USER_DETAILS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PassRepositoryDbModelStoreContainer" CdmEntityContainer="PassRepositoryDbEntities">
+          <EntitySetMapping Name="TBL_LOGIN">
+            <EntityTypeMapping TypeName="PassRepositoryDbModel.TBL_LOGIN">
+              <MappingFragment StoreEntitySet="TBL_LOGIN">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_USER_DETAILS">
+            <EntityTypeMapping TypeName="PassRepositoryDbModel.TBL_USER_DETAILS">
+              <MappingFragment StoreEntitySet="TBL_USER_DETAILS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
+                <ScalarProperty Name="DATE_MODIFIED" ColumnName="DATE_MODIFIED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
