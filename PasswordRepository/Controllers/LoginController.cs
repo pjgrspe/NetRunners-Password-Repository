@@ -23,7 +23,7 @@ namespace PasswordRepository.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (PassRepositoryDbEntities entities = new PassRepositoryDbEntities())
+                using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
                 {
                     var eData = entities.TBL_LOGIN.Where(x => x.EMAIL.Equals(model.LOGINEMAILUSER) || x.USERNAME.Equals(model.LOGINEMAILUSER)).FirstOrDefault();
                     if (eData != null)

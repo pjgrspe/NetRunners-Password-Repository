@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e056500db3174950b6a9d879d0268617" Name="Diagram1">
-        <EntityTypeShape EntityType="PassRepositoryDbModel.TBL_LOGIN" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PassRepositoryDbModel.TBL_USER_DETAILS" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="PassRepositoryDbModel.FK_TBL_USER_DETAILS_TBL_LOGIN" ManuallyRouted="false" />
+      <Diagram DiagramId="3f0500d8afb84387a55778b315f9a420" Name="Diagram1">
+        <EntityTypeShape EntityType="PassRepoDatabaseModel.TBL_LOGIN" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PassRepoDatabaseModel.TBL_USER_DETAILS" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="PassRepoDatabaseModel.FK_TBL_USER_DETAILS_TBL_USER_DETAILS" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
