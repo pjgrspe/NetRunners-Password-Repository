@@ -24,7 +24,7 @@ namespace PasswordRepository.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (PassRepositoryDbEntities entities = new PassRepositoryDbEntities())
+                using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
                 {
 
                     if (!model.PASSWORD.Equals(model.REPEAT_PASSWORD))
@@ -64,8 +64,8 @@ namespace PasswordRepository.Controllers
                     var newUDetail = new TBL_USER_DETAILS
                     {
                         UID = newUData.ID,
-                        FIRST_NAME = model.FIRST_NAME,
-                        LAST_NAME = model.LAST_NAME,
+                        FIRSTNAME = model.FIRST_NAME,
+                        LASTNAME = model.LAST_NAME,
                         DATE_CREATED = DateTime.Now,
                         DATE_MODIFIED = DateTime.Now
                     };
