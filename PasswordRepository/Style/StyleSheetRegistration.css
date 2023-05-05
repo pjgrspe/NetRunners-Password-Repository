@@ -84,9 +84,15 @@ section {
     font-size: 24px;
 }
 
-    #loginbtn:active {
-        color: white !important;
+@media (max-width: 992px) {
+    #navlogin {
+        padding-top: 8px;
     }
+
+    #loginbtn {
+        font-size: 24px;
+    }
+}
 
 #navmenu {
     font-family: 'Envy Code R';
@@ -164,4 +170,24 @@ h1 {
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    opacity: 0;
+    content: '';
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.nav-link:hover::after {
+    opacity: 1;
 }
