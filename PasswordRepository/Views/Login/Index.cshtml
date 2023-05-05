@@ -56,41 +56,38 @@
         <section class="text-light p-5">
             <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:95px">
                 <div class="justify-content-center" id="content">
+                    <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
                         <h1 align="center">
                             / LOGIN /
                         </h1>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="d-flex justify-content-center col-5 col-md-6 col-xl-4">
-                        </div>
-                    </div>
+                    <!--Form-->
                     @using (@Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-floating" style="margin-top: 40px;">
-                                    @Html.TextBoxFor(Model => Model.LOGINEMAILUSER, new { @class = "form-control rounded-0", size = "100", id = "floatingEmailUser", placeholder = "EmailUser", style = "margin:auto", required = "required", })
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 40px; width:410px;">
+                                    @Html.TextBoxFor(Model => Model.LOGINEMAILUSER, new { @class = "form-control rounded-0 w-100", id = "floatingEmailUser", placeholder = "EmailUser", style = "margin:auto", required = "required", })
                                     <label for="floatingPassword">Email/Username</label>
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-floating" style="margin-top: 3px;">
-                                    @Html.PasswordFor(Model => Model.LOGINPASSWORD, new { @class = "form-control rounded-0", size = "100", id = "floatingEmailUser", placeholder = "Password", style = "margin:auto", required = "required" })
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                    @Html.PasswordFor(Model => Model.LOGINPASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingEmailUser", placeholder = "Password", style = "margin:auto", required = "required" })
                                     <label for="floatingPassword">Password</label>
                                 </div>
                             </div>
                         </div>
+                        <!--Remember me checkbox-->
                         <div class="d-flex justify-content-center">
-                            <div class="d-flex justify-content-left" style="width:254px">
-                                <div class="form-check" style="text-align:left;margin-top:20px;">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" style="text-align: center">
-                                    <label class="form-check-label" for="exampleCheck1">Remember me</label>
-                                </div>
+                            <div class="form-check" style="text-align:left;margin-top:20px; width:410px;">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" style="text-align: center">
+                                <label class="form-check-label" for="exampleCheck1">Remember me</label>
                             </div>
                         </div>
-
+                        <!--Login button-->
                         <div class="d-flex justify-content-center">
                             <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
                                 <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="getstartedbtn">
@@ -98,6 +95,7 @@
                                 </button>
                             </div>
                         </div>
+                        <!--Redirect to registration-->
                         <div class="d-flex justify-content-center">
                             <p>
                                 Don't have an account yet? <a href="/Registration/Index" id="signinprompt">Sign up here.</a>
@@ -112,5 +110,6 @@
                 <p class="lead">NetRunner Systems &copy;2023</p>
             </div>
         </footer>
+    </div>
 </body>
 </html>
