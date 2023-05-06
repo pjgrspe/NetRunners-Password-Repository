@@ -32,20 +32,20 @@ section {
     color: white;
 }
 
-    .btn-outline-secondary:hover {
-        color: black;
-        background-color: white;
-    }
+.btn-outline-secondary:hover {
+    color: black;
+    background-color: white;
+}
 
 .btn-primary2 {
     color: black;
     background-color: white;
 }
 
-    .btn-primary2:hover {
-        color: black;
-        background-color: darkgray;
-    }
+.btn-primary2:hover {
+    color: black;
+    background-color: darkgray;
+}
 
 .navbar {
     color: white;
