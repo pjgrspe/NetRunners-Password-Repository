@@ -15,8 +15,8 @@ namespace PasswordRepository
     public partial class TBL_USER_DETAILS
     {
         public int ID { get; set; }
-        public string FIRST_NAME { get; set; }
-        public string LAST_NAME { get; set; }
+        public string FIRSTNAME { get; set; }
+        public string LASTNAME { get; set; }
         public int UID { get; set; }
         public System.DateTime DATE_CREATED { get; set; }
         public Nullable<System.DateTime> DATE_MODIFIED { get; set; }

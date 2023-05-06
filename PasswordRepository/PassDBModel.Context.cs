@@ -13,10 +13,10 @@ namespace PasswordRepository
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PassRepositoryDbEntities : DbContext
+    public partial class PassRepoDatabaseEntities : DbContext
     {
-        public PassRepositoryDbEntities()
-            : base("name=PassRepositoryDbEntities")
+        public PassRepoDatabaseEntities()
+            : base("name=PassRepoDatabaseEntities")
         {
         }
     
