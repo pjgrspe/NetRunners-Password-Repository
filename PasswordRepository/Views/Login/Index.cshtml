@@ -54,7 +54,7 @@
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5">
-            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:95px">
+            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:2%">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -68,7 +68,7 @@
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                             <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 40px; width:410px;">
+                                <div class="form-floating" style="margin-top: 20px; width:410px;">
                                     @Html.TextBoxFor(Model => Model.LOGINEMAILUSER, new { @class = "form-control rounded-0 w-100", id = "floatingEmailUser", placeholder = "EmailUser", style = "margin:auto", required = "required", })
                                     <label for="floatingPassword">Email/Username</label>
                                 </div>
@@ -143,7 +143,7 @@
                 </div>
             </div>
         </section>
-        <footer style="margin-top: 40px" class="p-5 text-white">
+        <footer class="p-5 text-white">
             <div class="col-xl-3 col-lg-12 text-xl-start">
                 <p class="lead">NetRunner Systems &copy;2023</p>
             </div>

@@ -6,12 +6,13 @@
 
 @font-face {
     font-family: 'JetBrains Mono';
-    src: url('JetBrainsMono-Bold.ttf'),format('truetype');
+    src: url('JetBrainsMono-Bold.ttf'),format('truetype'), url('JetBrainsMono-Medium.ttf'),format('truetype'), url('JetBrainsMono-Regular.ttf'),format('truetype');
+    src: url('JetBrainsMono-Bold.woff'),format('woff'), url('JetBrainsMono-Medium.ttf'),format('truetype'), url('JetBrainsMono-Regular.ttf'),format('truetype');
 }
 
 @font-face {
     font-family: 'Envy R';
-    src: url('~/Font/plateia/Plateia Bold.ttf');
+    src: url(''~/Font/Envy Code R PR7/'Envy Code R Bold.ttf'),format('truetype');
 }
 
 html, body {
