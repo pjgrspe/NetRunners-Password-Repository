@@ -4,16 +4,6 @@
     }
 }
 
-@font-face {
-    font-family: 'JetBrains Mono';
-    src: url('JetBrainsMono-Bold.ttf'),format('truetype');
-}
-
-@font-face {
-    font-family: 'Envy R';
-    src: url('~/Font/plateia/Plateia Bold.ttf');
-}
-
 html, body {
     overflow-x: hidden;
     padding-bottom: 0px;
@@ -42,20 +32,20 @@ section {
     color: white;
 }
 
-.btn-outline-secondary:hover {
+    .btn-outline-secondary:hover {
         color: black;
         background-color: white;
-}
+    }
 
 .btn-primary2 {
     color: black;
     background-color: white;
 }
 
-.btn-primary2:hover{
-    color: black;
-    background-color: darkgray;
-}
+    .btn-primary2:hover {
+        color: black;
+        background-color: darkgray;
+    }
 
 .navbar {
     color: white;
@@ -83,8 +73,8 @@ section {
 #loginbtn:disabled {
     font-size: 24px;
     background-color: white;
-    color:black;
-    opacity:100;
+    color: black;
+    opacity: 100;
 }
 
 @media (max-width: 992px) {
@@ -180,21 +170,21 @@ h1 {
     position: relative;
 }
 
-.nav-link::after {
-    opacity: 0;
-    content: '';
-    transition: all 0.2s;
-    height: 2px;
-    width: 100%;
-    background-color: white;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
+    .nav-link::after {
+        opacity: 0;
+        content: '';
+        transition: all 0.2s;
+        height: 2px;
+        width: 100%;
+        background-color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
 
-.nav-link:hover::after {
-    opacity: 1;
-}
+    .nav-link:hover::after {
+        opacity: 1;
+    }
 
 .form-control {
     display: inline-block;
@@ -202,11 +192,11 @@ h1 {
 }
 
 #eyeicon {
-    position:absolute;
+    position: absolute;
     right: 15px;
     transform: translate(0, -50%);
-    top:50%;
+    top: 50%;
     cursor: pointer;
     width: 20px;
-    height:auto;
+    height: auto;
 }
