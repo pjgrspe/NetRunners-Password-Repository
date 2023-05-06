@@ -32,20 +32,20 @@ section {
     color: white;
 }
 
-    .btn-outline-secondary:hover {
-        color: black;
-        background-color: white;
-    }
+.btn-outline-secondary:hover {
+    color: black;
+    background-color: white;
+}
 
 .btn-primary2 {
     color: black;
     background-color: white;
 }
 
-    .btn-primary2:hover {
-        color: black;
-        background-color: darkgray;
-    }
+.btn-primary2:hover {
+    color: black;
+    background-color: darkgray;
+}
 
 .navbar {
     color: white;
@@ -166,21 +166,21 @@ h1 {
     position: relative;
 }
 
-    .nav-link::after {
-        opacity: 0;
-        content: '';
-        transition: all 0.2s;
-        height: 2px;
-        width: 100%;
-        background-color: white;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
+.nav-link::after {
+    opacity: 0;
+    content: '';
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
 
-    .nav-link:hover::after {
-        opacity: 1;
-    }
+.nav-link:hover::after {
+    opacity: 1;
+}
 
 #eyeicon {
     position: absolute;
