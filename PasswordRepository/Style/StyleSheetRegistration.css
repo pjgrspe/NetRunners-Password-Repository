@@ -201,13 +201,3 @@ h1 {
     width: 20px;
     height: auto;
 }
-
-#eyeicon2 {
-    position: absolute;
-    right: 15px;
-    transform: translate(0, -50%);
-    top: 50%;
-    cursor: pointer;
-    width: 20px;
-    height: auto;
-}
