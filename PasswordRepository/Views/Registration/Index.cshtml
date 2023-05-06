@@ -101,6 +101,10 @@
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
                                     @Html.PasswordFor(Model => Model.PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
                                     <label for="floatingPassword">Password</label>
+                                    <span>
+                                        <!--Eye icon-->
+                                        <img src="~/Elements/eye-slash.svg" id="eyeicon" />
+                                    </span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center w-100">
@@ -108,6 +112,53 @@
                                     @Html.PasswordFor(Model => Model.REPEAT_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingRePassword", placeholder = "Re-enter Password", required = "required" })
                                     <label for="floatingRePassword">Re-enter Password</label>
                                 </div>
+                                <script type="text/javascript">
+                                    let eyeicon = document.getElementById('eyeicon');
+                                    var form = document.getElementById('floatingPassword');
+                                    var form2 = document.getElementById('floatingRePassword');
+
+                                    eyeicon.style.display = "none";
+
+                                    form.addEventListener("focusin", function () {
+                                        eyeicon.style.display = "block";
+                                    });
+
+                                    form2.addEventListener("focusin", function () {
+                                        eyeicon.style.display = "block";
+                                    });
+
+                                    form.addEventListener("focusout", function () {
+                                        if (Event.relatedTarget !== eyeicon) {
+                                            eyeicon.style.display = "none";
+                                        }
+                                    });
+                                    form2.addEventListener("focusout", function () {
+                                        if (Event.relatedTarget !== eyeicon) {
+                                            eyeicon.style.display = "none";
+                                        }
+                                    });
+
+                                    eyeicon.addEventListener("mousedown", function (event) {
+                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                        togglePW();
+                                    });
+
+                                    function togglePW() {
+                                        var show = document.getElementById('floatingPassword');
+                                        var show2 = document.getElementById('floatingRePassword');
+                                        if (show.type == 'password') {
+                                            show.type = 'text';
+                                            show2.type = 'text';
+                                            eyeicon.src = "/Elements/eye.svg"
+                                        }
+                                        else {
+                                            show.type = 'password'
+                                            show2.type = 'password';
+                                            eyeicon.src = "/Elements/eye-slash.svg"
+                                        }
+                                        show.focus();
+                                    }
+                                </script>
                             </div>
                         </div>
                         <!--Terms and Conditions checkbox-->

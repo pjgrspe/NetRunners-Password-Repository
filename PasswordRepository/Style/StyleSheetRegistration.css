@@ -191,3 +191,23 @@ h1 {
 .nav-link:hover::after {
     opacity: 1;
 }
+
+#eyeicon {
+    position: absolute;
+    right: 15px;
+    transform: translate(0, -50%);
+    top: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+#eyeicon2 {
+    position: absolute;
+    right: 15px;
+    transform: translate(0, -50%);
+    top: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
