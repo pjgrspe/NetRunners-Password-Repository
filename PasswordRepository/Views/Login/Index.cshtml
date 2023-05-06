@@ -77,7 +77,45 @@
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
                                     @Html.PasswordFor(Model => Model.LOGINPASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", style = "margin:auto", required = "required" })
                                     <label for="floatingPassword">Password</label>
+                                    <span>
+                                        <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
+                                        <img src="~/Elements/eye-slash.svg" id="eyeicon"/>
+                                    </span>
                                 </div>
+                                <script type="text/javascript">
+                                    let eyeicon = document.getElementById('eyeicon');
+                                    var form = document.getElementById('floatingPassword');
+
+                                    eyeicon.style.display = "none";
+
+                                    form.addEventListener("focusin", function () {
+                                        eyeicon.style.display = "block";
+                                    });
+
+                                    form.addEventListener("focusout", function () {
+                                        if (Event.relatedTarget !== eyeicon) {
+                                            eyeicon.style.display = "none";
+                                        }
+                                    });
+
+                                    eyeicon.addEventListener("mousedown", function (event) {
+                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                        togglePW();
+                                    });
+                                    
+                                    function togglePW() {
+                                        var show = document.getElementById('floatingPassword');
+                                        if (show.type == 'password') {
+                                            show.type = 'text';
+                                            eyeicon.src = "/Elements/eye.svg"
+                                        }
+                                        else {
+                                            show.type = 'password'
+                                            eyeicon.src = "/Elements/eye-slash.svg"
+                                        }
+                                        show.focus();
+                                    }
+                                </script>
                             </div>
                         </div>
                         <!--Remember me checkbox-->

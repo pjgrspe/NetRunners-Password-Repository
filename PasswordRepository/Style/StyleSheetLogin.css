@@ -200,3 +200,13 @@ h1 {
     display: inline-block;
     width: 100%
 }
+
+#eyeicon {
+    position:absolute;
+    right: 15px;
+    transform: translate(0, -50%);
+    top:50%;
+    cursor: pointer;
+    width: 20px;
+    height:auto;
+}
