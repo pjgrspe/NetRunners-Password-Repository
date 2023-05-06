@@ -44,12 +44,17 @@ section {
 }
 
 .btn-outline-secondary:hover {
-        color: black;
-        background-color: white;
+    color: black;
+    background-color: white;
 }
 
 .btn-primary {
     background-color: white!important;
+}
+
+#profilebtn {
+    font-size:30px;
+    font-family:'Envy Code R'
 }
 
 .navbar {
@@ -139,4 +144,9 @@ h1 {
 
 .profile {
     color:blue !important;
+}
+
+.dropdown-menu {
+    color:white;
+    background-color: black;
 }
