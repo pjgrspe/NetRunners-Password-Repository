@@ -71,6 +71,19 @@ section {
     font-size: 24px;
 }
 
+@media (max-width: 992px) {
+    #navlogin {
+        padding-top: 8px;
+    }
+    #loginbtn {
+        font-size:24px;
+    }
+}
+
+#navhome {
+    color:white;
+}
+
 #navmenu {
     font-family: 'Envy Code R';
 }
@@ -91,7 +104,7 @@ h1 {
 
 .overlay-text {
     position: relative;
-    left: 200px;
+    left: 230px;
     bottom: 350px;
     height: auto;
     z-index: 10;
@@ -109,4 +122,24 @@ h1 {
 
 #title {
     z-index: 20;
+}
+
+.nav-link {
+    position:relative;
+}
+
+.nav-link::after {
+    opacity: 0;
+    content: '';
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom:0;
+    left: 0;
+}
+
+.nav-link:hover::after {
+    opacity: 1;
 }

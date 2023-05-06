@@ -34,15 +34,15 @@
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="/Home/Index" class="nav-link">HOME</a>
+                        <a href="/Home/Index" class="nav-link" id="navhome">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#team" class="nav-link">TEAM</a>
+                        <a href="#team" class="nav-link" id="navteam">TEAM</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#contact" class="nav-link">CONTACT</a>
+                        <a href="#contact" class="nav-link" id="navcontact">CONTACT</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="navlogin">
                         <button onclick="window.location.href='/Login/Index'" type="button" class="rounded-0 btn btn-outline-secondary" id="loginbtn">LOGIN</button>
                     </li>
                 </ul>
@@ -56,11 +56,13 @@
         <section class="text-light p-5">
             <div class="container d-flex justify-content-center" id="maincontainer">
                 <div class="justify-content-center" id="content">
+                    <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
                         <h1 align="center">
                             / REGISTER /
                         </h1>
                     </div>
+                    <!--Sub-heading-->
                     <div class="d-flex justify-content-center">
                         <div class="d-flex justify-content-center col-5 col-md-6 col-xl-4">
                             <h6 align="center">
@@ -68,54 +70,54 @@
                             </h6>
                         </div>
                     </div>
+                    <!--Form-->
                     @using (@Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-floating" style="margin-top: 3px;">
-                                    @Html.TextBoxFor(Model => Model.EMAIL, new { @class = "form-control rounded-0", size = "100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
-                                    <label for="floatingEmail">Email</label>
-                                </div>
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-floating" style="margin-top: 3px;">
-                                    @Html.TextBoxFor(Model => Model.USERNAME, new { @class = "form-control rounded-0", size = "100", id = "floatingUsername", placeholder = "Password", required = "required", })
-                                    <label for="floatingUsername">Username</label>
-                                </div>
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-floating" style="margin-top: 3px;">
-                                    @Html.TextBoxFor(Model => Model.FIRST_NAME, new { @class = "form-control rounded-0", size = "100", id = "floatingFirstName", placeholder = "First Name", required = "required", })
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 3px; margin-right:5px; width: 200px;">
+                                    @Html.TextBoxFor(Model => Model.FIRST_NAME, new { @class = "form-control rounded-0 w-100", id = "floatingFirstName", placeholder = "First Name", required = "required", })
                                     <label for="floatingFirstName">First Name</label>
                                 </div>
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-floating" style="margin-top: 3px;">
-                                    @Html.TextBoxFor(Model => Model.LAST_NAME, new { @class = "form-control rounded-0", size = "100", id = "floatingLastName", placeholder = "First Name", required = "required", })
+                                <div class="form-floating" style="margin-top: 3px; margin-left: 5px; width: 200px;">
+                                    @Html.TextBoxFor(Model => Model.LAST_NAME, new { @class = "form-control rounded-0 w-100", id = "floatingLastName", placeholder = "First Name", required = "required", })
                                     <label for="floatingLastName">Last Name</label>
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-floating" style="margin-top: 3px;">
-                                    @Html.PasswordFor(Model => Model.PASSWORD, new { @class = "form-control rounded-0", size = "100", id = "floatingPassword", placeholder = "Password", required = "required" })
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                    @Html.TextBoxFor(Model => Model.EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
+                                    <label for="floatingEmail">Email</label>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                    @Html.TextBoxFor(Model => Model.USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
+                                    <label for="floatingUsername">Username</label>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                    @Html.PasswordFor(Model => Model.PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
                                     <label for="floatingPassword">Password</label>
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-floating" style="margin-top: 3px;">
-                                    @Html.PasswordFor(Model => Model.REPEAT_PASSWORD, new { @class = "form-control rounded-0", size = "100", id = "floatingRePassword", placeholder = "Re-enter Password", required = "required" })
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width:410px;">
+                                    @Html.PasswordFor(Model => Model.REPEAT_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingRePassword", placeholder = "Re-enter Password", required = "required" })
                                     <label for="floatingRePassword">Re-enter Password</label>
                                 </div>
                             </div>
-
                         </div>
+                        <!--Terms and Conditions checkbox-->
                         <div class="d-flex justify-content-center">
-                            <div class="form-check" style="text-align:left;margin-top:20px;">
+                            <div class="form-check" style="text-align:left;margin-top:20px; width:410px;">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" style="text-align: center">
                                 <label class="form-check-label" for="exampleCheck1">I agree to the Terms and Conditions</label>
                             </div>
                         </div>
+                        <!--Register button-->
                         <div class="d-flex justify-content-center">
                             <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
                                 <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="getstartedbtn">
@@ -123,6 +125,7 @@
                                 </button>
                             </div>
                         </div>
+                        <!--Redirect to login-->
                         <div class="d-flex justify-content-center">
                             <p>
                                 Already have an account? <a href="/Login/Index" id="signinprompt">Sign in here.</a>
@@ -132,10 +135,13 @@
                 </div>
             </div>
         </section>
+
         <footer style="margin-top: 40px" class="p-5 text-white">
             <div class="col-xl-3 col-lg-12 text-xl-start">
                 <p class="lead">NetRunner Systems &copy;2023</p>
             </div>
         </footer>
+
+    </div>
 </body>
 </html>
