@@ -4,16 +4,6 @@
     }
 }
 
-@font-face {
-    font-family: 'JetBrains Mono';
-    src: url('JetBrainsMono-Bold.ttf'),format('truetype');
-}
-
-@font-face {
-    font-family: 'Envy R';
-    src: url('~/Font/plateia/Plateia Bold.ttf');
-}
-
 html, body {
     overflow-x: hidden;
     padding-bottom: 0px;
@@ -43,8 +33,8 @@ section {
 }
 
 .btn-outline-secondary:hover {
-        color: black;
-        background-color: white;
+    color: black;
+    background-color: white;
 }
 
 .btn-primary2 {
@@ -52,7 +42,7 @@ section {
     background-color: white;
 }
 
-.btn-primary2:hover{
+.btn-primary2:hover {
     color: black;
     background-color: darkgray;
 }
@@ -83,8 +73,8 @@ section {
 #loginbtn:disabled {
     font-size: 24px;
     background-color: white;
-    color:black;
-    opacity:100;
+    color: black;
+    opacity: 100;
 }
 
 @media (max-width: 992px) {
@@ -202,11 +192,11 @@ h1 {
 }
 
 #eyeicon {
-    position:absolute;
+    position: absolute;
     right: 15px;
     transform: translate(0, -50%);
-    top:50%;
+    top: 50%;
     cursor: pointer;
     width: 20px;
-    height:auto;
+    height: auto;
 }

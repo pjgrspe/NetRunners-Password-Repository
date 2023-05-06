@@ -17,6 +17,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <title>Frontend Bootcamp</title>
     <link href="~/Style/StyleSheetLogin.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet">
 </head>
 <body>
     <!--Navbar-->
@@ -54,7 +55,7 @@
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5">
-            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:2%">
+            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:80px">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -79,7 +80,7 @@
                                     <label for="floatingPassword">Password</label>
                                     <span>
                                         <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
-                                        <img src="~/Elements/eye-slash.svg" id="eyeicon"/>
+                                        <img src="~/Elements/eye-slash.svg" id="eyeicon" />
                                     </span>
                                 </div>
                                 <script type="text/javascript">
@@ -102,7 +103,7 @@
                                         event.preventDefault(); // prevent default action to avoid losing focus
                                         togglePW();
                                     });
-                                    
+
                                     function togglePW() {
                                         var show = document.getElementById('floatingPassword');
                                         if (show.type == 'password') {
@@ -143,7 +144,7 @@
                 </div>
             </div>
         </section>
-        <footer class="p-5 text-white">
+        <footer style="margin-top:77px" class="p-5 text-white">
             <div class="col-xl-3 col-lg-12 text-xl-start">
                 <p class="lead">NetRunner Systems &copy;2023</p>
             </div>
