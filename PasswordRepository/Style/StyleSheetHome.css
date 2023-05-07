@@ -84,8 +84,7 @@ section {
 }
 
 h6 {
-    font-family: 'Plateia';
-    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 #getstartedbtn {
