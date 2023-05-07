@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace PasswordRepository.Controllers
 {
     public class LoginController : Controller
@@ -31,7 +32,9 @@ namespace PasswordRepository.Controllers
                         var decryptedString = Encrypter.DecryptString(eData.PASSWORD);
                         if (Convert.ToString(decryptedString) == model.LOGINPASSWORD)
                         {
-                            return Redirect("/Content/Index");
+                            Session["ID"] = eData.ID;
+                            return RedirectToAction("index", "Dashboard");
+                            //return Redirect("/Content/Index");
                         }
                         else
                         {
