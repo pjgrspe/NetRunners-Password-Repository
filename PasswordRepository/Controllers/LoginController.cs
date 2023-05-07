@@ -33,7 +33,8 @@ namespace PasswordRepository.Controllers
                         if (Convert.ToString(decryptedString) == model.LOGINPASSWORD)
                         {
                             Session["ID"] = eData.ID;
-                            return RedirectToAction("index", "Dashboard");
+                            //return RedirectToAction("Index", "Dashboard");  //For Prod
+                            return RedirectToAction("Test", "Dashboard");  ///For Test
                             //return Redirect("/Content/Index");
                         }
                         else

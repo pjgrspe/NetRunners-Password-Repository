@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Xml.Linq;
 using PasswordRepository.Helpers;
 using PasswordRepository.Models;
 
@@ -72,7 +74,11 @@ namespace PasswordRepository.Controllers
                     entities.TBL_USER_DETAILS.Add(newUDetail);
                     entities.SaveChanges();
                 }
-                return Redirect("/Content/Index");
+
+                //return RedirectToAction("Index", "Dashboard");  //For Prod
+                //return RedirectToAction("Test", "Dashboard");  ///For Test
+                return RedirectToAction("Index", "Login");  // Temporary
+                //return Redirect("/Content/Index");
             }
 
             ViewBag.ErrorMessage = "Invalid";

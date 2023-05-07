@@ -9,7 +9,8 @@ namespace PasswordRepository.Controllers
     public class DashboardController : Controller
     {
         // GET: Dashboard
-        public ActionResult Index()
+        //public ActionResult Index() // FOR MAIN PROD
+        public ActionResult Test() // FOR DEBUGGING
         {
             return View();
         }
