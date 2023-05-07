@@ -3,15 +3,6 @@
     max-width: 100%;
 }
 }
-@font-face {
-    font-family: 'JetBrains Mono';
-    src: url('JetBrainsMono-Bold.ttf'),format('truetype');
-}
-
-@font-face {
-    font-family: 'Envy R';
-    src: url('~/Font/plateia/Plateia Bold.ttf');
-}
 
 html,body {
     overflow-x:hidden;
@@ -85,11 +76,11 @@ section {
 }
 
 #navmenu {
-    font-family: 'Envy Code R';
+    font-family: 'Barlow', sans-serif;
 }
 
 #content {
-    font-family: 'JetBrains Mono';
+    font-family: 'JetBrains Mono', monospace;
 }
 
 h6 {

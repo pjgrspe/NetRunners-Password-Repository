@@ -85,11 +85,11 @@ section {
 }
 
 #navmenu {
-    font-family: 'Envy Code R';
+    font-family: 'Barlow', sans-serif;
 }
 
 #content {
-    font-family: 'JetBrains Mono';
+    font-family: 'JetBrains Mono', monospace;
 }
 
 .registration-form {
