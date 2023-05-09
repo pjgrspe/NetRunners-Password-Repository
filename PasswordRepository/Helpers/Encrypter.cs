@@ -11,11 +11,13 @@ namespace PasswordRepository.Helpers
     public class Encrypter
     {
         private const string SALT = "TeamAwesomeAlwaysEatsAtThisIsEat";
+        //private const string SALT = "RiviaCintraVengerberg";
         //KEYSIZE divided by 8
         private const string INITVECTOR = "ThisIsInItVector";
+        //private const string INITVECTOR = "NetRunnersSystems";
         private const int KEYSIZE = 256;
         
-        public static string Encrypt(string text)
+        public static string EncryptString(string text)
         {
             byte[] initVectorBytes = Encoding.UTF8.GetBytes(INITVECTOR);
             byte[] textBytes= Encoding.UTF8.GetBytes(text);

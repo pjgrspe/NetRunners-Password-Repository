@@ -16,6 +16,21 @@
           <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
           <Property Name="STATUS" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="TBL_PASSWORD_REPO">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="PR-TITLE" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="PR-EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="PR-USERNAME" Type="varchar" MaxLength="50" />
+          <Property Name="PR-PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PR-URL" Type="varchar" MaxLength="50" />
+          <Property Name="PR-NOTES" Type="varchar(max)" />
+          <Property Name="isTrashed" Type="bit" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_USER_DETAILS">
           <Key>
             <PropertyRef Name="ID" />
@@ -41,6 +56,7 @@
         </Association>
         <EntityContainer Name="PassRepoDatabaseModelStoreContainer">
           <EntitySet Name="TBL_LOGIN" EntityType="Self.TBL_LOGIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PASSWORD_REPO" EntityType="Self.TBL_PASSWORD_REPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_USER_DETAILS" EntityType="Self.TBL_USER_DETAILS" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TBL_USER_DETAILS_TBL_USER_DETAILS" Association="Self.FK_TBL_USER_DETAILS_TBL_USER_DETAILS">
             <End Role="TBL_LOGIN" EntitySet="TBL_LOGIN" />
@@ -94,7 +110,23 @@
             <End Role="TBL_LOGIN" EntitySet="TBL_LOGIN" />
             <End Role="TBL_USER_DETAILS" EntitySet="TBL_USER_DETAILS" />
           </AssociationSet>
+          <EntitySet Name="TBL_PASSWORD_REPO" EntityType="PassRepoDatabaseModel.TBL_PASSWORD_REPO" />
         </EntityContainer>
+        <EntityType Name="TBL_PASSWORD_REPO">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="PR_TITLE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PR_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PR_USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PR_PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PR_URL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PR_NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isTrashed" Type="Boolean" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -122,6 +154,22 @@
                 <ScalarProperty Name="UID" ColumnName="UID" />
                 <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
                 <ScalarProperty Name="DATE_MODIFIED" ColumnName="DATE_MODIFIED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PASSWORD_REPO">
+            <EntityTypeMapping TypeName="PassRepoDatabaseModel.TBL_PASSWORD_REPO">
+              <MappingFragment StoreEntitySet="TBL_PASSWORD_REPO">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="isTrashed" ColumnName="isTrashed" />
+                <ScalarProperty Name="PR_NOTES" ColumnName="PR-NOTES" />
+                <ScalarProperty Name="PR_URL" ColumnName="PR-URL" />
+                <ScalarProperty Name="PR_PASSWORD" ColumnName="PR-PASSWORD" />
+                <ScalarProperty Name="PR_USERNAME" ColumnName="PR-USERNAME" />
+                <ScalarProperty Name="PR_EMAIL" ColumnName="PR-EMAIL" />
+                <ScalarProperty Name="PR_TITLE" ColumnName="PR-TITLE" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

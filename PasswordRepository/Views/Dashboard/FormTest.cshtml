@@ -1,0 +1,42 @@
+﻿@model PasswordRepository.Models.PasswordEntryModel
+@{
+    Layout = null;
+}
+
+<h2>FormTest</h2>
+@using (@Html.BeginForm("Entry", "Dashboard", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div style="text-align:left">
+
+    <h1>password entry form</h1>
+    <div>
+        @Html.Label("Title", new { @class = "label-loginemailuser" })
+        @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control", style = "margin:auto", required = "required" })
+    </div>
+    <div>
+        @Html.Label("Email", new { @class = "label-loginpassword" })
+        @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control", style = "margin:auto", required = "required" })
+    </div>
+    <div>
+        @Html.Label("Username", new { @class = "label-loginpassword" })
+        @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control", style = "margin:auto", required = "required" })
+    </div>
+    <div>
+        @Html.Label("Password", new { @class = "label-loginpassword" })
+        @Html.TextBoxFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control", style = "margin:auto", required = "required" })
+    </div>
+    <div>
+        @Html.Label("URL", new { @class = "label-loginpassword" })
+        @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control", style = "margin:auto", required = "required" })
+    </div>
+    <div>
+        @Html.Label("Notes", new { @class = "label-loginpassword" })
+        @Html.TextBoxFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control", style = "margin:auto", required = "required" })
+    </div>
+    </div>
+    <div style="text-align:center;margin-top:10px">
+        <button class="btn btn-dark btn-block">Login</button>
+    </div>
+}
+        
