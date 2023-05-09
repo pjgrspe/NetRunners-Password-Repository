@@ -1,4 +1,4 @@
-﻿@model PasswordRepository.Models.RegistrationModel
+﻿@model PasswordRepository.Models.PasswordEntryModel
 @{
     Layout = null;
 }
@@ -50,12 +50,15 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            USER
+                            
+                            @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
+                            @Session["Username"].ToString()
+                        
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="#">Action</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("LogOut","Login")">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -99,25 +102,25 @@
                                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                                             <div class="d-flex justify-content-center w-100">
                                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Title", required = "required", })
+                                                    @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Title", required = "required", })
                                                     <label for="floatingTitle">Title</label>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center w-100">
                                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
+                                                    @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
                                                     <label for="floatingEmail">Email</label>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center w-100">
                                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
+                                                    @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
                                                     <label for="floatingUsername">Username</label>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center w-100">
                                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.PasswordFor(Model => Model.PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
+                                                    @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
                                                     <label for="floatingPassword">Password</label>
                                                     <span>
                                                         <!--Eye icon-->
@@ -127,13 +130,13 @@
                                             </div>
                                             <div class="d-flex justify-content-center w-100">
                                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingURL", placeholder = "URL", required = "required" })
+                                                    @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control rounded-0 w-100", id = "floatingURL", placeholder = "URL", required = "required" })
                                                     <label for="floatingURL">URL</label>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center w-100">
                                                 <div class="form-floating" style="margin-top: 10px; width: 410px; height:auto;">
-                                                    @Html.TextAreaFor(Model => Model.USERNAME, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
+                                                    @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
                                                     <label for="floatingNotes">Notes</label>
                                                 </div>
                                             </div>

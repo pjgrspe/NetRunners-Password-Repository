@@ -76,35 +76,35 @@
                         </div>
                     </div>
                     <!--Form-->
-                    @using (@Html.BeginForm())
+                    @using (@Html.BeginForm("Register", "Registration", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 3px; margin-right:5px; width: 200px;">
-                                    @Html.TextBoxFor(Model => Model.FIRST_NAME, new { @class = "form-control rounded-0 w-100", id = "floatingFirstName", placeholder = "First Name", required = "required", })
+                                    @Html.TextBoxFor(Model => Model.textbox_FIRST_NAME, new { @class = "form-control rounded-0 w-100", id = "floatingFirstName", placeholder = "First Name", required = "required", })
                                     <label for="floatingFirstName">First Name</label>
                                 </div>
                                 <div class="form-floating" style="margin-top: 3px; margin-left: 5px; width: 200px;">
-                                    @Html.TextBoxFor(Model => Model.LAST_NAME, new { @class = "form-control rounded-0 w-100", id = "floatingLastName", placeholder = "First Name", required = "required", })
+                                    @Html.TextBoxFor(Model => Model.textbox_LAST_NAME, new { @class = "form-control rounded-0 w-100", id = "floatingLastName", placeholder = "First Name", required = "required", })
                                     <label for="floatingLastName">Last Name</label>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                    @Html.TextBoxFor(Model => Model.EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
+                                    @Html.TextBoxFor(Model => Model.textbox_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
                                     <label for="floatingEmail">Email</label>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                    @Html.TextBoxFor(Model => Model.USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
+                                    @Html.TextBoxFor(Model => Model.textbox_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
                                     <label for="floatingUsername">Username</label>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                    @Html.PasswordFor(Model => Model.PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
+                                    @Html.PasswordFor(Model => Model.textbox_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
                                     <label for="floatingPassword">Password</label>
                                     <span>
                                         <!--Eye icon-->
@@ -114,7 +114,7 @@
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width:410px;">
-                                    @Html.PasswordFor(Model => Model.REPEAT_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingRePassword", placeholder = "Re-enter Password", required = "required" })
+                                    @Html.PasswordFor(Model => Model.textbox_REPEAT_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingRePassword", placeholder = "Re-enter Password", required = "required" })
                                     <label for="floatingRePassword">Re-enter Password</label>
                                 </div>
                                 <script type="text/javascript">
@@ -169,6 +169,7 @@
                         <!--Terms and Conditions checkbox-->
                         <div class="d-flex justify-content-center">
                             <div class="form-check" style="text-align:left;margin-top:20px; width:410px;">
+                                @*@Html.CheckBoxFor(Model => Model.checkbox_acceptTerms)*@
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" style="text-align: center">
                                 <label class="form-check-label" for="exampleCheck1">I agree to the Terms and Conditions</label>
                             </div>

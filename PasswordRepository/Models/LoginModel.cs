@@ -7,8 +7,8 @@ namespace PasswordRepository.Models
 {
     public class LoginModel
     {
-        public string LOGINPASSWORD { get; set; }
-        public string LOGINEMAILUSER { get; set; }
+        public string textbox_LOGINPASSWORD { get; set; }
+        public string textbox_LOGINEMAILUSER { get; set; }
 
     }
 }

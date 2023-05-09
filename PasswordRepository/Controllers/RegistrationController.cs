@@ -16,26 +16,30 @@ namespace PasswordRepository.Controllers
         // GET: Registration
         public ActionResult Index()
         {
+            if (Session["ID"] != null)
+            {
+                return RedirectToAction("Test", "Dashboard");
+            }
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Index(RegistrationModel model)
+        public ActionResult Register(RegistrationModel model)
         {
             if (ModelState.IsValid)
             {
                 using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
                 {
 
-                    if (!model.PASSWORD.Equals(model.REPEAT_PASSWORD))
+                    if (!model.textbox_PASSWORD.Equals(model.textbox_REPEAT_PASSWORD))
                     {
                         ViewBag.Error = "Password does not match!";
                         return View();
                     }
 
-                    var eData = entities.TBL_LOGIN.Where(x => x.EMAIL.Equals(model.EMAIL)).FirstOrDefault();
+                    var eData = entities.TBL_LOGIN.Where(x => x.EMAIL.Equals(model.textbox_EMAIL)).FirstOrDefault();
 
                     if (eData != null)
                     {
@@ -43,7 +47,7 @@ namespace PasswordRepository.Controllers
                         return View();
                     }
 
-                    var uData = entities.TBL_LOGIN.Where(x => x.USERNAME.Equals(model.USERNAME)).FirstOrDefault();
+                    var uData = entities.TBL_LOGIN.Where(x => x.USERNAME.Equals(model.textbox_USERNAME)).FirstOrDefault();
 
                     if (uData != null)
                     {
@@ -51,13 +55,13 @@ namespace PasswordRepository.Controllers
                         return View();
                     }
 
-                    var ePassword = Encrypter.Encrypt(model.PASSWORD);
+                    var ePassword = Encrypter.EncryptString(model.textbox_PASSWORD);
 
                     var newUData = new TBL_LOGIN
                     {
-                        USERNAME = model.USERNAME,
+                        USERNAME = model.textbox_USERNAME,
                         PASSWORD = ePassword,
-                        EMAIL = model.EMAIL,
+                        EMAIL = model.textbox_EMAIL,
                         STATUS = true,
                         DATE_CREATED = DateTime.Now
                     };
@@ -66,8 +70,8 @@ namespace PasswordRepository.Controllers
                     var newUDetail = new TBL_USER_DETAILS
                     {
                         UID = newUData.ID,
-                        FIRSTNAME = model.FIRST_NAME,
-                        LASTNAME = model.LAST_NAME,
+                        FIRSTNAME = model.textbox_FIRST_NAME,
+                        LASTNAME = model.textbox_LAST_NAME,
                         DATE_CREATED = DateTime.Now,
                         DATE_MODIFIED = DateTime.Now
                     };

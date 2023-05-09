@@ -1,6 +1,7 @@
 ﻿@model PasswordRepository.Models.LoginModel
 @{
     Layout = null;
+   
 }
 
 <!DOCTYPE html>
@@ -68,19 +69,19 @@
                         </h1>
                     </div>
                     <!--Form-->
-                    @using (@Html.BeginForm())
+                    @using (@Html.BeginForm("Auth", "Login", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 20px; width:410px;">
-                                    @Html.TextBoxFor(Model => Model.LOGINEMAILUSER, new { @class = "form-control rounded-0 w-100", id = "floatingEmailUser", placeholder = "EmailUser", style = "margin:auto", required = "required", })
+                                    @Html.TextBoxFor(Model => Model.textbox_LOGINEMAILUSER, new { @class = "form-control rounded-0 w-100", id = "floatingEmailUser", placeholder = "EmailUser", style = "margin:auto", required = "required", })
                                     <label for="floatingPassword">Email/Username</label>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                    @Html.PasswordFor(Model => Model.LOGINPASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", style = "margin:auto", required = "required" })
+                                    @Html.PasswordFor(Model => Model.textbox_LOGINPASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", style = "margin:auto", required = "required" })
                                     <label for="floatingPassword">Password</label>
                                     <span>
                                         <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
@@ -138,13 +139,13 @@
                                 </button>
                             </div>
                         </div>
-                        <!--Redirect to registration-->
-                        <div class="d-flex justify-content-center">
-                            <p>
-                                Don't have an account yet? <a href="/Registration/Index" id="signinprompt">Sign up here.</a>
-                            </p>
-                        </div>
                     }
+                    <!--Redirect to registration-->
+                    <div class="d-flex justify-content-center">
+                        <p>
+                            Don't have an account yet? <a href="/Registration/Index" id="signinprompt">Sign up here.</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
