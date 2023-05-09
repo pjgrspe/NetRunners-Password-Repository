@@ -7,13 +7,13 @@ namespace PasswordRepository.Models
 {
     public class RegistrationModel
     {
-        public string USERNAME { get; set; }
-        public string PASSWORD { get; set; }
-        public string REPEAT_PASSWORD { get; set; }
-        public string FIRST_NAME { get; set; }
-        public string LAST_NAME { get; set; }
-        public string EMAIL { get; set; }
-        public bool acceptTerms { get; set; }
+        public string textbox_USERNAME { get; set; }
+        public string textbox_PASSWORD { get; set; }
+        public string textbox_REPEAT_PASSWORD { get; set; }
+        public string textbox_FIRST_NAME { get; set; }
+        public string textbox_LAST_NAME { get; set; }
+        public string textbox_EMAIL { get; set; }
+        public bool checkbox_acceptTerms { get; set; }
 
     }
 }

@@ -34,11 +34,11 @@ namespace PasswordRepository.Controllers
             {
                 using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
                 {
-                    var eData = entities.TBL_LOGIN.Where(x => x.EMAIL.Equals(model.LOGINEMAILUSER) || x.USERNAME.Equals(model.LOGINEMAILUSER)).FirstOrDefault();
+                    var eData = entities.TBL_LOGIN.Where(x => x.EMAIL.Equals(model.textbox_LOGINEMAILUSER) || x.USERNAME.Equals(model.textbox_LOGINEMAILUSER)).FirstOrDefault();
                     if (eData != null)
                     {
                         var decryptedString = Encrypter.DecryptString(eData.PASSWORD);
-                        if (Convert.ToString(decryptedString) == model.LOGINPASSWORD)
+                        if (Convert.ToString(decryptedString) == model.textbox_LOGINPASSWORD)
                         {
                             FormsAuthentication.SetAuthCookie(eData.ID.ToString(), true);
                             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(eData.ID, (eData.EMAIL ?? eData.USERNAME), DateTime.Now, DateTime.Now.AddDays(1), true, eData.ID.ToString());
@@ -50,12 +50,13 @@ namespace PasswordRepository.Controllers
 
 
                             Session["ID"] = eData.ID;
+                            Session["UserName"] = eData.USERNAME;
                             Session.Timeout = 1440;
 
                             Response.Cookies.Add(httpCookie);
                             //return RedirectToAction("Index", "Dashboard");  //For Prod
-                            return RedirectToAction("Test", "Dashboard");  ///For Test
-                            //return Redirect("/Content/Index");
+                            return RedirectToAction("Test", "Dashboard");  //For Test
+                            //return RedirectToAction("FormTest", "Dashboard"); //form test
                         }
                         else
                         {
