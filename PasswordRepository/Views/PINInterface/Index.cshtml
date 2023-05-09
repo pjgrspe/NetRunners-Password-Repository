@@ -1,0 +1,136 @@
+﻿@model PasswordRepository.Models.LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <title>Frontend Bootcamp</title>
+    <link href="~/Style/StyleSheetPINInterface.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet">
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container" id="navcontainer">
+            <!--Navbar Logo-->
+            <a href="/Home/Index" class="navbar-brand">
+                <img src="~/Elements/ICElogo200pixel.png" width="150" height="67" alt="">
+            </a>
+            <!--Navbar Hamburger Menu-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--Navbar Items-->
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item" id="navlogin">
+                        <button onclick="window.location.href='/Home/Index'" type="button" class="rounded-0 btn btn-outline-secondary" id="loginbtn">LOGOUT</button>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div id="outer">
+        <!--Content-->
+        <section class="text-light p-5">
+            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:80px">
+                <div class="justify-content-center" id="content">
+                    <!--Title-->
+                    <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
+                        <h1 align="center">
+                            / LOGIN /
+                        </h1>
+                    </div>
+                    <!--Form-->
+                    @using (@Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                    @Html.PasswordFor(Model => Model.LOGINPASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", style = "margin:auto", required = "required" })
+                                    <label for="floatingPassword">Password</label>
+                                    <span>
+                                        <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
+                                        <img src="~/Elements/eye-slash.svg" id="eyeicon" />
+                                    </span>
+                                </div>
+                                <script type="text/javascript">
+                                    let eyeicon = document.getElementById('eyeicon');
+                                    var form = document.getElementById('floatingPassword');
+
+                                    eyeicon.style.display = "none";
+
+                                    form.addEventListener("focusin", function () {
+                                        eyeicon.style.display = "block";
+                                    });
+
+                                    form.addEventListener("focusout", function () {
+                                        if (Event.relatedTarget !== eyeicon) {
+                                            eyeicon.style.display = "none";
+                                        }
+                                    });
+
+                                    eyeicon.addEventListener("mousedown", function (event) {
+                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                        togglePW();
+                                    });
+
+                                    function togglePW() {
+                                        var show = document.getElementById('floatingPassword');
+                                        if (show.type == 'password') {
+                                            show.type = 'text';
+                                            eyeicon.src = "/Elements/eye.svg"
+                                        }
+                                        else {
+                                            show.type = 'password'
+                                            eyeicon.src = "/Elements/eye-slash.svg"
+                                        }
+                                        show.focus();
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                        <!--Login button-->
+                        <div class="d-flex justify-content-center">
+                            <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
+                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="getstartedbtn">
+                                    LOGIN →
+                                </button>
+                            </div>
+                        </div>
+                        <!--Redirect to registration-->
+                        <div class="d-flex justify-content-center">
+                            <p>
+                                Don't have an account yet? <a href="/Registration/Index" id="signinprompt">Sign up here.</a>
+                            </p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+        <footer style="margin-top:77px" class="p-5 text-white">
+            <div class="col-xl-3 col-lg-12 text-xl-start">
+                <p class="lead">NetRunner Systems &copy;2023</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
