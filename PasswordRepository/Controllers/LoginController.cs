@@ -2,9 +2,12 @@
 using PasswordRepository.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Xml.Linq;
 
 
 namespace PasswordRepository.Controllers
@@ -12,15 +15,20 @@ namespace PasswordRepository.Controllers
     public class LoginController : Controller
     {
         // GET: Login
+
         public ActionResult Index()
         {
+            if (Session["ID"] != null)
+            {
+                return RedirectToAction("Test", "Dashboard");
+            }
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Index(LoginModel model)
+        public ActionResult Auth(LoginModel model)
         {
             if (ModelState.IsValid)
             {
@@ -32,7 +40,19 @@ namespace PasswordRepository.Controllers
                         var decryptedString = Encrypter.DecryptString(eData.PASSWORD);
                         if (Convert.ToString(decryptedString) == model.LOGINPASSWORD)
                         {
+                            FormsAuthentication.SetAuthCookie(eData.ID.ToString(), true);
+                            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(eData.ID, (eData.EMAIL ?? eData.USERNAME), DateTime.Now, DateTime.Now.AddDays(1), true, eData.ID.ToString());
+                            string eCookie = FormsAuthentication.Encrypt(ticket);
+                            HttpCookie httpCookie = new HttpCookie(FormsAuthentication.FormsCookieName, eCookie)
+                            {
+                                Path = FormsAuthentication.FormsCookiePath
+                            };
+
+
                             Session["ID"] = eData.ID;
+                            Session.Timeout = 1440;
+
+                            Response.Cookies.Add(httpCookie);
                             //return RedirectToAction("Index", "Dashboard");  //For Prod
                             return RedirectToAction("Test", "Dashboard");  ///For Test
                             //return Redirect("/Content/Index");
@@ -51,6 +71,14 @@ namespace PasswordRepository.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult LogOut()
+        {
+            Session["ID"] = null;
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index","Home");
         }
     }
 }

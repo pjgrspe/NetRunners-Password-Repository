@@ -1,6 +1,10 @@
 ﻿@model PasswordRepository.Models.RegistrationModel
 @{
     Layout = null;
+    //if (Session["ID"] != null)
+    //{
+    //    Response.Redirect("~/Dashboard/Test");
+    //}
 }
 
 <!DOCTYPE html>
@@ -169,6 +173,7 @@
                         <!--Terms and Conditions checkbox-->
                         <div class="d-flex justify-content-center">
                             <div class="form-check" style="text-align:left;margin-top:20px; width:410px;">
+                               @*@Html.CheckBoxFor(Model => Model.acceptTerms)*@
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" style="text-align: center">
                                 <label class="form-check-label" for="exampleCheck1">I agree to the Terms and Conditions</label>
                             </div>

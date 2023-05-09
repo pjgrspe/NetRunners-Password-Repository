@@ -16,6 +16,10 @@ namespace PasswordRepository.Controllers
         // GET: Registration
         public ActionResult Index()
         {
+            if (Session["ID"] != null)
+            {
+                return RedirectToAction("Test", "Dashboard");
+            }
             return View();
         }
 

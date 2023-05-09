@@ -1,6 +1,7 @@
 ﻿@model PasswordRepository.Models.LoginModel
 @{
     Layout = null;
+   
 }
 
 <!DOCTYPE html>
@@ -68,7 +69,7 @@
                         </h1>
                     </div>
                     <!--Form-->
-                    @using (@Html.BeginForm())
+                    @using (@Html.BeginForm("Auth", "Login", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
@@ -138,13 +139,13 @@
                                 </button>
                             </div>
                         </div>
-                        <!--Redirect to registration-->
-                        <div class="d-flex justify-content-center">
-                            <p>
-                                Don't have an account yet? <a href="/Registration/Index" id="signinprompt">Sign up here.</a>
-                            </p>
-                        </div>
                     }
+                    <!--Redirect to registration-->
+                    <div class="d-flex justify-content-center">
+                        <p>
+                            Don't have an account yet? <a href="/Registration/Index" id="signinprompt">Sign up here.</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
