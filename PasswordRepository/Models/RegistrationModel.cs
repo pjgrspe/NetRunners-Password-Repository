@@ -13,6 +13,7 @@ namespace PasswordRepository.Models
         public string FIRST_NAME { get; set; }
         public string LAST_NAME { get; set; }
         public string EMAIL { get; set; }
+        public bool acceptTerms { get; set; }
 
     }
 }
