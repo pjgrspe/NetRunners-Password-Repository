@@ -71,14 +71,12 @@
         <!--Content-->
         <section class="text-light p-5">
             <div class="container d-flex justify-content-center" id="maincontainer">
-                <div class="justify-content-center" id="content">
+                <div class="justify-content-center col-12" id="content">
                     <!--Title-->
-                    <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
-                        <h1 align="center">
-                            / PASSWORD /
-                            <br />
-                            REPOSITORY
-                        </h1>
+                    <div class="d-flex justify-content-center col-12" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
+                        <h2 align="center">
+                            / PASSWORD REPOSITORY /
+                        </h2>
                     </div>
                     <div class="d-flex justify-content-center">
                         <!-- Button trigger modal -->
@@ -177,17 +175,62 @@
                                                 }
                                             </script>
                                         </div>
-                                    }
-                                    <div class="modal-footer" style="margin-top:10px">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Add item</button>
+
+                                    <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                                        <div class="d-flex justify-content-center">
+                                            <div class="d-flex justify-content-center col-5 mb-2 ">
+                                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
+                                                    ADD +
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--TABLE-->
+                <div class="col-10" style="margin-top:20px">
+                    <div class="row">
+                        <!--ITEMS-->
+                        <div class="col-4">
+                            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">ITEMS</a>
+                            <div class="list-group rounded-0" id="list-tab" role="tablist" style="margin-top:10px">
+                                <a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="list-1">Title1</a>
+                                <a class="list-group-item list-group-item-action" id="list-2-list" data-bs-toggle="list" href="#list-2" role="tab" aria-controls="list-2">Title2</a>
+                                <a class="list-group-item list-group-item-action" id="list-3-list" data-bs-toggle="list" href="#list-3" role="tab" aria-controls="list-3">Title3</a>
+                                <a class="list-group-item list-group-item-action" id="list-4-list" data-bs-toggle="list" href="#list-4" role="tab" aria-controls="list-4">Title4</a>
+                                <a class="list-group-item list-group-item-action" id="list-5-list" data-bs-toggle="list" href="#list-5" role="tab" aria-controls="list-5">Title5</a>
+                                <a class="list-group-item list-group-item-action" id="list-6-list" data-bs-toggle="list" href="#list-6" role="tab" aria-controls="list-6">Title6</a>
+                            </div>
+                        </div>
+                        <!--ITEM DETAILS-->
+                        <div class="col-8">
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="list-1" role="tabpanel" aria-labelledby="list-1-list">
+                                    amogus1
+                                </div>
+                                <div class="tab-pane fade" id="list-2" role="tabpanel" aria-labelledby="list-2-list">
+                                    amogus2
+                                </div>
+                                <div class="tab-pane fade" id="list-3" role="tabpanel" aria-labelledby="list-3-list">
+                                    amogus3
+                                </div>
+                                <div class="tab-pane fade" id="list-4" role="tabpanel" aria-labelledby="list-4-list">
+                                    amogus4
+                                </div>
+                                <div class="tab-pane fade" id="list-5" role="tabpanel" aria-labelledby="list-5-list">
+                                    amogus5
+                                </div>
+                                <div class="tab-pane fade" id="list-6" role="tabpanel" aria-labelledby="list-6-list">
+                                    amogus6
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-10 pt-5">
                     <table id="example" class="table" style="width:100%">
                         <thead>
@@ -217,7 +260,7 @@
                     </table>
                 </div>
 
-        </section>
+</section>
 
         <footer style="margin-top:-76px" class="p-5 text-white">
             <div class="col-xl-3 col-lg-12 text-xl-start">
