@@ -84,8 +84,13 @@ section {
     }
 }
 
-#navmenu, thead {
+#navmenu, thead, .modal-title {
     font-family: 'Barlow', sans-serif;
+    
+}
+
+.modal-title {
+    font-weight: bold;
 }
 
 #content {
@@ -99,12 +104,6 @@ section {
 
 .registration-form {
     color: black !important;
-}
-
-#getstartedbtn {
-    width: 280px;
-    height: 80px;
-    font-size: 30px;
 }
 
 #additembtn {
@@ -235,4 +234,10 @@ h1 {
 
 #modalLabel {
     font-size: 20px;
+}
+
+#addmodalbtn {
+    width: 250px;
+    height: 50px;
+    font-size: 18px;
 }
