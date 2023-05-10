@@ -1,7 +1,7 @@
 ﻿@model PasswordRepository.Models.PasswordEntryModel
 @{
     Layout = null;
-    
+
 }
 
 <!DOCTYPE html>
@@ -53,7 +53,7 @@
                             @Session["Username"].ToString()
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="@Url.Action("TrashboardTEST","Dashboard")">Trash</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Test","Dashboard")">Main Dashboard</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
                             <li><a class="dropdown-item" href="@Url.Action("LogOut","Login")">Logout</a></li>
                         </ul>
@@ -182,7 +182,7 @@
                                                 Add item
                                             </button>
                                         </div>
-                                     }
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -200,8 +200,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(false) && x.isActive.Equals(false)))
-                                  {
+                            @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(false)))
+                                {
                                     <tr>
                                         <td>@PassEntry.PR_TITLE</td>
                                         <td>@PassEntry.PR_USERNAME</td>

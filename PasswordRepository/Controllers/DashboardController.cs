@@ -33,19 +33,34 @@ namespace PasswordRepository.Controllers
             {
                 var data = entities.TBL_PASSWORD_REPO.ToList();
 
-                var studentModel = new PasswordEntryModel()
+                var PasswordModel = new PasswordEntryModel()
                 {
                     Passwords = data,
                     Password = new TBL_PASSWORD_REPO()
                 };
 
-                return View(studentModel);
+                return View(PasswordModel);
             }
         }
 
-        public ActionResult FormTest() // FOR DEBUGGING
+        public ActionResult TrashboardTEST() // FOR TESTING THE TRASH TABLE
         {
-            return View();
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                var data = entities.TBL_PASSWORD_REPO.ToList();
+
+                var PasswordModel = new PasswordEntryModel()
+                {
+                    Passwords = data,
+                    Password = new TBL_PASSWORD_REPO()
+                };
+
+                return View(PasswordModel);
+            }
         }
 
         public ActionResult Entry(PasswordEntryModel model)
