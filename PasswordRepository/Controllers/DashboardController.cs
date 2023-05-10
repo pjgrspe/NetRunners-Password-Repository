@@ -80,7 +80,7 @@ namespace PasswordRepository.Controllers
                         PR_URL = model.textbox_PR_URL,
                         PR_NOTES = model.textbox_PR_NOTES,
                         isTrashed = false,
-                        isActive = false,
+                        isActive = true,
                     };
                     entities.TBL_PASSWORD_REPO.Add(newUData);
                     entities.SaveChanges();
