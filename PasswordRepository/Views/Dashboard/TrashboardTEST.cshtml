@@ -1,4 +1,5 @@
 ﻿@model PasswordRepository.Models.PasswordEntryModel
+@using PasswordRepository.Helpers
 @{
     Layout = null;
 
@@ -189,6 +190,56 @@
                     </div>
                 </div>
                 <!--TABLE-->
+                <div class="col-10" style="margin-top:20px">
+                    <div class="row">
+                        <!--ITEMS-->
+                        <div class="col-4">
+                            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">ITEMS</a>
+                            <div class="list-group rounded-0" id="list-tab" role="tablist" style="margin-top:10px">
+                                @*<a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="list-1">Title1</a>*@
+                                @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
+                                    {
+                                        <a class="list-group-item list-group-item-action" id="list-@PassEntry.PID-list" data-bs-toggle="list" href="#list-@PassEntry.PID" role="tab" aria-controls="list-@PassEntry.PID">@PassEntry.PR_TITLE</a>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <!--ITEM DETAILS-->
+                        <div class="col-8">
+                            <div class="tab-content" id="nav-tabContent">
+                                @*<div class="tab-pane fade show active" id="list-1" role="tabpanel" aria-labelledby="list-1-list">
+                            amogus1
+                        </div>*@
+                                @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
+                                    {
+                                        var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
+                                        <div class="tab-pane fade" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Title</th>
+                                                        <th>Username</th>
+                                                        <th>Password</th>
+                                                        <th>URL</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>@PassEntry.PR_TITLE</td>
+                                                        <td>@PassEntry.PR_USERNAME</td>
+                                                        <td>@decryptedPassword</td>
+                                                        <td>@PassEntry.PR_URL</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-10 pt-5">
                     <table id="example" class="table" style="width:100%">
                         <thead>
@@ -200,7 +251,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(false)))
+                            @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
                                 {
                                     <tr>
                                         <td>@PassEntry.PR_TITLE</td>
