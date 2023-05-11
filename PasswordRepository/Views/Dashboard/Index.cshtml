@@ -78,139 +78,177 @@
                             / PASSWORD REPOSITORY /
                         </h2>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#exampleModal" id="additembtn">
-                            ADD ITEM +
-                        </button>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="ModalLabel" style="margin-top:10px;">ADD NEW ITEM</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body" style="margin-top:-10px;">
-                                    <!--Form-->
-                                    @using (@Html.BeginForm())
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Title", required = "required", })
-                                                    <label for="floatingTitle">Title</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
-                                                    <label for="floatingEmail">Email</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
-                                                    <label for="floatingUsername">Username</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
-                                                    <label for="floatingPassword">Password</label>
-                                                    <span>
-                                                        <!--Eye icon-->
-                                                        <img src="~/Elements/eye-slash.svg" id="eyeicon" />
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control rounded-0 w-100", id = "floatingURL", placeholder = "URL", required = "required" })
-                                                    <label for="floatingURL">URL</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px; height:auto;">
-                                                    @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
-                                                    <label for="floatingNotes">Notes</label>
-                                                </div>
-                                            </div>
-                                            <script type="text/javascript">
-                                                let eyeicon = document.getElementById('eyeicon');
-                                                var form = document.getElementById('floatingPassword');
-                                                var form2 = document.getElementById('floatingRePassword');
-
-                                                eyeicon.style.display = "none";
-
-                                                form.addEventListener("focusin", function () {
-                                                    eyeicon.style.display = "block";
-                                                });
-
-                                                form.addEventListener("focusout", function () {
-                                                    if (Event.relatedTarget !== eyeicon) {
-                                                        eyeicon.style.display = "none";
-                                                    }
-                                                });
-
-                                                eyeicon.addEventListener("mousedown", function (event) {
-                                                    event.preventDefault(); // prevent default action to avoid losing focus
-                                                    togglePW();
-                                                });
-
-                                                function togglePW() {
-                                                    var show = document.getElementById('floatingPassword');
-                                                    var show2 = document.getElementById('floatingRePassword');
-                                                    if (show.type == 'password') {
-                                                        show.type = 'text';
-                                                        eyeicon.src = "/Elements/eye.svg"
-                                                    }
-                                                    else {
-                                                        show.type = 'password'
-                                                        eyeicon.src = "/Elements/eye-slash.svg"
-                                                    }
-                                                    show.focus();
-                                                }
-                                            </script>
-                                        </div>
-
-                                    <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
-                                        <div class="d-flex justify-content-center">
-                                            <div class="d-flex justify-content-center col-5 mb-2 ">
-                                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
-                                                    ADD +
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <!--TABLE-->
                 <div class="col-10" style="margin-top:20px">
                     <div class="row">
                         <!--ITEMS-->
                         <div class="col-4">
-                            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">ITEMS</a>
+                            <a style="height:50px;">
+                                <div class="input-group">
+                                    <span class="input-group-text rounded-0" id="basic-addon1"><img id="searchicon" src="~/Elements/searchicon.png"/></span>
+                                    <input type="text" class="form-control rounded-0" placeholder="SEARCH" aria-label="Username" aria-describedby="basic-addon1" id="searchform">
+                                </div>
+                            </a>
+                            <div>
+
+                            </div>
                             <div class="list-group rounded-0" id="list-tab" role="tablist" style="margin-top:10px">
-                                <a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="list-1">Title1</a>
+                                <a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="list-1">Title1 <small>11/05/2023</small></a>
                                 <a class="list-group-item list-group-item-action" id="list-2-list" data-bs-toggle="list" href="#list-2" role="tab" aria-controls="list-2">Title2</a>
                                 <a class="list-group-item list-group-item-action" id="list-3-list" data-bs-toggle="list" href="#list-3" role="tab" aria-controls="list-3">Title3</a>
                                 <a class="list-group-item list-group-item-action" id="list-4-list" data-bs-toggle="list" href="#list-4" role="tab" aria-controls="list-4">Title4</a>
                                 <a class="list-group-item list-group-item-action" id="list-5-list" data-bs-toggle="list" href="#list-5" role="tab" aria-controls="list-5">Title5</a>
                                 <a class="list-group-item list-group-item-action" id="list-6-list" data-bs-toggle="list" href="#list-6" role="tab" aria-controls="list-6">Title6</a>
                             </div>
+                            <div class="d-flex justify-content-center">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#exampleModal" id="additembtn" style="margin-top:10px">
+                                    ADD ITEM +
+                                </button>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="ModalLabel" style="margin-top:10px;">ADD NEW ITEM</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="margin-top:-10px;">
+                                            <!--Form-->
+                                            @using (@Html.BeginForm("Entry", "Dashboard", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
+                                                    <div class="d-flex justify-content-center w-100">
+                                                        <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                            @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Title", required = "required", })
+                                                            <label for="floatingTitle">Title</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center w-100">
+                                                        <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                            @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
+                                                            <label for="floatingEmail">Email</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center w-100">
+                                                        <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                            @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
+                                                            <label for="floatingUsername">Username</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center w-100">
+                                                        <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                            @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
+                                                            <label for="floatingPassword">Password</label>
+                                                            <span>
+                                                                <!--Eye icon-->
+                                                                <img src="~/Elements/eye-slash.svg" id="eyeicon" />
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center w-100">
+                                                        <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                            @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control rounded-0 w-100", id = "floatingURL", placeholder = "URL", required = "required" })
+                                                            <label for="floatingURL">URL</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center w-100">
+                                                        <div class="form-floating" style="margin-top: 10px; width: 410px; height:auto;">
+                                                            @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
+                                                            <label for="floatingNotes">Notes</label>
+                                                        </div>
+                                                    </div>
+                                                    <script type="text/javascript">
+                                                        let eyeicon = document.getElementById('eyeicon');
+                                                        var form = document.getElementById('floatingPassword');
+
+                                                        eyeicon.style.display = "none";
+
+                                                        form.addEventListener("focusin", function () {
+                                                            eyeicon.style.display = "block";
+                                                        });
+
+                                                        form.addEventListener("focusout", function () {
+                                                            if (Event.relatedTarget !== eyeicon) {
+                                                                eyeicon.style.display = "none";
+                                                            }
+                                                        });
+
+                                                        eyeicon.addEventListener("mousedown", function (event) {
+                                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                                            togglePW();
+                                                        });
+
+                                                        function togglePW() {
+                                                            var show = document.getElementById('floatingPassword');
+                                                            if (show.type == 'password') {
+                                                                show.type = 'text';
+                                                                eyeicon.src = "/Elements/eye.svg"
+                                                            }
+                                                            else {
+                                                                show.type = 'password'
+                                                                eyeicon.src = "/Elements/eye-slash.svg"
+                                                            }
+                                                            show.focus();
+                                                        }
+                                                    </script>
+                                                </div>
+
+                                                <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                                                    <div class="d-flex justify-content-center">
+                                                        <div class="d-flex justify-content-center col-5 mb-2 ">
+                                                            <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
+                                                                ADD +
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!--ITEM DETAILS-->
-                        <div class="col-8">
+                        <div class="col-8 mx-0">
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="list-1" role="tabpanel" aria-labelledby="list-1-list">
-                                    amogus1
+                                    <div class="container">
+                                        <div class="mt-3 item-table">
+                                            <h2 class="display-6">
+                                                TITLE
+                                            </h2>
+                                            <div class="mt-3">
+                                                Username
+                                                <input type="text" readonly class="form-control-plaintext w-100" id="staticUsername" value="Prowlercs">
+                                            </div>
+                                            <div class="mt-3">
+                                                Email
+                                                <input type="email" readonly class="form-control-plaintext w-100" id="staticEmail" value="email@example.com">
+                                            </div>
+                                            <div class="mt-3">
+                                                Password
+                                                <input type="password" readonly class="form-control-plaintext w-100" id="staticPassword" value="passwordtest">
+                                            </div>
+                                            <div class="mt-3">
+                                                URL
+                                                <input type="text" readonly class="form-control-plaintext w-100" id="staticURL" value="website.com">
+                                            </div>
+                                            <div class="mt-3">
+                                                Notes
+                                                <input type="text" readonly class="form-control-plaintext w-100" id="staticNotes" value="yo what's up">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <div class="mt-3">
+                                                Created on (DATE)
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="list-2" role="tabpanel" aria-labelledby="list-2-list">
                                     amogus2

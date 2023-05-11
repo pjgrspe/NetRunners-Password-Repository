@@ -93,8 +93,18 @@ section {
     font-weight: bold;
 }
 
-#content {
+#content, #list-tab, #additembtn, .item-table, #addmodalbtn, .form-floating{
     font-family: 'JetBrains Mono', monospace;
+}
+
+#list-tab{
+    font-size:24px;
+}
+
+small{
+    font-size:12px;
+    color:darkgray;
+    margin-bottom:20px;
 }
 
 .table {
@@ -106,10 +116,30 @@ section {
     color: black !important;
 }
 
+.input-group-text{
+    background-color:white;
+}
+
+input-group {
+    height:100%;
+}
+
+#searchform, #basic-addon1 {
+    font-family: 'JetBrains Mono', monospace;
+    height:50px;
+}
+
+
+
 #additembtn {
-    width: 200px;
+    width: 95%;
     height: 50px;
     font-size: 20px;
+}
+
+#searchicon{
+    height:20px;
+    width:20px;
 }
 
 .modal-content {
@@ -117,6 +147,9 @@ section {
     backdrop-filter: blur(5px);
 }
 
+.form-control-plaintext{
+    color:white;
+}
 
 a:link {
     color: #3e8285;
