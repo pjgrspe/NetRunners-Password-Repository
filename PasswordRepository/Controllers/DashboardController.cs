@@ -72,7 +72,7 @@ namespace PasswordRepository.Controllers
                     var ePassword = Encrypter.EncryptString(model.textbox_PR_PASSWORD);
                     var newUData = new TBL_PASSWORD_REPO
                     {
-                        UID = (int) Session["ID"],
+                        UID = (int)Session["ID"],
                         PR_TITLE = model.textbox_PR_TITLE,
                         PR_EMAIL = model.textbox_PR_EMAIL,
                         PR_USERNAME = model.textbox_PR_USERNAME,
@@ -81,6 +81,9 @@ namespace PasswordRepository.Controllers
                         PR_NOTES = model.textbox_PR_NOTES,
                         isTrashed = false,
                         isActive = true,
+                        ENTRY_CREATED = DateTime.Now,
+                        ENTRY_DELETED = DateTime.Now.AddMonths(3).Date,
+                        freq = 0
                     };
                     entities.TBL_PASSWORD_REPO.Add(newUData);
                     entities.SaveChanges();

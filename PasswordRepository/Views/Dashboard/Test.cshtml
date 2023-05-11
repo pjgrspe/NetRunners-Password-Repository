@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="modal-body" style="margin-top:-10px;">
                                     <!--Form-->
-                                    @using (@Html.BeginForm("Entry", "Dashboard", FormMethod.Post))
+                                    @using (@Html.BeginForm("Entry","Dashboard",FormMethod.Post))
                                     {
                                         @Html.AntiForgeryToken()
                                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
@@ -175,13 +175,15 @@
                                                 }
                                             </script>
                                         </div>
-                                        <div class="modal-footer" style="margin-top:10px">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <button type="button" class="btn btn-primary" id="getstartedbtn">
-                                                Add item
-                                            </button>
+
+                                        <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="d-flex justify-content-center col-5 mb-2 ">
+                                                    <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
+                                                        ADD +
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     }
                                 </div>

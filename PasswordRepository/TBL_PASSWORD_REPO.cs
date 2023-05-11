@@ -24,5 +24,9 @@ namespace PasswordRepository
         public string PR_NOTES { get; set; }
         public bool isTrashed { get; set; }
         public bool isActive { get; set; }
+        public System.DateTime ENTRY_CREATED { get; set; }
+        public Nullable<System.DateTime> ENTRY_DELETED { get; set; }
+        public int freq { get; set; }
+        public Nullable<System.DateTime> EXPIRY_DATE { get; set; }
     }
 }

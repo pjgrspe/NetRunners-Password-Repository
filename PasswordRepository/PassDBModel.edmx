@@ -30,6 +30,10 @@
           <Property Name="PR-NOTES" Type="varchar(max)" />
           <Property Name="isTrashed" Type="bit" Nullable="false" />
           <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="ENTRY_CREATED" Type="datetime" Nullable="false" />
+          <Property Name="ENTRY_DELETED" Type="datetime" />
+          <Property Name="EXPIRY_DATE" Type="datetime" />
+          <Property Name="freq" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_USER_DETAILS">
           <Key>
@@ -126,6 +130,10 @@
           <Property Name="PR_NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="isTrashed" Type="Boolean" Nullable="false" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="ENTRY_CREATED" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="ENTRY_DELETED" Type="DateTime" Precision="3" />
+          <Property Name="freq" Type="Int32" Nullable="false" />
+          <Property Name="EXPIRY_DATE" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -160,6 +168,10 @@
           <EntitySetMapping Name="TBL_PASSWORD_REPO">
             <EntityTypeMapping TypeName="PassRepoDatabaseModel.TBL_PASSWORD_REPO">
               <MappingFragment StoreEntitySet="TBL_PASSWORD_REPO">
+                <ScalarProperty Name="EXPIRY_DATE" ColumnName="EXPIRY_DATE" />
+                <ScalarProperty Name="freq" ColumnName="freq" />
+                <ScalarProperty Name="ENTRY_DELETED" ColumnName="ENTRY_DELETED" />
+                <ScalarProperty Name="ENTRY_CREATED" ColumnName="ENTRY_CREATED" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="isTrashed" ColumnName="isTrashed" />
                 <ScalarProperty Name="PR_NOTES" ColumnName="PR-NOTES" />
