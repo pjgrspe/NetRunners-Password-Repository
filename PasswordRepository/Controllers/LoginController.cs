@@ -28,7 +28,7 @@ namespace PasswordRepository.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Auth(LoginModel model)
+        public ActionResult Index(LoginModel model)
         {
             if (ModelState.IsValid)
             {
