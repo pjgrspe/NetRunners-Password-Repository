@@ -1,34 +1,4 @@
-﻿@media (min-width: 1200px) {
-    .container {
-        max-width: 100%;
-    }
-}
-
-html, body {
-    overflow-x: hidden;
-    padding-bottom: 0px;
-    padding-top: 0;
-    margin: 0;
-    padding: 0;
-    box-sizing: content-box;
-    height: 100%;
-    background-image: url(/Elements/backgroundhome.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-#outer {
-    overflow: hidden;
-}
-
-section {
-    max-height: 100%;
-    height: 100%;
-    box-sizing: border-box;
-}
-
-.btn-outline-secondary {
+﻿.btn-outline-secondary {
     color: white;
 }
 
@@ -120,16 +90,11 @@ small{
     background-color:white;
 }
 
-input-group {
-    height:100%;
-}
-
 #searchform, #basic-addon1 {
     font-family: 'JetBrains Mono', monospace;
     height:50px;
+    border:0;
 }
-
-
 
 #additembtn {
     width: 95%;
@@ -139,7 +104,6 @@ input-group {
 
 #searchicon{
     height:20px;
-    width:20px;
 }
 
 .modal-content {
@@ -283,4 +247,79 @@ h1 {
 #table-rightcolumn {
     padding: 0;
     margin: 0;
+}
+
+#passrepotable {
+    border: 0.1px solid rgba(255,255,255,.3);
+}
+
+.form-control-plaintext {
+    border-bottom: 1px solid white;
+    width: 60%;
+    max-width: 90%;
+}
+
+.form-control-plaintext:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.table-form:hover > .form-control-plaintext {
+    box-shadow: none;
+    outline: none;
+    border-bottom: 1px solid #781947;
+}
+
+.list-group-item {
+    border: none;
+}
+
+#searchform:focus, .form-control:focus {
+    box-shadow: none;
+    outline: none;
+    border-color: darkgray;
+}
+
+.list-group-item.active {
+    background-color: #1e3d40;
+    border: none;
+    border-color: none;
+}
+
+.tab-pane.active {
+    background-color: #1e3d40;
+    border: none;
+}
+
+.tab-content, .tab-pane{
+    height:100%
+}
+
+#eyeicon-table {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+textarea {
+    resize: none;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: none;
+    background-color:rgb(255,255,255,.1);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 10px;
+    border: none;
 }
