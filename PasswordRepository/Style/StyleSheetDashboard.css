@@ -274,3 +274,13 @@ h1 {
     height: 50px;
     font-size: 18px;
 }
+
+#table-leftcolumn{
+    padding:0;
+    margin:0;
+}
+
+#table-rightcolumn {
+    padding: 0;
+    margin: 0;
+}
