@@ -1,36 +1,4 @@
-﻿@media (min-width: 1200px) {
-    .container {
-        max-width: 100%;
-    }
-}
-
-html, body {
-    overflow-x: hidden;
-    padding-bottom: 0px;
-    padding-top: 0;
-    margin: 0;
-    padding: 0;
-    box-sizing: content-box;
-    height: 100%;
-    background-image: url(/Elements/backgroundhome.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-@
-
-#outer {
-    overflow: hidden;
-}
-
-section {
-    max-height: 100%;
-    height: 100%;
-    box-sizing: border-box;
-}
-
-.btn-outline-secondary {
+﻿.btn-outline-secondary {
     color: white;
 }
 
@@ -192,9 +160,11 @@ h1 {
     opacity: 1;
 }
 
-.form-control {
-    display: inline-block;
-    width: 100%
+
+.form-control:focus {
+    box-shadow: none;
+    outline: none;
+    border-color: darkgray;
 }
 
 #eyeicon {

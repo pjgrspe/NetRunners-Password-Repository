@@ -172,25 +172,26 @@ h1 {
     position: relative;
 }
 
-    .nav-link::after {
-        opacity: 0;
-        content: '';
-        transition: all 0.2s;
-        height: 2px;
-        width: 100%;
-        background-color: white;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
+.nav-link::after {
+    opacity: 0;
+    content: '';
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
 
-    .nav-link:hover::after {
-        opacity: 1;
-    }
+.nav-link:hover::after {
+    opacity: 1;
+}
 
-.form-control {
-    display: inline-block;
-    width: 100%
+.form-control:focus {
+    box-shadow: none;
+    outline: none;
+    border-color: darkgray;
 }
 
 #eyeicon {

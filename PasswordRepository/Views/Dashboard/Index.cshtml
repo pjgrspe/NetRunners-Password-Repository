@@ -17,12 +17,12 @@
     @Scripts.Render("~/bundles/modernizr")
     <title>Frontend Bootcamp</title>
     <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetGlobal.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet">
     <!--Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link
 </head>
 <body>
     <!--Navbar-->
@@ -56,7 +56,7 @@
                         
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Trash</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
                             <li><a class="dropdown-item" href="@Url.Action("LogOut","Login")">Logout</a></li>
                         </ul>
@@ -78,191 +78,275 @@
                             / PASSWORD REPOSITORY /
                         </h2>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#exampleModal" id="additembtn">
-                            ADD ITEM +
-                        </button>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="ModalLabel" style="margin-top:10px;">ADD NEW ITEM</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body" style="margin-top:-10px;">
-                                    <!--Form-->
-                                    @using (@Html.BeginForm())
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Title", required = "required", })
-                                                    <label for="floatingTitle">Title</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
-                                                    <label for="floatingEmail">Email</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
-                                                    <label for="floatingUsername">Username</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
-                                                    <label for="floatingPassword">Password</label>
-                                                    <span>
-                                                        <!--Eye icon-->
-                                                        <img src="~/Elements/eye-slash.svg" id="eyeicon" />
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                                    @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control rounded-0 w-100", id = "floatingURL", placeholder = "URL", required = "required" })
-                                                    <label for="floatingURL">URL</label>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center w-100">
-                                                <div class="form-floating" style="margin-top: 10px; width: 410px; height:auto;">
-                                                    @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
-                                                    <label for="floatingNotes">Notes</label>
-                                                </div>
-                                            </div>
-                                            <script type="text/javascript">
-                                                let eyeicon = document.getElementById('eyeicon');
-                                                var form = document.getElementById('floatingPassword');
-                                                var form2 = document.getElementById('floatingRePassword');
-
-                                                eyeicon.style.display = "none";
-
-                                                form.addEventListener("focusin", function () {
-                                                    eyeicon.style.display = "block";
-                                                });
-
-                                                form.addEventListener("focusout", function () {
-                                                    if (Event.relatedTarget !== eyeicon) {
-                                                        eyeicon.style.display = "none";
-                                                    }
-                                                });
-
-                                                eyeicon.addEventListener("mousedown", function (event) {
-                                                    event.preventDefault(); // prevent default action to avoid losing focus
-                                                    togglePW();
-                                                });
-
-                                                function togglePW() {
-                                                    var show = document.getElementById('floatingPassword');
-                                                    var show2 = document.getElementById('floatingRePassword');
-                                                    if (show.type == 'password') {
-                                                        show.type = 'text';
-                                                        eyeicon.src = "/Elements/eye.svg"
-                                                    }
-                                                    else {
-                                                        show.type = 'password'
-                                                        eyeicon.src = "/Elements/eye-slash.svg"
-                                                    }
-                                                    show.focus();
-                                                }
-                                            </script>
+                    <!--TABLE-->
+                    <div class="d-flex justify-content-center" style="margin-top:20px">
+                        <div class="row w-75" id="passrepotable">
+                            <!--ITEMS-->
+                            <div class="col-4" id="table-leftcolumn">
+                                <div class="d-flex justify-content-center">
+                                    <a style="width:95%">
+                                        <div class="input-group" style="margin-top:10px;">
+                                            <span class="input-group-text rounded-0" id="basic-addon1"><img id="searchicon" src="~/Elements/searchicon.png" /></span>
+                                            <input type="text" class="form-control form-control-search rounded-0" placeholder="SEARCH" aria-label="Username" aria-describedby="basic-addon1" id="searchform">
                                         </div>
+                                    </a>
+                                </div>
+                                
+                                <div class="list-group rounded-0 overflow-auto" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
+                                    <a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="list-1">Title1 <small>11/05/2023</small></a>
+                                    <a class="list-group-item list-group-item-action" id="list-2-list" data-bs-toggle="list" href="#list-2" role="tab" aria-controls="list-2">Title2</a>
+                                    <a class="list-group-item list-group-item-action" id="list-3-list" data-bs-toggle="list" href="#list-3" role="tab" aria-controls="list-3">Title3</a>
+                                    <a class="list-group-item list-group-item-action" id="list-4-list" data-bs-toggle="list" href="#list-4" role="tab" aria-controls="list-4">Title4</a>
+                                    <a class="list-group-item list-group-item-action" id="list-5-list" data-bs-toggle="list" href="#list-5" role="tab" aria-controls="list-5">Title5</a>
+                                    <a class="list-group-item list-group-item-action" id="list-6-list" data-bs-toggle="list" href="#list-6" role="tab" aria-controls="list-6">Title6</a>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#addbutton-modal" id="additembtn" style="margin-top:10px; margin-bottom:10px;">
+                                        ADD ITEM +
+                                    </button>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="addbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="ModalLabel" style="margin-top:10px">ADD NEW ITEM</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body" style="margin-top:-10px;">
+                                                <!--Form-->
+                                                @using (@Html.BeginForm("Entry", "Dashboard", FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
+                                                        <div class="d-flex justify-content-center w-100">
+                                                            <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Title", required = "required", })
+                                                                <label for="floatingTitle">Title</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center w-100">
+                                                            <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required", })
+                                                                <label for="floatingEmail">Email</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center w-100">
+                                                            <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Password", required = "required", })
+                                                                <label for="floatingUsername">Username</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center w-100">
+                                                            <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
+                                                                <label for="floatingPassword">Password</label>
+                                                                <span>
+                                                                    <!--Eye icon-->
+                                                                    <img src="~/Elements/eye-slash.svg" id="eyeicon" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center w-100">
+                                                            <div class="form-floating" style="margin-top: 10px; width: 410px;">
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control rounded-0 w-100", id = "floatingURL", placeholder = "URL", required = "required" })
+                                                                <label for="floatingURL">URL</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center w-100">
+                                                            <div class="form-floating" style="margin-top: 10px; width: 410px; height:auto;">
+                                                                @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
+                                                                <label for="floatingNotes">Notes</label>
+                                                            </div>
+                                                        </div>
+                                                        <script type="text/javascript">
+                                                            let eyeicon = document.getElementById('eyeicon');
+                                                            var form = document.getElementById('floatingPassword');
 
-                                    <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
-                                        <div class="d-flex justify-content-center">
-                                            <div class="d-flex justify-content-center col-5 mb-2 ">
-                                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
-                                                    ADD +
-                                                </button>
+                                                            eyeicon.style.display = "none";
+
+                                                            form.addEventListener("focusin", function () {
+                                                                eyeicon.style.display = "block";
+                                                            });
+
+                                                            form.addEventListener("focusout", function () {
+                                                                if (Event.relatedTarget !== eyeicon) {
+                                                                    eyeicon.style.display = "none";
+                                                                }
+                                                            });
+
+                                                            eyeicon.addEventListener("mousedown", function (event) {
+                                                                event.preventDefault(); // prevent default action to avoid losing focus
+                                                                togglePW();
+                                                            });
+
+                                                            function togglePW() {
+                                                                var show = document.getElementById('floatingPassword');
+                                                                if (show.type == 'password') {
+                                                                    show.type = 'text';
+                                                                    eyeicon.src = "/Elements/eye.svg"
+                                                                }
+                                                                else {
+                                                                    show.type = 'password'
+                                                                    eyeicon.src = "/Elements/eye-slash.svg"
+                                                                }
+                                                                show.focus();
+                                                            }
+                                                        </script>
+                                                    </div>
+
+                                                    <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                                                        <div class="d-flex justify-content-center">
+                                                            <div class="d-flex justify-content-center col-5 mb-2 ">
+                                                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
+                                                                    ADD +
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                     </div>
-                                    }
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <!--TABLE-->
-                <div class="col-10" style="margin-top:20px">
-                    <div class="row">
-                        <!--ITEMS-->
-                        <div class="col-4">
-                            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">ITEMS</a>
-                            <div class="list-group rounded-0" id="list-tab" role="tablist" style="margin-top:10px">
-                                <a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="list-1">Title1</a>
-                                <a class="list-group-item list-group-item-action" id="list-2-list" data-bs-toggle="list" href="#list-2" role="tab" aria-controls="list-2">Title2</a>
-                                <a class="list-group-item list-group-item-action" id="list-3-list" data-bs-toggle="list" href="#list-3" role="tab" aria-controls="list-3">Title3</a>
-                                <a class="list-group-item list-group-item-action" id="list-4-list" data-bs-toggle="list" href="#list-4" role="tab" aria-controls="list-4">Title4</a>
-                                <a class="list-group-item list-group-item-action" id="list-5-list" data-bs-toggle="list" href="#list-5" role="tab" aria-controls="list-5">Title5</a>
-                                <a class="list-group-item list-group-item-action" id="list-6-list" data-bs-toggle="list" href="#list-6" role="tab" aria-controls="list-6">Title6</a>
-                            </div>
-                        </div>
-                        <!--ITEM DETAILS-->
-                        <div class="col-8">
-                            <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="list-1" role="tabpanel" aria-labelledby="list-1-list">
-                                    amogus1
-                                </div>
-                                <div class="tab-pane fade" id="list-2" role="tabpanel" aria-labelledby="list-2-list">
-                                    amogus2
-                                </div>
-                                <div class="tab-pane fade" id="list-3" role="tabpanel" aria-labelledby="list-3-list">
-                                    amogus3
-                                </div>
-                                <div class="tab-pane fade" id="list-4" role="tabpanel" aria-labelledby="list-4-list">
-                                    amogus4
-                                </div>
-                                <div class="tab-pane fade" id="list-5" role="tabpanel" aria-labelledby="list-5-list">
-                                    amogus5
-                                </div>
-                                <div class="tab-pane fade" id="list-6" role="tabpanel" aria-labelledby="list-6-list">
-                                    amogus6
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-10 pt-5">
-                    <table id="example" class="table" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Username</th>
-                                <th>Password</th>
-                                <th>URL</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Facebook</td>
-                                <td>Prowler</td>
-                                <td>---------</td>
-                                <td>https://www.facebook.com</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Title</th>
-                                <th>Username</th>
-                                <th>Password</th>
-                                <th>URL</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                            <!--ITEM DETAILS-->
+                            <div class="col-8" id="table-rightcolumn">
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!--ITEM 1 DETAILS-->
+                                    <div class="tab-pane fade show active" id="list-1" role="tabpanel" aria-labelledby="list-1-list">
+                                        <div class="container">
+                                            <!--TITLE NAME-->
+                                            <div class="mt-3 item-table w-100">
+                                                <h2 class="display-5">
+                                                    Twitter
+                                                </h2>
+                                                <!--USERNAME INPUT-->
+                                                <div class="mt-3">
+                                                    Username
+                                                    <div class="form-floating table-form">
+                                                        <input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="Prowlercs">
+                                                    </div>
+                                                </div>
+                                                <!--EMAIL INPUT-->
+                                                <div class="mt-3">
+                                                    Email
+                                                    <div class="form-floating table-form">
+                                                        <input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="email@example.com">
+                                                    </div>
+                                                </div>
+                                                <!--PASSWORD INPUT-->
+                                                <div class="mt-3">
+                                                    Password
+                                                    <div class="form-floating table-form">
+                                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="passwordtest">
+                                                        <span>
+                                                            <!--Eye icon-->
+                                                            <img src="~/Elements/eye-white.svg" id="eyeicon-table" />
+                                                        </span>
+                                                        <script type="text/javascript">
+                                                            let eyeicontable = document.getElementById('eyeicon-table');
+                                                            var formdisplay = document.getElementById('staticPassword');
 
+
+                                                            eyeicontable.style.display = "none";
+
+                                                            formdisplay.addEventListener("mouseenter", function () {
+                                                                eyeicontable.style.display = "block";
+                                                                formdisplay.classList.add("hover");
+                                                            });
+
+                                                            formdisplay.addEventListener("mouseleave", function () {
+                                                                const isTargetIcon = event.relatedTarget === eyeicontable || eyeicontable.contains(event.relatedTarget);
+
+                                                                if (!isTargetIcon) {
+                                                                    eyeicontable.style.display = "none";
+                                                                }
+                                                            });
+
+                                                            eyeicontable.addEventListener("mouseenter", function () {
+                                                                formdisplay.classList.add("hover");
+                                                            });
+
+                                                            eyeicontable.addEventListener("mousedown", function (event) {
+                                                                event.preventDefault(); // prevent default action to avoid losing focus
+                                                                togglePW();
+                                                            });
+
+                                                            function togglePW() {
+                                                                var show = document.getElementById('staticPassword');
+                                                                if (show.type == 'password') {
+                                                                    //THIS IS FOR THE EDIT BUTTON
+                                                                    //document.getElementById('staticPassword').readOnly=false;
+                                                                    //document.getElementById('staticPassword').className = "form-control";
+                                                                    show.type = 'text';
+                                                                    eyeicontable.src = "/Elements/eye-slash-white.svg"
+                                                                }
+                                                                else {
+                                                                    show.type = 'password'
+                                                                    //THIS IS FOR THE EDIT BUTTON
+                                                                    //document.getElementById('staticPassword').readOnly=true;
+                                                                    //document.getElementById('staticPassword').className = "form-control-plaintext";
+                                                                    eyeicontable.src = "/Elements/eye-white.svg"
+
+                                                                }
+                                                                show.focus();
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                                <!--URL INPUT-->
+                                                <div class="mt-3">
+                                                    URL
+                                                    <div class="form-floating table-form">
+                                                        <input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="website.com">
+                                                    </div>
+                                                </div>
+                                                <!--NOTES INPUT-->
+                                                <div class="mt-3">
+                                                    Notes
+                                                    <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext" id="staticNotes">I tell you that the time of the sword and axe approaches, the time of the Wolf's Blizzard. The Time of the White Frost and White Light, the Time of Madness and Disdain, Tedd Deireadh, the Final Age. The world will perish amidst ice and be reborn with the new sun. Reborn of the Elder Blood, of Hen Ichaer, of a planted seed. A seed that will not sprout but burst into flames!
+Ess'tuath esse! So shall it be! Watch for the signs! I will tell you what these signs will be — the earth will run with the blood of Aen Seidhe, the Blood of the Elves..."</textarea>
+                                                </div>
+                                            </div>
+                                            <!--DATE INPUT-->
+                                            <div class="col-12 d-flex justify-content-center">
+                                                <div class="mt-4" style="color:gray;">
+                                                    <p>Created on (DATE)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--ITEM 2 DETAILS-->
+                                    <div class="tab-pane fade" id="list-2" role="tabpanel" aria-labelledby="list-2-list">
+                                        amogus2
+                                    </div>
+                                    <!--ITEM 3 DETAILS-->
+                                    <div class="tab-pane fade" id="list-3" role="tabpanel" aria-labelledby="list-3-list">
+                                        amogus3
+                                    </div>
+                                    <!--ITEM 4 DETAILS-->
+                                    <div class="tab-pane fade" id="list-4" role="tabpanel" aria-labelledby="list-4-list">
+                                        amogus4
+                                    </div>
+                                    <!--ITEM 5 DETAILS-->
+                                    <div class="tab-pane fade" id="list-5" role="tabpanel" aria-labelledby="list-5-list">
+                                        amogus5
+                                    </div>
+                                    <!--ITEM 6 DETAILS-->
+                                    <div class="tab-pane fade" id="list-6" role="tabpanel" aria-labelledby="list-6-list">
+                                        amogus6
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 </section>
 
-        <footer style="margin-top:-76px" class="p-5 text-white">
+        <footer class="p-5 text-white footer mt-auto">
             <div class="col-xl-3 col-lg-12 text-xl-start">
                 <p class="lead">NetRunner Systems &copy;2023</p>
             </div>
