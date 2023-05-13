@@ -19,7 +19,19 @@ namespace PasswordRepository.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            return View();
+
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                var data = entities.TBL_PASSWORD_REPO.ToList();
+
+                var PasswordModel = new PasswordEntryModel()
+                {
+                    Passwords = data,
+                    Password = new TBL_PASSWORD_REPO()
+                };
+
+                return View(PasswordModel);
+            }
         }
         [Authorize]
         public ActionResult Test() // FOR DEBUGGING
