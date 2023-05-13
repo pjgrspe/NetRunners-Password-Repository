@@ -57,11 +57,7 @@
     font-family: 'Barlow', sans-serif;
 }
 
-#content {
-    font-family: 'JetBrains Mono', monospace;
-}
-
-h6 {
+#content, h6 {
     font-family: 'JetBrains Mono', monospace;
 }
 

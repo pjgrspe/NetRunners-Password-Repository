@@ -2,20 +2,20 @@
     color: white;
 }
 
-    .btn-outline-secondary:hover {
-        color: black;
-        background-color: white;
-    }
+.btn-outline-secondary:hover {
+    color: black;
+    background-color: white;
+}
 
 .btn-primary2 {
     color: black;
     background-color: white;
 }
 
-    .btn-primary2:hover {
-        color: black;
-        background-color: darkgray;
-    }
+.btn-primary2:hover {
+    color: black;
+    background-color: darkgray;
+}
 
 .navbar {
     color: white;
@@ -56,7 +56,8 @@
 
 #navmenu, thead, .modal-title {
     font-family: 'Barlow', sans-serif;
-    
+    font-size: 20px;
+    color: white !important;
 }
 
 .modal-title {
@@ -65,6 +66,16 @@
 
 #content, #list-tab, #additembtn, .item-table, #addmodalbtn, .form-floating{
     font-family: 'JetBrains Mono', monospace;
+}
+
+.display-5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    color: #4ca1a5;
+}
+
+.tbl-details {
+    color: #4ca1a5;
 }
 
 #list-tab{
@@ -92,7 +103,7 @@ small{
 
 #searchform, #basic-addon1 {
     font-family: 'JetBrains Mono', monospace;
-    height:50px;
+    height:40px;
     border:0;
 }
 
@@ -100,6 +111,10 @@ small{
     width: 95%;
     height: 50px;
     font-size: 20px;
+}
+
+.hidden {
+    display: none;
 }
 
 #searchicon{
@@ -229,19 +244,25 @@ h1 {
     background-color: gray !important;
 }
 
-#modalLabel {
-    font-size: 20px;
-}
-
 #addmodalbtn {
-    width: 250px;
+    width: 280px;
     height: 50px;
     font-size: 18px;
+    color: white;
+    background-color: #3e8285;
 }
 
-#table-leftcolumn{
-    padding:0;
-    margin:0;
+#addmodalbtn:hover {
+    background-color: #2f6366;
+}
+
+.modal-lg {
+    width:500px;
+}
+
+#table-leftcolumn {
+    padding: 0;
+    margin: 0;
 }
 
 #table-rightcolumn {
@@ -250,7 +271,14 @@ h1 {
 }
 
 #passrepotable {
-    border: 0.1px solid rgba(255,255,255,.3);
+    border: 0.4px solid rgba(255,255,255,.1);
+    background-color: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(10px);
+    border-radius:10px;
+}
+
+.tab-content {
+    background-color: #1a1a1a;
 }
 
 .form-control-plaintext {
@@ -272,6 +300,22 @@ h1 {
 
 .list-group-item {
     border: none;
+    color: white !important;
+    font-size: 30px;
+    direction: ltr;
+}
+
+
+.scroller::-webkit-scrollbar-track {
+    background: rgba(255,255,255,.1)
+}
+
+.scroller::-webkit-scrollbar-thumb {
+    visibility: hidden;
+}
+
+.scroller:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
 }
 
 #searchform:focus, .form-control:focus {
@@ -281,18 +325,32 @@ h1 {
 }
 
 .list-group-item.active {
-    background-color: #1e3d40;
+    background-color: #1a1a1a;
     border: none;
     border-color: none;
 }
 
-.tab-pane.active {
-    background-color: #1e3d40;
-    border: none;
+.list-group-item:hover:not(.active) {
+    background-color: dimgray;
 }
 
-.tab-content, .tab-pane{
-    height:100%
+.list-group {
+    border-top: 0.4px solid rgba(255,255,255,.1);
+}
+
+.list-group-item {
+    border-bottom: 0.4px solid rgba(255,255,255,.1);
+}
+
+.tab-pane.active {
+    background-color: #1a1a1a;
+    border: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.tab-content, .tab-pane {
+    height: 100%;
 }
 
 #eyeicon-table {
@@ -307,19 +365,4 @@ h1 {
 
 textarea {
     resize: none;
-}
-
-*::-webkit-scrollbar {
-    width: 5px;
-}
-
-*::-webkit-scrollbar-track {
-    background: none;
-    background-color:rgb(255,255,255,.1);
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: gray;
-    border-radius: 10px;
-    border: none;
 }
