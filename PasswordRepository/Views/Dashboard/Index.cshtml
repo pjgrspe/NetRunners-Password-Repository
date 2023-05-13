@@ -1,4 +1,5 @@
 ﻿@model PasswordRepository.Models.PasswordEntryModel
+@using PasswordRepository.Helpers;
 @{
     Layout = null;
 }
@@ -56,9 +57,9 @@
                         
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Trash</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("TrashboardTEST", "Dashboard")">Trash</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("LogOut","Login")">Logout</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -93,12 +94,11 @@
                                 </div>
                                 
                                 <div class="list-group rounded-0 overflow-auto" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
-                                    <a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="list-1">Title1 <small>11/05/2023</small></a>
-                                    <a class="list-group-item list-group-item-action" id="list-2-list" data-bs-toggle="list" href="#list-2" role="tab" aria-controls="list-2">Title2</a>
-                                    <a class="list-group-item list-group-item-action" id="list-3-list" data-bs-toggle="list" href="#list-3" role="tab" aria-controls="list-3">Title3</a>
-                                    <a class="list-group-item list-group-item-action" id="list-4-list" data-bs-toggle="list" href="#list-4" role="tab" aria-controls="list-4">Title4</a>
-                                    <a class="list-group-item list-group-item-action" id="list-5-list" data-bs-toggle="list" href="#list-5" role="tab" aria-controls="list-5">Title5</a>
-                                    <a class="list-group-item list-group-item-action" id="list-6-list" data-bs-toggle="list" href="#list-6" role="tab" aria-controls="list-6">Title6</a>
+                                    @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(false) && x.isActive.Equals(true)))
+                                        {
+                                            <a class="list-group-item list-group-item-action" id="list-@PassEntry.PID-list" data-bs-toggle="list" href="#list-@PassEntry.PID" role="tab" aria-controls="list-@PassEntry.PID">@PassEntry.PR_TITLE</a>
+                                        }
+                                    }
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <!-- Button trigger modal -->
@@ -214,130 +214,129 @@
                             <!--ITEM DETAILS-->
                             <div class="col-8" id="table-rightcolumn">
                                 <div class="tab-content" id="nav-tabContent">
-                                    <!--ITEM 1 DETAILS-->
-                                    <div class="tab-pane fade show active" id="list-1" role="tabpanel" aria-labelledby="list-1-list">
-                                        <div class="container">
-                                            <!--TITLE NAME-->
-                                            <div class="mt-3 item-table w-100">
-                                                <h2 class="display-5">
-                                                    Twitter
-                                                </h2>
-                                                <!--USERNAME INPUT-->
-                                                <div class="mt-3">
-                                                    Username
-                                                    <div class="form-floating table-form">
-                                                        <input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="Prowlercs">
-                                                    </div>
-                                                </div>
-                                                <!--EMAIL INPUT-->
-                                                <div class="mt-3">
-                                                    Email
-                                                    <div class="form-floating table-form">
-                                                        <input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="email@example.com">
-                                                    </div>
-                                                </div>
-                                                <!--PASSWORD INPUT-->
-                                                <div class="mt-3">
-                                                    Password
-                                                    <div class="form-floating table-form">
-                                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="passwordtest">
-                                                        <span>
-                                                            <!--Eye icon-->
-                                                            <img src="~/Elements/eye-white.svg" id="eyeicon-table" />
-                                                        </span>
-                                                        <script type="text/javascript">
-                                                            let eyeicontable = document.getElementById('eyeicon-table');
-                                                            var formdisplay = document.getElementById('staticPassword');
+                                    @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(false) && x.isActive.Equals(true)))
+                                        {
+                                            var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
+                                            <!--ITEM 1 DETAILS-->
+                                            <div class="tab-pane fade show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
+
+                                                <div class="container">
+                                                    <!--TITLE NAME-->
+                                                    <div class="mt-3 item-table w-100">
+                                                        <h2 class="display-5">
+                                                            @PassEntry.PR_TITLE
+                                                        </h2>
+                                                        <!--USERNAME INPUT-->
+                                                        <div class="mt-3">
+                                                            Username
+                                                            <div class="form-floating table-form">
+                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME">*@
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "staticUsername", type = "text", @readonly = "readonly", Value = @PassEntry.PR_USERNAME, style = "width:100%" })
+                                                            </div>
+                                                        </div>
+                                                        <!--EMAIL INPUT-->
+                                                        <div class="mt-3">
+                                                            Email
+                                                            <div class="form-floating table-form">
+                                                                @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "staticEmail", type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
+                                                            </div>
+                                                        </div>
+                                                        <!--PASSWORD INPUT-->
+                                                        <div class="mt-3">
+                                                            Password
+                                                            <div class="form-floating table-form">
+
+                                                                @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
+                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "staticPassword", type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
+                                                                <span>
+                                                                    <!--Eye icon-->
+                                                                    <img src="~/Elements/eye-white.svg" id="eyeicon-table" />
+                                                                </span>
+                                                                <!--LUIS-->
+                                                                <!--needs a way to call unique IDs depending on what list is active (for both eyeicon-table and staticPassword)-->
+                                                                <!--rn the ids only applies to the first list-->
+                                                                <script type="text/javascript">
+                                                                    let eyeicontable = document.getElementById('eyeicon-table');
+                                                                    var formdisplay = document.getElementById('staticPassword');
 
 
-                                                            eyeicontable.style.display = "none";
-
-                                                            formdisplay.addEventListener("mouseenter", function () {
-                                                                eyeicontable.style.display = "block";
-                                                                formdisplay.classList.add("hover");
-                                                            });
-
-                                                            formdisplay.addEventListener("mouseleave", function () {
-                                                                const isTargetIcon = event.relatedTarget === eyeicontable || eyeicontable.contains(event.relatedTarget);
-
-                                                                if (!isTargetIcon) {
                                                                     eyeicontable.style.display = "none";
-                                                                }
-                                                            });
 
-                                                            eyeicontable.addEventListener("mouseenter", function () {
-                                                                formdisplay.classList.add("hover");
-                                                            });
+                                                                    formdisplay.addEventListener("mouseenter", function () {
+                                                                        eyeicontable.style.display = "block";
+                                                                        formdisplay.classList.add("hover");
+                                                                    });
 
-                                                            eyeicontable.addEventListener("mousedown", function (event) {
-                                                                event.preventDefault(); // prevent default action to avoid losing focus
-                                                                togglePW();
-                                                            });
+                                                                    formdisplay.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === eyeicontable || eyeicontable.contains(event.relatedTarget);
 
-                                                            function togglePW() {
-                                                                var show = document.getElementById('staticPassword');
-                                                                if (show.type == 'password') {
-                                                                    //THIS IS FOR THE EDIT BUTTON
-                                                                    //document.getElementById('staticPassword').readOnly=false;
-                                                                    //document.getElementById('staticPassword').className = "form-control";
-                                                                    show.type = 'text';
-                                                                    eyeicontable.src = "/Elements/eye-slash-white.svg"
-                                                                }
-                                                                else {
-                                                                    show.type = 'password'
-                                                                    //THIS IS FOR THE EDIT BUTTON
-                                                                    //document.getElementById('staticPassword').readOnly=true;
-                                                                    //document.getElementById('staticPassword').className = "form-control-plaintext";
-                                                                    eyeicontable.src = "/Elements/eye-white.svg"
+                                                                        if (!isTargetIcon) {
+                                                                            eyeicontable.style.display = "none";
+                                                                        }
+                                                                    });
 
-                                                                }
-                                                                show.focus();
-                                                            }
-                                                        </script>
+                                                                    eyeicontable.addEventListener("mouseenter", function () {
+                                                                        formdisplay.classList.add("hover");
+                                                                    });
+
+                                                                    eyeicontable.addEventListener("mousedown", function (event) {
+                                                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                                                        togglePW();
+                                                                    });
+
+                                                                    function togglePW() {
+                                                                        var show = document.getElementById('staticPassword');
+                                                                        if (show.type == 'password') {
+                                                                            //THIS IS FOR THE EDIT BUTTON
+                                                                            //document.getElementById('staticPassword').readOnly=false;
+                                                                            //document.getElementById('staticPassword').className = "form-control";
+                                                                            show.type = 'text';
+                                                                            eyeicontable.src = "/Elements/eye-slash-white.svg"
+                                                                        }
+                                                                        else {
+                                                                            show.type = 'password'
+                                                                            //THIS IS FOR THE EDIT BUTTON
+                                                                            //document.getElementById('staticPassword').readOnly=true;
+                                                                            //document.getElementById('staticPassword').className = "form-control-plaintext";
+                                                                            eyeicontable.src = "/Elements/eye-white.svg"
+
+                                                                        }
+                                                                        show.focus();
+                                                                    }
+                                                                </script>
+                                                            </div>
+                                                        </div>
+                                                        <!--URL INPUT-->
+                                                        <div class="mt-3">
+                                                            URL
+                                                            <div class="form-floating table-form">
+                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "staticURL", type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
+                                                            </div>
+                                                        </div>
+                                                        <!--NOTES INPUT-->
+                                                        <!--LUIS-->
+                                                        <div class="mt-3">
+                                                            Notes
+                                                            <div class="form-floating table-form">
+                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext" id="staticNotes">@PassEntry.PR_NOTES</textarea>
+                                                                <!--For some reason the html helper doesn't display the "Value = @@PassEntry.PR_NOTES"-->
+                                                                @*@Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext", id = "staticNotes", @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })*@
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <!--DATE INPUT-->
+                                                    <div class="col-12 d-flex justify-content-center">
+                                                        <div class="mt-4" style="color:gray; margin-right:60px;">
+                                                            <p>Created on @PassEntry.ENTRY_CREATED</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <!--URL INPUT-->
-                                                <div class="mt-3">
-                                                    URL
-                                                    <div class="form-floating table-form">
-                                                        <input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="website.com">
-                                                    </div>
-                                                </div>
-                                                <!--NOTES INPUT-->
-                                                <div class="mt-3">
-                                                    Notes
-                                                    <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext" id="staticNotes">I tell you that the time of the sword and axe approaches, the time of the Wolf's Blizzard. The Time of the White Frost and White Light, the Time of Madness and Disdain, Tedd Deireadh, the Final Age. The world will perish amidst ice and be reborn with the new sun. Reborn of the Elder Blood, of Hen Ichaer, of a planted seed. A seed that will not sprout but burst into flames!
-Ess'tuath esse! So shall it be! Watch for the signs! I will tell you what these signs will be — the earth will run with the blood of Aen Seidhe, the Blood of the Elves..."</textarea>
-                                                </div>
                                             </div>
-                                            <!--DATE INPUT-->
-                                            <div class="col-12 d-flex justify-content-center">
-                                                <div class="mt-4" style="color:gray;">
-                                                    <p>Created on (DATE)</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--ITEM 2 DETAILS-->
-                                    <div class="tab-pane fade" id="list-2" role="tabpanel" aria-labelledby="list-2-list">
-                                        amogus2
-                                    </div>
-                                    <!--ITEM 3 DETAILS-->
-                                    <div class="tab-pane fade" id="list-3" role="tabpanel" aria-labelledby="list-3-list">
-                                        amogus3
-                                    </div>
-                                    <!--ITEM 4 DETAILS-->
-                                    <div class="tab-pane fade" id="list-4" role="tabpanel" aria-labelledby="list-4-list">
-                                        amogus4
-                                    </div>
-                                    <!--ITEM 5 DETAILS-->
-                                    <div class="tab-pane fade" id="list-5" role="tabpanel" aria-labelledby="list-5-list">
-                                        amogus5
-                                    </div>
-                                    <!--ITEM 6 DETAILS-->
-                                    <div class="tab-pane fade" id="list-6" role="tabpanel" aria-labelledby="list-6-list">
-                                        amogus6
-                                    </div>
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
