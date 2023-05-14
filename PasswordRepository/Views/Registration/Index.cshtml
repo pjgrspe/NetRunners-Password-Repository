@@ -1,28 +1,14 @@
 ﻿@model PasswordRepository.Models.RegistrationModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    <title>Frontend Bootcamp</title>
     <link href="~/Style/StyleSheetRegistration.css" rel="stylesheet">
-    <link href="~/Style/StyleSheetGlobal.css" rel="stylesheet">
-    <link href="~/Content/Site.css" rel="stylesheet">
-    <!--Fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!--Navbar-->
@@ -105,66 +91,19 @@
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                    @Html.PasswordFor(Model => Model.textbox_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
-                                    <label for="floatingPassword">Password</label>
+                                    @Html.PasswordFor(Model => Model.textbox_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-register", placeholder = "Password", required = "required" })
+                                    <label for="floatingPassword-register">Password</label>
                                     <span>
                                         <!--Eye icon-->
-                                        <img src="~/Elements/eye.svg" id="eyeicon" />
+                                        <img src="~/Elements/eye.svg" id="eyeicon-register" />
                                     </span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width:410px;">
-                                    @Html.PasswordFor(Model => Model.textbox_REPEAT_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingRePassword", placeholder = "Re-enter Password", required = "required" })
-                                    <label for="floatingRePassword">Re-enter Password</label>
+                                    @Html.PasswordFor(Model => Model.textbox_REPEAT_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingRePassword-register", placeholder = "Re-enter Password", required = "required" })
+                                    <label for="floatingRePassword-register">Re-enter Password</label>
                                 </div>
-                                <script type="text/javascript">
-                                    let eyeicon = document.getElementById('eyeicon');
-                                    var form = document.getElementById('floatingPassword');
-                                    var form2 = document.getElementById('floatingRePassword');
-
-                                    eyeicon.style.display = "none";
-
-                                    form.addEventListener("focusin", function () {
-                                        eyeicon.style.display = "block";
-                                    });
-
-                                    form2.addEventListener("focusin", function () {
-                                        eyeicon.style.display = "block";
-                                    });
-
-                                    form.addEventListener("focusout", function () {
-                                        if (Event.relatedTarget !== eyeicon) {
-                                            eyeicon.style.display = "none";
-                                        }
-                                    });
-                                    form2.addEventListener("focusout", function () {
-                                        if (Event.relatedTarget !== eyeicon) {
-                                            eyeicon.style.display = "none";
-                                        }
-                                    });
-
-                                    eyeicon.addEventListener("mousedown", function (event) {
-                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                        togglePW();
-                                    });
-
-                                    function togglePW() {
-                                        var show = document.getElementById('floatingPassword');
-                                        var show2 = document.getElementById('floatingRePassword');
-                                        if (show.type == 'password') {
-                                            show.type = 'text';
-                                            show2.type = 'text';
-                                            eyeicon.src = "/Elements/eye-slash.svg"
-                                        }
-                                        else {
-                                            show.type = 'password'
-                                            show2.type = 'password';
-                                            eyeicon.src = "/Elements/eye.svg"
-                                        }
-                                        show.focus();
-                                    }
-                                </script>
                             </div>
                         </div>
                         <!--Terms and Conditions checkbox-->
@@ -192,13 +131,6 @@
                 </div>
             </div>
         </section>
-
-        <footer style="margin-top:-76px" class="p-5 text-white">
-            <div class="col-xl-3 col-lg-12 text-xl-start">
-                <p class="lead">NetRunner Systems &copy;2023</p>
-            </div>
-        </footer>
-
     </div>
 </body>
 </html>

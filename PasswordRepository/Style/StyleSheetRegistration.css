@@ -1,4 +1,14 @@
-﻿.btn-outline-secondary {
+﻿html, body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.btn-outline-secondary {
     color: white;
 }
 
@@ -157,7 +167,7 @@ h1 {
     opacity: 1;
 }
 
-#eyeicon {
+#eyeicon-register {
     position: absolute;
     right: 15px;
     transform: translate(0, -50%);

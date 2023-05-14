@@ -1,4 +1,14 @@
-﻿.btn-outline-secondary {
+﻿html, body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.btn-outline-secondary {
     color: white;
 }
 
@@ -226,7 +236,7 @@ h1 {
     opacity: 1;
 }
 
-#eyeicon {
+#eyeicon-login {
     position: absolute;
     right: 15px;
     transform: translate(0, -50%);
@@ -240,8 +250,15 @@ h1 {
     border: none !important;
 }
 
-.btn-close {
-    background-color: gray !important;
+.btn-close-white{
+    position:absolute;
+    right:20px
+}
+
+.btn-close-white:active, .btn-close-white:focus {
+    box-shadow:none;
+    border:none;
+    outline:none!important;
 }
 
 #addmodalbtn {
@@ -249,11 +266,17 @@ h1 {
     height: 50px;
     font-size: 18px;
     color: white;
-    background-color: #3e8285;
+    background-color: #4ca1a5;
 }
 
 #addmodalbtn:hover {
-    background-color: #2f6366;
+    background-color: white;
+    color: #4ca1a5;
+}
+
+#addmodalbtn:active, #addmodalbtn:focus {
+    box-shadow:none;
+    outline:none!important;
 }
 
 .modal-lg {
@@ -353,11 +376,41 @@ h1 {
     height: 100%;
 }
 
-#eyeicon-table {
+#eyeicon-tbl-password {
     position: absolute;
     right: 11%;
     transform: translate(0, -50%);
-    top: 50%;
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+#ccicon-password {
+    position: absolute;
+    right: 10%;
+    transform: translate(-170%, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+#ccicon-username, #ccicon-email, #ccicon-URL {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+#ccicon-notes {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 80%;
     cursor: pointer;
     width: 20px;
     height: auto;

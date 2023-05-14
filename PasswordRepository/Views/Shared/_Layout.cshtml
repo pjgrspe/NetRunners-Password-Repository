@@ -1,1 +1,127 @@
-﻿
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <!--CSS-->
+    <link href="~/Style/StyleSheetGlobal.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/66285578cf.js" crossorigin="anonymous"></script>
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            @Html.Partial("_Header")
+        </div>
+    </header>
+    <div id="body">
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer class="p-5 text-white footer">
+        <div class="col-xl-3 col-lg-12 text-xl-start">
+            <p class="lead">NetRunner Systems &copy;2023</p>
+        </div>
+    </footer>
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        //REGISTRATION SHOW PASSWORD
+        let eyeiconregister = document.getElementById('eyeicon-register');
+        var formregister = document.getElementById('floatingPassword-register');
+        var form2register = document.getElementById('floatingRePassword-register');
+
+        eyeiconregister.style.display = "none";
+
+        formregister.addEventListener("focusin", function () {
+            eyeiconregister.style.display = "block";
+        });
+
+        form2register.addEventListener("focusin", function () {
+            eyeiconregister.style.display = "block";
+        });
+
+        formregister.addEventListener("focusout", function () {
+            if (Event.relatedTarget !== eyeiconregister) {
+                eyeiconregister.style.display = "none";
+            }
+        });
+        form2register.addEventListener("focusout", function () {
+            if (Event.relatedTarget !== eyeiconregister) {
+                eyeiconregister.style.display = "none";
+            }
+        });
+
+        eyeiconregister.addEventListener("mousedown", function (event) {
+            event.preventDefault(); // prevent default action to avoid losing focus
+            togglePWregister();
+        });
+
+        function togglePWregister() {
+            var show = document.getElementById('floatingPassword-register');
+            var show2 = document.getElementById('floatingRePassword-register');
+            if (show.type == 'password') {
+                show.type = 'text';
+                show2.type = 'text';
+                eyeiconregister.src = "/Elements/eye-slash.svg"
+            }
+            else {
+                show.type = 'password'
+                show2.type = 'password';
+                eyeiconregister.src = "/Elements/eye.svg"
+            }
+            show.focus();
+        }
+    </script>
+    <script type="text/javascript">
+        //LOGIN SHOW PASSWORD
+        let eyeiconlogin = document.getElementById('eyeicon-login');
+        var formlogin = document.getElementById('floatingPassword-login');
+
+        eyeiconlogin.style.display = "none";
+
+        formlogin.addEventListener("focusin", function () {
+            eyeiconlogin.style.display = "block";
+        });
+
+        formlogin.addEventListener("focusout", function () {
+            if (Event.relatedTarget !== eyeiconlogin) {
+                eyeiconlogin.style.display = "none";
+            }
+        });
+
+        eyeiconlogin.addEventListener("mousedown", function (event) {
+            event.preventDefault(); // prevent default action to avoid losing focus
+            togglePWlogin();
+        });
+        
+        function togglePWlogin() {
+            var show = document.getElementById('floatingPassword-login');
+            if (show.type == 'password') {
+                show.type = 'text';
+                eyeiconlogin.src = "/Elements/eye-slash.svg"
+            }
+            else {
+                show.type = 'password'
+                eyeiconlogin.src = "/Elements/eye.svg"
+            }
+            show.focus();
+        }   
+    </script>
+    <script type="text/javascript">
+        //FIRST TAB GETS SELECTED FUNCTION
+        $(function () {
+            $('#list-tab a:first-child').tab('show')
+        })
+    </script>
+</body>
+</html>  
