@@ -1,30 +1,35 @@
 ﻿@model PasswordRepository.Models.PasswordEntryModel
 @using PasswordRepository.Helpers;
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    @*<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">*@
     <title>Home</title>
-    @Styles.Render("~/Content/css")
+    <link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
+    <scripts 
+    @*@Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
+    <script src="~/Scripts/Custom/dashboard.js" type="text/javascript"></script>*@
+    <!--CSS-->
+    <!--<link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
     <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
     <link href="~/Style/StyleSheetGlobal.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/66285578cf.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/66285578cf.js" crossorigin="anonymous"></script>-->
     <!--Fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!--<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">-->
 </head>
 <body>
     <!--Navbar-->
@@ -76,7 +81,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="ModalLabel">ADD NEW ITEM</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!--Form-->
                     <div class="modal-body modal-xl" style="margin-top:-10px;">
@@ -104,11 +109,11 @@
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", required = "required" })
-                                        <label for="floatingPassword">Password</label>
+                                        @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", required = "required" })
+                                        <label for="floatingPassword-login">Password</label>
                                         <span>
                                             <!--Eye icon-->
-                                            <img src="~/Elements/eye.svg" id="eyeicon" />
+                                            <img src="~/Elements/eye.svg" id="eyeicon-login" />
                                         </span>
                                     </div>
                                 </div>
@@ -124,42 +129,7 @@
                                         <label for="floatingNotes">Notes</label>
                                     </div>
                                 </div>
-                                <script type="text/javascript">
-                                    let eyeicon = document.getElementById('eyeicon');
-                                    var form = document.getElementById('floatingPassword');
-
-                                    eyeicon.style.display = "none";
-
-                                    form.addEventListener("focusin", function () {
-                                        eyeicon.style.display = "block";
-                                    });
-
-                                    form.addEventListener("focusout", function () {
-                                        if (Event.relatedTarget !== eyeicon) {
-                                            eyeicon.style.display = "none";
-                                        }
-                                    });
-
-                                    eyeicon.addEventListener("mousedown", function (event) {
-                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                        togglePW_addmodal();
-                                    });
-
-                                    function togglePW_addmodal() {
-                                        var show = document.getElementById('floatingPassword');
-                                        if (show.type == 'password') {
-                                            show.type = 'text';
-                                            eyeicon.src = "/Elements/eye-slash.svg"
-                                        }
-                                        else {
-                                            show.type = 'password'
-                                            eyeicon.src = "/Elements/eye.svg"
-                                        }
-                                        show.focus();
-                                    }
-                                </script>
                             </div>
-
                             <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
                                 <div class="d-flex justify-content-center">
                                     <div class="d-flex justify-content-center col-5 mb-2 ">
@@ -211,11 +181,6 @@
                                         }
                                     }
                                 </div>
-                                <script>
-                                    $(function () {
-                                        $('#list-tab a:first-child').tab('show')
-                                    })
-                                </script>
                             </div>
                             <!--ITEM DETAILS-->
                             <div class="col-8" id="table-rightcolumn">
@@ -237,96 +202,296 @@
                                                                 <p style="margin-bottom:-5px;">Username</p>
                                                                 @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME">*@
                                                                 @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "staticUsername", type = "text", @readonly = "readonly", Value = @PassEntry.PR_USERNAME, style = "width:100%" })
-                                                            </div>
-                                                            <!--EMAIL INPUT-->
-                                                            <div class="mt-3 tbl-details">
-                                                                <div class="form-floating table-form">
-                                                                    <p style="margin-bottom:-5px;">Email</p>
-                                                                    @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
-                                                                    @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "staticEmail", type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
-                                                                </div>
-                                                            </div>
-                                                            <!--PASSWORD INPUT-->
-                                                            <div class="mt-3 tbl-details">
-                                                                <div class="form-floating table-form">
-                                                                    <p style="margin-bottom:-5px;">Password</p>
-                                                                    @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
-                                                                    @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "staticPassword", type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
-                                                                    <span>
-                                                                        <!--Eye icon-->
-                                                                        <img src="~/Elements/eye-white.svg" id="eyeicon-table" />
-                                                                    </span>
-                                                                    <!--LUIS-->
-                                                                    <!--needs a way to call unique IDs depending on what list is active (for both eyeicon-table and staticPassword)-->
-                                                                    <!--rn the ids only applies to the first list-->
-                                                                    <script type="text/javascript">
-                                                                        let eyeicontable = document.getElementById('eyeicon-table');
-                                                                        var formdisplay = document.getElementById('staticPassword');
+                                                                <span>
+                                                                    <!--CC icon-->
+                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-username" />
+                                                                </span>
+                                                                <script type="text/javascript">
+                                                                    let cciconusername = document.getElementById('ccicon-username');
+                                                                    var formdisplayusername = document.getElementById('staticUsername');
 
 
-                                                                        eyeicontable.style.display = "none";
+                                                                    cciconusername.style.display = "none";
 
-                                                                        formdisplay.addEventListener("mouseenter", function () {
-                                                                            eyeicontable.style.display = "block";
-                                                                            formdisplay.classList.add("hover");
-                                                                        });
+                                                                    formdisplayusername.addEventListener("mouseenter", function () {
+                                                                        cciconusername.style.display = "block";
+                                                                        formdisplayusername.classList.add("hover");
+                                                                    });
 
-                                                                        formdisplay.addEventListener("mouseleave", function () {
-                                                                            const isTargetIcon = event.relatedTarget === eyeicontable || eyeicontable.contains(event.relatedTarget);
+                                                                    formdisplayusername.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === cciconusername || cciconusername.contains(event.relatedTarget);
 
-                                                                            if (!isTargetIcon) {
-                                                                                eyeicontable.style.display = "none";
-                                                                            }
-                                                                        });
-
-                                                                        eyeicontable.addEventListener("mouseenter", function () {
-                                                                            formdisplay.classList.add("hover");
-                                                                        });
-
-                                                                        eyeicontable.addEventListener("mousedown", function (event) {
-                                                                            event.preventDefault(); // prevent default action to avoid losing focus
-                                                                            togglePW_table();
-                                                                        });
-
-                                                                        function togglePW_table() {
-                                                                            var show = document.getElementById('staticPassword');
-                                                                            if (show.type == 'password') {
-                                                                                //THIS IS FOR THE EDIT BUTTON
-                                                                                //document.getElementById('staticPassword').readOnly=false;
-                                                                                //document.getElementById('staticPassword').className = "form-control";
-                                                                                show.type = 'text';
-                                                                                eyeicontable.src = "/Elements/eye-slash-white.svg"
-                                                                            }
-                                                                            else {
-                                                                                show.type = 'password'
-                                                                                //THIS IS FOR THE EDIT BUTTON
-                                                                                //document.getElementById('staticPassword').readOnly=true;
-                                                                                //document.getElementById('staticPassword').className = "form-control-plaintext";
-                                                                                eyeicontable.src = "/Elements/eye-white.svg"
-
-                                                                            }
-                                                                            show.focus();
+                                                                        if (!isTargetIcon) {
+                                                                            cciconusername.style.display = "none";
                                                                         }
-                                                                    </script>
-                                                                </div>
+                                                                    });
+
+                                                                    cciconusername.addEventListener("mouseenter", function () {
+                                                                        formdisplayusername.classList.add("hover");
+                                                                    });
+
+                                                                    cciconusername.addEventListener("mousedown", function (event) {
+                                                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                                                        toggleccUN_table();
+                                                                    });
+
+                                                                    function toggleccUN_table() {
+                                                                        var copyText = formdisplayusername
+
+                                                                        // Copy the text inside the text field
+                                                                        navigator.clipboard.writeText(copyText.value);
+
+                                                                        // Alert the copied text
+                                                                        alert("Copied the text: " + copyText.value);
+                                                                        cciconusername.style.display = "none";
+                                                                    }
+                                                                </script>
                                                             </div>
-                                                            <!--URL INPUT-->
-                                                            <div class="mt-3 tbl-details">
-                                                                <div class="form-floating table-form">
+                                                        </div>
+                                                        <!--EMAIL INPUT-->
+                                                        <div class="mt-3 tbl-details">
+                                                            <div class="form-floating table-form">
+                                                                <p style="margin-bottom:-5px;">Email</p>
+                                                                @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "staticEmail", type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
+                                                                <span>
+                                                                    <!--CC icon-->
+                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-email" />
+                                                                </span>
+                                                                <script type="text/javascript">
+                                                                    let cciconemail = document.getElementById('ccicon-email');
+                                                                    var formdisplayemail = document.getElementById('staticEmail');
+
+
+                                                                    cciconemail.style.display = "none";
+
+                                                                    formdisplayemail.addEventListener("mouseenter", function () {
+                                                                        cciconemail.style.display = "block";
+                                                                        formdisplayemail.classList.add("hover");
+                                                                    });
+
+                                                                    formdisplayemail.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === cciconemail || cciconemail.contains(event.relatedTarget);
+
+                                                                        if (!isTargetIcon) {
+                                                                            cciconemail.style.display = "none";
+                                                                        }
+                                                                    });
+
+                                                                    cciconemail.addEventListener("mouseenter", function () {
+                                                                        formdisplay.classList.add("hover");
+                                                                    });
+
+                                                                    cciconemail.addEventListener("mousedown", function (event) {
+                                                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                                                        toggleccEMAIL_table();
+                                                                    });
+
+                                                                    function toggleccEMAIL_table() {
+                                                                        var copyTextemail = formdisplayemail
+
+                                                                        // Copy the text inside the text field
+                                                                        navigator.clipboard.writeText(copyTextemail.value);
+
+                                                                        // Alert the copied text
+                                                                        alert("Copied the text: " + copyTextemail.value);
+                                                                        cciconemail.style.display = "none";
+                                                                    }
+                                                                </script>
+                                                            </div>
+                                                        </div>
+                                                        <!--PASSWORD INPUT-->
+                                                        <div class="mt-3 tbl-details">
+                                                            <div class="form-floating table-form">
+                                                                <p style="margin-bottom:-5px;">Password</p>
+                                                                @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
+                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "staticPassword", type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
+                                                                <span>
+                                                                    <!--Eye and CC icon-->
+                                                                    <img src="~/Elements/eye-white.svg" id="eyeicon-tbl-password" />
+                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-password" />
+                                                                </span>
+                                                                <!--LUIS-->
+                                                                <!--needs a way to call unique IDs depending on what list is active (for both eyeicontblpassword and staticPassword)-->
+                                                                <!--rn the ids only applies to the first list-->
+                                                                <script type="text/javascript">
+                                                                    let eyeicontblpassword = document.getElementById('eyeicon-tbl-password');
+                                                                    let cciconpassword = document.getElementById('ccicon-password');
+                                                                    var formdisplaypassword = document.getElementById('staticPassword');
+
+
+                                                                    eyeicontblpassword.style.display = "block";
+                                                                    cciconpassword.style.display = "none";
+
+                                                                    formdisplaypassword.addEventListener("mouseenter", function () {
+                                                                        cciconpassword.style.display = "block";
+                                                                        formdisplaypassword.classList.add("hover");
+                                                                    });
+
+                                                                    formdisplaypassword.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === cciconpassword || cciconpassword.contains(event.relatedTarget);
+
+                                                                        if (!isTargetIcon) {
+                                                                            cciconpassword.style.display = "none";
+                                                                        }
+                                                                    });
+
+                                                                    eyeicontblpassword.addEventListener("mouseenter", function () {
+                                                                        formdisplaypassword.classList.add("hover");
+                                                                    });
+
+                                                                    cciconpassword.addEventListener("mouseenter", function () {
+                                                                        formdisplaypassword.classList.add("hover");
+                                                                    });
+
+                                                                    eyeicontblpassword.addEventListener("mousedown", function (event) {
+                                                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                                                        toggleshowPW_table();
+                                                                    });
+
+                                                                    cciconpassword.addEventListener("mousedown", function (event) {
+                                                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                                                        toggleccPW_table();
+                                                                    });
+
+                                                                    function toggleccPW_table() {
+                                                                        var copyText = formdisplaypassword
+
+                                                                        // Copy the text inside the text field
+                                                                        navigator.clipboard.writeText(copyText.value);
+
+                                                                        // Alert the copied text
+                                                                        alert("Copied the text: " + copyText.value);
+                                                                        cciconpassword.style.display = "none";
+                                                                    }
+
+                                                                    function toggleshowPW_table() {
+                                                                        var show = document.getElementById('staticPassword');
+                                                                        if (show.type == 'password') {
+                                                                            //THIS IS FOR THE EDIT BUTTON
+                                                                            //document.getElementById('staticPassword').readOnly=false;
+                                                                            //document.getElementById('staticPassword').className = "form-control";
+                                                                            show.type = 'text';
+                                                                            eyeicontblpassword.src = "/Elements/eye-slash-white.svg"
+                                                                        }
+                                                                        else {
+                                                                            show.type = 'password'
+                                                                            //THIS IS FOR THE EDIT BUTTON
+                                                                            //document.getElementById('staticPassword').readOnly=true;
+                                                                            //document.getElementById('staticPassword').className = "form-control-plaintext";
+                                                                            eyeicontblpassword.src = "/Elements/eye-white.svg"
+
+                                                                        }
+                                                                        show.focus();
+                                                                    }
+                                                                </script>
+
+                                                            </div>
+                                                        </div>
+                                                        <!--URL INPUT-->
+                                                        <div class="mt-3 tbl-details">
+                                                            <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">URL</p>
-                                                                    @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
-                                                                    @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "staticURL", type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
-                                                                </div>
+                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "staticURL", type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
+                                                                <span>
+                                                                    <!--CC icon-->
+                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-URL" />
+                                                                </span>
+                                                                <script type="text/javascript">
+                                                                    let cciconURL = document.getElementById('ccicon-URL');
+                                                                    var formdisplayURL = document.getElementById('staticURL');
+
+
+                                                                    cciconURL.style.display = "none";
+
+                                                                    formdisplayURL.addEventListener("mouseenter", function () {
+                                                                        cciconURL.style.display = "block";
+                                                                        formdisplayURL.classList.add("hover");
+                                                                    });
+
+                                                                    formdisplayURL.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === cciconURL || cciconURL.contains(event.relatedTarget);
+
+                                                                        if (!isTargetIcon) {
+                                                                            cciconURL.style.display = "none";
+                                                                        }
+                                                                    });
+
+                                                                    cciconURL.addEventListener("mouseenter", function () {
+                                                                        formdisplay.classList.add("hover");
+                                                                    });
+
+                                                                    cciconURL.addEventListener("mousedown", function (event) {
+                                                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                                                        toggleccURL_table();
+                                                                    });
+
+                                                                    function toggleccURL_table() {
+                                                                        var copyTextemail = formdisplayURL
+
+                                                                        // Copy the text inside the text field
+                                                                        navigator.clipboard.writeText(copyTextemail.value);
+
+                                                                        // Alert the copied text
+                                                                        alert("Copied the text: " + copyTextemail.value);
+                                                                        cciconURL.style.display = "none";
+                                                                    }
+                                                                </script>
                                                             </div>
-                                                            <!--NOTES INPUT-->
-                                                            <!--LUIS-->
-                                                            <div class="mt-3 tbl-details">
-                                                                <div class="form-floating table-form">
-                                                                    <p style="margin-bottom:-5px;">Notes</p>
-                                                                    <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext" id="staticNotes">@PassEntry.PR_NOTES</textarea>
-                                                                    <!--For some reason the html helper doesn't display the "Value = @@PassEntry.PR_NOTES"-->
-                                                                    @*@Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext", id = "staticNotes", @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })*@
-                                                                </div>
+                                                        </div>
+                                                        <!--NOTES INPUT-->
+                                                        <!--LUIS-->
+                                                        <div class="mt-3 tbl-details">
+                                                            <div class="form-floating table-form">
+                                                                <p style="margin-bottom:-5px;">Notes</p>
+                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext" id="staticNotes">@PassEntry.PR_NOTES</textarea>
+                                                                <!--For some reason the html helper doesn't display the "Value = @@PassEntry.PR_NOTES"-->
+                                                                @*@Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext", id = "staticNotes", @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })*@
+                                                                <span>
+                                                                    <!--CC icon-->
+                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-notes" />
+                                                                </span>
+                                                                <script type="text/javascript">
+                                                                    let cciconnotes = document.getElementById('ccicon-notes');
+                                                                    var formdisplaynotes = document.getElementById('staticNotes');
+
+
+                                                                    cciconnotes.style.display = "none";
+
+                                                                    formdisplaynotes.addEventListener("mouseenter", function () {
+                                                                        cciconnotes.style.display = "block";
+                                                                        formdisplaynotes.classList.add("hover");
+                                                                    });
+
+                                                                    formdisplaynotes.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === cciconnotes || cciconnotes.contains(event.relatedTarget);
+
+                                                                        if (!isTargetIcon) {
+                                                                            cciconnotes.style.display = "none";
+                                                                        }
+                                                                    });
+
+                                                                    cciconnotes.addEventListener("mouseenter", function () {
+                                                                        formdisplay.classList.add("hover");
+                                                                    });
+
+                                                                    cciconnotes.addEventListener("mousedown", function (event) {
+                                                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                                                        toggleccNOTES_table();
+                                                                    });
+
+                                                                    function toggleccNOTES_table() {
+                                                                        var copyTextemail = formdisplaynotes
+
+                                                                        // Copy the text inside the text field
+                                                                        navigator.clipboard.writeText(copyTextemail.value);
+
+                                                                        // Alert the copied text
+                                                                        alert("Copied the text: " + copyTextemail.value);
+                                                                        cciconnotes.style.display = "none";
+                                                                    }
+                                                                </script>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -349,23 +514,31 @@
                                         </label>
 
                                         <a href="#" class="menu-item red"> <i class="fa fa-trash"></i> </a>
-                                        <a href="#" class="menu-item green" id="pen-icon"> <i class="fa fa-pen"></i> </a>
+                                        <a class="menu-item green" id="edit-icon"> <i class="fa fa-pen"></i> </a>
                                     </nav>
-                                </div>
+                                    <!--still fixing-->
+                                    @*<script type="text/javascript">
+                                        let editicon = document.getElementById('edit-icon');
 
+                                        editicon.addEventListener("mousedown", function (event) {
+                                            toggleedit();
+                                        });
+
+                                        function toggleedit() {
+                                            var show = document.getElementById('staticUsername');
+                                            //THIS IS FOR THE EDIT BUTTON
+                                            document.getElementById('staticPassword').readOnly = false;
+                                            document.getElementById('staticPassword').className = "form-control";
+                                            show.focus();
+                                        }
+                                    </script>*@
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <footer class="p-5 text-white footer mt-auto">
-            <div class="col-xl-3 col-lg-12 text-xl-start">
-                <p class="lead">NetRunner Systems &copy;2023</p>
-            </div>
-        </footer>
-
     </div>
 </body>
 </html>
