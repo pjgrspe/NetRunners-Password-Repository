@@ -107,5 +107,37 @@ namespace PasswordRepository.Controllers
             ViewBag.ErrorMessage = "Invalid";
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult DeleteEntry(int passwordID)
+        {
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                var Password = entities.TBL_PASSWORD_REPO.Where(x => x.PID == passwordID).FirstOrDefault();
+
+                if (Password == null)
+                {
+                    return Json(new { msg = "Student not found" });
+                }
+
+                Password.isTrashed = true;
+                
+
+
+                if (entities.SaveChanges() >= 1)
+                {
+                    return Json(new { msg = "Entry deleted" });
+                }
+                else
+                {
+                    return Json(new { msg = "An error occurred(Controller)" });
+                }
+
+            }
+        }
+
+
+
     }
 }

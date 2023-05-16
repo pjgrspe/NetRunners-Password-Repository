@@ -20,7 +20,7 @@ namespace PasswordRepository.Controllers
         {
             if (Session["ID"] != null)
             {
-                return RedirectToAction("Test", "Dashboard");
+                return RedirectToAction("Index", "Dashboard");
             }
             return View();
         }
@@ -54,8 +54,8 @@ namespace PasswordRepository.Controllers
                             Session.Timeout = 1440;
 
                             Response.Cookies.Add(httpCookie);
-                            //return RedirectToAction("Index", "Dashboard");  //For Prod
-                            return RedirectToAction("Test", "Dashboard");  //For Test
+                            return RedirectToAction("Index", "Dashboard");  //For Prod
+                            //return RedirectToAction("Test", "Dashboard");  //For Test
                             //return RedirectToAction("FormTest", "Dashboard"); //form test
                         }
                         else
