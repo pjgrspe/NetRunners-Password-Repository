@@ -22,7 +22,23 @@ namespace PasswordRepository.Controllers
             {
                 return RedirectToAction("Index", "Dashboard");
             }
-            return View();
+
+
+            //using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            //{
+            //    var startDate = DateTime.Now;
+            //    var eData = entities.TBL_PASSWORD_REPO.Where(x => x.EXPIRY_DATE >= startDate).ToList();
+
+            //    foreach (var PassEntry in eData)
+            //    {
+            //        PassEntry.isActive = false;
+            //        entities.SaveChanges();
+            //    }
+                
+
+
+                return View();
+            
         }
 
         [HttpPost]
