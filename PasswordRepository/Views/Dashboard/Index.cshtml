@@ -8,28 +8,9 @@
 
 <html lang="en">
 <head>
-    @*<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">*@
     <title>Home</title>
     <link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
     <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
-    <scripts 
-    @*@Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/Custom/dashboard.js" type="text/javascript"></script>*@
-    <!--CSS-->
-    <!--<link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
-    <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
-    <link href="~/Style/StyleSheetGlobal.css" rel="stylesheet">
-    <link href="~/Content/Site.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/66285578cf.js" crossorigin="anonymous"></script>-->
-    <!--Fonts-->
-    <!--<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">-->
 </head>
 <body>
     <!--Navbar-->
@@ -201,11 +182,11 @@
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">Username</p>
                                                                 @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME"> id = "Username-"+PassEntry.PID.ToString()      *@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-"+PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })
                                                                 <span>
                                                                     <!--CC icon-->
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconUsername-@PassEntry.PID.ToString()" />
-                                                                </span>      
+                                                                </span>
                                                                 <script type="text/javascript">
                                                                 // Wrap your code inside a function
                                                                 function initializeCCIcon() {
@@ -214,7 +195,7 @@
 
                                                                     // Make sure the elements are not null before accessing their properties
                                                                     if (ccicon && formdisplay) {
-                                                         
+
                                                                         ccicon.style.display = "none";
 
                                                                         formdisplay.addEventListener("mouseenter", function () {
@@ -255,46 +236,6 @@
                                                                   // Call the function after the document has finished loading
                                                                 window.addEventListener('load', initializeCCIcon);
                                                                 </script>
-                                                                @*<script type="text/javascript">
-                                                                    cciconusername = document.getElementById('cciconUsername-@PassEntry.PID');
-                                                                    var formdisplayusername = document.getElementById('Username-@PassEntry.PID');
-
-                                                                    //initial display of cc icon
-                                                                    cciconusername.style.display = "none";
-
-                                                                    formdisplayusername.addEventListener("mouseenter", function () {
-                                                                        cciconusername.style.display = "block";
-                                                                        formdisplayusername.classList.add("hover");
-                                                                    });
-
-                                                                    formdisplayusername.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === cciconusername || cciconusername.contains(event.relatedTarget);
-
-                                                                        if (!isTargetIcon) {
-                                                                            cciconusername.style.display = "none";
-                                                                        }
-                                                                    });
-
-                                                                    cciconusername.addEventListener("mouseenter", function () {
-                                                                        formdisplayusername.classList.add("hover");
-                                                                    });
-
-                                                                    cciconusername.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        togglecc_table();
-                                                                    });
-
-                                                                    function togglecc_table() {
-                                                                        var copyText = formdisplayusername
-
-                                                                        // Copy the text inside the text field
-                                                                        navigator.clipboard.writeText(copyText.value);
-
-                                                                        // Alert the copied text
-                                                                        alert("Copied the text: " + copyText.value);
-                                                                        cciconusername.style.display = "none";
-                                                                    }
-                                                                </script>*@
                                                             </div>
                                                         </div>
                                                         <!--EMAIL INPUT-->
@@ -302,7 +243,7 @@
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">Email</p>
                                                                 @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-"+PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
                                                                 <span>
                                                                     <!--CC icon-->
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconEmail-@PassEntry.PID" />
@@ -363,7 +304,7 @@
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">Password</p>
                                                                 @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
-                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-"+PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
+                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-" + PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
                                                                 <span>
                                                                     <!--Eye and CC icon-->
                                                                     <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
@@ -456,7 +397,7 @@
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">URL</p>
                                                                 @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-"+PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
                                                                 <span>
                                                                     <!--CC icon-->
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconURL-@PassEntry.PID" />
@@ -517,7 +458,7 @@
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">Notes</p>
-                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id = Notes-@PassEntry.PID.ToString()>@PassEntry.PR_NOTES</textarea>
+                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString()>@PassEntry.PR_NOTES</textarea>
                                                                 <!--For some reason the html helper doesn't display the "Value = @@PassEntry.PR_NOTES"-->
                                                                 @*@Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext", id = "staticNotes", @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })*@
                                                                 <span>
@@ -584,35 +525,159 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <nav class="menu">
+                                                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+                                                <label class="menu-open-button" for="menu-open">
+                                                    <span class="lines line-1"></span>
+                                                    <span class="lines line-2"></span>
+                                                    <span class="lines line-3"></span>
+                                                </label>
+                                                <!--LUIS-->
+                                                <a class="menu-item red" onclick=""> <i class="fa fa-trash"></i> </a>
+                                                <a class="menu-item green" onclick=""> <i class="fa fa-pen"></i> </a>
+                                            </nav>
+                                            <!--JASON-->
+                                            <script type="text/javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </script>
+
+
+                                            <!--LUIS-->
+                                            <script type="text/javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </script>
                                         }
                                     }
-                                    <nav class="menu">
-                                        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-                                        <label class="menu-open-button" for="menu-open">
-                                            <span class="lines line-1"></span>
-                                            <span class="lines line-2"></span>
-                                            <span class="lines line-3"></span>
-                                        </label>
-                                        <!--LUIS-->
-                                        <a class="menu-item red" onclick=""> <i class="fa fa-trash"></i> </a>
-                                        <a class="menu-item green" id="edit-icon"> <i class="fa fa-pen"></i> </a>
-                                    </nav>
-                                    <!--still fixing-->
-                                    @*<script type="text/javascript">
-                                        let editicon = document.getelementbyid('edit-icon');
-
-                                        editicon.addeventlistener("mousedown", function (event) {
-                                            toggleedit();
-                                        });
-
-                                        function toggleedit() {
-                                            var show = document.getelementbyid('staticusername');
-                                            //this is for the edit button
-                                            document.getelementbyid('username-@passentry.pid.tostring()').readonly = false;
-                                            document.getelementbyid('username-@passentry.pid.tostring()').classname = "form-control";
-                                            show.focus();
-                                        }
-                                    </script>*@
                                 </div>
                             </div>
                         </div>
