@@ -22,14 +22,26 @@ namespace PasswordRepository.Controllers
 
             using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
             {
+                //For table display
                 var data = entities.TBL_PASSWORD_REPO.ToList();
-
                 var PasswordModel = new PasswordEntryModel()
                 {
                     Passwords = data,
                     Password = new TBL_PASSWORD_REPO()
                 };
 
+                //For deleting due trash
+                var startDate = DateTime.Now;
+                var currentUser = (int)Session["ID"];
+                var eData = entities.TBL_PASSWORD_REPO.Where(x => x.EXPIRY_DATE >= startDate && x.UID.Equals(currentUser)).ToList();
+
+                foreach (var PassEntry in eData)
+                {
+                    PassEntry.isActive = false;
+                    entities.SaveChanges();
+                }
+
+                //returns model
                 return View(PasswordModel);
             }
         }
@@ -100,15 +112,13 @@ namespace PasswordRepository.Controllers
                     entities.TBL_PASSWORD_REPO.Add(newUData);
                     entities.SaveChanges();
                 }
-                return RedirectToAction("Test", "Dashboard");
+                return RedirectToAction("Index", "Dashboard");
                 //return RedirectToAction("FormTest", "Dashboard");
             }
 
             ViewBag.ErrorMessage = "Invalid";
             return View();
         }
-
-
         [HttpPost]
         public ActionResult DeleteEntry(int passwordID)
         {
@@ -118,7 +128,7 @@ namespace PasswordRepository.Controllers
 
                 if (Password == null)
                 {
-                    return Json(new { msg = "Student not found" });
+                    return Json(new { msg = "Entry not found (how???)" });
                 }
 
                 Password.isTrashed = true;
@@ -138,7 +148,36 @@ namespace PasswordRepository.Controllers
 
             }
         }
+        [HttpPost]
+        public ActionResult UpdateEntry(int passwordID, string passwordTitle, string passwordEmail, string passwordUname, string passwordPassword, string passwordUrl, string passwordNotes)
+        {
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                var Password = entities.TBL_PASSWORD_REPO.Where(x => x.PID == passwordID).FirstOrDefault();
 
+                if (Password == null)
+                {
+                    return Json(new { msg = "Entry not found (what?? how???)" });
+                }
+
+                Password.PR_TITLE = passwordTitle;
+                Password.PR_EMAIL = passwordEmail; 
+                Password.PR_USERNAME = passwordUname;
+                Password.PR_PASSWORD = passwordPassword;    
+                Password.PR_URL = passwordUrl;
+                Password.PR_NOTES = passwordNotes;
+
+                if (entities.SaveChanges() >= 1)
+                {
+                    return Json(new { msg = "Entry deleted" });
+                }
+                else
+                {
+                    return Json(new { msg = "An error occurred(Controller)" });
+                }
+
+            }
+        }
 
 
     }
