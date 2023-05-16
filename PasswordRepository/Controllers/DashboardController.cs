@@ -94,7 +94,7 @@ namespace PasswordRepository.Controllers
                         isTrashed = false,
                         isActive = true,
                         ENTRY_CREATED = DateTime.Now,
-                        ENTRY_DELETED = DateTime.Now.AddMonths(3).Date,
+                        
                         freq = 0
                     };
                     entities.TBL_PASSWORD_REPO.Add(newUData);
@@ -122,6 +122,8 @@ namespace PasswordRepository.Controllers
                 }
 
                 Password.isTrashed = true;
+                Password.ENTRY_DELETED = DateTime.Now;
+                Password.EXPIRY_DATE = DateTime.Now.AddMonths(3);
                 
 
 
