@@ -526,83 +526,35 @@
                                                 </div>
                                             </div>
                                             <nav class="menu">
-                                                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-                                                <label class="menu-open-button" for="menu-open">
+                                                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID" />
+                                                <label class="menu-open-button" for="menu-open-@PassEntry.PID">
                                                     <span class="lines line-1"></span>
                                                     <span class="lines line-2"></span>
                                                     <span class="lines line-3"></span>
                                                 </label>
                                                 <!--LUIS-->
                                                 <a class="menu-item red" onclick="deleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
-                                                <a class="menu-item green" onclick=""> <i class="fa fa-pen"></i> </a>
+                                                <a class="menu-item green" onclick="toggleEdit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
                                             </nav>
                                             <!--JASON-->
                                             <script type="text/javascript">
+                                                function toggleshowPW_table() {
+                                                    var show = document.getElementById('Username-@PassEntry.PID.ToString()');
+                                                    if (show.classList == 'form-control-plaintext') {
+                                                        //THIS IS FOR THE EDIT BUTTON
+                                                        document.getElementById('staticPassword').readOnly=false;
+                                                        document.getElementById('staticPassword').className = "form-control";
+                                                    }
+                                                    else {
+                                                        show.type = 'password'
+                                                        //THIS IS FOR THE EDIT BUTTON
+                                                        document.getElementById('staticPassword').readOnly=true;
+                                                        document.getElementById('staticPassword').className = "form-control-plaintext";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                                    }
+                                                    show.focus();
+                                                }
                                             </script>
-
 
                                             <!--LUIS-->
                                             <script type="text/javascript">
