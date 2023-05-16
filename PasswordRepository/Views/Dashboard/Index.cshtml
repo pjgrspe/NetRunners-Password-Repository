@@ -200,17 +200,66 @@
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">Username</p>
-                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "staticUsername", type = "text", @readonly = "readonly", Value = @PassEntry.PR_USERNAME, style = "width:100%" })
+                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME"> id = "Username-"+PassEntry.PID.ToString()      *@
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-"+PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })
                                                                 <span>
                                                                     <!--CC icon-->
-                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-username" />
-                                                                </span>
+                                                                    <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconUsername-@PassEntry.PID.ToString()" />
+                                                                </span>      
                                                                 <script type="text/javascript">
-                                                                    let cciconusername = document.getElementById('ccicon-username');
-                                                                    var formdisplayusername = document.getElementById('staticUsername');
+                                                                // Wrap your code inside a function
+                                                                function initializeCCIcon() {
+                                                                    let ccicon = document.getElementById('cciconUsername-@PassEntry.PID.ToString()');
+                                                                    var formdisplay = document.getElementById('Username-@PassEntry.PID.ToString()');
 
+                                                                    // Make sure the elements are not null before accessing their properties
+                                                                    if (ccicon && formdisplay) {
+                                                         
+                                                                        ccicon.style.display = "none";
 
+                                                                        formdisplay.addEventListener("mouseenter", function () {
+                                                                            ccicon.style.display = "block";
+                                                                            formdisplay.classlist.add("hover");
+                                                                            //ccicon.classList.add = "hidden";
+
+                                                                        });
+
+                                                                        formdisplay.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
+                                                                            if (!isTargetIcon) {
+                                                                                ccicon.style.display = "none";
+                                                                            }
+                                                                        });
+
+                                                                        ccicon.addEventListener("mouseenter", function () {
+                                                                            formdisplay.classList.add("hover");
+                                                                        });
+
+                                                                        ccicon.addEventListener("mousedown", function (event) {
+                                                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                                                            togglecc_table();
+                                                                        });
+
+                                                                         function togglecc_table() {
+                                                                            var copyText = formdisplay
+
+                                                                            // Copy the text inside the text field
+                                                                            navigator.clipboard.writeText(copyText.value);
+
+                                                                            // Alert the copied text
+                                                                            alert("Copied the text: " + copyText.value);
+                                                                            ccicon.style.display = "none";
+                                                                        }
+                                                                    }
+                                                                }
+                                                                  // Call the function after the document has finished loading
+                                                                window.addEventListener('load', initializeCCIcon);
+                                                                </script>
+                                                                @*<script type="text/javascript">
+                                                                    cciconusername = document.getElementById('cciconUsername-@PassEntry.PID');
+                                                                    var formdisplayusername = document.getElementById('Username-@PassEntry.PID');
+
+                                                                    //initial display of cc icon
                                                                     cciconusername.style.display = "none";
 
                                                                     formdisplayusername.addEventListener("mouseenter", function () {
@@ -232,10 +281,10 @@
 
                                                                     cciconusername.addEventListener("mousedown", function (event) {
                                                                         event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        toggleccUN_table();
+                                                                        togglecc_table();
                                                                     });
 
-                                                                    function toggleccUN_table() {
+                                                                    function togglecc_table() {
                                                                         var copyText = formdisplayusername
 
                                                                         // Copy the text inside the text field
@@ -245,7 +294,7 @@
                                                                         alert("Copied the text: " + copyText.value);
                                                                         cciconusername.style.display = "none";
                                                                     }
-                                                                </script>
+                                                                </script>*@
                                                             </div>
                                                         </div>
                                                         <!--EMAIL INPUT-->
@@ -253,50 +302,59 @@
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">Email</p>
                                                                 @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "staticEmail", type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-"+PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
                                                                 <span>
                                                                     <!--CC icon-->
-                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-email" />
+                                                                    <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconEmail-@PassEntry.PID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                    let cciconemail = document.getElementById('ccicon-email');
-                                                                    var formdisplayemail = document.getElementById('staticEmail');
+                                                                // Wrap your code inside a function
+                                                                function initializeCCIcon() {
+                                                                    let ccicon = document.getElementById('cciconEmail-@PassEntry.PID.ToString()');
+                                                                    var formdisplay = document.getElementById('Email-@PassEntry.PID.ToString()');
 
+                                                                    // Make sure the elements are not null before accessing their properties
+                                                                    if (ccicon && formdisplay) {
 
-                                                                    cciconemail.style.display = "none";
+                                                                        ccicon.style.display = "none";
 
-                                                                    formdisplayemail.addEventListener("mouseenter", function () {
-                                                                        cciconemail.style.display = "block";
-                                                                        formdisplayemail.classList.add("hover");
-                                                                    });
+                                                                        formdisplay.addEventListener("mouseenter", function () {
+                                                                            ccicon.style.display = "block";
+                                                                            formdisplay.classlist.add("hover");
+                                                                            //ccicon.classList.add = "hidden";
 
-                                                                    formdisplayemail.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === cciconemail || cciconemail.contains(event.relatedTarget);
+                                                                        });
 
-                                                                        if (!isTargetIcon) {
-                                                                            cciconemail.style.display = "none";
+                                                                        formdisplay.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
+                                                                            if (!isTargetIcon) {
+                                                                                ccicon.style.display = "none";
+                                                                            }
+                                                                        });
+
+                                                                        ccicon.addEventListener("mouseenter", function () {
+                                                                            formdisplay.classList.add("hover");
+                                                                        });
+
+                                                                        ccicon.addEventListener("mousedown", function (event) {
+                                                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                                                            togglecc_table();
+                                                                        });
+
+                                                                         function togglecc_table() {
+                                                                            var copyText = formdisplay
+
+                                                                            // Copy the text inside the text field
+                                                                            navigator.clipboard.writeText(copyText.value);
+
+                                                                            // Alert the copied text
+                                                                            alert("Copied the text: " + copyText.value);
+                                                                            ccicon.style.display = "none";
                                                                         }
-                                                                    });
-
-                                                                    cciconemail.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    cciconemail.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        toggleccEMAIL_table();
-                                                                    });
-
-                                                                    function toggleccEMAIL_table() {
-                                                                        var copyTextemail = formdisplayemail
-
-                                                                        // Copy the text inside the text field
-                                                                        navigator.clipboard.writeText(copyTextemail.value);
-
-                                                                        // Alert the copied text
-                                                                        alert("Copied the text: " + copyTextemail.value);
-                                                                        cciconemail.style.display = "none";
                                                                     }
+                                                                }
+                                                                  // Call the function after the document has finished loading
+                                                                  window.addEventListener('load', initializeCCIcon);
                                                                 </script>
                                                             </div>
                                                         </div>
@@ -305,87 +363,92 @@
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">Password</p>
                                                                 @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
-                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "staticPassword", type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
+                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-"+PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
                                                                 <span>
                                                                     <!--Eye and CC icon-->
-                                                                    <img src="~/Elements/eye-white.svg" id="eyeicon-tbl-password" />
-                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-password" />
+                                                                    <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
+                                                                    <img src="~/Elements/copytoclipboard.svg" class="cciconpassword-@PassEntry.PID" id="cciconPassword-@PassEntry.PID" />
                                                                 </span>
-                                                                <!--LUIS-->
-                                                                <!--needs a way to call unique IDs depending on what list is active (for both eyeicontblpassword and staticPassword)-->
-                                                                <!--rn the ids only applies to the first list-->
                                                                 <script type="text/javascript">
-                                                                    let eyeicontblpassword = document.getElementById('eyeicon-tbl-password');
-                                                                    let cciconpassword = document.getElementById('ccicon-password');
-                                                                    var formdisplaypassword = document.getElementById('staticPassword');
+                                                                // Wrap your code inside a function
+                                                                function initializeCCIcon() {
+                                                                    let eyeicontbl = document.getElementById('eyeiconPassword-@PassEntry.PID.ToString()');
+                                                                    let ccicon = document.getElementById('cciconPassword-@PassEntry.PID.ToString()');
+                                                                    var formdisplay = document.getElementById('Password-@PassEntry.PID.ToString()');
 
+                                                                    // Make sure the elements are not null before accessing their properties
+                                                                    if (ccicon && formdisplay && eyeicontbl) {
 
-                                                                    eyeicontblpassword.style.display = "block";
-                                                                    cciconpassword.style.display = "none";
+                                                                    eyeicontbl.style.display = "block";
+                                                                    ccicon.style.display = "none";
 
-                                                                    formdisplaypassword.addEventListener("mouseenter", function () {
-                                                                        cciconpassword.style.display = "block";
-                                                                        formdisplaypassword.classList.add("hover");
+                                                                    formdisplay.addEventListener("mouseenter", function () {
+                                                                        ccicon.style.display = "block";
+                                                                        formdisplay.classList.add("hover");
                                                                     });
 
-                                                                    formdisplaypassword.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === cciconpassword || cciconpassword.contains(event.relatedTarget);
+                                                                    formdisplay.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
 
                                                                         if (!isTargetIcon) {
-                                                                            cciconpassword.style.display = "none";
+                                                                            ccicon.style.display = "none";
                                                                         }
                                                                     });
 
-                                                                    eyeicontblpassword.addEventListener("mouseenter", function () {
-                                                                        formdisplaypassword.classList.add("hover");
+                                                                    eyeicontbl.addEventListener("mouseenter", function () {
+                                                                        formdisplay.classList.add("hover");
                                                                     });
 
-                                                                    cciconpassword.addEventListener("mouseenter", function () {
-                                                                        formdisplaypassword.classList.add("hover");
+                                                                    ccicon.addEventListener("mouseenter", function () {
+                                                                        formdisplay.classList.add("hover");
                                                                     });
 
-                                                                    eyeicontblpassword.addEventListener("mousedown", function (event) {
+                                                                    eyeicontbl.addEventListener("mousedown", function (event) {
                                                                         event.preventDefault(); // prevent default action to avoid losing focus
                                                                         toggleshowPW_table();
                                                                     });
 
-                                                                    cciconpassword.addEventListener("mousedown", function (event) {
+                                                                    ccicon.addEventListener("mousedown", function (event) {
                                                                         event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        toggleccPW_table();
+                                                                        togglecc_table();
                                                                     });
 
-                                                                    function toggleccPW_table() {
-                                                                        var copyText = formdisplaypassword
+                                                                    function togglecc_table() {
+                                                                        var copyText = formdisplay
 
                                                                         // Copy the text inside the text field
                                                                         navigator.clipboard.writeText(copyText.value);
 
                                                                         // Alert the copied text
                                                                         alert("Copied the text: " + copyText.value);
-                                                                        cciconpassword.style.display = "none";
+                                                                        ccicon.style.display = "none";
                                                                     }
 
                                                                     function toggleshowPW_table() {
-                                                                        var show = document.getElementById('staticPassword');
+                                                                        var show = document.getElementById('Password-@PassEntry.PID.ToString()');
                                                                         if (show.type == 'password') {
                                                                             //THIS IS FOR THE EDIT BUTTON
                                                                             //document.getElementById('staticPassword').readOnly=false;
                                                                             //document.getElementById('staticPassword').className = "form-control";
                                                                             show.type = 'text';
-                                                                            eyeicontblpassword.src = "/Elements/eye-slash-white.svg"
+                                                                            eyeicontbl.src = "/Elements/eye-slash-white.svg"
                                                                         }
                                                                         else {
                                                                             show.type = 'password'
                                                                             //THIS IS FOR THE EDIT BUTTON
                                                                             //document.getElementById('staticPassword').readOnly=true;
                                                                             //document.getElementById('staticPassword').className = "form-control-plaintext";
-                                                                            eyeicontblpassword.src = "/Elements/eye-white.svg"
+                                                                            eyeicontbl.src = "/Elements/eye-white.svg"
 
                                                                         }
                                                                         show.focus();
                                                                     }
-                                                                </script>
+                                                                    }
 
+                                                                }
+                                                                  // Call the function after the document has finished loading
+                                                                  window.addEventListener('load', initializeCCIcon);
+                                                                </script>
                                                             </div>
                                                         </div>
                                                         <!--URL INPUT-->
@@ -393,50 +456,59 @@
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">URL</p>
                                                                 @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "staticURL", type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
+                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-"+PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
                                                                 <span>
                                                                     <!--CC icon-->
-                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-URL" />
+                                                                    <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconURL-@PassEntry.PID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                    let cciconURL = document.getElementById('ccicon-URL');
-                                                                    var formdisplayURL = document.getElementById('staticURL');
+                                                                // Wrap your code inside a function
+                                                                function initializeCCIcon() {
+                                                                    let ccicon = document.getElementById('cciconURL-@PassEntry.PID.ToString()');
+                                                                    var formdisplay = document.getElementById('URL-@PassEntry.PID.ToString()');
 
+                                                                    // Make sure the elements are not null before accessing their properties
+                                                                    if (ccicon && formdisplay) {
 
-                                                                    cciconURL.style.display = "none";
+                                                                        ccicon.style.display = "none";
 
-                                                                    formdisplayURL.addEventListener("mouseenter", function () {
-                                                                        cciconURL.style.display = "block";
-                                                                        formdisplayURL.classList.add("hover");
-                                                                    });
+                                                                        formdisplay.addEventListener("mouseenter", function () {
+                                                                            ccicon.style.display = "block";
+                                                                            formdisplay.classlist.add("hover");
+                                                                            //ccicon.classList.add = "hidden";
 
-                                                                    formdisplayURL.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === cciconURL || cciconURL.contains(event.relatedTarget);
+                                                                        });
 
-                                                                        if (!isTargetIcon) {
-                                                                            cciconURL.style.display = "none";
+                                                                        formdisplay.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
+                                                                            if (!isTargetIcon) {
+                                                                                ccicon.style.display = "none";
+                                                                            }
+                                                                        });
+
+                                                                        ccicon.addEventListener("mouseenter", function () {
+                                                                            formdisplay.classList.add("hover");
+                                                                        });
+
+                                                                        ccicon.addEventListener("mousedown", function (event) {
+                                                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                                                            togglecc_table();
+                                                                        });
+
+                                                                         function togglecc_table() {
+                                                                            var copyText = formdisplay
+
+                                                                            // Copy the text inside the text field
+                                                                            navigator.clipboard.writeText(copyText.value);
+
+                                                                            // Alert the copied text
+                                                                            alert("Copied the text: " + copyText.value);
+                                                                            ccicon.style.display = "none";
                                                                         }
-                                                                    });
-
-                                                                    cciconURL.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    cciconURL.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        toggleccURL_table();
-                                                                    });
-
-                                                                    function toggleccURL_table() {
-                                                                        var copyTextemail = formdisplayURL
-
-                                                                        // Copy the text inside the text field
-                                                                        navigator.clipboard.writeText(copyTextemail.value);
-
-                                                                        // Alert the copied text
-                                                                        alert("Copied the text: " + copyTextemail.value);
-                                                                        cciconURL.style.display = "none";
                                                                     }
+                                                                }
+                                                                  // Call the function after the document has finished loading
+                                                                  window.addEventListener('load', initializeCCIcon);
                                                                 </script>
                                                             </div>
                                                         </div>
@@ -445,52 +517,61 @@
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-5px;">Notes</p>
-                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext" id="staticNotes">@PassEntry.PR_NOTES</textarea>
+                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id = Notes-@PassEntry.PID.ToString()>@PassEntry.PR_NOTES</textarea>
                                                                 <!--For some reason the html helper doesn't display the "Value = @@PassEntry.PR_NOTES"-->
                                                                 @*@Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext", id = "staticNotes", @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })*@
                                                                 <span>
                                                                     <!--CC icon-->
-                                                                    <img src="~/Elements/copytoclipboard.svg" id="ccicon-notes" />
+                                                                    <img src="~/Elements/copytoclipboard.svg" class="cciconnotes-@PassEntry.PID" id="cciconNotes-@PassEntry.PID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                    let cciconnotes = document.getElementById('ccicon-notes');
-                                                                    var formdisplaynotes = document.getElementById('staticNotes');
+                                                                // Wrap your code inside a function
+                                                                function initializeCCIcon() {
+                                                                    let ccicon = document.getElementById('cciconNotes-@PassEntry.PID.ToString()');
+                                                                    var formdisplay = document.getElementById('Notes-@PassEntry.PID.ToString()');
 
+                                                                    // Make sure the elements are not null before accessing their properties
+                                                                    if (ccicon && formdisplay) {
 
-                                                                    cciconnotes.style.display = "none";
+                                                                        ccicon.style.display = "none";
 
-                                                                    formdisplaynotes.addEventListener("mouseenter", function () {
-                                                                        cciconnotes.style.display = "block";
-                                                                        formdisplaynotes.classList.add("hover");
-                                                                    });
+                                                                        formdisplay.addEventListener("mouseenter", function () {
+                                                                            ccicon.style.display = "block";
+                                                                            formdisplay.classlist.add("hover");
+                                                                            //ccicon.classList.add = "hidden";
 
-                                                                    formdisplaynotes.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === cciconnotes || cciconnotes.contains(event.relatedTarget);
+                                                                        });
 
-                                                                        if (!isTargetIcon) {
-                                                                            cciconnotes.style.display = "none";
+                                                                        formdisplay.addEventListener("mouseleave", function () {
+                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
+                                                                            if (!isTargetIcon) {
+                                                                                ccicon.style.display = "none";
+                                                                            }
+                                                                        });
+
+                                                                        ccicon.addEventListener("mouseenter", function () {
+                                                                            formdisplay.classList.add("hover");
+                                                                        });
+
+                                                                        ccicon.addEventListener("mousedown", function (event) {
+                                                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                                                            togglecc_table();
+                                                                        });
+
+                                                                         function togglecc_table() {
+                                                                            var copyText = formdisplay
+
+                                                                            // Copy the text inside the text field
+                                                                            navigator.clipboard.writeText(copyText.value);
+
+                                                                            // Alert the copied text
+                                                                            alert("Copied the text: " + copyText.value);
+                                                                            ccicon.style.display = "none";
                                                                         }
-                                                                    });
-
-                                                                    cciconnotes.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    cciconnotes.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        toggleccNOTES_table();
-                                                                    });
-
-                                                                    function toggleccNOTES_table() {
-                                                                        var copyTextemail = formdisplaynotes
-
-                                                                        // Copy the text inside the text field
-                                                                        navigator.clipboard.writeText(copyTextemail.value);
-
-                                                                        // Alert the copied text
-                                                                        alert("Copied the text: " + copyTextemail.value);
-                                                                        cciconnotes.style.display = "none";
                                                                     }
+                                                                }
+                                                                  // Call the function after the document has finished loading
+                                                                  window.addEventListener('load', initializeCCIcon);
                                                                 </script>
                                                             </div>
                                                         </div>
@@ -512,23 +593,23 @@
                                             <span class="lines line-2"></span>
                                             <span class="lines line-3"></span>
                                         </label>
-
-                                        <a href="#" class="menu-item red"> <i class="fa fa-trash"></i> </a>
+                                        <!--LUIS-->
+                                        <a class="menu-item red" onclick=""> <i class="fa fa-trash"></i> </a>
                                         <a class="menu-item green" id="edit-icon"> <i class="fa fa-pen"></i> </a>
                                     </nav>
                                     <!--still fixing-->
                                     @*<script type="text/javascript">
-                                        let editicon = document.getElementById('edit-icon');
+                                        let editicon = document.getelementbyid('edit-icon');
 
-                                        editicon.addEventListener("mousedown", function (event) {
+                                        editicon.addeventlistener("mousedown", function (event) {
                                             toggleedit();
                                         });
 
                                         function toggleedit() {
-                                            var show = document.getElementById('staticUsername');
-                                            //THIS IS FOR THE EDIT BUTTON
-                                            document.getElementById('staticPassword').readOnly = false;
-                                            document.getElementById('staticPassword').className = "form-control";
+                                            var show = document.getelementbyid('staticusername');
+                                            //this is for the edit button
+                                            document.getelementbyid('username-@passentry.pid.tostring()').readonly = false;
+                                            document.getelementbyid('username-@passentry.pid.tostring()').classname = "form-control";
                                             show.focus();
                                         }
                                     </script>*@

@@ -124,7 +124,7 @@ small{
 }
 
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 #searchicon{
@@ -310,6 +310,19 @@ h1 {
     max-width: 90%;
 }
 
+.form-control-plaintext {
+    border-bottom: 1px solid white;
+    width: 60%;
+    max-width: 90%;
+}
+
+.form-control-notes {
+    border: 1px solid white !important;
+    margin-top: 10px;
+    padding: 10px 5px;
+    box-sizing: border-box;
+}
+
 .form-control-plaintext:focus {
     box-shadow: none;
     outline: none;
@@ -376,26 +389,6 @@ h1 {
     height: 100%;
 }
 
-#eyeicon-tbl-password {
-    position: absolute;
-    right: 11%;
-    transform: translate(0, -50%);
-    top: 65%;
-    cursor: pointer;
-    width: 20px;
-    height: auto;
-}
-
-#ccicon-password {
-    position: absolute;
-    right: 10%;
-    transform: translate(-170%, -50%);
-    top: 65%;
-    cursor: pointer;
-    width: 20px;
-    height: auto;
-}
-
 #ccicon-username, #ccicon-email, #ccicon-URL {
     position: absolute;
     right: 11%;
@@ -406,15 +399,46 @@ h1 {
     height: auto;
 }
 
-#ccicon-notes {
+img[class^=ccicon-] {
     position: absolute;
     right: 11%;
     transform: translate(0, -50%);
-    top: 80%;
+    top: 65%;
     cursor: pointer;
     width: 20px;
     height: auto;
 }
+
+img[class^=cciconnotes-] {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 36%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+img[class^=cciconpassword-] {
+    position: absolute;
+    right: 10%;
+    transform: translate(-170%, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+img[class^=eyeiconpassword-] {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
 
 textarea {
     resize: none;
