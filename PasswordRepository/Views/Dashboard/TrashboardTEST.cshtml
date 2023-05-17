@@ -533,8 +533,8 @@
                                                     <span class="lines line-3"></span>
                                                 </label>
                                                 <!--LUIS-->
-                                                <a class="menu-item red" onclick="deleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
-                                                <a class="menu-item green" onclick="toggleEdit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
+                                                <a class="menu-item red" onclick="permDeleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
+                                                <a class="menu-item green" onclick="restoreEntry('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
                                             </nav>
                                             <!--JASON-->
                                             <script type="text/javascript">
@@ -556,78 +556,7 @@
                                                 }
                                             </script>
 
-                                            <!--LUIS-->
-                                            <script type="text/javascript">
 
-                                                function deleteEntry(passwordID) {
-
-                                                    if (confirm("Are you sure you want to delete this entry?")) {
-
-                                                        var data = {
-                                                            passwordID: passwordID
-                                                        }
-
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            url: "/Dashboard/DeleteEntry",
-                                                            dataType: "JSON",
-                                                            data: JSON.stringify(data),
-                                                            contentType: 'application/json; charset=utf8',
-                                                            success: function (res) {
-                                                                alert(res.msg)
-                                                                location.reload(true);
-                                                            },
-                                                            error: function () {
-                                                                alert("An error occurred (Javascript)")
-                                                            }
-                                                        })
-
-                                                    }
-
-                                                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                            </script>
                                         }
                                     }
                                 </div>
@@ -640,3 +569,62 @@
     </div>
 </body>
 </html>
+
+<!--LUIS-->
+<script type="text/javascript">
+
+    function restoreEntry(passwordID) {
+
+        if (confirm("Are you sure you want to restore this entry?")) {
+
+            var data = {
+                passwordID: passwordID
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Dashboard/RestoreEntry",
+                dataType: "JSON",
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf8',
+                success: function (res) {
+                    alert(res.msg)
+                    location.reload(true);
+                },
+                error: function () {
+                    alert("An error occurred (Javascript)")
+                }
+            })
+
+        }
+
+    }
+
+    function permDeleteEntry(passwordID) {
+
+        if (confirm("Are you sure you want to permanently delete this entry?")) {
+
+            var data = {
+                passwordID: passwordID
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Dashboard/PermDeleteEntry",
+                dataType: "JSON",
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf8',
+                success: function (res) {
+                    alert(res.msg)
+                    location.reload(true);
+                },
+                error: function () {
+                    alert("An error occurred (Javascript)")
+                }
+            })
+
+        }
+
+    }
+
+</script>
