@@ -33,7 +33,7 @@ namespace PasswordRepository.Controllers
                 //For deleting due trash
                 var startDate = DateTime.Now;
                 var currentUser = (int)Session["ID"];
-                var eData = entities.TBL_PASSWORD_REPO.Where(x => x.EXPIRY_DATE >= startDate && x.UID.Equals(currentUser)).ToList();
+                var eData = entities.TBL_PASSWORD_REPO.Where(x => x.EXPIRY_DATE <= startDate && x.UID.Equals(currentUser)).ToList();
 
                 foreach (var PassEntry in eData)
                 {
@@ -134,7 +134,8 @@ namespace PasswordRepository.Controllers
                 Password.isTrashed = true;
                 Password.ENTRY_DELETED = DateTime.Now;
                 Password.EXPIRY_DATE = DateTime.Now.AddMonths(3);
-                
+                //DEBUG CODE//Password.EXPIRY_DATE = DateTime.Now.AddSeconds(15);
+
 
 
                 if (entities.SaveChanges() >= 1)
@@ -148,6 +149,65 @@ namespace PasswordRepository.Controllers
 
             }
         }
+        [HttpPost]
+        public ActionResult RestoreEntry(int passwordID)
+        {
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                var Password = entities.TBL_PASSWORD_REPO.Where(x => x.PID == passwordID).FirstOrDefault();
+
+                if (Password == null)
+                {
+                    return Json(new { msg = "Entry not found (how???)" });
+                }
+
+                Password.isTrashed = false;
+                Password.isActive = true;
+                Password.ENTRY_DELETED = null;
+                Password.EXPIRY_DATE = null;
+
+
+
+                if (entities.SaveChanges() >= 1)
+                {
+                    return Json(new { msg = "Entry deleted" });
+                }
+                else
+                {
+                    return Json(new { msg = "An error occurred(Controller)" });
+                }
+
+            }
+        }
+        [HttpPost]
+        public ActionResult PermDeleteEntry(int passwordID)
+        {
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                var Password = entities.TBL_PASSWORD_REPO.Where(x => x.PID == passwordID).FirstOrDefault();
+
+                if (Password == null)
+                {
+                    return Json(new { msg = "Entry not found (how???)" });
+                }
+
+                Password.isActive = false;
+                Password.EXPIRY_DATE = DateTime.Now;
+
+
+
+                if (entities.SaveChanges() >= 1)
+                {
+                    return Json(new { msg = "Entry deleted" });
+                }
+                else
+                {
+                    return Json(new { msg = "An error occurred(Controller)" });
+                }
+
+            }
+        }
+
         [HttpPost]
         public ActionResult UpdateEntry(int passwordID, string passwordTitle, string passwordEmail, string passwordUname, string passwordPassword, string passwordUrl, string passwordNotes)
         {

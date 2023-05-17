@@ -38,10 +38,10 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase">
-                            
+
                             @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
                             @Session["Username"].ToString()
-                        
+
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="@Url.Action("TrashboardTEST", "Dashboard")">Trash</a></li>
@@ -168,6 +168,7 @@
                                 <div class="tab-content" id="nav-tabContent">
                                     @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(false) && x.isActive.Equals(true)))
                                         {
+                                            //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
                                             var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
                                             <!--ITEM 1 DETAILS-->
                                             <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
@@ -534,10 +535,18 @@
                                                 </label>
                                                 <!--LUIS-->
                                                 <a class="menu-item red" onclick="deleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
-                                                <a class="menu-item green" onclick="toggleEdit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
+                                                @*<a class="menu-item green" onclick="toggleEdit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>*@
+                                                <a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"> <i class="fa fa-pen"></i> </a>
                                             </nav>
-                                            <!--JASON-->
+
+
+
+
+
+
+                                           
                                             <script type="text/javascript">
+                                                /*JASON*/
                                                 function toggleshowPW_table() {
                                                     var show = document.getElementById('Username-@PassEntry.PID.ToString()');
                                                     if (show.classList == 'form-control-plaintext') {
@@ -554,38 +563,16 @@
                                                     }
                                                     show.focus();
                                                 }
+
+                                                /*Luis*/
+                                                
+
+
+
+
                                             </script>
 
-                                            <!--LUIS-->
-                                            <script type="text/javascript">
 
-                                                function deleteEntry(passwordID) {
-
-                                                    if (confirm("Are you sure you want to delete this entry?")) {
-
-                                                        var data = {
-                                                            passwordID: passwordID
-                                                        }
-
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            url: "/Dashboard/DeleteEntry",
-                                                            dataType: "JSON",
-                                                            data: JSON.stringify(data),
-                                                            contentType: 'application/json; charset=utf8',
-                                                            success: function (res) {
-                                                                alert(res.msg)
-                                                                location.reload(true);
-                                                            },
-                                                            error: function () {
-                                                                alert("An error occurred (Javascript)")
-                                                            }
-                                                        })
-
-                                                    }
-
-                                                }
-                                            </script>
                                         }
                                     }
                                 </div>
@@ -598,3 +585,152 @@
     </div>
 </body>
 </html>
+
+<!--LUIS-->
+<script type="text/javascript">
+
+    function deleteEntry(passwordID) {
+
+        if (confirm("Are you sure you want to delete this entry? = " + passwordID)) {
+
+            var data = {
+                passwordID: passwordID
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Dashboard/DeleteEntry",
+                dataType: "JSON",
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf8',
+                success: function (res) {
+                    alert(res.msg)
+                    location.reload(true);
+                },
+                error: function () {
+                    alert("An error occurred (Javascript)")
+                }
+            })
+
+        }
+
+    }
+
+    function updateEntry(passwordID, passwordIDstring) {
+
+    var pwID = passwordID;
+    var pwTitle = $('#Title-' + passwordIDstring).val();
+    var pwEmail = $('#Email-' + passwordIDstring).val();
+    var pwUname = $('#Username-' + passwordIDstring).val();
+    var pwPassword = $('#Password-' + passwordIDstring).val();
+    var pwUrl = $('#URL-' + passwordIDstring).val();
+    var pwNotes = $('#Notes' + passwordIDstring).val()
+
+
+        //DEBUG CODE//if (confirm("Are you sure you want to update this entry? = " + pwID + " // " + pwTitle + " // " + pwEmail + " // " + pwUname + " // " + pwPassword + " // " + pwUrl + " // " + pwNotes)) {
+
+        if (confirm('Are you sure you want to modify the student details?')) {
+        var data = {
+            passwordID: pwID,
+            passwordTitle: pwTitle,
+            passwordEmail: pwEmail,
+            passwordUname: pwUname,
+            passwordPassword: pwPassword,
+            passwordNotes: pwUrl,
+            passwordID: pwNotes
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/UpdateEntry",
+            dataType: "JSON",
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf8',
+            success: function (res) {
+                alert(res.msg)
+                location.reload(true);
+            },
+            error: function () {
+                alert("An error occurred")
+            }
+        })
+
+    }
+
+}
+
+    //function updateEntry(passwordID) {
+
+    //    if (confirm("Are you sure you want to delete this entry?")) {
+
+    //        var data = {
+    //            passwordID: passwordID
+    //        }
+
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/Dashboard/UpdateEntry",
+    //            dataType: "JSON",
+    //            data: JSON.stringify(data),
+    //            contentType: 'application/json; charset=utf8',
+    //            success: function (res) {
+    //                alert(res.msg)
+    //                location.reload(true);
+    //            },
+    //            error: function () {
+    //                alert("An error occurred (Javascript)")
+    //            }
+    //        })
+
+    //    }
+
+    //}
+
+
+
+    //function modifyStudentDetails() {
+
+    //    var studentName = $('#txb-student-name').val();
+    //    var studentAddress = $('#txb-student-address').val();
+    //    var studentIdNumber = $('#txb-student-id-number').val();
+    //    var studentYear = $('#txb-student-year').val();
+    //    var studentContactNumber = $('#txb-student-contact-number').val();
+    //    var studentId = $('#student-id').val()
+    //    var isActive = $('#cb-active').prop('checked');
+
+
+    //    if (confirm('Are you sure you want to modify the student details?')) {
+
+    //        var data = {
+    //            studentId: studentId,
+    //            studentName: studentName,
+    //            studentAddress: studentAddress,
+    //            studentIdNumber: studentIdNumber,
+    //            studentYearLevel: studentYear,
+    //            studentContactNumber: studentContactNumber,
+    //            isActive: isActive
+    //        }
+
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/Students/UpdateStudent",
+    //            dataType: "JSON",
+    //            data: JSON.stringify(data),
+    //            contentType: 'application/json; charset=utf8',
+    //            success: function (res) {
+    //                alert(res.msg)
+    //                location.reload(true);
+    //            },
+    //            error: function () {
+    //                alert("An error occurred")
+    //            }
+    //        })
+
+    //    }
+
+    //}
+
+
+
+
+</script>
