@@ -103,7 +103,7 @@
             event.preventDefault(); // prevent default action to avoid losing focus
             togglePWlogin();
         });
-        
+
         function togglePWlogin() {
             var show = document.getElementById('floatingPassword-login');
             if (show.type == 'password') {
@@ -115,7 +115,7 @@
                 eyeiconlogin.src = "/Elements/eye.svg"
             }
             show.focus();
-        }   
+        }
     </script>
     <script type="text/javascript">
         //FIRST TAB GETS SELECTED FUNCTION
@@ -123,5 +123,52 @@
             $('#list-tab a:first-child').tab('show')
         })
     </script>
+
+    @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+         if(Session["ID"])
+        //TIMEOUT CODE
+
+        // Function to show the inactivity popup
+        function showInactivePopup() {
+            // Code to display your pop-up here
+            // For example:
+            alert("You've been inactive for 15 minutes.");
+
+            // Redirect to the PIN code entry page
+            window.location.href = '@Url.Action("Index", "PINInterface")';
+        }
+
+        // Timeout duration in milliseconds (15 minutes)
+        var timeoutDuration = /*Session["TO"]*/ 15 * 60 * 1000;
+
+        // Variable to hold the timer reference
+        var inactivityTimer;
+
+        // Function to start the inactivity timer
+        function startInactivityTimer() {
+            // Clear any existing timer
+            clearTimeout(inactivityTimer);
+
+            // Start a new timer
+            inactivityTimer = setTimeout(showInactivePopup, timeoutDuration);
+        }
+
+        // Function to reset the inactivity timer
+        function resetInactivityTimer() {
+            // Restart the timer
+            startInactivityTimer();
+        }
+
+        // Initialize the inactivity timer on page load
+        $(document).ready(function () {
+            startInactivityTimer();
+
+            // Bind the events to reset the timer
+            $(document).mousemove(resetInactivityTimer);
+            $(document).keypress(resetInactivityTimer);
+        });
+    </script>*@
+
 </body>
 </html>  

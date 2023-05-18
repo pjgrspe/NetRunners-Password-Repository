@@ -111,6 +111,7 @@ namespace PasswordRepository.Controllers
                     };
                     entities.TBL_PASSWORD_REPO.Add(newUData);
                     entities.SaveChanges();
+
                 }
                 return RedirectToAction("Index", "Dashboard");
                 //return RedirectToAction("FormTest", "Dashboard");

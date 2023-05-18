@@ -461,7 +461,7 @@
                                                                 <p style="margin-bottom:-5px;">Notes</p>
                                                                 @*<textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString()>@PassEntry.PR_NOTES</textarea>*@
                                                                 <!--For some reason the html helper doesn't display the "Value = @@PassEntry.PR_NOTES"-->
-                                                                @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext form-control-notes", id = "staticNotes", @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })
+                                                                @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext form-control-notes", id = "Notes-"+@PassEntry.PID.ToString(), @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })
                                                                 <span>
                                                                     <!--CC icon-->
                                                                     <img src="~/Elements/copytoclipboard.svg" class="cciconnotes-@PassEntry.PID" id="cciconNotes-@PassEntry.PID" />
