@@ -174,16 +174,18 @@
                                             <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
                                                 <div class="container">
                                                     <!--TITLE NAME-->
-                                                    <div class="mt-3 item-table w-100">
-                                                        <h2 class="display-5">
-                                                            @PassEntry.PR_TITLE
-                                                        </h2>
+                                                    <div class="mt-3 item-table w-100 table-form-title" style="margin-top:-30px">
+                                                        <div class="tbl-details">
+                                                                <h2>
+                                                                    <input type="text" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false">
+                                                                </h2>
+                                                        </div>
                                                         <!--USERNAME INPUT-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Username</p>
-                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME"> id = "Username-"+PassEntry.PID.ToString()      *@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })
+                                                                <p style="margin-bottom:-2px;">Username</p>
+                                                                <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username-@PassEntry.PID.ToString()" value="@PassEntry.PR_USERNAME" spellcheck="false">
+                                                                @*@Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })*@
                                                                 <span>
                                                                     <!--CC icon-->
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconUsername-@PassEntry.PID.ToString()" />
@@ -242,9 +244,9 @@
                                                         <!--EMAIL INPUT-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Email</p>
-                                                                @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
+                                                                <p style="margin-bottom:-2px;">Email</p>
+                                                                <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email-@PassEntry.PID.ToString()" value="@PassEntry.PR_EMAIL" spellcheck="false">
+                                                                @*@Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })*@
                                                                 <span>
                                                                     <!--CC icon-->
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconEmail-@PassEntry.PID" />
@@ -303,9 +305,9 @@
                                                         <!--PASSWORD INPUT-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Password</p>
-                                                                @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
-                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-" + PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
+                                                                <p style="margin-bottom:-2px;">Password</p>
+                                                                <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password-@PassEntry.PID.ToString()" value="@decryptedPassword" spellcheck="false">
+                                                                @*@Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-" + PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })*@
                                                                 <span>
                                                                     <!--Eye and CC icon-->
                                                                     <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
@@ -369,36 +371,30 @@
                                                                     function toggleshowPW_table() {
                                                                         var show = document.getElementById('Password-@PassEntry.PID.ToString()');
                                                                         if (show.type == 'password') {
-                                                                            //THIS IS FOR THE EDIT BUTTON
-                                                                            //document.getElementById('staticPassword').readOnly=false;
-                                                                            //document.getElementById('staticPassword').className = "form-control";
                                                                             show.type = 'text';
                                                                             eyeicontbl.src = "/Elements/eye-slash-white.svg"
                                                                         }
                                                                         else {
                                                                             show.type = 'password'
-                                                                            //THIS IS FOR THE EDIT BUTTON
-                                                                            //document.getElementById('staticPassword').readOnly=true;
-                                                                            //document.getElementById('staticPassword').className = "form-control-plaintext";
                                                                             eyeicontbl.src = "/Elements/eye-white.svg"
 
                                                                         }
                                                                         show.focus();
-                                                                    }
+                                                                        }
                                                                     }
 
                                                                 }
-                                                                  // Call the function after the document has finished loading
-                                                                  window.addEventListener('load', initializeCCIcon);
+                                                                // Call the function after the document has finished loading
+                                                                window.addEventListener('load', initializeCCIcon);
                                                                 </script>
                                                             </div>
                                                         </div>
                                                         <!--URL INPUT-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">URL</p>
-                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
+                                                                <p style="margin-bottom:-2px;">URL</p>
+                                                                <input type="text" readonly class="form-control-plaintext" style="width:100%" id="URL-@PassEntry.PID.ToString()" value="@PassEntry.PR_URL" spellcheck="false">
+                                                                @*@Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })*@
                                                                 <span>
                                                                     <!--CC icon-->
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconURL-@PassEntry.PID" />
@@ -455,13 +451,11 @@
                                                             </div>
                                                         </div>
                                                         <!--NOTES INPUT-->
-                                                        <!--LUIS-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Notes</p>
-                                                                @*<textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString()>@PassEntry.PR_NOTES</textarea>*@
-                                                                <!--For some reason the html helper doesn't display the "Value = @@PassEntry.PR_NOTES"-->
-                                                                @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext form-control-notes", id = "staticNotes", @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })
+                                                                <p style="margin-bottom:-2px;">Notes</p>
+                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString() spellcheck="false">@PassEntry.PR_NOTES</textarea>
+                                                                @*@Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext form-control-notes", id = "Notes-"+@PassEntry.PID.ToString(), @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })*@
                                                                 <span>
                                                                     <!--CC icon-->
                                                                     <img src="~/Elements/copytoclipboard.svg" class="cciconnotes-@PassEntry.PID" id="cciconNotes-@PassEntry.PID" />
@@ -519,63 +513,41 @@
                                                         </div>
                                                     </div>
                                                     <!--DATE INPUT-->
-                                                    <div class="col-12 d-flex justify-content-center">
-                                                        <div class="mt-4" style="color:gray; margin-right:60px;">
-                                                            <p>Created on @PassEntry.ENTRY_CREATED</p>
+                                                    <div class="col-12 d-flex justify-content-center" style="display:none;">
+                                                        <div class="mt-4" style="color:gray; margin-right:60px;" id="dateinfo-@PassEntry.PID">
+                                                            <p >Created on @PassEntry.ENTRY_CREATED</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 d-flex justify-content-center" style="margin-right:60px;" >
+                                                        <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
+                                                            <button class="btn btn-outline-secondary rounded-0" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
+                                                                CONFIRM
+                                                            </button>
+                                                            <button class="btn btn-outline-secondary rounded-0" onclick="toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
+                                                                CANCEL
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <nav class="menu">
-                                                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID" />
-                                                <label class="menu-open-button" for="menu-open-@PassEntry.PID">
+                                            <nav class="menu" id="edit-menu-@PassEntry.PID">
+                                                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID.ToString()" />
+                                                <label class="menu-open-button" for="menu-open-@PassEntry.PID.ToString()">
                                                     <span class="lines line-1"></span>
                                                     <span class="lines line-2"></span>
                                                     <span class="lines line-3"></span>
                                                 </label>
                                                 <!--LUIS-->
                                                 <a class="menu-item red" onclick="deleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
-                                                <a class="menu-item green" onclick="toggleedit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
+                                                <a class="menu-item green" onclick="toggleEdit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
                                                 @*<a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"> <i class="fa fa-pen"></i> </a>*@
                                             </nav>
 
-
-
-
-
-
-                                           
-                                            <script type="text/javascript">
-                                                /*JASON*/
-                                                function toggleshowPW_table() {
-                                                    var show = document.getElementById('Username-@PassEntry.PID.ToString()');
-                                                    if (show.classList == 'form-control-plaintext') {
-                                                        //THIS IS FOR THE EDIT BUTTON
-                                                        document.getElementById('staticPassword').readOnly=false;
-                                                        document.getElementById('staticPassword').className = "form-control";
-                                                    }
-                                                    else {
-                                                        show.type = 'password'
-                                                        //THIS IS FOR THE EDIT BUTTON
-                                                        document.getElementById('staticPassword').readOnly=true;
-                                                        document.getElementById('staticPassword').className = "form-control-plaintext";
-
-                                                    }
-                                                    show.focus();
-                                                }
-
-                                                /*Luis*/
-                                                
-
-
-
-
-                                            </script>
-
+                                            </div>
 
                                         }
                                     }
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -586,6 +558,82 @@
 </body>
 </html>
 
+<script type="text/javascript">
+    function resetform(PID, Title, Username, Email, Password, URL, Notes) {
+        document.getElementById('Title-' + PID).value = Title;
+        document.getElementById('Username-' + PID).value = Username;
+        document.getElementById('Email-' + PID).value = Email;
+        document.getElementById('Password-' + PID).value = Password;
+        document.getElementById('URL-' + PID).value = URL;
+        document.getElementById('Notes-' + PID).value = Notes;
+    }
+
+    function toggleEdit(PID) {
+    var itemTITLE = document.getElementById('Title-' + PID);
+    var itemUN = document.getElementById('Username-' + PID);
+    var itemPW = document.getElementById('Password-' + PID);
+    var itemEMAIL = document.getElementById('Email-' + PID);
+    var itemURL = document.getElementById('URL-' + PID);
+    var itemNOTES = document.getElementById('Notes-' + PID);
+    var editicon = document.getElementById('edit-menu-' + PID);
+    var editbtns = document.getElementById('editbtns-' + PID);
+    var dateinfo = document.getElementById('dateinfo-' + PID);
+    //toggle
+    if (itemUN.classList == 'form-control-plaintext readonly') {
+        //REMOVE MENU ICONS
+        editicon.style.display = "none";
+        dateinfo.style.display = "none";
+        //ADD CONFIRM AND CANCEL BUTTONS
+        editbtns.style.display = "block";
+        //ITEM TITLE
+        itemTITLE.readOnly = false;
+        itemTITLE.className = "form-control-edit";
+        //ITEM UN
+        itemUN.readOnly = false;
+        itemUN.className = "form-control-edit";
+        //ITEM PW
+        itemPW.readOnly=false;
+        itemPW.className = "form-control-edit";
+        itemPW.type = 'password';
+        //ITEM EMAIL
+        itemEMAIL.readOnly = false;
+        itemEMAIL.className = "form-control-edit";
+        //ITEM URL
+        itemURL.readOnly = false;
+        itemURL.className = "form-control-edit";
+        //ITEM NOTES
+        itemNOTES.readOnly = false;
+        itemNOTES.className = "form-control-notes form-control-edit";
+    }
+    else {
+        //ADD MENU ICONS
+        editicon.style.display = "block";
+        dateinfo.style.display = "block";
+        //REMOVE CONFIRM AND CANCEL BUTTONS
+        editbtns.style.display = "none";
+        //ITEM TITLE
+        itemTITLE.readOnly = true;
+        itemTITLE.className = "form-control-plaintext form-control-title";
+        //ITEM UN
+        itemUN.readOnly = true;
+        itemUN.className = "form-control-plaintext readonly";
+        //ITEM PW
+        itemPW.readOnly = true;
+        itemPW.className = "form-control-plaintext";
+        itemPW.type = 'password';
+        //ITEM EMAIL
+        itemEMAIL.readOnly = true;
+        itemEMAIL.className = "form-control-plaintext";
+        //itemEMAIL.value = Email;
+        //ITEM URL
+        itemURL.readOnly = true;
+        itemURL.className = "form-control-plaintext";
+        //ITEM NOTES
+        itemNOTES.readOnly = true;
+        itemNOTES.className = "form-control-plaintext form-control-notes";
+    }
+}
+</script>
 <!--LUIS-->
 <script type="text/javascript">
 
@@ -618,46 +666,46 @@
 
     function updateEntry(passwordID, passwordIDstring) {
 
-    var pwID = passwordID;
-    var pwTitle = $('#Title-' + passwordIDstring).val();
-    var pwEmail = $('#Email-' + passwordIDstring).val();
-    var pwUname = $('#Username-' + passwordIDstring).val();
-    var pwPassword = $('#Password-' + passwordIDstring).val();
-    var pwUrl = $('#URL-' + passwordIDstring).val();
-    var pwNotes = $('#Notes' + passwordIDstring).val()
+        var pwID = passwordID;
+        var pwTitle = $('#Title-' + passwordIDstring).val();
+        var pwEmail = $('#Email-' + passwordIDstring).val();
+        var pwUname = $('#Username-' + passwordIDstring).val();
+        var pwPassword = $('#Password-' + passwordIDstring).val();
+        var pwUrl = $('#URL-' + passwordIDstring).val();
+        var pwNotes = $('#Notes' + passwordIDstring).val()
 
 
         //DEBUG CODE//if (confirm("Are you sure you want to update this entry? = " + pwID + " // " + pwTitle + " // " + pwEmail + " // " + pwUname + " // " + pwPassword + " // " + pwUrl + " // " + pwNotes)) {
 
         if (confirm('Are you sure you want to modify the student details?')) {
-        var data = {
-            passwordID: pwID,
-            passwordTitle: pwTitle,
-            passwordEmail: pwEmail,
-            passwordUname: pwUname,
-            passwordPassword: pwPassword,
-            passwordNotes: pwUrl,
-            passwordID: pwNotes
+            var data = {
+                passwordID: pwID,
+                passwordTitle: pwTitle,
+                passwordEmail: pwEmail,
+                passwordUname: pwUname,
+                passwordPassword: pwPassword,
+                passwordNotes: pwUrl,
+                passwordID: pwNotes
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Dashboard/UpdateEntry",
+                dataType: "JSON",
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf8',
+                success: function (res) {
+                    alert(res.msg)
+                    location.reload(true);
+                },
+                error: function () {
+                    alert("An error occurred")
+                }
+            })
+
         }
 
-        $.ajax({
-            type: "POST",
-            url: "/Dashboard/UpdateEntry",
-            dataType: "JSON",
-            data: JSON.stringify(data),
-            contentType: 'application/json; charset=utf8',
-            success: function (res) {
-                alert(res.msg)
-                location.reload(true);
-            },
-            error: function () {
-                alert("An error occurred")
-            }
-        })
-
     }
-
-}
 
     //function updateEntry(passwordID) {
 
