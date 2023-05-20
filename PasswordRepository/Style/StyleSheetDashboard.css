@@ -79,9 +79,11 @@ footer {
 }
 
 .display-5 {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 400;
-    color: #4ca1a5;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 400 !important;
+    color: #4ca1a5 !important;
+    background-color:none!important;
+    outline:none!important;
 }
 
 .tbl-details {
@@ -136,8 +138,33 @@ small{
     backdrop-filter: blur(5px);
 }
 
-.form-control-plaintext{
+.form-control-plaintext, .form-control-edit{
     color:white;
+}
+
+.form-control-title {
+    color: #4ca1a5 !important;
+    max-width: 90% !important;
+    padding: 5px 0px;
+    background: none;
+    outline: none !important;
+    margin:0px!important;
+    border:none!important;
+    height:50px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+.form-control-title, .form-control-title:active {
+    background-color: transparent;
+}
+
+.form-control-edit, .form-control-edit:active{
+    background-color:transparent;
+    border-color:white;
+    outline-color:white;
 }
 
 a:link {
@@ -269,6 +296,33 @@ h1 {
     background-color: #4ca1a5;
 }
 
+#editacceptbtn, #editcancelbtn {
+    width: 100px;
+    height: 50px;
+    font-size: 18px;
+    border:none!important;
+}
+
+#editcancelbtn:hover {
+    color: #fe4365;
+    background-color: white;
+}
+
+#editacceptbtn:hover {
+    color: #70cc72;
+    background-color: white;
+}
+
+#editcancelbtn {
+    color: white;
+    background-color: #fe4365;
+}
+
+#editacceptbtn {
+    color: white;
+    background-color: #70cc72;
+}
+
 #addmodalbtn:hover {
     background-color: white;
     color: #4ca1a5;
@@ -308,30 +362,47 @@ h1 {
     border-bottom: 1px solid white;
     width: 60%;
     max-width: 90%;
+    padding: 5px 5px;
 }
 
-.form-control-plaintext {
-    border-bottom: 1px solid white;
-    width: 60%;
+.form-control-edit {
+    border: 1px solid white;
+    padding: 5px 5px;
+    width:60%;
     max-width: 90%;
 }
 
 .form-control-notes {
     border: 1px solid white !important;
     margin-top: 10px;
+    width: 60%;
+    max-width: 90%;
     padding: 10px 5px;
     box-sizing: border-box;
 }
 
-.form-control-plaintext:focus {
-    box-shadow: none;
-    outline: none;
+.form-control-plaintext:focus, .form-control-edit:focus, form-control-notes:focus {
+    box-shadow: none!important;
+    outline: none!important;
+    background-color:none!important;
 }
 
 .table-form:hover > .form-control-plaintext {
     box-shadow: none;
     outline: none;
     border-bottom: 1px solid #781947;
+}
+
+.table-form:active > .form-control-edit {
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #781947;
+}
+
+.table-form:hover > .form-control-notes {
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #781947;
 }
 
 .list-group-item {
@@ -354,10 +425,10 @@ h1 {
     visibility: visible;
 }
 
-#searchform:focus, .form-control:focus {
+#searchform:focus, .form-control-edit:focus, .form-control-notes:focus {
     box-shadow: none;
     outline: none;
-    border-color: darkgray;
+    border-color: #781947;
 }
 
 .list-group-item.active {
@@ -438,7 +509,6 @@ img[class^=eyeiconpassword-] {
     width: 20px;
     height: auto;
 }
-
 
 textarea {
     resize: none;
