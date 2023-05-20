@@ -373,7 +373,7 @@ h1 {
 }
 
 .form-control-notes {
-    border: 1px solid white !important;
+    border: 1px solid white;
     margin-top: 10px;
     width: 60%;
     max-width: 90%;
@@ -381,7 +381,16 @@ h1 {
     box-sizing: border-box;
 }
 
-.form-control-plaintext:focus, .form-control-edit:focus, form-control-notes:focus {
+.form-control-notes-edit {
+    border: 1px solid white;
+    margin-top: 10px;
+    width: 60%;
+    max-width: 90%;
+    padding: 10px 5px;
+    box-sizing: border-box;
+}
+
+.form-control-plaintext:focus, .form-control-edit:focus, form-control-notes-edit:focus {
     box-shadow: none!important;
     outline: none!important;
     background-color:none!important;
@@ -425,10 +434,10 @@ h1 {
     visibility: visible;
 }
 
-#searchform:focus, .form-control-edit:focus, .form-control-notes:focus {
+#searchform:focus, .form-control-edit:focus, .form-control-notes-edit:focus {
     box-shadow: none;
     outline: none;
-    border-color: #781947;
+    border-color: #781947!important;
 }
 
 .list-group-item.active {
