@@ -72,6 +72,7 @@ namespace PasswordRepository.Controllers
 
                             Session["PIN"] = dData.PIN;
                             Session["TO"] = dData.TIMEOUT;
+                            Session["timedout"] = false;
                             Session.Timeout = 1440;
 
                             Response.Cookies.Add(httpCookie);

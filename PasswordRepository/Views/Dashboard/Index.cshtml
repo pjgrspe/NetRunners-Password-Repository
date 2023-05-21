@@ -520,7 +520,7 @@
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-center" style="margin-right:60px;" >
                                                         <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
-                                                            <button class="btn btn-outline-secondary rounded-0" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
+                                                            <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
                                                                 CONFIRM
                                                             </button>
                                                             <button class="btn btn-outline-secondary rounded-0" onclick="toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
@@ -672,20 +672,20 @@
         var pwUname = $('#Username-' + passwordIDstring).val();
         var pwPassword = $('#Password-' + passwordIDstring).val();
         var pwUrl = $('#URL-' + passwordIDstring).val();
-        var pwNotes = $('#Notes' + passwordIDstring).val()
+        var pwNotes = $('#Notes-' + passwordIDstring).val()
 
 
-        //DEBUG CODE//if (confirm("Are you sure you want to update this entry? = " + pwID + " // " + pwTitle + " // " + pwEmail + " // " + pwUname + " // " + pwPassword + " // " + pwUrl + " // " + pwNotes)) {
+        if (confirm("Are you sure you want to update this entry? = " + pwID + " // " + pwTitle + " // " + pwEmail + " // " + pwUname + " // " + pwPassword + " // " + pwUrl + " // " + pwNotes)) {
 
-        if (confirm('Are you sure you want to modify the student details?')) {
+        //if (confirm('Are you sure you want to modify the student details?')) {
             var data = {
                 passwordID: pwID,
                 passwordTitle: pwTitle,
                 passwordEmail: pwEmail,
                 passwordUname: pwUname,
                 passwordPassword: pwPassword,
-                passwordNotes: pwUrl,
-                passwordID: pwNotes
+                passwordURL: pwUrl,
+                passwordNotes: pwNotes
             }
 
             $.ajax({
