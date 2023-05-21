@@ -20,6 +20,11 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
+            if ((bool)Session["timedout"] == true)
+            {
+                return RedirectToAction("index", "PINInterface");
+            }
+
             using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
             {
                 //For table display
@@ -210,7 +215,7 @@ namespace PasswordRepository.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateEntry(int passwordID, string passwordTitle, string passwordEmail, string passwordUname, string passwordPassword, string passwordUrl, string passwordNotes)
+        public ActionResult UpdateEntry(int passwordID, string passwordTitle, string passwordEmail, string passwordUname, string passwordPassword, string passwordURL, string passwordNotes)
         {
             using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
             {
@@ -221,11 +226,13 @@ namespace PasswordRepository.Controllers
                     return Json(new { msg = "Entry not found (what?? how???)" });
                 }
 
+                var EncryptedPass = Encrypter.EncryptString(passwordPassword);
+
                 Password.PR_TITLE = passwordTitle;
                 Password.PR_EMAIL = passwordEmail; 
                 Password.PR_USERNAME = passwordUname;
-                Password.PR_PASSWORD = passwordPassword;    
-                Password.PR_URL = passwordUrl;
+                Password.PR_PASSWORD = EncryptedPass;    
+                Password.PR_URL = passwordURL;
                 Password.PR_NOTES = passwordNotes;
 
                 if (entities.SaveChanges() >= 1)

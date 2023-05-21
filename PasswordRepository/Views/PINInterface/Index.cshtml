@@ -39,7 +39,7 @@
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item" id="navlogin">
-                        <button onclick="window.location.href='/Home/Index'" type="button" class="rounded-0 btn btn-outline-secondary" id="loginbtn">LOGOUT</button>
+                        <button href="@Url.Action("LogOut", "Login")" type="button" class="rounded-0 btn btn-outline-secondary" id="loginbtn">LOGOUT</button>
                     </li>
                 </ul>
             </div>
@@ -55,17 +55,22 @@
                     <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
                         <h1 align="center">
-                            / LOGIN /
+                            / ENTER PIN /
                         </h1>
+                        <br>
+
                     </div>
+                    <p align="center">
+                        You were inactive for too long.
+                    </p>
                     <!--Form-->
-                    @using (@Html.BeginForm())
+                    @using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
-                                    @Html.PasswordFor(Model => Model.textbox_LOGINPASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", style = "margin:auto", required = "required" })
+                                    @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPassword", placeholder = "Password", style = "margin:auto", required = "required" })
                                     <label for="floatingPassword">Password</label>
                                     <span>
                                         <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
