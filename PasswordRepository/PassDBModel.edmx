@@ -45,6 +45,8 @@
           <Property Name="UID" Type="int" Nullable="false" />
           <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
           <Property Name="DATE_MODIFIED" Type="datetime" />
+          <Property Name="PIN" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIMEOUT" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_TBL_USER_DETAILS_TBL_USER_DETAILS">
           <End Role="TBL_LOGIN" Type="Self.TBL_LOGIN" Multiplicity="1" />
@@ -94,6 +96,8 @@
           <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DATE_MODIFIED" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TBL_LOGIN" Relationship="Self.FK_TBL_USER_DETAILS_TBL_USER_DETAILS" FromRole="TBL_USER_DETAILS" ToRole="TBL_LOGIN" />
+          <Property Name="PIN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIMEOUT" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_TBL_USER_DETAILS_TBL_USER_DETAILS">
           <End Role="TBL_LOGIN" Type="Self.TBL_LOGIN" Multiplicity="1" />
@@ -156,6 +160,8 @@
           <EntitySetMapping Name="TBL_USER_DETAILS">
             <EntityTypeMapping TypeName="PassRepoDatabaseModel.TBL_USER_DETAILS">
               <MappingFragment StoreEntitySet="TBL_USER_DETAILS">
+                <ScalarProperty Name="TIMEOUT" ColumnName="TIMEOUT" />
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
                 <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />

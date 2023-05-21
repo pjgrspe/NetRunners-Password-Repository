@@ -20,6 +20,8 @@ namespace PasswordRepository
         public int UID { get; set; }
         public System.DateTime DATE_CREATED { get; set; }
         public Nullable<System.DateTime> DATE_MODIFIED { get; set; }
+        public string PIN { get; set; }
+        public int TIMEOUT { get; set; }
     
         public virtual TBL_LOGIN TBL_LOGIN { get; set; }
     }

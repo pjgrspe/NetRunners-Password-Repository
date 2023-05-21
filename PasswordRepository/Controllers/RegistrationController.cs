@@ -73,7 +73,9 @@ namespace PasswordRepository.Controllers
                         FIRSTNAME = model.textbox_FIRST_NAME,
                         LASTNAME = model.textbox_LAST_NAME,
                         DATE_CREATED = DateTime.Now,
-                        DATE_MODIFIED = DateTime.Now
+                        DATE_MODIFIED = DateTime.Now,
+                        PIN = "Undefined",
+                        TIMEOUT = -1
                     };
                     entities.TBL_USER_DETAILS.Add(newUDetail);
                     entities.SaveChanges();

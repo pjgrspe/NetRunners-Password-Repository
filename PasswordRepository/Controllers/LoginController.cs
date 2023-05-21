@@ -67,6 +67,11 @@ namespace PasswordRepository.Controllers
 
                             Session["ID"] = eData.ID;
                             Session["UserName"] = eData.USERNAME;
+
+                            var dData = entities.TBL_USER_DETAILS.Where(x => x.UID.Equals(eData.ID)).FirstOrDefault();
+
+                            Session["PIN"] = dData.PIN;
+                            Session["TO"] = dData.TIMEOUT;
                             Session.Timeout = 1440;
 
                             Response.Cookies.Add(httpCookie);
