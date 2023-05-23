@@ -1,0 +1,524 @@
+﻿html, body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.btn-outline-secondary {
+    color: white;
+}
+
+    .btn-outline-secondary:hover {
+        color: black;
+        background-color: white;
+    }
+
+.btn-primary2 {
+    color: black;
+    background-color: white;
+}
+
+    .btn-primary2:hover {
+        color: black;
+        background-color: darkgray;
+    }
+
+.navbar {
+    color: white;
+}
+
+.navbar-brand {
+    width: 150px;
+    padding-left: 0px;
+}
+
+.navbar-nav > li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-item {
+    color: white;
+    font-size: 24px;
+}
+
+#navcontainer {
+    padding-left: 50px;
+}
+
+#loginbtn {
+    font-size: 24px;
+}
+
+@media (max-width: 992px) {
+    #navlogin {
+        padding-top: 8px;
+    }
+
+    #loginbtn {
+        font-size: 24px;
+    }
+}
+
+#navmenu, thead, .modal-title {
+    font-family: 'Barlow', sans-serif;
+    font-size: 20px;
+    color: white !important;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+#content, #list-tab, #additembtn, .item-table, #addmodalbtn, .form-floating {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.display-5 {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 400 !important;
+    color: #c42974 !important;
+    background-color: none !important;
+    outline: none !important;
+}
+
+.tbl-details {
+    color: #c42974;
+}
+
+#list-tab {
+    font-size: 24px;
+}
+
+small {
+    font-size: 12px;
+    color: darkgray;
+    margin-bottom: 20px;
+}
+
+.table {
+    font-family: 'JetBrains Mono', monospace;
+    color: white;
+}
+
+.registration-form {
+    color: black !important;
+}
+
+.input-group-text {
+    background-color: white;
+}
+
+#searchform, #basic-addon1 {
+    font-family: 'JetBrains Mono', monospace;
+    height: 40px;
+    border: 0;
+}
+
+#deleteallbtn {
+    width: 95%;
+    height: 50px;
+    font-size: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#searchicon {
+    height: 20px;
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(5px);
+}
+
+.form-control-plaintext, .form-control-edit {
+    color: white;
+}
+
+.form-control-title {
+    color: #781947 !important;
+    max-width: 90% !important;
+    padding: 5px 0px;
+    background: none;
+    outline: none !important;
+    margin: 0px !important;
+    border: none !important;
+    height: 50px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+.form-control-title, .form-control-title:active {
+    background-color: transparent;
+}
+
+.form-control-edit, .form-control-edit:active {
+    background-color: transparent;
+    border-color: white;
+    outline-color: white;
+}
+
+a:link {
+    color: #3e8285;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#signinprompt {
+    color: #3e8285;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+.overlay-text {
+    position: relative;
+    left: 300px;
+    bottom: 350px;
+    height: auto;
+    z-index: 10;
+}
+
+#img {
+    margin-left: auto;
+    text-align: right;
+}
+
+#imgdiv {
+    height: 300px;
+    overflow: visible;
+}
+
+#floatingFirstName, #floatingUsername {
+    width: 500px
+}
+
+#title {
+    z-index: 20;
+}
+
+
+.profile {
+    color: blue !important;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link-normal::after {
+    opacity: 0;
+    content: '';
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.nav-link-normal:hover::after {
+    opacity: 1;
+}
+
+.nav-link-dropdown::after {
+    opacity: 0;
+    content: '';
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.nav-link-dropdown:hover::after {
+    opacity: 1;
+}
+
+#eyeicon-login {
+    position: absolute;
+    right: 15px;
+    transform: translate(0, -50%);
+    top: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+.modal-footer, .modal-header {
+    border: none !important;
+}
+
+.btn-close-white {
+    position: absolute;
+    right: 20px
+}
+
+    .btn-close-white:active, .btn-close-white:focus {
+        box-shadow: none;
+        border: none;
+        outline: none !important;
+    }
+
+#addmodalbtn {
+    width: 280px;
+    height: 50px;
+    font-size: 18px;
+    color: white;
+    background-color: #4ca1a5;
+}
+
+#editacceptbtn, #editcancelbtn {
+    width: 100px;
+    height: 50px;
+    font-size: 18px;
+    border: none !important;
+}
+
+    #editcancelbtn:hover {
+        color: #fe4365;
+        background-color: white;
+    }
+
+    #editacceptbtn:hover {
+        color: #70cc72;
+        background-color: white;
+    }
+
+#editcancelbtn {
+    color: white;
+    background-color: #fe4365;
+}
+
+#editacceptbtn {
+    color: white;
+    background-color: #70cc72;
+}
+
+#addmodalbtn:hover {
+    background-color: white;
+    color: #4ca1a5;
+}
+
+#addmodalbtn:active, #addmodalbtn:focus {
+    box-shadow: none;
+    outline: none !important;
+}
+
+.modal-lg {
+    width: 500px;
+}
+
+#table-leftcolumn {
+    padding: 0;
+    margin: 0;
+}
+
+#table-rightcolumn {
+    padding: 0;
+    margin: 0;
+}
+
+#passrepotable {
+    border: 0.4px solid rgba(255,255,255,.1);
+    background-color: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+.tab-content {
+    background-color: #1a1a1a;
+}
+
+.form-control-plaintext {
+    border-bottom: 1px solid white;
+    width: 60%;
+    max-width: 90%;
+    padding: 5px 5px;
+}
+
+.form-control-edit {
+    border: 1px solid white;
+    padding: 5px 5px;
+    width: 60%;
+    max-width: 90%;
+}
+
+.form-control-notes {
+    border: 1px solid white;
+    margin-top: 10px;
+    width: 60%;
+    max-width: 90%;
+    padding: 10px 5px;
+    box-sizing: border-box;
+}
+
+.form-control-notes-edit {
+    border: 1px solid white;
+    margin-top: 10px;
+    width: 60%;
+    max-width: 90%;
+    padding: 10px 5px;
+    box-sizing: border-box;
+}
+
+.form-control-plaintext:focus, .form-control-edit:focus, form-control-notes-edit:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: none !important;
+}
+
+.table-form:hover > .form-control-plaintext {
+    box-shadow: none;
+    outline: none;
+    border-bottom: 1px solid #4ca1a5;
+}
+
+.table-form:active > .form-control-edit {
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #4ca1a5;
+}
+
+.table-form:hover > .form-control-notes {
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #4ca1a5;
+}
+
+.list-group-item {
+    border: none;
+    color: white !important;
+    font-size: 30px;
+    direction: ltr;
+}
+
+
+.scroller::-webkit-scrollbar-track {
+    background: rgba(255,255,255,.1)
+}
+
+.scroller::-webkit-scrollbar-thumb {
+    visibility: hidden;
+}
+
+.scroller:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+}
+
+#searchform:focus, .form-control-edit:focus, .form-control-notes-edit:focus {
+    box-shadow: none;
+    outline: none;
+    border-color: #781947 !important;
+}
+
+.list-group-item.active {
+    background-color: #1a1a1a;
+    border: none;
+    border-color: none;
+}
+
+.list-group-item:hover:not(.active) {
+    background-color: dimgray;
+}
+
+.list-group {
+    border-top: 0.4px solid rgba(255,255,255,.1);
+}
+
+.list-group-item {
+    border-bottom: 0.4px solid rgba(255,255,255,.1);
+}
+
+.tab-pane.active {
+    background-color: #1a1a1a;
+    border: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.tab-content, .tab-pane {
+    height: 100%;
+}
+
+#ccicon-username, #ccicon-email, #ccicon-URL {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+img[class^=ccicon-] {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+img[class^=cciconnotes-] {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 36%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+img[class^=cciconpassword-] {
+    position: absolute;
+    right: 10%;
+    transform: translate(-170%, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+img[class^=eyeiconpassword-] {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+textarea {
+    resize: none;
+}
