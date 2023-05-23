@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace PasswordRepository.Controllers
 {
-    //[Authorize]
     public class DashboardController : Controller
     {
         // GET: Dashboard
