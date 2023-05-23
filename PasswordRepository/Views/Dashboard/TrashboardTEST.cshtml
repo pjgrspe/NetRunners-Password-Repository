@@ -141,19 +141,12 @@
                                                                 // Wrap your code inside a function
                                                                 function initializeCCIcon() {
                                                                     let eyeicontbl = document.getElementById('eyeiconPassword-@PassEntry.PID.ToString()');
-                                                                    let ccicon = document.getElementById('cciconPassword-@PassEntry.PID.ToString()');
                                                                     var formdisplay = document.getElementById('Password-@PassEntry.PID.ToString()');
 
                                                                     // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay && eyeicontbl) {
+                                                                    if (formdisplay && eyeicontbl) {
 
                                                                     eyeicontbl.style.display = "block";
-                                                                    ccicon.style.display = "none";
-
-                                                                    formdisplay.addEventListener("mouseenter", function () {
-                                                                        ccicon.style.display = "block";
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
 
                                                                     formdisplay.addEventListener("mouseleave", function () {
                                                                         const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
@@ -167,30 +160,10 @@
                                                                         formdisplay.classList.add("hover");
                                                                     });
 
-                                                                    ccicon.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
                                                                     eyeicontbl.addEventListener("mousedown", function (event) {
                                                                         event.preventDefault(); // prevent default action to avoid losing focus
                                                                         toggleshowPW_table();
                                                                     });
-
-                                                                    ccicon.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        togglecc_table();
-                                                                    });
-
-                                                                    function togglecc_table() {
-                                                                        var copyText = formdisplay
-
-                                                                        // Copy the text inside the text field
-                                                                        navigator.clipboard.writeText(copyText.value);
-
-                                                                        // Alert the copied text
-                                                                        alert("Copied the text: " + copyText.value);
-                                                                        ccicon.style.display = "none";
-                                                                    }
 
                                                                     function toggleshowPW_table() {
                                                                         var show = document.getElementById('Password-@PassEntry.PID.ToString()');
