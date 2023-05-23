@@ -1,7 +1,7 @@
 ﻿@model PasswordRepository.Models.LoginModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-   
+
 }
 
 <!DOCTYPE html>
@@ -56,7 +56,7 @@
                         </h1>
                     </div>
                     <!--Form-->
-                    @using (@Html.BeginForm("Index", "Login", FormMethod.Post))
+                    @using (@Html.BeginForm("ValidateLogin", "Login", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
@@ -112,3 +112,7 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+</script>

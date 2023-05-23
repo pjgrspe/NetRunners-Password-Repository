@@ -8,6 +8,7 @@ namespace PasswordRepository.Controllers
 {
     public class HomeController : Controller
     {
+        //Launches index homepage
         public ActionResult Index()
         {
             ViewBag.Message = "Your home page.";
@@ -15,6 +16,7 @@ namespace PasswordRepository.Controllers
             return View();
         }
 
+        //Launches About homepage
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -22,6 +24,7 @@ namespace PasswordRepository.Controllers
             return View();
         }
 
+        //Launches Contact homepage
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
