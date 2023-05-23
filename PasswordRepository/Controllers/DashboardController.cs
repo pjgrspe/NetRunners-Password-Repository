@@ -247,6 +247,28 @@ namespace PasswordRepository.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult DeleteAllEntry()
+        {
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
 
+                foreach (var Password in entities.TBL_PASSWORD_REPO.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true))){
+                    //var PassEntry = entities.TBL_PASSWORD_REPO.Where(x => x.UID.Equals((int)Session["ID"])).FirstOrDefault();
+                    Password.isActive = false;
+                    Password.EXPIRY_DATE = DateTime.Now;
+                }
+
+                if (entities.SaveChanges() >= 1)
+                {
+                    return Json(new { msg = "Entry deleted" });
+                }
+                else
+                {
+                    return Json(new { msg = "An error occurred(Controller)" });
+                }
+
+            }
+        }
     }
 }
