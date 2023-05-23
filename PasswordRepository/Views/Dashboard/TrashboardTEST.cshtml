@@ -85,7 +85,7 @@
                                 </div>
                                 <!-- Button trigger DELETE ALL -->
                                 <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#addbutton-modal" id="deleteallbtn" style="margin-top:10px;">
+                                    <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#addbutton-modal" id="deleteallbtn" style="margin-top:10px;" onclick="DeleteAllEntry('@Session["ID"]')">
                                         DELETE ALL
                                     </button>
                                 </div>
@@ -104,40 +104,40 @@
                                         {
                                             var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
                                             <!--ITEM 1 DETAILS-->
-                                            <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
-                                                <div class="container">
-                                                    <!--TITLE NAME-->
-                                                    <div class="mt-3 item-table w-100">
-                                                        <h2 class="display-5">
-                                                            @PassEntry.PR_TITLE
-                                                        </h2>
-                                                        <!--USERNAME INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Username</p>
-                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME"> id = "Username-"+PassEntry.PID.ToString()      *@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })
-                                                            </div>
-                                                        </div>
-                                                        <!--EMAIL INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Email</p>
-                                                                @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
-                                                            </div>
-                                                        </div>
-                                                        <!--PASSWORD INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Password</p>
-                                                                @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
-                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-" + PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
-                                                                <span>
-                                                                    <!--Eye and CC icon-->
-                                                                    <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
-                                                                </span>
-                                                                <script type="text/javascript">
+                                    <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
+                                        <div class="container">
+                                            <!--TITLE NAME-->
+                                            <div class="mt-3 item-table w-100">
+                                                <h2 class="display-5">
+                                                    @PassEntry.PR_TITLE
+                                                </h2>
+                                                <!--USERNAME INPUT-->
+                                                <div class="mt-3 tbl-details">
+                                                    <div class="form-floating table-form">
+                                                        <p style="margin-bottom:-5px;">Username</p>
+                                                        @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME"> id = "Username-"+PassEntry.PID.ToString()      *@
+                                                        @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })
+                                                    </div>
+                                                </div>
+                                                <!--EMAIL INPUT-->
+                                                <div class="mt-3 tbl-details">
+                                                    <div class="form-floating table-form">
+                                                        <p style="margin-bottom:-5px;">Email</p>
+                                                        @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
+                                                        @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
+                                                    </div>
+                                                </div>
+                                                <!--PASSWORD INPUT-->
+                                                <div class="mt-3 tbl-details">
+                                                    <div class="form-floating table-form">
+                                                        <p style="margin-bottom:-5px;">Password</p>
+                                                        @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
+                                                        @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-" + PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
+                                                        <span>
+                                                            <!--Eye and CC icon-->
+                                                            <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
+                                                        </span>
+                                                        <script type="text/javascript">
                                                                 // Wrap your code inside a function
                                                                 function initializeCCIcon() {
                                                                     let eyeicontbl = document.getElementById('eyeiconPassword-@PassEntry.PID.ToString()');
@@ -189,45 +189,45 @@
                                                                 }
                                                                   // Call the function after the document has finished loading
                                                                   window.addEventListener('load', initializeCCIcon);
-                                                                </script>
-                                                            </div>
-                                                        </div>
-                                                        <!--URL INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">URL</p>
-                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
-                                                            </div>
-                                                        </div>
-                                                        <!--NOTES INPUT-->
-                                                        <!--LUIS-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Notes</p>
-                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString()>@PassEntry.PR_NOTES</textarea>
-                                                            </div>
-                                                        </div>
+                                                        </script>
                                                     </div>
-                                                    <!--DATE INPUT-->
-                                                    <div class="col-12 d-flex justify-content-center">
-                                                        <div class="mt-4" style="color:gray; margin-right:60px;">
-                                                            <p>Created on @PassEntry.ENTRY_CREATED</p>
-                                                        </div>
+                                                </div>
+                                                <!--URL INPUT-->
+                                                <div class="mt-3 tbl-details">
+                                                    <div class="form-floating table-form">
+                                                        <p style="margin-bottom:-5px;">URL</p>
+                                                        @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
+                                                        @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
+                                                    </div>
+                                                </div>
+                                                <!--NOTES INPUT-->
+                                                <!--LUIS-->
+                                                <div class="mt-3 tbl-details">
+                                                    <div class="form-floating table-form">
+                                                        <p style="margin-bottom:-5px;">Notes</p>
+                                                        <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString()>@PassEntry.PR_NOTES</textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <nav class="menu">
-                                                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID" />
-                                                <label class="menu-open-button" for="menu-open-@PassEntry.PID">
-                                                    <span class="lines line-1"></span>
-                                                    <span class="lines line-2"></span>
-                                                    <span class="lines line-3"></span>
-                                                </label>
-                                                <!--LUIS-->
-                                                <a class="menu-item red" onclick="permDeleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
-                                                <a class="menu-item green" onclick="restoreEntry('@PassEntry.PID')"> <i class="fa fa-undo"></i> </a>
-                                            </nav>
+                                            <!--DATE INPUT-->
+                                            <div class="col-12 d-flex justify-content-center">
+                                                <div class="mt-4" style="color:gray; margin-right:60px;">
+                                                    <p>Will be permanently deleted on @PassEntry.EXPIRY_DATE</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <nav class="menu">
+                                            <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID" />
+                                            <label class="menu-open-button" for="menu-open-@PassEntry.PID">
+                                                <span class="lines line-1"></span>
+                                                <span class="lines line-2"></span>
+                                                <span class="lines line-3"></span>
+                                            </label>
+                                            <!--LUIS-->
+                                            <a class="menu-item red" onclick="permDeleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
+                                            <a class="menu-item green" onclick="restoreEntry('@PassEntry.PID')"> <i class="fa fa-undo"></i> </a>
+                                        </nav>
+                                    </div>
                                         }
                                     }
                                 </div>
@@ -298,4 +298,30 @@
 
     }
 
+    function DeleteAllEntry(userID) {
+
+        if (confirm("Are you sure you want to permanently delete everything?")) {
+
+            var data = {
+                userID: userID
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Dashboard/DeleteAllEntry",
+                dataType: "JSON",
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf8',
+                success: function (res) {
+                    alert(res.msg)
+                    location.reload(true);
+                },
+                error: function () {
+                    alert("An error occurred (Javascript)")
+                }
+            })
+
+        }
+
+    }
 </script>
