@@ -1,0 +1,175 @@
+﻿@model PasswordRepository.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>PIN Registration</title>
+    <link href="~/Style/StyleSheetPINRegistration.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetRangeInput.css" rel="stylesheet">
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container" id="navcontainer">
+            <!--Navbar Logo-->
+            <a href="/Home/Index" class="navbar-brand">
+                <img src="~/Elements/ICElogo200pixel.png" width="150" height="67" alt="">
+            </a>
+            <!--Navbar Hamburger Menu-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--Navbar Items-->
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item" id="navlogin">
+                        <a href="@Url.Action("LogOut", "Login")" type="button" class="rounded-0 btn btn-outline-secondary" id="loginbtn">LOGOUT</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div id="outer">
+        <!--Content-->
+        <section class="text-light p-5">
+            <div class="container d-flex justify-content-center" id="maincontainer">
+                <div class="justify-content-center" id="content">
+                    <!--Title-->
+                    <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
+                        <h1 align="center">
+                            / ICELock<span class="trademark">™</span> /
+                        </h1>
+                        <br>
+
+                    </div>
+                    <p align="center" style="font-size:20px;">
+                        Setup your PIN.
+                    </p>
+                    <!--Form-->
+                    @using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width: 350px;">
+                                    @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })
+                                    <label for="floatingPIN">PIN</label>
+                                    <span>
+                                        <img src="~/Elements/eye.svg" id="eyeiconPIN" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width: 350px;">
+                                    @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "Repeat PIN", style = "margin:auto", required = "required" })
+                                    <label for="floatingREPEATPIN">Repeat PIN</label>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                let PINeyeicon = document.getElementById('eyeiconPIN');
+                                var PINform = document.getElementById('floatingPIN');
+                                var rePINform = document.getElementById('floatingREPEATPIN');
+
+                                PINeyeicon.style.display = "none";
+
+                                PINform.addEventListener("focusin", function () {
+                                    PINeyeicon.style.display = "block";
+                                });
+
+                                rePINform.addEventListener("focusin", function () {
+                                    PINeyeicon.style.display = "block";
+                                });
+
+                                PINform.addEventListener("focusout", function () {
+                                    if (Event.relatedTarget !== PINeyeicon) {
+                                        PINeyeicon.style.display = "none";
+                                    }
+                                });
+
+                                rePINform.addEventListener("focusout", function () {
+                                    if (Event.relatedTarget !== PINeyeicon) {
+                                        PINeyeicon.style.display = "none";
+                                    }
+                                });
+
+                                PINeyeicon.addEventListener("mousedown", function (event) {
+                                    event.preventDefault(); // prevent default action to avoid losing focus
+                                    toggleShowPIN();
+                                });
+
+                                function toggleShowPIN() {
+                                    var show = document.getElementById('floatingPIN');
+                                    var show2 = document.getElementById('floatingREPEATPIN');
+                                    if (show.type == 'password') {
+                                        show.type = 'text';
+                                        show2.type = 'text';
+                                        PINeyeicon.src = "/Elements/eye-slash.svg"
+                                    }
+                                    else {
+                                        show.type = 'password'
+                                        show2.type = 'password'
+                                        PINeyeicon.src = "/Elements/eye.svg"
+                                    }
+                                    show.focus();
+                                }
+                            </script>
+                        </div>
+
+                        <div class="mt-5 d-flex justify-content-center">
+                            <div class="col-6">
+                                <p align="center" style="font-size:20px;">
+                                    Set idle timeout period.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center col-12 timeoutsub" style="margin-top:10px;">
+                                <div class="sub">
+                                    <p>DURATION:</p>
+                                </div>
+                                <div class="value">
+                                    1
+                                </div>
+                                <div class="min">
+                                    min(s)
+                                </div>
+                        </div>
+                        
+                        <div class="col-12 d-flex justify-content-center">
+                            <input type="range" min="1" max="30" step="1" value="1">
+                        </div>
+                        <script type="text/javascript">
+                            var elem = document.querySelector('input[type="range"]');
+
+                            var rangeValue = function () {
+                                var newValue = elem.value;
+                                var target = document.querySelector('.value');
+                                target.innerHTML = newValue;
+                            }
+
+                            elem.addEventListener("input", rangeValue);
+                        </script>
+                        <p align="center">
+                            @ViewBag.ErrorPIN
+                        </p>
+                        <!--Login button-->
+                        <div class="mt-5 d-flex justify-content-center">
+                            <div style="margin-top:5px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
+                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="enterbtn">
+                                    ENTER →
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

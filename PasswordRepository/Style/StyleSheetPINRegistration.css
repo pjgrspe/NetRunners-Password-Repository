@@ -106,7 +106,7 @@ section {
     color: black !important;
 }
 
-#getstartedbtn {
+#enterbtn {
     width: 200px;
     height: 60px;
     font-size: 23px;
@@ -172,21 +172,21 @@ h1 {
     position: relative;
 }
 
-.nav-link::after {
-    opacity: 0;
-    content: '';
-    transition: all 0.2s;
-    height: 2px;
-    width: 100%;
-    background-color: white;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
+    .nav-link::after {
+        opacity: 0;
+        content: '';
+        transition: all 0.2s;
+        height: 2px;
+        width: 100%;
+        background-color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
 
-.nav-link:hover::after {
-    opacity: 1;
-}
+    .nav-link:hover::after {
+        opacity: 1;
+    }
 
 .form-control:focus {
     box-shadow: none;
@@ -194,7 +194,7 @@ h1 {
     border-color: darkgray;
 }
 
-#eyeicon {
+#eyeiconPIN {
     position: absolute;
     right: 15px;
     transform: translate(0, -50%);
@@ -202,4 +202,14 @@ h1 {
     cursor: pointer;
     width: 20px;
     height: auto;
+}
+
+.trademark {
+    font-size:35px;
+    position:relative;
+    bottom:40%
+}
+
+.form-range {
+    width:350px;
 }
