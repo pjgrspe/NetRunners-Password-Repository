@@ -13,6 +13,9 @@ namespace PasswordRepository.Models
         public string textbox_FIRST_NAME { get; set; }
         public string textbox_LAST_NAME { get; set; }
         public string textbox_EMAIL { get; set; }
+        public string textbox_PIN { get; set; }
+        public string textbox_REPEAT_PIN { get; set; }
+        public int slider_timeout { get; set; }
         public bool checkbox_acceptTerms { get; set; }
 
     }

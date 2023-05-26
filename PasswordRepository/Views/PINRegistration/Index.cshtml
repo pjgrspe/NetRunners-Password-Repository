@@ -1,4 +1,4 @@
-﻿@model PasswordRepository.Models.LoginModel
+﻿@model PasswordRepository.Models.RegistrationModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -52,13 +52,13 @@
                         Setup your PIN.
                     </p>
                     <!--Form-->
-                    @using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))
+                    @using (@Html.BeginForm("RegisterPIN", "PINRegistration", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })
+                                    @Html.PasswordFor(Model => Model.textbox_PIN, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })
                                     <label for="floatingPIN">PIN</label>
                                     <span>
                                         <img src="~/Elements/eye.svg" id="eyeiconPIN" />
@@ -67,7 +67,7 @@
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "Repeat PIN", style = "margin:auto", required = "required" })
+                                    @Html.PasswordFor(Model => Model.textbox_REPEAT_PIN, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "Repeat PIN", style = "margin:auto", required = "required" })
                                     <label for="floatingREPEATPIN">Repeat PIN</label>
                                 </div>
                             </div>
@@ -121,6 +121,10 @@
                             </script>
                         </div>
 
+                        <p align="center">
+                            @ViewBag.ErrorPIN
+                        </p>
+
                         <div class="mt-5 d-flex justify-content-center">
                             <div class="col-6">
                                 <p align="center" style="font-size:20px;">
@@ -128,19 +132,19 @@
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="d-flex justify-content-center col-12 timeoutsub" style="margin-top:10px;">
-                                <div class="sub">
-                                    <p>DURATION:</p>
-                                </div>
-                                <div class="value">
-                                    1
-                                </div>
-                                <div class="min">
-                                    min(s)
-                                </div>
+                            <div class="sub">
+                                <p>DURATION:</p>
+                            </div>
+                            <div class="value">
+                                1
+                            </div>
+                            <div class="min">
+                                min(s)
+                            </div>
                         </div>
-                        
+
                         <div class="col-12 d-flex justify-content-center">
                             <input type="range" min="1" max="30" step="1" value="1">
                         </div>
@@ -155,10 +159,7 @@
 
                             elem.addEventListener("input", rangeValue);
                         </script>
-                        <p align="center">
-                            @ViewBag.ErrorPIN
-                        </p>
-                        <!--Login button-->
+                        <!--Enter button-->
                         <div class="mt-5 d-flex justify-content-center">
                             <div style="margin-top:5px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
                                 <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="enterbtn">
