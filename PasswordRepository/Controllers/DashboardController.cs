@@ -30,6 +30,13 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("index", "PINInterface");
             }
 
+            //if ((string)Session["PIN"] == "Undefined")
+            //{
+            //    return RedirectToAction("index", "PINRegistration");
+            //}
+
+            ViewBag.PIN = "PIN: " + (string)Session["PIN"];
+
             //Sets the entity object
             //To display all the passwords for the specific user
             using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
@@ -207,6 +214,16 @@ namespace PasswordRepository.Controllers
             if (Session["ID"] == null)
             {
                 return RedirectToAction("Index", "Login");
+            }
+
+            //if ((string)Session["PIN"] == "Undefined")
+            //{
+            //    return RedirectToAction("index", "PINRegistration");
+            //}
+
+            if ((bool)Session["timedout"] == true)
+            {
+                return RedirectToAction("index", "PINInterface");
             }
 
             //Sets the entity object
