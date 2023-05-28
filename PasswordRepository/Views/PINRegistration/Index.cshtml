@@ -38,7 +38,7 @@
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5">
-            <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
+            <div class="container d-flex justify-content-center" id="maincontainer">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -48,7 +48,7 @@
                         <br>
 
                     </div>
-                    <p align="center" style="font-size:20px; margin-top:30px;">
+                    <p align="center" style="font-size:20px;">
                         Setup your PIN.
                     </p>
                     <!--Form-->
@@ -58,8 +58,7 @@
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @*@Html.PasswordFor(Model => Model.textbox_PIN, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })*@
-                                    <input type="password" minlength="4" maxlength="16" class="was-validated form-control rounded-0 w-100" style = "margin:auto" id = "floatingPIN" required = "required" placeholder = "PIN">
+                                    @Html.PasswordFor(Model => Model.textbox_PIN, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })
                                     <label for="floatingPIN">PIN</label>
                                     <span>
                                         <img src="~/Elements/eye.svg" id="eyeiconPIN" />
@@ -68,8 +67,7 @@
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @*@Html.PasswordFor(Model => Model.textbox_REPEAT_PIN, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "Repeat PIN", style = "margin:auto", required = "required" })*@
-                                    <input type="password" minlength="4" maxlength="16" class="form-control rounded-0 w-100" style="margin:auto" id="floatingREPEATPIN" required="required" placeholder="Repeat PIN">
+                                    @Html.PasswordFor(Model => Model.textbox_REPEAT_PIN, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "Repeat PIN", style = "margin:auto", required = "required" })
                                     <label for="floatingREPEATPIN">Repeat PIN</label>
                                 </div>
                             </div>

@@ -13,8 +13,48 @@
     <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
 </head>
 <body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container" id="navcontainer">
+            <!--Navbar Logo-->
+            <a href="/Home/Index" class="navbar-brand">
+                <img src="~/Elements/ICElogo200pixel.png" width="150" height="67" alt="">
+            </a>
+            <!--Navbar Hamburger Menu-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--Navbar Items-->
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="/Home/Index" class="nav-link nav-link-normal" id="navhome">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#team" class="nav-link nav-link-normal" id="navteam">TEAM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link nav-link-normal" id="navcontact">CONTACT</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase">
 
-    @Html.Partial("_NavbarDashboard")
+                            @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
+                            @Session["Username"].ToString()
+
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="@Url.Action("TrashboardTEST", "Dashboard")">Trash</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
 
     <div id="outer">
         <!-- Modal -->

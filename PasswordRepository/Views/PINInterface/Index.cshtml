@@ -37,18 +37,18 @@
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5">
-            <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
+            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:80px">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
                         <h1 align="center">
-                            / ICELocked<span class="trademark">™</span> /
+                            / ENTER PIN /
                         </h1>
                         <br>
 
                     </div>
                     <p align="center">
-                        You were inactive for too long.<br />Please enter your PIN.
+                        You were inactive for too long.
                     </p>
                     <!--Form-->
                     @using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))

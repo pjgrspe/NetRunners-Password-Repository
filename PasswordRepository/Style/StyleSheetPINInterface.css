@@ -1,11 +1,21 @@
-﻿html, body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+﻿@media (min-width: 1200px) {
+    .container {
+        max-width: 100%;
+    }
 }
 
-footer {
-    margin-top: auto;
+html, body {
+    overflow-x: hidden;
+    padding-bottom: 0px;
+    padding-top: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+    height: 100%;
+    background-image: url(/Elements/backgroundhome.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 #outer {
@@ -192,10 +202,4 @@ h1 {
     cursor: pointer;
     width: 20px;
     height: auto;
-}
-
-.trademark {
-    font-size: 35px;
-    position: relative;
-    bottom: 40%
 }
