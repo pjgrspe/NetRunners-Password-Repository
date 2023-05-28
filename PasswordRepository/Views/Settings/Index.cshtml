@@ -13,79 +13,8 @@
     <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
 </head>
 <body>
-
     @Html.Partial("_NavbarDashboard")
-
     <div id="outer">
-        <!-- Modal -->
-        <div class="modal fade" id="addbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ModalLabel">ADD NEW ITEM</h1>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <!--Form-->
-                    <div class="modal-body modal-xl" style="margin-top:-10px;">
-                        @using (@Html.BeginForm("Entry", "Dashboard", FormMethod.Post))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
-                                <div class="d-flex justify-content-center w-100">
-                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Title", required = "required" })
-                                        <label for="floatingTitle">Title</label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center w-100">
-                                    <div class="form-floating" style="margin-top: 10px; width: 90%; ">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email" })
-                                        <label for="floatingEmail">Email</label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center w-100">
-                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Username" })
-                                        <label for="floatingUsername">Username</label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center w-100">
-                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", required = "required" })
-                                        <label for="floatingPassword-login">Password</label>
-                                        <span>
-                                            <!--Eye icon-->
-                                            <img src="~/Elements/eye.svg" id="eyeicon-login" />
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center w-100">
-                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control rounded-0 w-100", id = "floatingURL", placeholder = "URL" })
-                                        <label for="floatingURL">URL</label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center w-100">
-                                    <div class="form-floating" style="margin-top: 10px; width: 90%; height: auto;">
-                                        @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
-                                        <label for="floatingNotes">Notes</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
-                                <div class="d-flex justify-content-center">
-                                    <div class="d-flex justify-content-center col-5 mb-2 ">
-                                        <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
-                                            ADD +
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
         <!--Content-->
         <section class="text-light p-5">
             <div class="container d-flex justify-content-center" id="maincontainer">
@@ -93,37 +22,12 @@
                     <!--Title-->
                     <div class="d-flex justify-content-center col-12" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
                         <h2 align="center">
-                            / PASSWORD REPOSITORY /
+                            / SETTINGS /
                         </h2>
                     </div>
                     <!--TABLE-->
                     <div class="d-flex justify-content-center" style="margin-top:20px">
                         <div class="row w-75" id="passrepotable">
-                            <!--ITEMS-->
-                            <div class="col-4" id="table-leftcolumn">
-                                <!--Search bar-->
-                                <div class="d-flex justify-content-center">
-                                    <a style="width:95%">
-                                        <div class="input-group" style="margin-top:10px;">
-                                            <span class="input-group-text rounded-0" id="basic-addon1"><img id="searchicon" src="~/Elements/searchicon.png" /></span>
-                                            <input type="text" class="form-control form-control-search rounded-0" placeholder="SEARCH" aria-label="Username" aria-describedby="basic-addon1" id="searchform">
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- Button trigger modal -->
-                                <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#addbutton-modal" id="additembtn" style="margin-top:10px;">
-                                        ADD ITEM +
-                                    </button>
-                                </div>
-                                <div class="list-group rounded-0 overflow-auto flipped scroller" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
-                                    @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(false) && x.isActive.Equals(true)))
-                                        {
-                                            <a class="list-group-item list-group-item-action" id="list-@PassEntry.PID-list" data-bs-toggle="list" href="#list-@PassEntry.PID" role="tab" aria-controls="list-@PassEntry.PID">@PassEntry.PR_TITLE</a>
-                                        }
-                                    }
-                                </div>
-                            </div>
                             <!--ITEM DETAILS-->
                             <div class="col-8" id="table-rightcolumn">
                                 <div class="tab-content" id="nav-tabContent">
@@ -137,9 +41,9 @@
                                                     <!--TITLE NAME-->
                                                     <div class="mt-3 item-table w-100 table-form-title" style="margin-top:-30px">
                                                         <div class="tbl-details">
-                                                                <h2>
-                                                                    <input type="text" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false">
-                                                                </h2>
+                                                            <h2>
+                                                                <input type="text" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false">
+                                                            </h2>
                                                         </div>
                                                         <!--USERNAME INPUT-->
                                                         <div class="mt-3 tbl-details">
@@ -476,10 +380,10 @@
                                                     <!--DATE INPUT-->
                                                     <div class="col-12 d-flex justify-content-center" style="display:none;">
                                                         <div class="mt-4" style="color:gray; margin-right:60px;" id="dateinfo-@PassEntry.PID">
-                                                            <p >Created on @PassEntry.ENTRY_CREATED</p>
+                                                            <p>Created on @PassEntry.ENTRY_CREATED</p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12 d-flex justify-content-center" style="margin-right:60px;" >
+                                                    <div class="col-12 d-flex justify-content-center" style="margin-right:60px;">
                                                         <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
                                                             <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
                                                                 CONFIRM
@@ -490,18 +394,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <nav class="menu" id="edit-menu-@PassEntry.PID">
-                                                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID.ToString()" />
-                                                <label class="menu-open-button" for="menu-open-@PassEntry.PID.ToString()">
-                                                    <span class="lines line-1"></span>
-                                                    <span class="lines line-2"></span>
-                                                    <span class="lines line-3"></span>
-                                                </label>
-                                                <!--LUIS-->
-                                                <a class="menu-item red" onclick="deleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
-                                                <a class="menu-item green" onclick="toggleEdit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
-                                                @*<a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"> <i class="fa fa-pen"></i> </a>*@
-                                            </nav>
+                                                <nav class="menu" id="edit-menu-@PassEntry.PID">
+                                                    <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID.ToString()" />
+                                                    <label class="menu-open-button" for="menu-open-@PassEntry.PID.ToString()">
+                                                        <span class="lines line-1"></span>
+                                                        <span class="lines line-2"></span>
+                                                        <span class="lines line-3"></span>
+                                                    </label>
+                                                    <!--LUIS-->
+                                                    <a class="menu-item red" onclick="deleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
+                                                    <a class="menu-item green" onclick="toggleEdit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
+                                                    @*<a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"> <i class="fa fa-pen"></i> </a>*@<a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"><i class="fa fa-pen"></i></a><a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"><i class="fa fa-pen"></i></a>
+                                                </nav>
 
                                             </div>
 

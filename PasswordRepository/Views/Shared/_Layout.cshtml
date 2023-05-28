@@ -1,21 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    <!--CSS-->
-    <link href="~/Style/StyleSheetGlobal.css" rel="stylesheet">
-    <link href="~/Content/Site.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/66285578cf.js" crossorigin="anonymous"></script>
-    <!--Fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -28,11 +13,7 @@
             @RenderBody()
         </section>
     </div>
-    <footer class="p-5 text-white footer">
-        <div class="col-xl-3 col-lg-12 text-xl-start">
-            <p class="lead">NetRunner Systems &copy;2023</p>
-        </div>
-    </footer>
+    @Html.Partial("_Footer")
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
         //REGISTRATION SHOW PASSWORD
