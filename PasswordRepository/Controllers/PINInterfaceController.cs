@@ -39,7 +39,7 @@ namespace PasswordRepository.Controllers
             else
             {
                 //Throws an error code if PIN doesnt match
-                ViewBag.ErrorPIN = "PIN INVALID!";
+                ViewBag.ErrorPIN = "PIN invalid!";
                 return View("Index");
             }
         }

@@ -304,23 +304,25 @@ h1 {
 }
 
 #editcancelbtn:hover {
-    color: #fe4365;
-    background-color: white;
+    color: white;
+    background-color: #b12e46;
 }
 
 #editacceptbtn:hover {
-    color: #70cc72;
-    background-color: white;
+    color: white;
+    background-color: #549955;
 }
 
 #editcancelbtn {
     color: white;
     background-color: #fe4365;
+    border-radius: 3px !important;
 }
 
 #editacceptbtn {
     color: white;
     background-color: #70cc72;
+    border-radius: 3px !important;
 }
 
 #addmodalbtn:hover {
@@ -345,6 +347,7 @@ h1 {
 #table-rightcolumn {
     padding: 0;
     margin: 0;
+    border-bottom-right-radius: 10px;
 }
 
 #passrepotable {
@@ -356,6 +359,8 @@ h1 {
 
 .tab-content {
     background-color: #1a1a1a;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .form-control-plaintext {
@@ -370,6 +375,10 @@ h1 {
     padding: 5px 5px;
     width:60%;
     max-width: 90%;
+}
+
+.overflow-auto{
+    overflow-x:hidden;
 }
 
 .form-control-notes {

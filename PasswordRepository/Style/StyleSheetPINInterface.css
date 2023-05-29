@@ -184,7 +184,7 @@ h1 {
     border-color: darkgray;
 }
 
-#eyeicon {
+#eyeicon-pin {
     position: absolute;
     right: 15px;
     transform: translate(0, -50%);

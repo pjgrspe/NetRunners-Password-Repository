@@ -10,10 +10,54 @@
 <head>
     <title>Home</title>
     <link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
-    <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetSettings.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetRangeInput.css" rel="stylesheet">
+
 </head>
 <body>
-    @Html.Partial("_NavbarDashboard")
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container" id="navcontainer">
+            <!--Navbar Logo-->
+            <a href="/Home/Index" class="navbar-brand">
+                <img src="~/Elements/ICElogo200pixel.png" width="150" height="67" alt="">
+            </a>
+            <!--Navbar Hamburger Menu-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--Navbar Items-->
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="/Home/Index" class="nav-link nav-link-normal" id="navhome">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#team" class="nav-link nav-link-normal" id="navteam">TEAM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link nav-link-normal" id="navcontact">CONTACT</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase">
+
+                            @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
+                            User
+
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="@Url.Action("TrashboardTEST", "Dashboard")">Trash</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5">
@@ -27,390 +71,132 @@
                     </div>
                     <!--TABLE-->
                     <div class="d-flex justify-content-center" style="margin-top:20px">
-                        <div class="row w-75" id="passrepotable">
+                        <div class="col-lg-7 col-10 d-flex justify-content-center" id="passrepotable">
+
                             <!--ITEM DETAILS-->
-                            <div class="col-8" id="table-rightcolumn">
-                                <div class="tab-content" id="nav-tabContent">
-                                    @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(false) && x.isActive.Equals(true)))
-                                        {
-                                            //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
-                                            var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
-                                            <!--ITEM 1 DETAILS-->
-                                            <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
-                                                <div class="container">
-                                                    <!--TITLE NAME-->
-                                                    <div class="mt-3 item-table w-100 table-form-title" style="margin-top:-30px">
-                                                        <div class="tbl-details">
-                                                            <h2>
-                                                                <input type="text" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false">
-                                                            </h2>
-                                                        </div>
-                                                        <!--USERNAME INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-2px;">Username</p>
-                                                                <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username-@PassEntry.PID.ToString()" value="@PassEntry.PR_USERNAME" spellcheck="false">
-                                                                @*@Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })*@
-                                                                <span>
-                                                                    <!--CC icon-->
-                                                                    <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconUsername-@PassEntry.PID.ToString()" />
-                                                                </span>
-                                                                <script type="text/javascript">
-                                                                // Wrap your code inside a function
-                                                                function initializeCCIcon() {
-                                                                    let ccicon = document.getElementById('cciconUsername-@PassEntry.PID.ToString()');
-                                                                    var formdisplay = document.getElementById('Username-@PassEntry.PID.ToString()');
-
-                                                                    // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay) {
-
-                                                                        ccicon.style.display = "none";
-
-                                                                        formdisplay.addEventListener("mouseenter", function () {
-                                                                            ccicon.style.display = "block";
-                                                                            formdisplay.classlist.add("hover");
-                                                                            //ccicon.classList.add = "hidden";
-
-                                                                        });
-
-                                                                        formdisplay.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
-                                                                            if (!isTargetIcon) {
-                                                                                ccicon.style.display = "none";
-                                                                            }
-                                                                        });
-
-                                                                        ccicon.addEventListener("mouseenter", function () {
-                                                                            formdisplay.classList.add("hover");
-                                                                        });
-
-                                                                        ccicon.addEventListener("mousedown", function (event) {
-                                                                            event.preventDefault(); // prevent default action to avoid losing focus
-                                                                            togglecc_table();
-                                                                        });
-
-                                                                         function togglecc_table() {
-                                                                            var copyText = formdisplay
-
-                                                                            // Copy the text inside the text field
-                                                                            navigator.clipboard.writeText(copyText.value);
-
-                                                                            // Alert the copied text
-                                                                            alert("Copied the text: " + copyText.value);
-                                                                            ccicon.style.display = "none";
-                                                                        }
-                                                                    }
-                                                                }
-                                                                  // Call the function after the document has finished loading
-                                                                window.addEventListener('load', initializeCCIcon);
-                                                                </script>
-                                                            </div>
-                                                        </div>
-                                                        <!--EMAIL INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-2px;">Email</p>
-                                                                <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email-@PassEntry.PID.ToString()" value="@PassEntry.PR_EMAIL" spellcheck="false">
-                                                                @*@Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })*@
-                                                                <span>
-                                                                    <!--CC icon-->
-                                                                    <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconEmail-@PassEntry.PID" />
-                                                                </span>
-                                                                <script type="text/javascript">
-                                                                // Wrap your code inside a function
-                                                                function initializeCCIcon() {
-                                                                    let ccicon = document.getElementById('cciconEmail-@PassEntry.PID.ToString()');
-                                                                    var formdisplay = document.getElementById('Email-@PassEntry.PID.ToString()');
-
-                                                                    // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay) {
-
-                                                                        ccicon.style.display = "none";
-
-                                                                        formdisplay.addEventListener("mouseenter", function () {
-                                                                            ccicon.style.display = "block";
-                                                                            formdisplay.classlist.add("hover");
-                                                                            //ccicon.classList.add = "hidden";
-
-                                                                        });
-
-                                                                        formdisplay.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
-                                                                            if (!isTargetIcon) {
-                                                                                ccicon.style.display = "none";
-                                                                            }
-                                                                        });
-
-                                                                        ccicon.addEventListener("mouseenter", function () {
-                                                                            formdisplay.classList.add("hover");
-                                                                        });
-
-                                                                        ccicon.addEventListener("mousedown", function (event) {
-                                                                            event.preventDefault(); // prevent default action to avoid losing focus
-                                                                            togglecc_table();
-                                                                        });
-
-                                                                         function togglecc_table() {
-                                                                            var copyText = formdisplay
-
-                                                                            // Copy the text inside the text field
-                                                                            navigator.clipboard.writeText(copyText.value);
-
-                                                                            // Alert the copied text
-                                                                            alert("Copied the text: " + copyText.value);
-                                                                            ccicon.style.display = "none";
-                                                                        }
-                                                                    }
-                                                                }
-                                                                  // Call the function after the document has finished loading
-                                                                  window.addEventListener('load', initializeCCIcon);
-                                                                </script>
-                                                            </div>
-                                                        </div>
-                                                        <!--PASSWORD INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-2px;">Password</p>
-                                                                <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password-@PassEntry.PID.ToString()" value="@decryptedPassword" spellcheck="false">
-                                                                @*@Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-" + PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })*@
-                                                                <span>
-                                                                    <!--Eye and CC icon-->
-                                                                    <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
-                                                                    <img src="~/Elements/copytoclipboard.svg" class="cciconpassword-@PassEntry.PID" id="cciconPassword-@PassEntry.PID" />
-                                                                </span>
-                                                                <script type="text/javascript">
-                                                                // Wrap your code inside a function
-                                                                function initializeCCIcon() {
-                                                                    let eyeicontbl = document.getElementById('eyeiconPassword-@PassEntry.PID.ToString()');
-                                                                    let ccicon = document.getElementById('cciconPassword-@PassEntry.PID.ToString()');
-                                                                    var formdisplay = document.getElementById('Password-@PassEntry.PID.ToString()');
-
-                                                                    // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay && eyeicontbl) {
-
-                                                                    eyeicontbl.style.display = "block";
-                                                                    ccicon.style.display = "none";
-
-                                                                    formdisplay.addEventListener("mouseenter", function () {
-                                                                        ccicon.style.display = "block";
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    formdisplay.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
-
-                                                                        if (!isTargetIcon) {
-                                                                            ccicon.style.display = "none";
-                                                                        }
-                                                                    });
-
-                                                                    eyeicontbl.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    ccicon.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    eyeicontbl.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        toggleshowPW_table();
-                                                                    });
-
-                                                                    ccicon.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        togglecc_table();
-                                                                    });
-
-                                                                    function togglecc_table() {
-                                                                        var copyText = formdisplay
-
-                                                                        // Copy the text inside the text field
-                                                                        navigator.clipboard.writeText(copyText.value);
-
-                                                                        // Alert the copied text
-                                                                        alert("Copied the text: " + copyText.value);
-                                                                        ccicon.style.display = "none";
-                                                                    }
-
-                                                                    function toggleshowPW_table() {
-                                                                        var show = document.getElementById('Password-@PassEntry.PID.ToString()');
-                                                                        if (show.type == 'password') {
-                                                                            show.type = 'text';
-                                                                            eyeicontbl.src = "/Elements/eye-slash-white.svg"
-                                                                        }
-                                                                        else {
-                                                                            show.type = 'password'
-                                                                            eyeicontbl.src = "/Elements/eye-white.svg"
-
-                                                                        }
-                                                                        show.focus();
-                                                                        }
-                                                                    }
-
-                                                                }
-                                                                // Call the function after the document has finished loading
-                                                                window.addEventListener('load', initializeCCIcon);
-                                                                </script>
-                                                            </div>
-                                                        </div>
-                                                        <!--URL INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-2px;">URL</p>
-                                                                <input type="text" readonly class="form-control-plaintext" style="width:100%" id="URL-@PassEntry.PID.ToString()" value="@PassEntry.PR_URL" spellcheck="false">
-                                                                @*@Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })*@
-                                                                <span>
-                                                                    <!--CC icon-->
-                                                                    <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconURL-@PassEntry.PID" />
-                                                                </span>
-                                                                <script type="text/javascript">
-                                                                // Wrap your code inside a function
-                                                                function initializeCCIcon() {
-                                                                    let ccicon = document.getElementById('cciconURL-@PassEntry.PID.ToString()');
-                                                                    var formdisplay = document.getElementById('URL-@PassEntry.PID.ToString()');
-
-                                                                    // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay) {
-
-                                                                        ccicon.style.display = "none";
-
-                                                                        formdisplay.addEventListener("mouseenter", function () {
-                                                                            ccicon.style.display = "block";
-                                                                            formdisplay.classlist.add("hover");
-                                                                            //ccicon.classList.add = "hidden";
-
-                                                                        });
-
-                                                                        formdisplay.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
-                                                                            if (!isTargetIcon) {
-                                                                                ccicon.style.display = "none";
-                                                                            }
-                                                                        });
-
-                                                                        ccicon.addEventListener("mouseenter", function () {
-                                                                            formdisplay.classList.add("hover");
-                                                                        });
-
-                                                                        ccicon.addEventListener("mousedown", function (event) {
-                                                                            event.preventDefault(); // prevent default action to avoid losing focus
-                                                                            togglecc_table();
-                                                                        });
-
-                                                                         function togglecc_table() {
-                                                                            var copyText = formdisplay
-
-                                                                            // Copy the text inside the text field
-                                                                            navigator.clipboard.writeText(copyText.value);
-
-                                                                            // Alert the copied text
-                                                                            alert("Copied the text: " + copyText.value);
-                                                                            ccicon.style.display = "none";
-                                                                        }
-                                                                    }
-                                                                }
-                                                                  // Call the function after the document has finished loading
-                                                                  window.addEventListener('load', initializeCCIcon);
-                                                                </script>
-                                                            </div>
-                                                        </div>
-                                                        <!--NOTES INPUT-->
-                                                        <div class="mt-3 tbl-details">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-2px;">Notes</p>
-                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString() spellcheck="false">@PassEntry.PR_NOTES</textarea>
-                                                                @*@Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control-plaintext form-control-notes", id = "Notes-"+@PassEntry.PID.ToString(), @readonly = "readonly", type = "text", Value = @PassEntry.PR_NOTES, style = "width:100%; text-align: left; height: 100px;" })*@
-                                                                <span>
-                                                                    <!--CC icon-->
-                                                                    <img src="~/Elements/copytoclipboard.svg" class="cciconnotes-@PassEntry.PID" id="cciconNotes-@PassEntry.PID" />
-                                                                </span>
-                                                                <script type="text/javascript">
-                                                                // Wrap your code inside a function
-                                                                function initializeCCIcon() {
-                                                                    let ccicon = document.getElementById('cciconNotes-@PassEntry.PID.ToString()');
-                                                                    var formdisplay = document.getElementById('Notes-@PassEntry.PID.ToString()');
-
-                                                                    // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay) {
-
-                                                                        ccicon.style.display = "none";
-
-                                                                        formdisplay.addEventListener("mouseenter", function () {
-                                                                            ccicon.style.display = "block";
-                                                                            formdisplay.classlist.add("hover");
-                                                                            //ccicon.classList.add = "hidden";
-
-                                                                        });
-
-                                                                        formdisplay.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
-                                                                            if (!isTargetIcon) {
-                                                                                ccicon.style.display = "none";
-                                                                            }
-                                                                        });
-
-                                                                        ccicon.addEventListener("mouseenter", function () {
-                                                                            formdisplay.classList.add("hover");
-                                                                        });
-
-                                                                        ccicon.addEventListener("mousedown", function (event) {
-                                                                            event.preventDefault(); // prevent default action to avoid losing focus
-                                                                            togglecc_table();
-                                                                        });
-
-                                                                         function togglecc_table() {
-                                                                            var copyText = formdisplay
-
-                                                                            // Copy the text inside the text field
-                                                                            navigator.clipboard.writeText(copyText.value);
-
-                                                                            // Alert the copied text
-                                                                            alert("Copied the text: " + copyText.value);
-                                                                            ccicon.style.display = "none";
-                                                                        }
-                                                                    }
-                                                                }
-                                                                  // Call the function after the document has finished loading
-                                                                  window.addEventListener('load', initializeCCIcon);
-                                                                </script>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--DATE INPUT-->
-                                                    <div class="col-12 d-flex justify-content-center" style="display:none;">
-                                                        <div class="mt-4" style="color:gray; margin-right:60px;" id="dateinfo-@PassEntry.PID">
-                                                            <p>Created on @PassEntry.ENTRY_CREATED</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 d-flex justify-content-center" style="margin-right:60px;">
-                                                        <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
-                                                            <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
-                                                                CONFIRM
-                                                            </button>
-                                                            <button class="btn btn-outline-secondary rounded-0" onclick="toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
-                                                                CANCEL
-                                                            </button>
-                                                        </div>
+                            <div class="col-12" id="table-rightcolumn">
+                                <div class="tab" id="nav-tabContent">
+                                    <!--using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };-->
+                                    <!--ITEM 1 DETAILS-->
+                                    <div class="container d-flex justify-content-center">
+                                        <!--TITLE NAME-->
+                                        <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
+                                            <div class="tbl-details" style="text-align:center">
+                                                <h2>
+                                                    <input type="text" maxlength="20" readonly style="width:100%; text-align:center;" class="form-control-title" id="Title" value="(User)'s Details" spellcheck="false">
+                                                </h2>
+                                            </div>
+                                            <div class="d-flex justify-content-left w-100">
+                                                <!--FIRSTNAME INPUT-->
+                                                <div class="mt-3 tbl-details w-100">
+                                                    <div class="form-floating table-form">
+                                                        <p style="margin-bottom:-2px;">First Name</p>
+                                                        <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name readonly" style="width:100%" id="Username" spellcheck="false">
                                                     </div>
                                                 </div>
-                                                <nav class="menu" id="edit-menu-@PassEntry.PID">
-                                                    <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID.ToString()" />
-                                                    <label class="menu-open-button" for="menu-open-@PassEntry.PID.ToString()">
-                                                        <span class="lines line-1"></span>
-                                                        <span class="lines line-2"></span>
-                                                        <span class="lines line-3"></span>
-                                                    </label>
-                                                    <!--LUIS-->
-                                                    <a class="menu-item red" onclick="deleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
-                                                    <a class="menu-item green" onclick="toggleEdit('@PassEntry.PID')"> <i class="fa fa-pen"></i> </a>
-                                                    @*<a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"> <i class="fa fa-pen"></i> </a>*@<a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"><i class="fa fa-pen"></i></a><a class="menu-item green" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')"><i class="fa fa-pen"></i></a>
-                                                </nav>
-
+                                                <!--LASTNAME INPUT-->
+                                                <div class="mt-3 tbl-details w-100">
+                                                    <div class="form-floating table-form">
+                                                        <p style="margin-bottom:-2px; margin-left:11px;">Last Name</p>
+                                                        <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name readonly" style="width:100%; margin-left:11px;" id="Username" spellcheck="false">
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <!--USERNAME INPUT-->
+                                            <div class="mt-3 tbl-details">
+                                                <div class="form-floating table-form">
+                                                    <p style="margin-bottom:-2px;">Username</p>
+                                                    <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username" spellcheck="false">
+                                                </div>
+                                            </div>
+                                            <!--EMAIL INPUT-->
+                                            <div class="mt-3 tbl-details">
+                                                <div class="form-floating table-form">
+                                                    <p style="margin-bottom:-2px;">Email</p>
+                                                    <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email" spellcheck="false">
+                                                </div>
+                                            </div>
+                                            <!--PASSWORD INPUT-->
+                                            <div class="mt-3 tbl-details">
+                                                <div class="form-floating table-form">
+                                                    <p style="margin-bottom:-2px;">Password</p>
+                                                    <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password" spellcheck="false">
+                                                </div>
+                                            </div>
+                                            <!--DATE INPUT-->
+                                            <div class="col-12 d-flex justify-content-center" style="display:none;">
+                                                <div class="mt-4" style="color:gray;" id="dateinfo">
+                                                    <p>Created on</p>
+                                                </div>
+                                            </div>
+                                                <!--ICELOCKED-->
+                                                <div class="tbl-details" style="text-align:center">
+                                                    <h2>
+                                                        <input type="text" maxlength="20" readonly style="width:100%; text-align:center" class="form-control-title" id="Title" value="ICELock™ Options" spellcheck="false">
+                                                    </h2>
+                                                </div>
 
-                                        }
-                                    }
+                                                <div class="mt-4 d-flex justify-content-center">
+                                                    <div class="col-12">
+                                                        <p align="center" style="font-size:20px;">
+                                                            Set idle timeout period.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex justify-content-center col-12 timeoutsub" style="margin-top:10px;">
+                                                    <div class="sub-settings">
+                                                        <p>DURATION:</p>
+                                                    </div>
+                                                    <div class="value-settings">
+                                                        1
+                                                    </div>
+                                                    <div class="min-settings">
+                                                        min(s)
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 d-flex justify-content-center" style="margin-bottom:80px;">
+                                                    <input disabled type="range" class="range-settings" min="1" max="30" step="1" value="1">
+                                                </div>
+                                                <script type="text/javascript">
+                                                    var elem = document.querySelector('input[type="range"]');
+
+                                                    var rangeValue = function () {
+                                                        var newValue = elem.value;
+                                                        var target = document.querySelector('.value-settings');
+                                                        target.innerHTML = newValue;
+                                                    }
+
+                                                    elem.addEventListener("input", rangeValue);
+                                                </script>
+                                        </div>
+                                        
+
+                                        
+                                        <!--CONFIRM AND CANCEL BTNS FOR EDIT-->
+                                        @*<div class="col-12 d-flex justify-content-center" style="margin-right:60px;">
+                                            <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
+                                                <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
+                                                    CONFIRM
+                                                </button>
+                                                <button class="btn btn-outline-secondary rounded-0" onclick="toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
+                                                    CANCEL
+                                                </button>
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                            <!--MENU ITEMS-->
+                                            <nav class="menu" id="edit-menu">
+                                                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+                                                <label class="menu-open-button" for="menu-open">
+                                                    <span class="lines line-1"></span>
+                                                    <span class="lines line-2"></span>
+                                                    <span class="lines line-3"></span>
+                                                </label>
+                                                <a class="menu-item red"> <i class="fa fa-trash"></i> </a>
+                                                <a class="menu-item green"> <i class="fa fa-pen"></i> </a>
+                                            </nav>
                                 </div>
 
                             </div>

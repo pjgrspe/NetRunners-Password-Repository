@@ -43,19 +43,38 @@
 
         </div>
     </nav>
+    <style>
+        .swal2-title {
+            color: white; /* Change the title color to white */
+        }
 
+        .swal2-popup {
+            color: #bbbbbb; /* Change the text color to gray */
+        }
+
+        .swal2-background {
+            background: #1a1a1a !important;
+        }
+    </style>
+    @{
+        if (ViewBag.ErrorMessage != null)
+        {
+            <script>
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    iconColor: '#c40f2d',
+                    background: '#1a1a1a',
+                    title: '@ViewBag.ErrorMessage',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            </script>
+        }
+    }
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5 d-flex justify-content-center">
-            @{
-                if (ViewBag.ErrorMessage != null)
-                {
-                    <div class="alert alert-warning alert-dismissible fade show" style="width:50%; height:70px;" role="alert">
-                        <p class="vertical-center horizontal-center" style="color:black; text-align:center">@ViewBag.ErrorMessage</p>
-                        <button type="button" class="btn-close vertical-center" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                }
-            }
             <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
@@ -80,7 +99,6 @@
                                     @Html.PasswordFor(Model => Model.textbox_LOGINPASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", style = "margin:auto", required = "required" })
                                     <!--JASON! EDIT FORMAT DESIGN-->
                                     <label for="floatingPassword-login">Password</label>
-                                    <label for="floatingPassword">Password</label>
                                     <span>
                                         <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
                                         <img src="~/Elements/eye.svg" id="eyeicon-login" />

@@ -1,14 +1,15 @@
-﻿@model PasswordRepository.Models.RegistrationModel
+﻿@model PasswordRepository.Models.LoginModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
-    <title>PIN Registration</title>
-    <link href="~/Style/StyleSheetPINRegistration.css" rel="stylesheet">
+    <title>Login</title>
+    <link href="~/Style/StyleSheetPINInterface.css" rel="stylesheet">
     <link href="~/Style/StyleSheetRangeInput.css" rel="stylesheet">
 </head>
 <body>
@@ -34,10 +35,60 @@
 
         </div>
     </nav>
+    <!--doesnt work yet-->
+    <style>
+        .swal2-title {
+            color: white; /* Change the title color to white */
+        }
 
+        .swal2-popup {
+            color: #bbbbbb; /* Change the title color to gray */
+        }
+
+        .swal2-background {
+            background: #1a1a1a !important;
+        }
+    </style>
+    @{
+        if (ViewBag.ErrorMessage != null)
+        {
+            <script>
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    iconColor: '#c40f2d',
+                    background: '#1a1a1a',
+                    title: '@ViewBag.ErrorMessage',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            </script>
+        }
+    }
     <div id="outer">
         <!--Content-->
-        <section class="text-light p-5">
+        <section class="text-light p-5 d-flex justify-content-center">
+            @{
+                if (ViewBag.ErrorMessage != null)
+                {
+                    <!-- Flexbox container for aligning the toasts -->
+                    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+
+                        <!-- Then put toasts within -->
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <img src="..." class="rounded me-2" alt="...">
+                                <strong class="me-auto">Bootstrap</strong>
+                                <small>11 mins ago</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Hello, world! This is a toast message.
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
             <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
@@ -45,36 +96,42 @@
                         <h1 align="center">
                             / ICELock<span class="trademark">™</span> /
                         </h1>
-                        <br>
-
                     </div>
-                    <p align="center" style="font-size:20px; margin-top:30px;">
+                    <p align="center" style="font-size:20px;">
                         Setup your PIN.
                     </p>
                     <!--Form-->
-                    @using (@Html.BeginForm("RegisterPIN", "PINRegistration", FormMethod.Post))
+                    @using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @*@Html.PasswordFor(Model => Model.textbox_PIN, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })*@
-                                    <input type="password" minlength="4" maxlength="16" class="was-validated form-control rounded-0 w-100" style = "margin:auto" id = "floatingPIN" required = "required" placeholder = "PIN">
+                                    @*@Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })*@
+                                    <input type="password" minlenght="4" maxlength="16" class="form-control rounded-0 w-100" placeholder="PIN" style="margin:auto" required="required" id="floatingPIN" onkeypress="return isNumberKey(event)">
                                     <label for="floatingPIN">PIN</label>
                                     <span>
-                                        <img src="~/Elements/eye.svg" id="eyeiconPIN" />
+                                        <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
+                                        <img src="~/Elements/eye.svg" id="eyeicon-pin" />
                                     </span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @*@Html.PasswordFor(Model => Model.textbox_REPEAT_PIN, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "Repeat PIN", style = "margin:auto", required = "required" })*@
-                                    <input type="password" minlength="4" maxlength="16" class="form-control rounded-0 w-100" style="margin:auto" id="floatingREPEATPIN" required="required" placeholder="Repeat PIN">
+                                    @*@Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "PIN", style = "margin:auto", required = "required" })*@
+                                    <input type="password" minlenght="4" maxlength="16" class="form-control rounded-0 w-100" placeholder="Repeat PIN" style="margin:auto" required="required" id="floatingREPEATPIN" onkeypress="return isNumberKey(event)">
                                     <label for="floatingREPEATPIN">Repeat PIN</label>
                                 </div>
                             </div>
                             <script type="text/javascript">
-                                let PINeyeicon = document.getElementById('eyeiconPIN');
+                                function isNumberKey(evt) {
+                                    var charCode = (evt.which) ? evt.which : evt.keyCode
+                                    if (charCode > 31 && (charCode < 48 || charCode > 57))
+                                        return false;
+                                    return true;
+                                }
+
+                                let PINeyeicon = document.getElementById('eyeicon-pin');
                                 var PINform = document.getElementById('floatingPIN');
                                 var rePINform = document.getElementById('floatingREPEATPIN');
 
@@ -123,10 +180,6 @@
                             </script>
                         </div>
 
-                        <p align="center">
-                            @ViewBag.ErrorPIN
-                        </p>
-
                         <div class="mt-5 d-flex justify-content-center">
                             <div class="col-6">
                                 <p align="center" style="font-size:20px;">
@@ -134,16 +187,18 @@
                                 </p>
                             </div>
                         </div>
-
-                        <div class="d-flex justify-content-center col-12 timeoutsub" style="margin-top:10px;">
-                            <div class="sub">
-                                <p>DURATION:</p>
-                            </div>
-                            <div class="value">
-                                1
-                            </div>
-                            <div class="min">
-                                min(s)
+                        <!--NEED TO FIX-->
+                        <div class="d-flex justify-content-center" style="margin-bottom:-30px;">
+                            <div class="col-6 d-flex justify-content-center">
+                                <div class="sub">
+                                    Duration:
+                                </div>
+                                <div class="value w-50">
+                                    1
+                                </div>
+                                <div class="min w-25">
+                                    min(s)
+                                </div>
                             </div>
                         </div>
 
@@ -161,10 +216,11 @@
 
                             elem.addEventListener("input", rangeValue);
                         </script>
+
                         <!--Enter button-->
-                        <div class="mt-5 d-flex justify-content-center">
-                            <div style="margin-top:5px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
-                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="enterbtn">
+                        <div class="d-flex justify-content-center">
+                            <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
+                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="getstartedbtn">
                                     ENTER →
                                 </button>
                             </div>

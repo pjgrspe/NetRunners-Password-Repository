@@ -87,7 +87,7 @@ footer {
 }
 
 .tbl-details {
-    color: #9e215e!important;
+    color: #4ca1a5;
 }
 
 #list-tab {
@@ -119,7 +119,7 @@ small {
     border: 0;
 }
 
-#deleteallbtn {
+#additembtn {
     width: 95%;
     height: 50px;
     font-size: 20px;
@@ -143,8 +143,8 @@ small {
 }
 
 .form-control-title {
-    color: #9e215e !important;
-    max-width: 90% !important;
+    color: #4ca1a5 !important;
+    max-width: 100% !important;
     padding: 5px 0px;
     background: none;
     outline: none !important;
@@ -345,7 +345,6 @@ h1 {
 #table-rightcolumn {
     padding: 0;
     margin: 0;
-    border-bottom-right-radius: 10px;
 }
 
 #passrepotable {
@@ -357,14 +356,19 @@ h1 {
 
 .tab-content {
     background-color: #1a1a1a;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 
 .form-control-plaintext {
     border-bottom: 1px solid white;
-    width: 60%;
-    max-width: 90%;
+    width: 100%;
+    max-width: 100%;
+    padding: 5px 5px;
+}
+
+.form-control-name {
+    border-bottom: 1px solid white;
+    width: 95%!important;
+    max-width: 100%;
     padding: 5px 5px;
 }
 
@@ -373,10 +377,6 @@ h1 {
     padding: 5px 5px;
     width: 60%;
     max-width: 90%;
-}
-
-.overflow-auto {
-    overflow-x: hidden;
 }
 
 .form-control-notes {
@@ -406,14 +406,19 @@ h1 {
 .table-form:hover > .form-control-plaintext {
     box-shadow: none;
     outline: none;
-    border-bottom: 1px solid #4ca1a5;
+    border-bottom: 1px solid #781947;
 }
 
+.table-form:active > .form-control-edit {
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #781947;
+}
 
 .table-form:hover > .form-control-notes {
     box-shadow: none;
     outline: none;
-    border: 1px solid #4ca1a5;
+    border: 1px solid #781947;
 }
 
 .list-group-item {

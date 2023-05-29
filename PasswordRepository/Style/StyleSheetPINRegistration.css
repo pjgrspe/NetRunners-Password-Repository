@@ -8,16 +8,6 @@ footer {
     margin-top: auto;
 }
 
-#outer {
-    overflow: hidden;
-}
-
-section {
-    max-height: 100%;
-    height: 100%;
-    box-sizing: border-box;
-}
-
 .btn-outline-secondary {
     color: white;
 }

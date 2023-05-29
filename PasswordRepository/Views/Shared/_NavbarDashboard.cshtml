@@ -27,8 +27,8 @@
                         @Session["Username"].ToString()
 
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="@Url.Action("TrashboardTEST", "Dashboard")">Trash</a></li>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink" style="background-color: #313131; ">
+                        <li><a class="dropdown-item" href="@Url.Action("Trashboard", "Dashboard")">Trash</a></li>
                         <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
