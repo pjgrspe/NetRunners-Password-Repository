@@ -30,12 +30,11 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("index", "PINInterface");
             }
 
-            //if ((string)Session["PIN"] == "Undefined")
-            //{
-            //    return RedirectToAction("index", "PINRegistration");
-            //}
+            if ((string)Session["PIN"] == "Undefined")
+            {
+                return RedirectToAction("index", "PINRegistration");
+            }
 
-            ViewBag.PIN = "PIN: " + (string)Session["PIN"];
 
             //Sets the entity object
             //To display all the passwords for the specific user

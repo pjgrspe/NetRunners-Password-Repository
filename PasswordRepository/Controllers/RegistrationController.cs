@@ -42,7 +42,7 @@ namespace PasswordRepository.Controllers
                     if (!model.textbox_PASSWORD.Equals(model.textbox_REPEAT_PASSWORD))
                     {
                         ViewBag.Error = "Password does not match!";
-                        return View();
+                        return View("Index");
                     }
 
                     //Sets a variable data that checks if the email already exists in the database
@@ -52,7 +52,7 @@ namespace PasswordRepository.Controllers
                     if (eData != null)
                     {
                         ViewBag.Error = "Email already exists!";
-                        return View();
+                        return View("Index");
                     }
 
                     //Sets a variable data that checks if the username already exists in the database
@@ -62,7 +62,7 @@ namespace PasswordRepository.Controllers
                     if (uData != null)
                     {
                         ViewBag.Error = "Username already exists!";
-                        return View();
+                        return View("Index");
                     }
 
 
@@ -104,7 +104,7 @@ namespace PasswordRepository.Controllers
 
             //If model state is invalid, it would throw them back to Registration index with an error message
             ViewBag.ErrorMessage = "Invalid";
-            return View();
+            return View("Index");
         }
     }
 }

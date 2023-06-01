@@ -57,7 +57,7 @@
         }
     </style>
     @{
-        if (ViewBag.ErrorMessage != null)
+        if (ViewBag.Error != null)
         {
             <script>
                 Swal.fire({
@@ -65,7 +65,7 @@
                     icon: 'error',
                     iconColor: '#c40f2d',
                     background: '#1a1a1a',
-                    title: '@ViewBag.ErrorMessage',
+                    title: '@ViewBag.Error',
                     showConfirmButton: false,
                     timer: 2500
                 })
