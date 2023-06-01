@@ -43,11 +43,39 @@
 
         </div>
     </nav>
+    <style>
+        .swal2-title {
+            color: white; /* Change the title color to white */
+        }
 
+        .swal2-popup {
+            color: #bbbbbb; /* Change the text color to gray */
+        }
+
+        .swal2-background {
+            background: #1a1a1a !important;
+        }
+    </style>
+    @{
+        if (ViewBag.ErrorMessage != null)
+        {
+            <script>
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    iconColor: '#c40f2d',
+                    background: '#1a1a1a',
+                    title: '@ViewBag.ErrorMessage',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            </script>
+        }
+    }
     <div id="outer">
         <!--Content-->
-        <section class="text-light p-5">
-            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:80px">
+        <section class="text-light p-5 d-flex justify-content-center">
+            <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -70,13 +98,7 @@
                                 <div class="form-floating" style="margin-top: 10px; width: 410px;">
                                     @Html.PasswordFor(Model => Model.textbox_LOGINPASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", style = "margin:auto", required = "required" })
                                     <!--JASON! EDIT FORMAT DESIGN-->
-                                    @{ 
-                                        if(ViewBag.ErrorMessage != null)
-                                        {
-                                            <p>@ViewBag.ErrorMessage</p>
-                                        }
-                                    }
-                                    <label for="floatingPassword">Password</label>
+                                    <label for="floatingPassword-login">Password</label>
                                     <span>
                                         <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
                                         <img src="~/Elements/eye.svg" id="eyeicon-login" />
@@ -112,7 +134,3 @@
     </div>
 </body>
 </html>
-
-<script type="text/javascript">
-
-</script>

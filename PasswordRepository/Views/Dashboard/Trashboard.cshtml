@@ -56,10 +56,11 @@
         </div>
     </nav>
 
+
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5">
-            <div class="container d-flex justify-content-center" id="maincontainer" style="padding:0">
+            <div class="container d-flex justify-content-center" id="maincontainer">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
                     <div class="d-flex justify-content-center col-12" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -71,7 +72,7 @@
                         <p>Items stored here will be deleted in 30 days.</p>
                     </div>
                     <!--TABLE-->
-                    <div class="d-flex justify-content-center w-100" style="margin-top:5px">
+                    <div class="d-flex justify-content-center w-100" style="margin-top:20px">
                         <div class="row w-100" id="passrepotable">
                             <!--ITEMS-->
                             <div class="col-4" id="table-leftcolumn">
@@ -84,7 +85,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <!-- Button trigger DELETE ALL -->
+                                <!-- Button trigger modal -->
                                 <div class="d-flex justify-content-center">
                                     <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#addbutton-modal" id="deleteallbtn" style="margin-top:10px;" onclick="DeleteAllEntry('@Session["ID"]')">
                                         DELETE ALL
@@ -94,23 +95,53 @@
                                     @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
                                         {
                                             <a class="list-group-item list-group-item-action" id="list-@PassEntry.PID-list" data-bs-toggle="list" href="#list-@PassEntry.PID" role="tab" aria-controls="list-@PassEntry.PID">@PassEntry.PR_TITLE</a>
-                                            <script>
-                                            $(document).ready(function(){
-                                              $("#searchform").on("keyup", function() {
-                                                var value = $(this).val().toLowerCase();
-                                                $("#list-@PassEntry.PID-list").filter(function() {
-                                                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                                                });
-                                              });
-                                            });
-                                            </script>
                                         }
                                     }
                                 </div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#searchform").on("keyup", function () {
+                                            var value = $(this).val().toLowerCase();
+                                            $(".list-group-item").filter(function () {
+                                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                                            });
+                                        });
+
+                                        checkListVisibility(); // Call the function on page load
+
+                                        function checkListVisibility() {
+                                            var listItems = $(".list-group-item");
+                                            var listWelcome = $("#list-welcome");
+                                            var deletebtn = document.getElementById('deleteallbtn')
+
+                                            if (listItems.length > 0) {
+                                                listWelcome.hide();
+                                                deletebtn.classList.remove('disabled');
+                                            } else {
+                                                listWelcome.show();
+                                                deletebtn.classList.add('disabled');
+                                            }
+                                        }
+                                    });
+                                </script>
                             </div>
                             <!--ITEM DETAILS-->
                             <div class="col-8" id="table-rightcolumn">
                                 <div class="tab-content" id="nav-tabContent">
+                                    <!--DISPLAY IF NO TRASH ITEMS-->
+                                    <div class="show" id="list-welcome">
+                                        <div class="container w-100">
+                                            <!--DISPLAY DETAILS-->
+                                            <div class="item-table w-100 table-form-title" style="margin-top:270px">
+                                                <div class="tbl-details d-flex justify-content-center">
+                                                    <h2 class="form-control-title" style="text-align:center; width:900px" id="Title-welcome">
+                                                        TRASH IS EMPTY
+                                                        <p style="font-size:14px; color:gray">All trashed items will be stored here.</p>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
                                         {
                                             var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
@@ -118,32 +149,31 @@
                                             <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
                                                 <div class="container">
                                                     <!--TITLE NAME-->
-                                                    <div class="mt-3 item-table w-100">
-                                                        <h2 class="display-5">
-                                                            @PassEntry.PR_TITLE
-                                                        </h2>
+                                                    <div class="mt-3 item-table w-100 table-form-title" style="margin-top:-30px">
+                                                        <div class="tbl-details">
+                                                            <h2>
+                                                                <input type="text" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false">
+                                                            </h2>
+                                                        </div>
                                                         <!--USERNAME INPUT-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Username</p>
-                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticUsername" value="@PassEntry.PR_USERNAME"> id = "Username-"+PassEntry.PID.ToString()      *@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control-plaintext", id = "Username-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = PassEntry.PR_USERNAME, style = "width:100%" })
+                                                                <p style="margin-bottom:-2px;">Username</p>
+                                                                <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username-@PassEntry.PID.ToString()" value="@PassEntry.PR_USERNAME" spellcheck="false">
                                                             </div>
                                                         </div>
                                                         <!--EMAIL INPUT-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Email</p>
-                                                                @*<input type="email" readonly class="form-control-plaintext" style="width:100%" id="staticEmail" value="@PassEntry.PR_EMAIL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control-plaintext", id = "Email-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_EMAIL, style = "width:100%" })
+                                                                <p style="margin-bottom:-2px;">Email</p>
+                                                                <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email-@PassEntry.PID.ToString()" value="@PassEntry.PR_EMAIL" spellcheck="false">
                                                             </div>
                                                         </div>
                                                         <!--PASSWORD INPUT-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Password</p>
-                                                                @*<input type="password" readonly class="form-control-plaintext" style="width:100%" id="staticPassword" value="@decryptedPassword">*@
-                                                                @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control-plaintext", id = "Password-" + PassEntry.PID.ToString(), type = "password", required = "required", @readonly = "readonly", Value = @decryptedPassword, style = "width:100%" })
+                                                                <p style="margin-bottom:-2px;">Password</p>
+                                                                <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password-@PassEntry.PID.ToString()" value="@decryptedPassword" spellcheck="false">
                                                                 <span>
                                                                     <!--Eye and CC icon-->
                                                                     <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
@@ -206,42 +236,41 @@
                                                         <!--URL INPUT-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">URL</p>
-                                                                @*<input type="text" readonly class="form-control-plaintext" style="width:100%" id="staticURL" value="@PassEntry.PR_URL">*@
-                                                                @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control-plaintext", id = "URL-" + PassEntry.PID.ToString(), type = "text", @readonly = "readonly", Value = @PassEntry.PR_URL, style = "width:100%" })
+                                                                <p style="margin-bottom:-2px;">URL</p>
+                                                                <input type="text" readonly class="form-control-plaintext" style="width:100%" id="URL-@PassEntry.PID.ToString()" value="@PassEntry.PR_URL" spellcheck="false">
                                                             </div>
                                                         </div>
                                                         <!--NOTES INPUT-->
-                                                        <!--LUIS-->
                                                         <div class="mt-3 tbl-details">
                                                             <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-5px;">Notes</p>
-                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString()>@PassEntry.PR_NOTES</textarea>
+                                                                <p style="margin-bottom:-2px;">Notes</p>
+                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString() spellcheck="false">@PassEntry.PR_NOTES</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!--DATE INPUT-->
-                                                    <div class="col-12 d-flex justify-content-center">
-                                                        <div class="mt-4" style="color:gray; margin-right:60px;">
+                                                    <div class="col-12 d-flex justify-content-center" style="display:none;">
+                                                        <div class="mt-4" style="color:gray; margin-right:60px;" id="dateinfo-@PassEntry.PID">
                                                             <p>Will be permanently deleted on @PassEntry.EXPIRY_DATE</p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <nav class="menu">
-                                                    <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID" />
-                                                    <label class="menu-open-button" for="menu-open-@PassEntry.PID">
+                                                <nav class="menu" id="edit-menu-@PassEntry.PID">
+                                                    <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open-@PassEntry.PID.ToString()" />
+                                                    <label class="menu-open-button" for="menu-open-@PassEntry.PID.ToString()">
                                                         <span class="lines line-1"></span>
                                                         <span class="lines line-2"></span>
                                                         <span class="lines line-3"></span>
                                                     </label>
                                                     <!--LUIS-->
-                                                    <a class="menu-item red" onclick="permDeleteEntry('@PassEntry.PID')"> <i class="fa fa-trash"></i> </a>
-                                                    <a class="menu-item green" onclick="restoreEntry('@PassEntry.PID')"> <i class="fa fa-undo"></i> </a>
+                                                    <a class="menu-item red" onclick="permDeleteEntry('@PassEntry.PID','@PassEntry.PR_TITLE')"> <i class="fa fa-trash"></i> </a>
+                                                    <a class="menu-item green" onclick="restoreEntry('@PassEntry.PID','@PassEntry.PR_TITLE')"> <i class="fa fa-undo"></i> </a>
                                                 </nav>
                                             </div>
                                         }
                                     }
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -252,87 +281,163 @@
 </body>
 </html>
 
-<!--LUIS-->
-<script type="text/javascript">
-
-    function restoreEntry(passwordID) {
-
-        if (confirm("Are you sure you want to restore this entry?")) {
-
-            var data = {
-                passwordID: passwordID
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/Dashboard/RestoreEntry",
-                dataType: "JSON",
-                data: JSON.stringify(data),
-                contentType: 'application/json; charset=utf8',
-                success: function (res) {
-                    alert(res.msg)
-                    location.reload(true);
-                },
-                error: function () {
-                    alert("An error occurred (Javascript)")
-                }
-            })
-
-        }
-
+<style>
+    .swal2-title {
+        color: white; /* Change the title color to white */
     }
 
-    function permDeleteEntry(passwordID) {
+    .swal2-popup {
+        color: #bbbbbb; /* Change the title color to gray */
+    }
 
-        if (confirm("Are you sure you want to permanently delete this entry?")) {
+    .swal2-background {
+        background: #1a1a1a !important;
+    }
+</style>
 
-            var data = {
-                passwordID: passwordID
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/Dashboard/PermDeleteEntry",
-                dataType: "JSON",
-                data: JSON.stringify(data),
-                contentType: 'application/json; charset=utf8',
-                success: function (res) {
-                    alert(res.msg)
-                    location.reload(true);
-                },
-                error: function () {
-                    alert("An error occurred (Javascript)")
+<script type="text/javascript">
+    function restoreEntry(passwordID,title) {
+        //Confirmation message before restoring entry
+        Swal.fire({
+            title: 'Restore "'+title+'"?',
+            text: "This will restore the item.",
+            icon: 'question',
+            iconColor: '#2973b9',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //Packages the received variable
+                var data = {
+                    passwordID: passwordID
                 }
-            })
 
-        }
+                $.ajax({
+                    type: "POST",
+                    url: "/Dashboard/RestoreEntry",
+                    dataType: "JSON",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf8',
+                    success: function () {
+                    },
+                    error: function () {
+                    }
+                })
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    background: '#1a1a1a',
+                    title: '"' + title + '" successfuly restored!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+                    .then(function () {
+                        location.reload(true);
+                    }
+                    )
+            }
+        })        
+    }
 
+    function permDeleteEntry(passwordID,title) {
+
+        //Confirmation message before permanently deleting entry
+        Swal.fire({
+            title: 'Permanently delete "'+title+'"?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            iconColor: '#c40f2d',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //Packages the received variable
+                var data = {
+                    passwordID: passwordID
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Dashboard/PermDeleteEntry",
+                    dataType: "JSON",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf8',
+                    success: function () {
+
+                    },
+                    error: function () {
+                        alert("An error occurred")
+                    }
+                })
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    iconColor: '#70cc72',
+                    background: '#1a1a1a',
+                    title: '"' + title + '" permanently deleted!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+                    .then(function () {
+                        location.reload(true);
+                    }
+                    )
+            }
+        })        
     }
 
     function DeleteAllEntry(userID) {
 
-        if (confirm("Are you sure you want to permanently delete everything?")) {
+        //Confirmation message before permanently deleting entry
+        Swal.fire({
+            title: 'Permanently delete all items?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            iconColor: '#c40f2d',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var data = {
+                    userID: userID
+                }
 
-            var data = {
-                userID: userID
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/Dashboard/DeleteAllEntry",
-                dataType: "JSON",
-                data: JSON.stringify(data),
-                contentType: 'application/json; charset=utf8',
-                success: function (res) {
-                    alert(res.msg)
-                    location.reload(true);
-                },
-                error: function () {
-                    alert("An error occurred (Javascript)")
+                $.ajax({
+                    type: "POST",
+                    url: "/Dashboard/DeleteAllEntry",
+                    dataType: "JSON",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf8',
+                    success: function () {
+                    },
+                    error: function () {
+                        alert("An error occurred (Javascript)")
+                    }
+                })
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    iconColor: '#70cc72',
+                    background: '#1a1a1a',
+                    title: 'All items permanently deleted!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+                    .then(function () {
+                        location.reload(true);
+                    }
+                    )
                 }
             })
-
-        }
-
     }
 </script>

@@ -209,7 +209,7 @@ namespace PasswordRepository.Controllers
         }
 
         //TRASHBOARD PAGE
-        public ActionResult TrashboardTEST() // FOR TESTING THE TRASH TABLE
+        public ActionResult Trashboard() // FOR TESTING THE TRASH TABLE
         {
             if (Session["ID"] == null)
             {

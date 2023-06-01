@@ -1,34 +1,61 @@
-﻿.timeoutsub {
-    position:relative;
-}
-
+﻿
 .value {
-    position: absolute;
-    top: 0px;
-    right: 262px;
+    position: relative;
     color: #4ca1a5;
     text-align: right;
+    margin-top:5px;
+    margin-right:7px;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 25px;
     width: 300px;
     letter-spacing: -.07em;
-    margin-left: 100px;
 }
 
 .min {
+    position: relative;
+    color: #4ca1a5;
+    top:10px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 20px;
+    width: 300px;
+    letter-spacing: -.07em;
+}
+
+.sub {
+    position: relative;
+    top: 10px;
+    text-align: left;
+    font-weight: 400;
+    font-size: 20px;
+    width: 300px;
+    letter-spacing: -.07em;
+    margin-right: 0px;
+}
+
+.value-settings {
     position: absolute;
     top: 0px;
-    right: 190px;
     color: #4ca1a5;
     text-align: right;
     font-weight: normal;
     font-size: 20px;
     width: 300px;
     letter-spacing: -.07em;
-    margin-left: 100px;
 }
 
-.sub {
+.min-settings {
+    position: absolute;
+    top: 0px;
+    right:100px;
+    color: #4ca1a5;
+    font-weight: normal;
+    font-size: 20px;
+    width: 300px;
+    letter-spacing: -.07em;
+}
+
+.sub-settings {
     position: absolute;
     top: 0px;
     text-align: left;
@@ -36,14 +63,18 @@
     font-size: 20px;
     width: 300px;
     letter-spacing: -.07em;
-    margin-right: 60px;
+    margin-right: 100px;
+}
+
+.range-settings {
+    width: 75%!important;
 }
 
 input[type="range"] {
     display: block;
     -webkit-appearance: none;
     background-color: #bdc3c7;
-    width: 350px;
+    width: 380px;
     height: 5px;
     border-radius: 5px;
     margin: 0 auto;

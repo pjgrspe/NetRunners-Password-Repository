@@ -1,14 +1,16 @@
 ﻿@model PasswordRepository.Models.LoginModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
-    <title>Temporary Lock</title>
+    <title>Login</title>
     <link href="~/Style/StyleSheetPINInterface.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetAlerts.css" rel="stylesheet">
 </head>
 <body>
     <!--Navbar-->
@@ -33,90 +35,122 @@
 
         </div>
     </nav>
+    <!--doesnt work yet-->
+    <style>
+        .swal2-title {
+            color: white; /* Change the title color to white */
+        }
 
+        .swal2-popup {
+            color: #bbbbbb; /* Change the title color to gray */
+        }
+
+        .swal2-background {
+            background: #1a1a1a !important;
+        }
+    </style>
+    @{
+        if (ViewBag.ErrorMessage != null)
+        {
+            <script>
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    iconColor: '#c40f2d',
+                    background: '#1a1a1a',
+                    title: '@ViewBag.ErrorMessage',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            </script>
+        }
+    }
     <div id="outer">
-        <!--Content-->
-        <section class="text-light p-5">
-            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:80px">
-                <div class="justify-content-center" id="content">
-                    <!--Title-->
-                    <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
-                        <h1 align="center">
-                            / ENTER PIN /
-                        </h1>
-                        <br>
-
-                    </div>
-                    <p align="center">
-                        You were inactive for too long.
-                    </p>
-                    <!--Form-->
-                    @using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "Password", style = "margin:auto", required = "required" })
-                                    <label for="floatingPassword">PIN</label>
-                                    <span>
-                                        <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
-                                        <img src="~/Elements/eye.svg" id="eyeicon" />
-                                    </span>
-                                </div>
-                                <script type="text/javascript">
-                                    let eyeicon = document.getElementById('eyeicon');
-                                    var form = document.getElementById('floatingPIN');
-
-                                    eyeicon.style.display = "none";
-
-                                    form.addEventListener("focusin", function () {
-                                        eyeicon.style.display = "block";
-                                    });
-
-                                    form.addEventListener("focusout", function () {
-                                        if (Event.relatedTarget !== eyeicon) {
-                                            eyeicon.style.display = "none";
-                                        }
-                                    });
-
-                                    eyeicon.addEventListener("mousedown", function (event) {
-                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                        togglePW();
-                                    });
-
-                                    function togglePW() {
-                                        var show = document.getElementById('floatingPIN');
-                                        if (show.type == 'password') {
-                                            show.type = 'text';
-                                            eyeicon.src = "/Elements/eye-slash.svg"
-                                        }
-                                        else {
-                                            show.type = 'password'
-                                            eyeicon.src = "/Elements/eye.svg"
-                                        }
-                                        show.focus();
-                                    }
-                                </script>
-                            </div>
+        <div id="outer">
+            <!--Content-->
+            <section class="text-light p-5 d-flex justify-content-center">
+                <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
+                    <div class="justify-content-center" id="content">
+                        <!--Title-->
+                        <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
+                            <h1 align="center">
+                                / ICELocked<span class="trademark">™</span> /
+                            </h1>
                         </div>
-
                         <p align="center">
-                            @ViewBag.ErrorPIN
+                            You were inactive for too long.<br />Please enter your PIN.
                         </p>
+                        <!--Form-->
+                        @using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
+                                <div class="d-flex justify-content-center w-100">
+                                    <div class="form-floating" style="margin-top: 10px; width: 350px;">
+                                        @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required", onkeypress = "return isNumberKey(event)" })
+                                        @*<input type="password" minlenght="4" maxlength="16" class="form-control rounded-0 w-100" placeholder="PIN" style="margin:auto" required="required" id="floatingPIN" onkeypress="return isNumberKey(event)">*@
+                                        <label for="floatingPIN">PIN</label>
+                                        <span>
+                                            <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
+                                            <img src="~/Elements/eye.svg" id="eyeicon-pin" />
+                                        </span>
+                                    </div>
+                                    <script type="text/javascript">
+                                        function isNumberKey(evt) {
+                                            var charCode = (evt.which) ? evt.which : evt.keyCode
+                                            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                                                return false;
+                                            return true;
+                                        }
 
-                        <!--Login button-->
-                        <div class="d-flex justify-content-center">
-                            <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
-                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="getstartedbtn">
-                                    ENTER →
-                                </button>
+                                        let eyeicon = document.getElementById('eyeicon-pin');
+                                        var form = document.getElementById('floatingPIN');
+
+                                        eyeicon.style.display = "none";
+
+                                        form.addEventListener("focusin", function () {
+                                            eyeicon.style.display = "block";
+                                        });
+
+                                        form.addEventListener("focusout", function () {
+                                            if (Event.relatedTarget !== eyeicon) {
+                                                eyeicon.style.display = "none";
+                                            }
+                                        });
+
+                                        eyeicon.addEventListener("mousedown", function (event) {
+                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                            togglePW();
+                                        });
+
+                                        function togglePW() {
+                                            var show = document.getElementById('floatingPIN');
+                                            if (show.type == 'password') {
+                                                show.type = 'text';
+                                                eyeicon.src = "/Elements/eye-slash.svg"
+                                            }
+                                            else {
+                                                show.type = 'password'
+                                                eyeicon.src = "/Elements/eye.svg"
+                                            }
+                                            show.focus();
+                                        }
+                                    </script>
+                                </div>
                             </div>
-                        </div>
-                    }
+                            <!--Enter button-->
+                            <div class="d-flex justify-content-center">
+                                <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
+                                    <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="getstartedbtn">
+                                        ENTER →
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 </body>
 </html>
