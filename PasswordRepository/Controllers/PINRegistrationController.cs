@@ -29,58 +29,56 @@ namespace PasswordRepository.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RegisterPIN(RegistrationModel model) 
+        public ActionResult RegisterPIN(string regPIN, string regREPEATPIN, int regTIMEOUT) 
         {
-            if (ModelState.IsValid)
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
             {
-                using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+                if (!regPIN.Equals(regREPEATPIN))
                 {
-                    if (!model.textbox_PIN.Equals(model.textbox_REPEAT_PIN))
-                    {
-                        ViewBag.ErrorPIN = "PIN does not match!";
-                        return View("Index");
-                    }
+                    //ViewBag.ErrorPIN = "PIN does not match!";
+                    return Json(new { msg = "PIN does not match!", success = false} );
+                }
 
 
-                    var CurrentUser = (int)Session["ID"];
-                    //Sets password variable to the table entry that matches the given password ID to PID
-                    var UserData = entities.TBL_USER_DETAILS.Where(x => x.UID == CurrentUser).FirstOrDefault();
-                    //If entry not found (should be impossible)
-                    if (UserData == null)
-                    {
-                        return Json(new { msg = "Entry not found (what?? how???)" });
-                    }
+                var CurrentUser = (int)Session["ID"];
+                //Sets password variable to the table entry that matches the given password ID to PID
+                var UserData = entities.TBL_USER_DETAILS.Where(x => x.UID == CurrentUser).FirstOrDefault();
+                //If entry not found (should be impossible)
+                if (UserData == null)
+                {
+                    //ViewBag.ErrorPIN = "User doesn't exist (how did you get here?)";
+                    return Json(new { msg = "User doesn't exist (how did you get here?)", success = false });
+                }
 
-                    //Encrypts entered password
-                    var PINstring = model.textbox_PIN;
-                    var EncryptedPIN = Encrypter.EncryptString(PINstring);
+                //Encrypts entered password
+                var PINstring = regPIN;
+                var EncryptedPIN = Encrypter.EncryptString(PINstring);
 
-                    //Sets selected entry's data to the information passed through the function
-                    UserData.PIN = EncryptedPIN;
-                    UserData.TIMEOUT = model.slider_timeout;
+                //Sets selected entry's data to the information passed through the function
+                UserData.PIN = EncryptedPIN;
+                UserData.TIMEOUT = regTIMEOUT;
+                Session["PIN"] = UserData.PIN;
+                Session["TO"] = UserData.TIMEOUT;
 
-                    //Saves the changes
-                    if (entities.SaveChanges() >= 1)
-                    {
-                        Session["PIN"] = UserData.PIN;
-                        Session["TO"] = UserData.TIMEOUT;
-                        //Success Message
-                        return RedirectToAction("Index", "Dashboard");
-                    }
-                    else
-                    {
-                        //Error Message
-                        ViewBag.ErrorMessage = "An error occured (Controller)";
-                    }
+                //Saves the changes
+                if (entities.SaveChanges() >= 1)
+                {
+                    Session["PIN"] = UserData.PIN;
+                    Session["TO"] = UserData.TIMEOUT;
 
+                    //ViewBag.SuccessPIN = "PIN Registered!";
+
+                    //Success Message
+                    return Json(new { msg = "PIN Registered!", success = true });
+                }
+                else
+                {
+                    //Error Message
+                    //ViewBag.ErrorPIN = "An error occured (Controller)";
+                    return Json(new { msg = "An error occurred(Controller)", success = false });
                 }
 
             }
-
-            //If model state is invalid, it would throw them back to PIN Registration index with an error message
-            ViewBag.ErrorMessage = "Invalid model";
-            return View("Index");
         }
     }
 }

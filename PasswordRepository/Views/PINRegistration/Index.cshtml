@@ -50,7 +50,7 @@
         }
     </style>
     @{
-        if (ViewBag.ErrorMessage != null)
+        if (ViewBag.ErrorPIN != null)
         {
             <script>
                 Swal.fire({
@@ -58,7 +58,7 @@
                     icon: 'error',
                     iconColor: '#c40f2d',
                     background: '#1a1a1a',
-                    title: '@ViewBag.ErrorMessage',
+                    title: '@ViewBag.ErrorPIN',
                     showConfirmButton: false,
                     timer: 2500
                 })
@@ -80,9 +80,8 @@
                         Setup your PIN.
                     </p>
                     <!--Form-->
-                    @using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
+                    @*@using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))*@
+                        @*@Html.AntiForgeryToken()*@
                         <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                             <div class="d-flex justify-content-center w-100">
                                 <div class="form-floating" style="margin-top: 10px; width: 350px;">
@@ -182,7 +181,7 @@
                         </div>
 
                         <div class="col-12 d-flex justify-content-center">
-                            <input type="range" min="1" max="30" step="1" value="1">
+                            <input type="range" min="1" max="30" step="1" value="1" id="timeSlider">
                         </div>
                         <script type="text/javascript">
                             var elem = document.querySelector('input[type="range"]');
@@ -199,15 +198,53 @@
                         <!--Enter button-->
                         <div class="d-flex justify-content-center">
                             <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
-                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="getstartedbtn">
+                                <button class="btn btn-outline-secondary rounded-0" onclick="PINreg()" aria-pressed="true" id="getstartedbtn">
                                     ENTER →
                                 </button>
                             </div>
                         </div>
-                    }
                 </div>
             </div>
         </section>
     </div>
 </body>
 </html>
+<script type="text/javascript">
+
+     function PINreg() {
+        var entryPIN = $('#floatingPIN').val();
+        var entryREPEATPIN = $('#floatingREPEATPIN').val();
+        var sliderTIMEOUT = document.getElementById("timeSlider");
+
+        var data = {
+            regPIN: entryPIN,
+            regREPEATPIN: entryREPEATPIN,
+            regTIMEOUT: sliderTIMEOUT.value
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/PINRegistration/RegisterPIN",
+            dataType: "JSON",
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf8',
+            success: function (data) {
+
+                alert(data.msg);
+
+                if (data.success) {
+                    var url = '@Url.Action("Index","Dashboard")';
+                    window.location.href = url;
+                }
+                else {
+                    location.reload(true);
+                }
+
+
+            },
+            error: function () {
+                alert("An error occurred (AJAX)")
+            }
+        })
+     }
+</script>

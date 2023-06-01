@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordRepository.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,12 @@ namespace PasswordRepository.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+
+            if ((string)Session["PIN"] == "Undefined")
+            {
+                return RedirectToAction("index", "PINRegistration");
+            }
+
             //Sets the session's timedout variable to once the page loads
             Session["timedout"] = true;
             return View();
@@ -29,11 +36,13 @@ namespace PasswordRepository.Controllers
         public ActionResult PinValidate(string pinCode)
         {
             // Validates if the entered PIN matches the user's pin
-            if (pinCode == "1234") //Temporary code
-            //if (pinCode == (string)Session["PIN"]) //PROD code
+            //if (pinCode == "1234") //Temporary code
+            var entryPIN = Encrypter.DecryptString((string)Session["PIN"]);
+            if (pinCode == entryPIN) //prod code
             {
                 //Resets the timedout variable to false then redirects to dashboard
                 Session["timedout"] = false;
+                ViewBag.SuccessPIN = "Login Successful!";
                 return RedirectToAction("Index", "Dashboard");
             }
             else
