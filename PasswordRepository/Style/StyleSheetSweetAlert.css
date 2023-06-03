@@ -1,0 +1,11 @@
+﻿.swal2-title {
+    color: white; /* Change the title color to white */
+}
+
+.swal2-popup {
+    color: #bbbbbb; /* Change the title color to gray */
+}
+
+.swal2-background {
+    background: #1a1a1a !important;
+}

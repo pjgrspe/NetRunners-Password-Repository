@@ -8,7 +8,7 @@
 
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>ICELocked</title>
     <link href="~/Style/StyleSheetPINInterface.css" rel="stylesheet">
     <link href="~/Style/StyleSheetAlerts.css" rel="stylesheet">
 </head>
@@ -35,20 +35,7 @@
 
         </div>
     </nav>
-    <!--doesnt work yet-->
-    <style>
-        .swal2-title {
-            color: white; /* Change the title color to white */
-        }
-
-        .swal2-popup {
-            color: #bbbbbb; /* Change the title color to gray */
-        }
-
-        .swal2-background {
-            background: #1a1a1a !important;
-        }
-    </style>
+    <!--Viewbag-->
     @{
         if (ViewBag.ErrorPIN != null)
         {
@@ -65,11 +52,12 @@
             </script>
         }
     }
+
     <div id="outer">
         <div id="outer">
             <!--Content-->
             <section class="text-light p-5 d-flex justify-content-center">
-                <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
+                <div class="container d-flex justify-content-center" style="margin-top:130px;" id="maincontainer">
                     <div class="justify-content-center" id="content">
                         <!--Title-->
                         <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -141,7 +129,7 @@
                             <!--Enter button-->
                             <div class="d-flex justify-content-center">
                                 <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
-                                    <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="getstartedbtn">
+                                    <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="mainbtn">
                                         ENTER →
                                     </button>
                                 </div>

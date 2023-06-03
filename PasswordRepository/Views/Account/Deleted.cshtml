@@ -1,0 +1,56 @@
+﻿@model PasswordRepository.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>ICELocked</title>
+    <link href="~/Style/StyleSheetPINInterface.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetAlerts.css" rel="stylesheet">
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container" id="navcontainer">
+            <!--Navbar Logo-->
+            <a href="/Home/Index" class="navbar-brand">
+                <img src="~/Elements/ICElogo200pixel.png" width="150" height="67" alt="">
+            </a>
+        </div>
+    </nav>
+
+    <div id="outer">
+        <div id="outer">
+            <!--Content-->
+            <section class="text-light p-5 d-flex justify-content-center">
+                <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
+                    <div class="justify-content-center" id="content">
+                        <!--Title-->
+                        <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
+                            <h1 align="center">
+                                / ACCOUNT DELETED /
+                            </h1>
+                        </div>
+                        <p style="font-size:20px;" align="center">
+                            This account no longer exists.
+                        </p>
+
+                        <!--Enter button-->
+                        <div class="d-flex justify-content-center">
+                            <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
+                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="mainbtn">
+                                    LOGOUT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
