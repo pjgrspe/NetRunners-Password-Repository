@@ -11,8 +11,6 @@
     <title>Home</title>
     <link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
     <link href="~/Style/StyleSheetDashboard.css" rel="stylesheet">
-    <link href="~/Style/StyleSheetAlerts.css" rel="stylesheet">
-
 </head>
 <body>
     <!--Navbar-->
@@ -174,18 +172,19 @@
                                         {
                                             //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
                                             var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
-                                            <!--ITEM 1 DETAILS-->
+                                            <!--PER ITEM DETAILS-->
                                             <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
                                                 <div class="container">
-                                                    <!--TITLE NAME-->
+                                                    <!--DETAILS-->
                                                     <div class="mt-3 item-table w-100 table-form-title" style="margin-top:-30px">
+                                                        <!--TITLE NAME-->
                                                         <div class="tbl-details">
                                                             <h2>
-                                                                <input type="text" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false">
+                                                                <input type="text" minlength="1" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false" placeholder="Title">
                                                             </h2>
                                                         </div>
                                                         <!--USERNAME INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-username-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Username</p>
                                                                 <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username-@PassEntry.PID.ToString()" value="@PassEntry.PR_USERNAME" spellcheck="false">
@@ -194,7 +193,24 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconUsername-@PassEntry.PID.ToString()" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                // Wrap your code inside a function
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputusername();
+                                                                });
+
+                                                                function checkInputusername() {
+                                                                    const inputElement = document.getElementById('Username-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-username-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+
+                                                                //copy to clipboard function
                                                                 function initializeCCIcon() {
                                                                     let ccicon = document.getElementById('cciconUsername-@PassEntry.PID.ToString()');
                                                                     var formdisplay = document.getElementById('Username-@PassEntry.PID.ToString()');
@@ -245,7 +261,7 @@
                                                             </div>
                                                         </div>
                                                         <!--EMAIL INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-email-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Email</p>
                                                                 <input type="email" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Email-@PassEntry.PID.ToString()" value="@PassEntry.PR_EMAIL" spellcheck="false">
@@ -254,7 +270,24 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconEmail-@PassEntry.PID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                // Wrap your code inside a function
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputemail();
+                                                                });
+
+                                                                function checkInputemail() {
+                                                                    const inputElement = document.getElementById('Email-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-email-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+
+                                                                //copy to clipboard function
                                                                 function initializeCCIcon() {
                                                                     let ccicon = document.getElementById('cciconEmail-@PassEntry.PID.ToString()');
                                                                     var formdisplay = document.getElementById('Email-@PassEntry.PID.ToString()');
@@ -305,7 +338,7 @@
                                                             </div>
                                                         </div>
                                                         <!--PASSWORD INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-password-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Password</p>
                                                                 <input type="password" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Password-@PassEntry.PID.ToString()" value="@decryptedPassword" spellcheck="false">
@@ -315,7 +348,23 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="cciconpassword-@PassEntry.PID" id="cciconPassword-@PassEntry.PID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                // Wrap your code inside a function
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputpassword();
+                                                                });
+
+                                                                function checkInputpassword() {
+                                                                    const inputElement = document.getElementById('Password-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-password-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+                                                                //copy to clipboard and show password function
                                                                 function initializeCCIcon() {
                                                                     let eyeicontbl = document.getElementById('eyeiconPassword-@PassEntry.PID.ToString()');
                                                                     let ccicon = document.getElementById('cciconPassword-@PassEntry.PID.ToString()');
@@ -391,7 +440,7 @@
                                                             </div>
                                                         </div>
                                                         <!--URL INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-url-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">URL</p>
                                                                 <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="URL-@PassEntry.PID.ToString()" value="@PassEntry.PR_URL" spellcheck="false">
@@ -400,7 +449,24 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@PassEntry.PID" id="cciconURL-@PassEntry.PID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                // Wrap your code inside a function
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputURL();
+                                                                });
+
+                                                                function checkInputURL() {
+                                                                    const inputElement = document.getElementById('URL-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-url-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+
+                                                                //copy to clipboard function
                                                                 function initializeCCIcon() {
                                                                     let ccicon = document.getElementById('cciconURL-@PassEntry.PID.ToString()');
                                                                     var formdisplay = document.getElementById('URL-@PassEntry.PID.ToString()');
@@ -451,7 +517,7 @@
                                                             </div>
                                                         </div>
                                                         <!--NOTES INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-notes-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Notes</p>
                                                                 <textarea type="text" maxlength="1000" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString() spellcheck="false">@PassEntry.PR_NOTES</textarea>
@@ -460,7 +526,24 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="cciconnotes-@PassEntry.PID" id="cciconNotes-@PassEntry.PID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                // Wrap your code inside a function
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputnotes();
+                                                                });
+
+                                                                function checkInputnotes() {
+                                                                    const inputElement = document.getElementById('Notes-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-notes-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+
+                                                                //copy to clipboard function
                                                                 function initializeCCIcon() {
                                                                     let ccicon = document.getElementById('cciconNotes-@PassEntry.PID.ToString()');
                                                                     var formdisplay = document.getElementById('Notes-@PassEntry.PID.ToString()');
@@ -512,18 +595,18 @@
                                                         </div>
                                                     </div>
                                                     <!--DATE INPUT-->
-                                                    <div class="col-12 d-flex justify-content-center" style="display:none;">
-                                                        <div class="mt-4" style="color:gray; margin-right:60px;" id="dateinfo-@PassEntry.PID">
+                                                    <div class="col-12 d-flex justify-content-center" style="display: none;">
+                                                        <div class="mt-4" style="color: gray; margin-right: 60px;" id="dateinfo-@PassEntry.PID">
                                                             <p>Created on @PassEntry.ENTRY_CREATED</p>
                                                         </div>
                                                     </div>
                                                     <!--HIDDEN CONFIRM AND CANCEL BTNS-->
-                                                    <div class="col-12 d-flex justify-content-center" style="margin-right:60px;">
-                                                        <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
-                                                            <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()','@PassEntry.PR_TITLE')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
+                                                    <div class="col-11 d-flex justify-content-center">
+                                                        <div class="mt-4 mb-4" style="color:gray; display:none;" id="editbtns-@PassEntry.PID">
+                                                            <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID', '@PassEntry.PID.ToString()', '@PassEntry.PR_TITLE')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
                                                                 CONFIRM
                                                             </button>
-                                                            <button class="btn btn-outline-secondary rounded-0" onclick="toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
+                                                            <button class="btn btn-outline-secondary rounded-0" onclick="checkInputemail(); checkInputusername(); checkInputpassword(); checkInputURL(); checkInputnotes(); toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
                                                                 CANCEL
                                                             </button>
                                                         </div>
@@ -574,60 +657,87 @@
         var editicon = document.getElementById('edit-menu-' + PID);
         var editbtns = document.getElementById('editbtns-' + PID);
         var dateinfo = document.getElementById('dateinfo-' + PID);
-        //toggle
-        if (itemUN.classList == 'form-control-plaintext readonly') {
-            //REMOVE MENU ICONS
-            editicon.style.display = "none";
-            dateinfo.style.display = "none";
-            //ADD CONFIRM AND CANCEL BUTTONS
-            editbtns.style.display = "block";
-            //ITEM TITLE
-            itemTITLE.readOnly = false;
-            itemTITLE.className = "form-control-edit";
-            //ITEM UN
-            itemUN.readOnly = false;
-            itemUN.className = "form-control-edit";
-            //ITEM PW
-            itemPW.readOnly = false;
-            itemPW.className = "form-control-edit";
-            itemPW.type = 'password';
-            //ITEM EMAIL
-            itemEMAIL.readOnly = false;
-            itemEMAIL.className = "form-control-edit";
-            //ITEM URL
-            itemURL.readOnly = false;
-            itemURL.className = "form-control-edit";
-            //ITEM NOTES
-            itemNOTES.readOnly = false;
-            itemNOTES.className = "form-control-notes-edit form-control-edit";
+
+        //tbldetails
+        const UNtblDetail = document.getElementById('tbl-username-' + PID)
+        const PWtblDetail = document.getElementById('tbl-password-' + PID)
+        const EMAILtblDetail = document.getElementById('tbl-email-' + PID)
+        const URLtblDetail = document.getElementById('tbl-url-' + PID)
+        const NOTEStblDetail = document.getElementById('tbl-notes-' + PID)
+
+        if (itemTITLE.value != null) {
+            //toggle
+            if (itemUN.classList == 'form-control-plaintext readonly') {
+                //REMOVE MENU ICONS
+                editicon.style.display = "none";
+                dateinfo.style.display = "none";
+                //ADD CONFIRM AND CANCEL BUTTONS
+                editbtns.style.display = "block";
+                //ITEM TITLE
+                itemTITLE.readOnly = false;
+                itemTITLE.className = "form-control-edit";
+                //ITEM UN
+                itemUN.readOnly = false;
+                itemUN.className = "form-control-edit";
+                UNtblDetail.style.display = "block";
+                //ITEM PW
+                itemPW.readOnly = false;
+                itemPW.className = "form-control-edit";
+                itemPW.type = 'password';
+                PWtblDetail.style.display = "block";
+                //ITEM EMAIL
+                itemEMAIL.readOnly = false;
+                itemEMAIL.className = "form-control-edit";
+                EMAILtblDetail.style.display = "block";
+                //ITEM URL
+                itemURL.readOnly = false;
+                itemURL.className = "form-control-edit";
+                URLtblDetail.style.display = "block";
+                //ITEM NOTES
+                itemNOTES.readOnly = false;
+                itemNOTES.className = "form-control-notes-edit form-control-edit";
+                NOTEStblDetail.style.display = "block";
+            }
+            else {
+                //ADD MENU ICONS
+                editicon.style.display = "block";
+                dateinfo.style.display = "block";
+                //REMOVE CONFIRM AND CANCEL BUTTONS
+                editbtns.style.display = "none";
+                //ITEM TITLE
+                itemTITLE.readOnly = true;
+                itemTITLE.className = "form-control-plaintext form-control-title";
+                //ITEM UN
+                itemUN.readOnly = true;
+                itemUN.className = "form-control-plaintext readonly";
+                //ITEM PW
+                itemPW.readOnly = true;
+                itemPW.className = "form-control-plaintext";
+                itemPW.type = 'password';
+                //ITEM EMAIL
+                itemEMAIL.readOnly = true;
+                itemEMAIL.className = "form-control-plaintext";
+                //itemEMAIL.value = Email;
+                //ITEM URL
+                itemURL.readOnly = true;
+                itemURL.className = "form-control-plaintext";
+                //ITEM NOTES
+                itemNOTES.readOnly = true;
+                itemNOTES.className = "form-control-plaintext form-control-notes";
+            }
         }
         else {
-            //ADD MENU ICONS
-            editicon.style.display = "block";
-            dateinfo.style.display = "block";
-            //REMOVE CONFIRM AND CANCEL BUTTONS
-            editbtns.style.display = "none";
-            //ITEM TITLE
-            itemTITLE.readOnly = true;
-            itemTITLE.className = "form-control-plaintext form-control-title";
-            //ITEM UN
-            itemUN.readOnly = true;
-            itemUN.className = "form-control-plaintext readonly";
-            //ITEM PW
-            itemPW.readOnly = true;
-            itemPW.className = "form-control-plaintext";
-            itemPW.type = 'password';
-            //ITEM EMAIL
-            itemEMAIL.readOnly = true;
-            itemEMAIL.className = "form-control-plaintext";
-            //itemEMAIL.value = Email;
-            //ITEM URL
-            itemURL.readOnly = true;
-            itemURL.className = "form-control-plaintext";
-            //ITEM NOTES
-            itemNOTES.readOnly = true;
-            itemNOTES.className = "form-control-plaintext form-control-notes";
+            Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    iconColor: '#c40f2d',
+                    background: '#1a1a1a',
+                    title: 'Title is required!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
         }
+
     }
 </script>
 <style>
@@ -697,7 +807,10 @@
     }
 
     //Function for updating given entry
+
     function updateEntry(passwordID, passwordIDstring, title) {
+
+        var itemTITLE = document.getElementById('Title-' + passwordID);
 
         //Sets variables to corresponding textboxes
         var pwID = passwordID;
@@ -719,33 +832,61 @@
             passwordNotes: pwNotes
         }
 
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            background: '#1a1a1a',
-            title: '"' + title + '" updated!',
-            iconColor: '#70cc72',
-            showConfirmButton: false,
-            timer: 2500
-        })
-        .then(function () {
-            location.reload(true);
-        })
+        if (!itemTITLE.value.trim()) {
+            //error alert
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'Title is required!',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+        else {
+            //Confirmation message before updating entry
+            Swal.fire({
+                title: 'Update item?',
+                text: "This will update the item.",
+                icon: 'question',
+                iconColor: '#2973b9',
+                background: '#1a1a1a',
+                showCancelButton: true,
+                confirmButtonColor: '#70cc72',
+                cancelButtonColor: '#fe4365',
+                confirmButtonText: 'Confirm'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax function to prepare data to be sent to the controller
+                    $.ajax({
+                        type: "POST",
+                        url: "/Dashboard/UpdateEntry",
+                        dataType: "JSON",
+                        data: JSON.stringify(data),
+                        contentType: 'application/json; charset=utf8',
+                        success: function () {
 
-        //Ajax function to prepare data to be sent to the controller
-        $.ajax({
-            type: "POST",
-            url: "/Dashboard/UpdateEntry",
-            dataType: "JSON",
-            data: JSON.stringify(data),
-            contentType: 'application/json; charset=utf8',
-            success: function () {
-                
-            },
-            error: function () {
-                alert("An error occurred")
-            }
-        })
+                        },
+                        error: function () {
+                            alert("An error occurred")
+                        }
+                    })
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        background: '#1a1a1a',
+                        iconColor: '#70cc72',
+                        title: '"' + title + '" successfuly updated!',
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
+                        .then(function () {
+                            location.reload(true);
+                        }
+                        )
+                }
+            })
+        }
     }
-
 </script>

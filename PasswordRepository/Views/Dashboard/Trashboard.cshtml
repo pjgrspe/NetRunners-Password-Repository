@@ -68,9 +68,6 @@
                             / TRASH BIN /
                         </h2>
                     </div>
-                    <div class="d-flex justify-content-center col-12">
-                        <p>Items stored here will be deleted in 30 days.</p>
-                    </div>
                     <!--TABLE-->
                     <div class="d-flex justify-content-center w-100" style="margin-top:20px">
                         <div class="row w-100" id="passrepotable">
@@ -85,9 +82,10 @@
                                         </div>
                                     </a>
                                 </div>
+
                                 <!-- Button trigger modal -->
                                 <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#addbutton-modal" id="deleteallbtn" style="margin-top:10px;" onclick="DeleteAllEntry('@Session["ID"]')">
+                                    <button type="button" class="btn btn-outline-secondary rounded-0" id="deleteallbtn" style="margin-top:10px;" onclick="DeleteAllEntry('@Session["ID"]')">
                                         DELETE ALL
                                     </button>
                                 </div>
@@ -128,7 +126,7 @@
                             <!--ITEM DETAILS-->
                             <div class="col-8" id="table-rightcolumn">
                                 <div class="tab-content" id="nav-tabContent">
-                                    <!--DISPLAY IF NO TRASH ITEMS-->
+                                    <!--DISPLAY IF NO ITEMS-->
                                     <div class="show" id="list-welcome">
                                         <div class="container w-100">
                                             <!--DISPLAY DETAILS-->
@@ -144,43 +142,98 @@
                                     </div>
                                     @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
                                         {
+                                            //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
                                             var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
-                                            <!--ITEM 1 DETAILS-->
+                                            <!--PER ITEM DETAILS-->
                                             <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
                                                 <div class="container">
-                                                    <!--TITLE NAME-->
+                                                    <!--DETAILS-->
                                                     <div class="mt-3 item-table w-100 table-form-title" style="margin-top:-30px">
+                                                        <!--TITLE NAME-->
                                                         <div class="tbl-details">
                                                             <h2>
-                                                                <input type="text" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false">
+                                                                <input type="text" minlength="1" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@PassEntry.PID.ToString()" value="@PassEntry.PR_TITLE" spellcheck="false">
                                                             </h2>
                                                         </div>
                                                         <!--USERNAME INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-username-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Username</p>
                                                                 <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username-@PassEntry.PID.ToString()" value="@PassEntry.PR_USERNAME" spellcheck="false">
+                                                                <script type="text/javascript">
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputusername();
+                                                                });
+
+                                                                function checkInputusername() {
+                                                                    const inputElement = document.getElementById('Username-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-username-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+                                                                </script>
                                                             </div>
                                                         </div>
                                                         <!--EMAIL INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-email-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Email</p>
-                                                                <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email-@PassEntry.PID.ToString()" value="@PassEntry.PR_EMAIL" spellcheck="false">
+                                                                <input type="email" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Email-@PassEntry.PID.ToString()" value="@PassEntry.PR_EMAIL" spellcheck="false">
+                                                                <script type="text/javascript">
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputemail();
+                                                                });
+
+                                                                function checkInputemail() {
+                                                                    const inputElement = document.getElementById('Email-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-email-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+                                                                </script>
                                                             </div>
                                                         </div>
                                                         <!--PASSWORD INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-password-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Password</p>
-                                                                <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password-@PassEntry.PID.ToString()" value="@decryptedPassword" spellcheck="false">
+                                                                <input type="password" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Password-@PassEntry.PID.ToString()" value="@decryptedPassword" spellcheck="false">
                                                                 <span>
-                                                                    <!--Eye and CC icon-->
+                                                                    <!--Eye icon-->
                                                                     <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                // Wrap your code inside a function
-                                                                function initializeCCIcon() {
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputpassword();
+                                                                });
+
+                                                                function checkInputpassword() {
+                                                                    const inputElement = document.getElementById('Password-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-password-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+
+                                                                //copy to clipboard and show password function
+                                                                function initializeeyeIcon() {
                                                                     let eyeicontbl = document.getElementById('eyeiconPassword-@PassEntry.PID.ToString()');
                                                                     var formdisplay = document.getElementById('Password-@PassEntry.PID.ToString()');
 
@@ -188,6 +241,10 @@
                                                                     if (formdisplay && eyeicontbl) {
 
                                                                     eyeicontbl.style.display = "block";
+
+                                                                    formdisplay.addEventListener("mouseenter", function () {
+                                                                        formdisplay.classList.add("hover");
+                                                                    });
 
                                                                     formdisplay.addEventListener("mouseleave", function () {
                                                                         const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
@@ -209,49 +266,79 @@
                                                                     function toggleshowPW_table() {
                                                                         var show = document.getElementById('Password-@PassEntry.PID.ToString()');
                                                                         if (show.type == 'password') {
-                                                                            //THIS IS FOR THE EDIT BUTTON
-                                                                            //document.getElementById('staticPassword').readOnly=false;
-                                                                            //document.getElementById('staticPassword').className = "form-control";
                                                                             show.type = 'text';
                                                                             eyeicontbl.src = "/Elements/eye-slash-white.svg"
                                                                         }
                                                                         else {
                                                                             show.type = 'password'
-                                                                            //THIS IS FOR THE EDIT BUTTON
-                                                                            //document.getElementById('staticPassword').readOnly=true;
-                                                                            //document.getElementById('staticPassword').className = "form-control-plaintext";
                                                                             eyeicontbl.src = "/Elements/eye-white.svg"
 
                                                                         }
                                                                         show.focus();
-                                                                    }
+                                                                        }
                                                                     }
 
                                                                 }
-                                                                  // Call the function after the document has finished loading
-                                                                  window.addEventListener('load', initializeCCIcon);
+                                                                // Call the function after the document has finished loading
+                                                                window.addEventListener('load', initializeeyeIcon);
                                                                 </script>
                                                             </div>
                                                         </div>
                                                         <!--URL INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-url-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">URL</p>
-                                                                <input type="text" readonly class="form-control-plaintext" style="width:100%" id="URL-@PassEntry.PID.ToString()" value="@PassEntry.PR_URL" spellcheck="false">
+                                                                <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="URL-@PassEntry.PID.ToString()" value="@PassEntry.PR_URL" spellcheck="false">
+                                                                <script type="text/javascript">
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputURL();
+                                                                });
+
+                                                                function checkInputURL() {
+                                                                    const inputElement = document.getElementById('URL-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-url-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+                                                                </script>
                                                             </div>
                                                         </div>
                                                         <!--NOTES INPUT-->
-                                                        <div class="mt-3 tbl-details">
+                                                        <div class="mt-3 tbl-details" id="tbl-notes-@PassEntry.PID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Notes</p>
-                                                                <textarea type="text" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString() spellcheck="false">@PassEntry.PR_NOTES</textarea>
+                                                                <textarea type="text" maxlength="1000" style="text-align: left; height: 100px; width: 100%" readonly class="form-control-plaintext form-control-notes" id=Notes-@PassEntry.PID.ToString() spellcheck="false">@PassEntry.PR_NOTES</textarea>
+                                                                <script type="text/javascript">
+                                                                //disappear if input is null
+                                                                window.addEventListener('load', function () {
+                                                                    checkInputnotes();
+                                                                });
+
+                                                                function checkInputnotes() {
+                                                                    const inputElement = document.getElementById('Notes-@PassEntry.PID.ToString()');
+                                                                    const tblDetail = document.getElementById('tbl-notes-@PassEntry.PID.ToString()')
+
+                                                                    // Check if the value is null or empty
+                                                                    if (!inputElement.value.trim()) {
+                                                                        tblDetail.style.display = 'none'; // Hide the input element
+                                                                    } else {
+                                                                        tblDetail.style.display = 'block'; // Show the input element
+                                                                    }
+                                                                }
+                                                                </script>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!--DATE INPUT-->
-                                                    <div class="col-12 d-flex justify-content-center" style="display:none;">
-                                                        <div class="mt-4" style="color:gray; margin-right:60px;" id="dateinfo-@PassEntry.PID">
-                                                            <p>Will be permanently deleted on @PassEntry.EXPIRY_DATE</p>
+                                                    <div class="col-12 d-flex justify-content-center" style="display: none;">
+                                                        <div class="mt-4" style="color: gray; margin-right: 60px;" id="dateinfo-@PassEntry.PID">
+                                                            <p>Will be deleted on @PassEntry.EXPIRY_DATE</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -262,7 +349,6 @@
                                                         <span class="lines line-2"></span>
                                                         <span class="lines line-3"></span>
                                                     </label>
-                                                    <!--LUIS-->
                                                     <a class="menu-item red" onclick="permDeleteEntry('@PassEntry.PID','@PassEntry.PR_TITLE')"> <i class="fa fa-trash"></i> </a>
                                                     <a class="menu-item green" onclick="restoreEntry('@PassEntry.PID','@PassEntry.PR_TITLE')"> <i class="fa fa-undo"></i> </a>
                                                 </nav>
@@ -330,6 +416,7 @@
                     position: 'center',
                     icon: 'success',
                     background: '#1a1a1a',
+                    iconColor: '#70cc72',
                     title: '"' + title + '" successfuly restored!',
                     showConfirmButton: false,
                     timer: 2500
