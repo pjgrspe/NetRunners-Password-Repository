@@ -174,7 +174,7 @@ a:link {
 }
 
 #signinprompt {
-    color: #3e8285;
+    color: #9e215e;
     background-color: transparent;
     text-decoration: none;
 }
@@ -263,13 +263,43 @@ h1 {
     opacity: 1;
 }
 
-#eyeicon-login {
+#eyeiconPassword {
     position: absolute;
     right: 15px;
     transform: translate(0, -50%);
-    top: 50%;
+    top: 65%;
     cursor: pointer;
     width: 20px;
+    height: auto;
+}
+
+#eyeiconPIN {
+    position: absolute;
+    right: 12px;
+    transform: translate(0, -50%);
+    top: 68%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+#editicon {
+    position: absolute;
+    right: 25px;
+    transform: translate(0, -50%);
+    top: 6.6%;
+    cursor: pointer;
+    width: 25px;
+    height: auto;
+}
+
+#gearicon {
+    position: absolute;
+    right: 25px;
+    transform: translate(0, -50%);
+    top: 14.5%;
+    cursor: pointer;
+    width: 25px;
     height: auto;
 }
 
@@ -323,6 +353,12 @@ h1 {
     background-color: #70cc72;
 }
 
+#mainbtn {
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+}
+
 #addmodalbtn:hover {
     background-color: white;
     color: #4ca1a5;
@@ -352,6 +388,7 @@ h1 {
     background-color: #1a1a1a;
     backdrop-filter: blur(10px);
     border-radius: 10px;
+    width:600px;
 }
 
 .tab-content {
@@ -376,7 +413,7 @@ h1 {
     border: 1px solid white;
     padding: 5px 5px;
     width: 60%;
-    max-width: 90%;
+    max-width: 100%;
 }
 
 .form-control-notes {

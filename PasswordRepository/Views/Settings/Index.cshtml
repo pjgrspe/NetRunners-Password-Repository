@@ -46,9 +46,9 @@
 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="@Url.Action("TrashboardTEST", "Dashboard")">Trash</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Trashboard", "Dashboard")">Trash</a></li>
                             <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Settings")">Settings</a></li>
                             <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
                         </ul>
                     </li>
@@ -60,7 +60,8 @@
 
     <div id="outer">
         <!--Content-->
-        <section class="text-light p-5 d-flex justify-content-center">
+        <!--USER DETAILS MODULE-->
+        <section class="text-light p-3 d-flex justify-content-center">
             <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:30px;">
                 <!--Title-->
                 <div class="mb-2 d-flex justify-content-center col-12 content" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -77,23 +78,27 @@
                         <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
                             <!--TITLE NAME-->
                             <div class="tbl-details" style="text-align:center">
-                                <h2>
-                                    <input type="text" maxlength="20" readonly style="width:100%; text-align:center;" class="form-control-title" id="Title" value="(User)'s Details" spellcheck="false">
+                                <h2 style="font-weight:400">
+                                    User Details
                                 </h2>
+                                <span>
+                                    <!--Eye icon-->
+                                    <img src="~/Elements/edit.svg" class="editicon" id="editicon" />
+                                </span>
                             </div>
                             <div class="d-flex justify-content-left w-100">
                                 <!--FIRSTNAME INPUT-->
                                 <div class="mt-3 tbl-details w-100">
                                     <div class="form-floating table-form">
                                         <p style="margin-bottom:-2px;">First Name</p>
-                                        <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name readonly" style="width:100%" id="Username" spellcheck="false">
+                                        <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name readonly" style="width:100%" id="Username" spellcheck="false" value="ThisIsATestFName">
                                     </div>
                                 </div>
                                 <!--LASTNAME INPUT-->
                                 <div class="mt-3 tbl-details w-100">
                                     <div class="form-floating table-form">
                                         <p style="margin-bottom:-2px; margin-left:11px;">Last Name</p>
-                                        <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name readonly" style="width:100%; margin-left:11px;" id="Username" spellcheck="false">
+                                        <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name readonly" style="width:100%; margin-left:11px;" id="Username" spellcheck="false" value="ThisIsATestLName">
                                     </div>
                                 </div>
                             </div>
@@ -101,21 +106,64 @@
                             <div class="mt-3 tbl-details">
                                 <div class="form-floating table-form">
                                     <p style="margin-bottom:-2px;">Username</p>
-                                    <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username" spellcheck="false">
+                                    <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username" spellcheck="false" value="ThisIsATestUsername">
                                 </div>
                             </div>
                             <!--EMAIL INPUT-->
                             <div class="mt-3 tbl-details">
                                 <div class="form-floating table-form">
                                     <p style="margin-bottom:-2px;">Email</p>
-                                    <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email" spellcheck="false">
+                                    <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email" spellcheck="false" value="ThisIsATestEmail">
                                 </div>
                             </div>
                             <!--PASSWORD INPUT-->
                             <div class="mt-3 tbl-details">
                                 <div class="form-floating table-form">
                                     <p style="margin-bottom:-2px;">Password</p>
-                                    <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password" spellcheck="false">
+                                    <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password" spellcheck="false" value="ThisIsATest">
+                                    <span>
+                                        <!--Eye icon-->
+                                        <img src="~/Elements/eye-white.svg" class="eyeiconPassword" id="eyeiconPassword" />
+                                    </span>
+                                    <script type="text/javascript">
+                                        //copy to clipboard and show password function
+                                        function initializeCCIcon() {
+                                            let eyeicontbl = document.getElementById('eyeiconPassword');
+                                            var formdisplay = document.getElementById('Password');
+
+                                            // Make sure the elements are not null before accessing their properties
+                                            if (formdisplay && eyeicontbl) {
+
+                                                eyeicontbl.style.display = "block";
+
+                                                eyeicontbl.addEventListener("mouseenter", function () {
+                                                    formdisplay.classList.add("hover");
+                                                });
+
+                                                eyeicontbl.addEventListener("mousedown", function (event) {
+                                                    event.preventDefault(); // prevent default action to avoid losing focus
+                                                    toggleshowPW_table();
+                                                });
+
+                                                function toggleshowPW_table() {
+                                                    var show = document.getElementById('Password');
+                                                    if (show.type == 'password') {
+                                                        show.type = 'text';
+                                                        eyeicontbl.src = "/Elements/eye-slash-white.svg"
+                                                    }
+                                                    else {
+                                                        show.type = 'password'
+                                                        eyeicontbl.src = "/Elements/eye-white.svg"
+
+                                                    }
+                                                    show.focus();
+                                                }
+                                            }
+
+                                        }
+                                        // Call the function after the document has finished loading
+                                        window.addEventListener('load', initializeCCIcon);
+                                    </script>
                                 </div>
                             </div>
                             <!--DATE INPUT-->
@@ -124,41 +172,133 @@
                                     <p>Created on</p>
                                 </div>
                             </div>
+                            <!--Logout button-->
+                            <div class="d-flex justify-content-center" style="margin-bottom:20px;">
+                                <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
+                                    <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="mainbtn">
+                                        LOGOUT
+                                    </button>
+                                </div>
+                            </div>
+                            <!--Redirect to registration-->
+                            <div class="d-flex justify-content-center" style="margin-bottom:30px; font-size:15px;">
+                                <p>
+                                    <a href="/Registration/Index" id="signinprompt"><u>Deactivate Account</u></a>
+                                </p>
+                            </div>
+                        </div>
+                        <!--CONFIRM AND CANCEL BTNS FOR DETAILS-->
+                        @*<div class="col-12 d-flex justify-content-center" style="margin-right:60px;">
+                            <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
+                                <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
+                                    CONFIRM
+                                </button>
+                                <button class="btn btn-outline-secondary rounded-0" onclick="toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
+                                    CANCEL
+                                </button>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!--ICELOCK MODULE-->
+        <section class="text-light p-2 d-flex justify-content-center">
+            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:10px;">
+                <div class="justify-content-center" id="passrepotable">
+                    <!--Form-->
+                    @*@using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))*@
+                    @*@Html.AntiForgeryToken()*@
+                    <!--ITEM 1 DETAILS-->
+                    <div class="container d-flex justify-content-center">
+                        <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
                             <!--ICELOCK-->
                             <!--TITLE NAME-->
                             <div class="mt-3 tbl-details" style="text-align:center">
-                                <h2>
-                                    <input type="text" maxlength="20" readonly style="width:100%; text-align:center;" class="form-control-title" id="Title" value="ICELock™ Options" spellcheck="false">
+                                <h2 style="font-weight:400">
+                                    ICELock™ Options
                                 </h2>
+                                <span>
+                                    <!--Eye icon-->
+                                    <img src="~/Elements/gearicon.svg" class="gearicon" id="gearicon" />
+                                </span>
                             </div>
                             <!--PIN INPUT-->
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="mt-1 tbl-details" style="width:80%;">
+                            <div class="mt-4 col-12 d-flex justify-content-center">
+                                <div class="tbl-details" style="width:80%;">
                                     <div class="form-floating table-form" style="align-content: center">
                                         <p style="margin-bottom:-2px;">PIN</p>
-                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="PIN" spellcheck="false">
+                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="PIN" spellcheck="false" value="1234">
+                                        <span>
+                                            <!--Eye icon-->
+                                            <img src="~/Elements/eye-white.svg" class="eyeiconPIN" id="eyeiconPIN" />
+                                        </span>
+                                        <script type="text/javascript">
+                                            //copy to clipboard and show password function
+                                            function initializeCCIcon() {
+                                                let eyeicontbl = document.getElementById('eyeiconPIN');
+                                                var formdisplay = document.getElementById('PIN');
+
+                                                // Make sure the elements are not null before accessing their properties
+                                                if (formdisplay && eyeicontbl) {
+
+                                                    eyeicontbl.style.display = "block";
+
+                                                    eyeicontbl.addEventListener("mouseenter", function () {
+                                                        formdisplay.classList.add("hover");
+                                                    });
+
+                                                    eyeicontbl.addEventListener("mousedown", function (event) {
+                                                        event.preventDefault(); // prevent default action to avoid losing focus
+                                                        toggleshowPW_table();
+                                                    });
+
+                                                    function toggleshowPW_table() {
+                                                        var showPIN = document.getElementById('PIN');
+                                                        var showREPIN = document.getElementById('RepeatPIN');
+                                                        if (showPIN.type == 'password') {
+                                                            showPIN.type = 'text';
+                                                            showREPIN.type = 'text';
+                                                            eyeicontbl.src = "/Elements/eye-slash-white.svg"
+                                                        }
+                                                        else {
+                                                            showPIN.type = 'password'
+                                                            showREPIN.type = 'password';
+                                                            eyeicontbl.src = "/Elements/eye-white.svg"
+
+                                                        }
+                                                        showPIN.focus();
+                                                    }
+                                                }
+
+                                            }
+                                            // Call the function after the document has finished loading
+                                            window.addEventListener('load', initializeCCIcon);
+                                        </script>
                                     </div>
                                 </div>
                             </div>
-                            <!--REPEAT PIN INPUT-->
-                            <div class="mt-1 tbl-details hidden">
-                                <div class="form-floating table-form">
-                                    <p style="margin-bottom:-2px;">PIN</p>
-                                    <input type="password" readonly class="form-control-plaintext" style="width:80%" id="PIN" spellcheck="false">
+                            <!--REPEAT PIN SHOWS ONLY ON EDIT-->
+                            <div class="mt-2 col-12 d-flex justify-content-center hidden">
+                                <div class="tbl-details" style="width:80%;">
+                                    <div class="form-floating table-form" style="align-content: center">
+                                        <p style="margin-bottom:-2px;">REPEAT PIN</p>
+                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false" value="1234">
+                                    </div>
                                 </div>
                             </div>
                             <!--ICELock instruction-->
-                            <div class="mt-4 d-flex justify-content-center hidden">
+                            <div class="mt-5 d-flex justify-content-center" style="margin-bottom:-30px;">
                                 <div class="col-12">
                                     <p align="center" style="font-size:20px;">
-                                        Set idle timeout period.
+                                        Idle timeout period.
                                     </p>
                                 </div>
                             </div>
                             <!--ICELock details-->
                             <div class="mt-4 d-flex justify-content-center" style="margin-bottom:-30px;">
-                                <div class="col-8 d-flex justify-content-center">
+                                <div class="d-flex justify-content-center" style="width:80%;">
                                     <div class="sub">
                                         Duration:
                                     </div>
@@ -171,47 +311,38 @@
                                 </div>
                             </div>
                             <!--ICELock slider-->
-                            <div class="col-12 d-flex justify-content-center" style="margin-bottom:70px;">
-                                <input type="range" min="1" max="30" step="1" value="1" id="timeSlider">
+                            <div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
+                                <input disabled type="range" min="1" max="30" step="1" value="5" id="timeSlider">
                             </div>
                             <script type="text/javascript">
-                                var elem = document.querySelector('input[type="range"]');
+                                //range selector
+                                window.onload = function () {
+                                    var initialValue = document.querySelector('input[type="range"]')
+                                    var target = document.querySelector('.value');
+                                    target.innerHTML = initialValue.value;
+                                }
 
-                                var rangeValue = function () {
+                                var elem = document.querySelector('input[type="range"]');
+                                rangeValue = function () {
                                     var newValue = elem.value;
                                     var target = document.querySelector('.value');
                                     target.innerHTML = newValue;
                                 }
-
                                 elem.addEventListener("input", rangeValue);
                             </script>
                         </div>
-
-
-
-                        <!--CONFIRM AND CANCEL BTNS FOR EDIT-->
+                        <!--CONFIRM AND CANCEL BTNS FOR ICELOCK-->
                         @*<div class="col-12 d-flex justify-content-center" style="margin-right:60px;">
-                    <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
-                        <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID','@PassEntry.PID.ToString()')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
-                            CONFIRM
-                        </button>
-                        <button class="btn btn-outline-secondary rounded-0" onclick="toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
-                            CANCEL
-                        </button>
+                            <div class="mt-4 mb-4" style="color:gray; margin-right:60px; display:none;" id="editbtns-@PassEntry.PID">
+                                <button class="btn btn-outline-secondary rounded-0" onclick="" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
+                                    CONFIRM
+                                </button>
+                                <button class="btn btn-outline-secondary rounded-0" onclick="" aria-pressed="true" id="editcancelbtn">
+                                    CANCEL
+                                </button>
+                            </div>
+                        </div>*@
                     </div>
-                </div>*@
-                    </div>
-                    <!--MENU ITEMS-->
-                    @*<nav class="menu" id="edit-menu">
-                        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-                        <label class="menu-open-button" for="menu-open">
-                            <span class="lines line-1"></span>
-                            <span class="lines line-2"></span>
-                            <span class="lines line-3"></span>
-                        </label>
-                        <a class="menu-item red"> <i class="fa fa-trash"></i> </a>
-                        <a class="menu-item green"> <i class="fa fa-pen"></i> </a>
-                    </nav>*@
                 </div>
             </div>
         </section>
