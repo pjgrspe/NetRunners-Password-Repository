@@ -35,6 +35,11 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("index", "PINRegistration");
             }
 
+            if ((bool)Session["Status"] == false)
+            {
+                return RedirectToAction("deactivated", "Account");
+            }
+
 
             //Sets the entity object
             //To display all the passwords for the specific user
@@ -215,15 +220,21 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            //if ((string)Session["PIN"] == "Undefined")
-            //{
-            //    return RedirectToAction("index", "PINRegistration");
-            //}
+            if ((string)Session["PIN"] == "Undefined")
+            {
+                return RedirectToAction("index", "PINRegistration");
+            }
 
             if ((bool)Session["timedout"] == true)
             {
                 return RedirectToAction("index", "PINInterface");
             }
+
+            if ((bool)Session["Status"] == false)
+            {
+                return RedirectToAction("deactivated", "Account");
+            }
+
 
             //Sets the entity object
             //To display all the deleted passwords for the specific user
