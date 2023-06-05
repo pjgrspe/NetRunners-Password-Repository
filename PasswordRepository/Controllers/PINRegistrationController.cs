@@ -25,6 +25,11 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("index", "PINInterface");
             }
 
+            if ((bool)Session["Status"] == false)
+            {
+                return RedirectToAction("deactivated", "Account");
+            }
+
             return View();
         }
 

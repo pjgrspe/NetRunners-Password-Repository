@@ -24,6 +24,11 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("index", "PINRegistration");
             }
 
+            if ((bool)Session["Status"] == false)
+            {
+                return RedirectToAction("deactivated", "Account");
+            }
+
             //Sets the session's timedout variable to once the page loads
             Session["timedout"] = true;
             return View();

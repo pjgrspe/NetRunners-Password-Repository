@@ -67,20 +67,28 @@ namespace PasswordRepository.Controllers
 
                             //sets eData to selected the entry that matches the current UID in TBL_USER_DETAILS
                             var dData = entities.TBL_USER_DETAILS.Where(x => x.UID.Equals(eData.ID)).FirstOrDefault();
-                            
+
                             //Sets the Session variables PIN and TO to the corresponding data on the table, also sets the timedout flag to false by default
                             Session["PIN"] = dData.PIN;
                             Session["TO"] = dData.TIMEOUT;
                             //TimedOut flag is used for the pin timer system
                             Session["timedout"] = false;
+                            Session["Status"] = eData.STATUS;
                             //Sets session timeout to three days
                             Session.Timeout = 1440;
 
                             //Cookie code
                             Response.Cookies.Add(httpCookie);
 
-                            //Redirects to Index Dashboard after everything is settled
-                            return RedirectToAction("Index", "Dashboard");  //For Prod
+                            if (eData.STATUS)
+                            {
+                                //Redirects to Index Dashboard after everything is settled
+                                return RedirectToAction("Index", "Dashboard");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Deactivated", "Account");
+                            }
                         }
                         else //Viewbag error for when the password do not match the username
                         {
@@ -89,10 +97,10 @@ namespace PasswordRepository.Controllers
                         }
                     }
                     else //Viewbag error for when the Username or Email does not exist in the database
-                    { 
-                        ViewBag.ErrorMessage = "Username or Email is incorrect!";
-                        return View("Index");
+                    {
+                        return RedirectToAction("Index", "Dashboard");
                     }
+                    
                 }
             }
             //Viewbag error for when the model is invalid
@@ -120,5 +128,6 @@ namespace PasswordRepository.Controllers
             //Brings back to home
             return RedirectToAction("Index","Home");
         }
+
     }
 }

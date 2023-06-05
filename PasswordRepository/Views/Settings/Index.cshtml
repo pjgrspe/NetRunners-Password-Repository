@@ -15,376 +15,266 @@
 
 </head>
 <body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container" id="navcontainer">
-            <!--Navbar Logo-->
-            <a href="/Home/Index" class="navbar-brand">
-                <img src="~/Elements/ICElogo200pixel.png" width="150" height="67" alt="">
-            </a>
-            <!--Navbar Hamburger Menu-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!--Navbar Items-->
-            <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="/Home/Index" class="nav-link nav-link-normal" id="navhome">HOME</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#team" class="nav-link nav-link-normal" id="navteam">TEAM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link nav-link-normal" id="navcontact">CONTACT</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase">
+    @{var userLogin = Model.UserCredList.Where(x => x.ID.Equals((int)Session["ID"])).FirstOrDefault();
+      var userDetails = Model.UserDetailsList.Where(x => x.UID.Equals((int)Session["ID"])).FirstOrDefault();
+      var decryptedPass = Encrypter.DecryptString(userLogin.PASSWORD);
+      var decryptedPIN = Encrypter.DecryptString(userDetails.PIN);
+        <!--Navbar-->
+            <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container" id="navcontainer">
+                <!--Navbar Logo-->
+                <a href="/Home/Index" class="navbar-brand">
+                    <img src="~/Elements/ICElogo200pixel.png" width="150" height="67" alt="">
+                </a>
+                <!--Navbar Hamburger Menu-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!--Navbar Items-->
+                <div class="collapse navbar-collapse" id="navmenu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="/Home/Index" class="nav-link nav-link-normal" id="navhome">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#team" class="nav-link nav-link-normal" id="navteam">TEAM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#contact" class="nav-link nav-link-normal" id="navcontact">CONTACT</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase">
 
-                            @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
-                            User
+                                @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
+                                @userLogin.USERNAME
 
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Settings")">Settings</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </nav>
-
-    <div id="outer">
-        <!-- Modal-->
-        <div class="modal fade" id="detailsbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <!--Form-->
-                    <div class="modal-header d-flex justify-content-center">
-                        <h1 style="font-weight: 800; color: #b32269!important; " class="modal-title fs-4" id="ModalLabel">CONFIRM PASSWORD</h1>
-                    </div>
-                    <div class="modal-body modal-xl" style="padding-top:0px;">
-                        <div class="d-flex justify-content-center w-100">
-                            <h6 style="color: white; font-family: 'JetBrains Mono'; text-align: center">To view your password or modify settings,<br> please enter your password.</h6>
-                        </div>
-                        <div class="d-flex justify-content-center w-100">
-                            <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-modal" spellcheck="false" placeholder = "Password" required = "required">
-                                <label for="floatingPassword-modal">Password</label>
-                                <span>
-                                    <!--Eye icon-->
-                                    <img src="~/Elements/eye.svg" id="eyeicon-modal" />
-                                </span>
-                                <script type="text/javascript">
-                                    //MODAL SHOW PASSWORD
-                                    let eyeiconmodal = document.getElementById('eyeicon-modal');
-                                    var formmodal = document.getElementById('floatingPassword-modal');
-
-                                    eyeiconmodal.style.display = "none";
-
-                                    formmodal.addEventListener("focusin", function () {
-                                        eyeiconmodal.style.display = "block";
-                                    });
-
-                                    formmodal.addEventListener("focusout", function () {
-                                        if (Event.relatedTarget !== eyeiconmodal) {
-                                            eyeiconmodal.style.display = "none";
-                                        }
-                                    });
-
-                                    eyeiconmodal.addEventListener("mousedown", function (event) {
-                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                        togglePWmodal();
-                                    });
-
-                                    function togglePWmodal() {
-                                        var show = document.getElementById('floatingPassword-modal');
-                                        if (show.type == 'password') {
-                                            show.type = 'text';
-                                            eyeiconmodal.src = "/Elements/eye-slash.svg"
-                                        }
-                                        else {
-                                            show.type = 'password'
-                                            eyeiconmodal.src = "/Elements/eye.svg"
-                                        }
-                                        show.focus();
-                                    }
-                                      
-                                    //password confirmation
-                                    var modal = document.getElementById('detailsbutton-modal');
-
-                                    //triggered when enter button is pressed
-                                    function enterPassword() {
-                                        //checks if input form matches user password
-                                        if (formmodal.value == '123') {
-                                            $('#detailsbutton-modal').modal('show');
-                                            Swal.fire({
-                                                position: 'top',
-                                                icon: 'success',
-                                                background: '#1a1a1a',
-                                                iconColor: '#70cc72',
-                                                title: 'You can now show your password or modify the settings!',
-                                                showConfirmButton: false,
-                                                timer: 2500
-                                            })
-                                                .then(function () {
-                                                    $('#detailsbutton-modal').modal('hide');
-                                                }
-                                                )
-                                        }
-                                        //else if no input
-                                        else if (!formmodal.value.trim()) {
-                                            //error alert
-                                            Swal.fire({
-                                                position: 'top',
-                                                icon: 'error',
-                                                iconColor: '#c40f2d',
-                                                background: '#1a1a1a',
-                                                title: 'Password is required!',
-                                                showConfirmButton: false,
-                                                timer: 2500
-                                            })
-                                        }
-                                        //else wrong password
-                                        else {
-                                            //error alert
-                                            Swal.fire({
-                                                position: 'top',
-                                                icon: 'error',
-                                                iconColor: '#c40f2d',
-                                                background: '#1a1a1a',
-                                                title: 'Wrong password!',
-                                                showConfirmButton: false,
-                                                timer: 2500
-                                            })
-                                        }
-                                    }
-                                </script>
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
-                            <div class="d-flex justify-content-center">
-                                <div class="d-flex justify-content-center col-5">
-                                    <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="enterPassword()">
-                                        ENTER →
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Trashboard", "Dashboard")">Trash</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Settings")">Settings</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
+
             </div>
-        </div>
-        <!--Content-->
-        <!--USER DETAILS MODULE-->
-        <section class="text-light p-3 d-flex justify-content-center">
-            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:30px;">
-                <!--Title-->
-                <div class="mb-2 d-flex justify-content-center col-12 content" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
-                    <h2 style="font-family:'JetBrains Mono'" align="center">
-                        / SETTINGS /
-                    </h2>
-                </div>
-                <div class="justify-content-center" id="passrepotable">
-                    <!--Container-->
-                    <div class="container d-flex justify-content-center">
-                        <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
-                            <!--TITLE NAME-->
-                            <div class="tbl-details" style="text-align:center">
-                                <h2 style="font-weight:400">
-                                    User Details
-                                </h2>
-                                <span>
-                                    <!--Edit icon-->
-                                    <img type="button" src="~/Elements/edit.svg" onclick="openModalUDetails()" class="editicon" id="editicon" />
-                                </span>
-                                <script>
-                                    function openModalUDetails() {
-                                        //checks if password hasn't been confirmed
-                                        if (formmodal.value != '123') {
-                                            $('#detailsbutton-modal').modal('show');
-                                        }
-                                        // else trigger the function
-                                        else {
-                                            toggleEditUDetails();
-                                        }
-                                    }
-                                </script>
+        </nav>
+
+        <div id="outer">
+            <!-- Modal-->
+            <div class="modal fade" id="detailsbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <!--Form-->
+                        <div class="modal-header d-flex justify-content-center">
+                            <h1 style="font-weight: 800; color: #b32269!important; " class="modal-title fs-4" id="ModalLabel">CONFIRM PASSWORD</h1>
+                        </div>
+                        <div class="modal-body modal-xl" style="padding-top:0px;">
+                            <div class="d-flex justify-content-center w-100">
+                                <h6 style="color: white; font-family: 'JetBrains Mono'; text-align: center">To view your password or modify settings,<br> please enter your password.</h6>
                             </div>
-                            <!--NAME INPUT-->
-                            <div class="d-flex justify-content-left w-100">
-                                <!--FIRSTNAME INPUT-->
-                                <div class="mt-3 tbl-details w-100">
-                                    <div class="form-floating table-form">
-                                        <p style="margin-bottom:-2px;">First Name</p>
-                                        <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width:100%" id="Firstname" spellcheck="false" value="ThisIsATestFName">
-                                    </div>
-                                </div>
-                                <!--LASTNAME INPUT-->
-                                <div class="mt-3 tbl-details w-100">
-                                    <div class="form-floating table-form">
-                                        <p style="margin-bottom:-2px; margin-left:11px;">Last Name</p>
-                                        <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width:100%; margin-left:11px;" id="Lastname" spellcheck="false" value="ThisIsATestLName">
-                                    </div>
-                                </div>
-                            </div>
-                            <!--USERNAME INPUT-->
-                            <div class="mt-3 tbl-details">
-                                <div class="form-floating table-form">
-                                    <p style="margin-bottom:-2px;">Username</p>
-                                    <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Username" spellcheck="false" value="ThisIsATestUsername">
-                                </div>
-                            </div>
-                            <!--EMAIL INPUT-->
-                            <div class="mt-3 tbl-details">
-                                <div class="form-floating table-form">
-                                    <p style="margin-bottom:-2px;">Email</p>
-                                    <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email" spellcheck="false" value="ThisIsATestEmail">
-                                </div>
-                            </div>
-                            <!--PASSWORD INPUT-->
-                            <div class="mt-3 tbl-details">
-                                <div class="form-floating table-form">
-                                    <p style="margin-bottom:-2px;">Password</p>
-                                    <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password" spellcheck="false" value="ThisIsATest">
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                                    <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-modal" spellcheck="false" placeholder = "Password" required = "required">
+                                    <label for="floatingPassword-modal">Password</label>
                                     <span>
                                         <!--Eye icon-->
-                                        <img src="~/Elements/eye-white.svg" type="button" class="eyeiconPassword" id="eyeiconPassword" onclick="openModalshowPass()" />
+                                        <img src="~/Elements/eye.svg" id="eyeicon-modal" />
                                     </span>
                                     <script type="text/javascript">
-                                        // Show password function
-                                        function openModalshowPass() {
+                                        //MODAL SHOW PASSWORD
+                                        let eyeiconmodal = document.getElementById('eyeicon-modal');
+                                        var formmodal = document.getElementById('floatingPassword-modal');
+
+                                        eyeiconmodal.style.display = "none";
+
+                                        formmodal.addEventListener("focusin", function () {
+                                            eyeiconmodal.style.display = "block";
+                                        });
+
+                                        formmodal.addEventListener("focusout", function () {
+                                            if (Event.relatedTarget !== eyeiconmodal) {
+                                                eyeiconmodal.style.display = "none";
+                                            }
+                                        });
+
+                                        eyeiconmodal.addEventListener("mousedown", function (event) {
+                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                            togglePWmodal();
+                                        });
+
+                                        function togglePWmodal() {
+                                            var show = document.getElementById('floatingPassword-modal');
+                                            if (show.type == 'password') {
+                                                show.type = 'text';
+                                                eyeiconmodal.src = "/Elements/eye-slash.svg"
+                                            }
+                                            else {
+                                                show.type = 'password'
+                                                eyeiconmodal.src = "/Elements/eye.svg"
+                                            }
+                                            show.focus();
+                                        }
+                                      
+                                        //password confirmation
+                                        var modal = document.getElementById('detailsbutton-modal');
+
+                                        //triggered when enter button is pressed
+                                        function enterPassword() {
+                                            //checks if input form matches user password
+                                            if (formmodal.value == '@decryptedPIN') {
+                                                $('#detailsbutton-modal').modal('show');
+                                                Swal.fire({
+                                                    position: 'top',
+                                                    icon: 'success',
+                                                    background: '#1a1a1a',
+                                                    iconColor: '#70cc72',
+                                                    title: 'You can now show your password or modify the settings!',
+                                                    showConfirmButton: false,
+                                                    timer: 2500
+                                                })
+                                                    .then(function () {
+                                                        $('#detailsbutton-modal').modal('hide');
+                                                    }
+                                                    )
+                                            }
+                                            //else if no input
+                                            else if (!formmodal.value.trim()) {
+                                                //error alert
+                                                Swal.fire({
+                                                    position: 'top',
+                                                    icon: 'error',
+                                                    iconColor: '#c40f2d',
+                                                    background: '#1a1a1a',
+                                                    title: 'Password is required!',
+                                                    showConfirmButton: false,
+                                                    timer: 2500
+                                                })
+                                            }
+                                            //else wrong password
+                                            else {
+                                                //error alert
+                                                Swal.fire({
+                                                    position: 'top',
+                                                    icon: 'error',
+                                                    iconColor: '#c40f2d',
+                                                    background: '#1a1a1a',
+                                                    title: 'Wrong password!',
+                                                    showConfirmButton: false,
+                                                    timer: 2500
+                                                })
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                                <div class="d-flex justify-content-center">
+                                    <div class="d-flex justify-content-center col-5">
+                                        <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="enterPassword()">
+                                            ENTER →
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Content-->
+            <!--USER DETAILS MODULE-->
+            <section class="text-light p-3 d-flex justify-content-center">
+                <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:30px;">
+                    <!--Title-->
+                    <div class="mb-2 d-flex justify-content-center col-12 content" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
+                        <h2 style="font-family:'JetBrains Mono'" align="center">
+                            / SETTINGS /
+                        </h2>
+                    </div>
+                    <div class="justify-content-center" id="passrepotable">
+                        <!--Container-->
+                        <div class="container d-flex justify-content-center">
+                            <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
+                                <!--TITLE NAME-->
+                                <div class="tbl-details" style="text-align:center">
+                                    <h2 style="font-weight:400">
+                                        User Details
+                                    </h2>
+                                    <span>
+                                        <!--Edit icon-->
+                                        <img type="button" src="~/Elements/edit.svg" onclick="openModalUDetails()" class="editicon" id="editicon" />
+                                    </span>
+                                    <script>
+                                        function openModalUDetails() {
                                             //checks if password hasn't been confirmed
                                             if (formmodal.value != '123') {
                                                 $('#detailsbutton-modal').modal('show');
                                             }
                                             // else trigger the function
                                             else {
-                                                let eyeicontbl = document.getElementById('eyeiconPassword');
-                                                eyeicontbl.addEventListener("click", toggleshowPW_table());
-
-                                                function toggleshowPW_table() {
-                                                    var show = document.getElementById('Password');
-                                                    var show2 = document.getElementById('RepeatPassword');
-                                                    if (show.type === 'password') {
-                                                        show.type = 'text';
-                                                        show2.type = 'text';
-                                                        eyeicontbl.src = "/Elements/eye-slash-white.svg";
-                                                    } else {
-                                                        show.type = 'password';
-                                                        show2.type = 'password';
-                                                        eyeicontbl.src = "/Elements/eye-white.svg";
-                                                    }
-                                                    show.focus();
-                                                }
+                                                toggleEditUDetails();
                                             }
                                         }
                                     </script>
                                 </div>
-                            </div>
-                            <!--REPEATPASSWORD INPUT-->
-                            <div class="mt-3 tbl-details hidden" id="RepeatPasswordDiv">
-                                <div class="form-floating table-form">
-                                    <p style="margin-bottom:-2px;">Repeat Password</p>
-                                    <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPassword" spellcheck="false" value="ThisIsATest">
+                                <!--NAME INPUT-->
+                                <div class="d-flex justify-content-left w-100">
+                                    <!--FIRSTNAME INPUT-->
+                                    <div class="mt-3 tbl-details w-100">
+                                        <div class="form-floating table-form">
+                                            <p style="margin-bottom:-2px;">First Name</p>
+                                            <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width:100%" id="Firstname" spellcheck="false" value="@userDetails.FIRSTNAME">
+                                        </div>
+                                    </div>
+                                    <!--LASTNAME INPUT-->
+                                    <div class="mt-3 tbl-details w-100">
+                                        <div class="form-floating table-form">
+                                            <p style="margin-bottom:-2px; margin-left:11px;">Last Name</p>
+                                            <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width:100%; margin-left:11px;" id="Lastname" spellcheck="false" value="@userDetails.LASTNAME">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--DATE INPUT-->
-                            <div class="col-12 d-flex justify-content-center" style="display:none;">
-                                <div class="mt-4" style="color:gray;" id="dateinfo">
-                                    <p>Created on</p>
+                                <!--USERNAME INPUT-->
+                                <div class="mt-3 tbl-details">
+                                    <div class="form-floating table-form">
+                                        <p style="margin-bottom:-2px;">Username</p>
+                                        <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Username" spellcheck="false" value="@userLogin.USERNAME">
+                                    </div>
                                 </div>
-                            </div>
-                            <!--Logout button-->
-                            <div class="d-flex justify-content-center" style="margin-bottom:20px; margin-top:-20px;" id="logoutbtn">
-                                <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
-                                    <button class="btn btn-outline-secondary rounded-0" id="mainbtn" onclick="">
-                                        LOGOUT
-                                    </button>
+                                <!--EMAIL INPUT-->
+                                <div class="mt-3 tbl-details">
+                                    <div class="form-floating table-form">
+                                        <p style="margin-bottom:-2px;">Email</p>
+                                        <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email" spellcheck="false" value="@userLogin.EMAIL">
+                                    </div>
                                 </div>
-                            </div>
-                            <!--Deactivate acc btn-->
-                            <div class="d-flex justify-content-center" style="margin-bottom:10px; font-size:15px;" id="deactivateacc">
-                                <p>
-                                    <a href="#" id="signinprompt"><u>Deactivate Account</u></a>
-                                </p>
-                            </div>
-                        </div>
-                        @*CONFIRM AND CANCEL BTNS FOR DETAILS*@
-                        <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
-                            <div class="mt-5 mb-4" style="color:gray; display:none" id="editbtns">
-                                <button class="btn btn-outline-secondary rounded-0" onclick="" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
-                                    CONFIRM
-                                </button>
-                                <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditUDetails()" aria-pressed="true" id="editcancelbtn">
-                                    CANCEL
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--ICELOCK MODULE-->
-        <section class="text-light p-2 d-flex justify-content-center">
-            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:10px;">
-                <div class="justify-content-center" id="passrepotable">
-                    <!--Container-->
-                    <div class="container d-flex justify-content-center">
-                        <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
-                            <!--ICELOCK-->
-                            <!--TITLE NAME-->
-                            <div class="mt-3 tbl-details" style="text-align:center">
-                                <h2 style="font-weight:400">
-                                    ICELock™ Options
-                                </h2>
-                                <span>
-                                    <!--Gear icon-->
-                                    <img src="~/Elements/gearicon.svg" class="gearicon" id="gearicon" onclick="openModalICELock()" />
-                                </span>
-                                <script>
-                                    function openModalICELock() {
-                                        //checks if password hasn't been confirmed
-                                        if (formmodal.value != '123') {
-                                            $('#detailsbutton-modal').modal('show');
-                                        }
-                                        else {
-                                        // else trigger the function
-                                            toggleEditICELock();
-                                        }
-                                    }
-                                </script>
-                            </div>
-                            <!--PIN INPUT-->
-                            <div class="mt-4 col-12 d-flex justify-content-center">
-                                <div class="tbl-details" style="width:80%;">
-                                    <div class="form-floating table-form" style="align-content: center">
-                                        <p style="margin-bottom:-2px;">PIN</p>
-                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="PIN" spellcheck="false" value="1234">
+                                <!--PASSWORD INPUT-->
+                                <div class="mt-3 tbl-details">
+                                    <div class="form-floating table-form">
+                                        <p style="margin-bottom:-2px;">Password</p>
+                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password" spellcheck="false" value="@decryptedPass">
                                         <span>
                                             <!--Eye icon-->
-                                            <img src="~/Elements/eye-white.svg" class="eyeiconPIN" id="eyeiconPIN" onclick="openModalshowPIN()"/>
+                                            <img src="~/Elements/eye-white.svg" type="button" class="eyeiconPassword" id="eyeiconPassword" onclick="openModalshowPass()" />
                                         </span>
                                         <script type="text/javascript">
-                                            // Show PIN function
-                                            function openModalshowPIN() {
+                                            // Show password function
+                                            function openModalshowPass() {
                                                 //checks if password hasn't been confirmed
                                                 if (formmodal.value != '123') {
                                                     $('#detailsbutton-modal').modal('show');
                                                 }
                                                 // else trigger the function
                                                 else {
-                                                    let eyeicontbl = document.getElementById('eyeiconPIN');
-                                                    eyeicontbl.addEventListener("click", toggleshowPIN_table());
+                                                    let eyeicontbl = document.getElementById('eyeiconPassword');
+                                                    eyeicontbl.addEventListener("click", toggleshowPW_table());
 
-                                                    function toggleshowPIN_table() {
-                                                        var show = document.getElementById('PIN');
-                                                        var show2 = document.getElementById('RepeatPIN');
+                                                    function toggleshowPW_table() {
+                                                        var show = document.getElementById('Password');
+                                                        var show2 = document.getElementById('RepeatPassword');
                                                         if (show.type === 'password') {
                                                             show.type = 'text';
                                                             show2.type = 'text';
@@ -401,76 +291,192 @@
                                         </script>
                                     </div>
                                 </div>
-                            </div>
-                            <!--REPEAT PIN SHOWS ONLY ON EDIT-->
-                            <div class="mt-2 col-12 d-flex justify-content-center hidden" id="RepeatPINdiv">
-                                <div class="tbl-details" style="width:80%;">
-                                    <div class="form-floating table-form" style="align-content: center">
-                                        <p style="margin-bottom:-2px;">Repeat PIN</p>
-                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false" value="1234">
+                                <!--REPEATPASSWORD INPUT-->
+                                <div class="mt-3 tbl-details hidden" id="RepeatPasswordDiv">
+                                    <div class="form-floating table-form">
+                                        <p style="margin-bottom:-2px;">Repeat Password</p>
+                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPassword" spellcheck="false" value=" ">
                                     </div>
                                 </div>
-                            </div>
-                            <!--ICELock instruction-->
-                            <div class="mt-5 d-flex justify-content-center" style="margin-bottom:-30px;">
-                                <div class="col-12">
-                                    <p align="center" style="font-size:20px;">
-                                        Idle timeout period.
+                                <!--DATE INPUT-->
+                                <div class="col-12 d-flex justify-content-center" style="display:none;">
+                                    <div class="mt-4" style="color:gray;" id="dateinfo">
+                                        <p>Created on @userDetails.DATE_CREATED</p>
+                                    </div>
+                                </div>
+                                <!--Logout button-->
+                                <div class="d-flex justify-content-center" style="margin-bottom:20px; margin-top:-20px;" id="logoutbtn">
+                                    <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
+                                        <button class="btn btn-outline-secondary rounded-0" id="mainbtn" onclick="window.location.href='@Url.Action("LogOut","Login")';">
+                                            LOGOUT
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--Deactivate acc btn-->
+                                <div class="d-flex justify-content-center" style="margin-bottom:10px; font-size:15px;" id="deactivateacc">
+                                    <p>
+                                        <a href="@Url.Action("Deactivate","Settings")" id="signinprompt"><u>Deactivate Account</u></a>
                                     </p>
                                 </div>
                             </div>
-                            <!--ICELock details-->
-                            <div class="mt-4 d-flex justify-content-center" style="margin-bottom:-30px;">
-                                <div class="d-flex justify-content-center" style="width:80%;">
-                                    <div class="sub">
-                                        Duration:
-                                    </div>
-                                    <div class="value w-50">
-                                        1
-                                    </div>
-                                    <div class="min w-25">
-                                        min(s)
-                                    </div>
+                            @*CONFIRM AND CANCEL BTNS FOR DETAILS*@
+                            <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
+                                <div class="mt-5 mb-4" style="color:gray; display:none" id="editbtns">
+                                    <button class="btn btn-outline-secondary rounded-0" onclick="" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
+                                        CONFIRM
+                                    </button>
+                                    <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditUDetails()" aria-pressed="true" id="editcancelbtn">
+                                        CANCEL
+                                    </button>
                                 </div>
-                            </div>
-                            <!--ICELock slider-->
-                            <div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
-                                <input disabled type="range" min="1" max="30" step="1" value="5" id="timeSlider">
-                            </div>
-                            <script type="text/javascript">
-                                //range selector
-                                //get initial value
-                                window.onload = function initialVal() {
-                                    var initialValue = document.querySelector('input[type="range"]')
-                                    var target = document.querySelector('.value');
-                                    target.innerHTML = initialValue.value;
-                                }
-                                //update value
-                                var elem = document.querySelector('input[type="range"]');
-                                rangeValue = function () {
-                                    var newValue = elem.value;
-                                    var target = document.querySelector('.value');
-                                    target.innerHTML = newValue;
-                                }
-                                elem.addEventListener("input", rangeValue);
-                            </script>
-                        </div>
-                        @*CONFIRM AND CANCEL BTNS FOR ICELOCK*@
-                        <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
-                            <div class="mt-2 mb-4" style="color:gray; display:none" id="editbtns-2">
-                                <button class="btn btn-outline-secondary rounded-0" onclick="" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
-                                    CONFIRM
-                                </button>
-                                <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditICELock()" aria-pressed="true" id="editcancelbtn">
-                                    CANCEL
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </div>
+            </section>
+
+            <!--ICELOCK MODULE-->
+            <section class="text-light p-2 d-flex justify-content-center">
+                <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:10px;">
+                    <div class="justify-content-center" id="passrepotable">
+                        <!--Container-->
+                        <div class="container d-flex justify-content-center">
+                            <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
+                                <!--ICELOCK-->
+                                <!--TITLE NAME-->
+                                <div class="mt-3 tbl-details" style="text-align:center">
+                                    <h2 style="font-weight:400">
+                                        ICELock™ Options
+                                    </h2>
+                                    <span>
+                                        <!--Gear icon-->
+                                        <img src="~/Elements/gearicon.svg" class="gearicon" id="gearicon" onclick="openModalICELock()" />
+                                    </span>
+                                    <script>
+                                        function openModalICELock() {
+                                            //checks if password hasn't been confirmed
+                                            if (formmodal.value != '123') {
+                                                $('#detailsbutton-modal').modal('show');
+                                            }
+                                            else {
+                                            // else trigger the function
+                                                toggleEditICELock();
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                                <!--PIN INPUT-->
+                                <div class="mt-4 col-12 d-flex justify-content-center">
+                                    <div class="tbl-details" style="width:80%;">
+                                        <div class="form-floating table-form" style="align-content: center">
+                                            <p style="margin-bottom:-2px;">PIN</p>
+                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="PIN" spellcheck="false" value="@decryptedPIN">
+                                            <span>
+                                                <!--Eye icon-->
+                                                <img src="~/Elements/eye-white.svg" class="eyeiconPIN" id="eyeiconPIN" onclick="openModalshowPIN()"/>
+                                            </span>
+                                            <script type="text/javascript">
+                                                // Show PIN function
+                                                function openModalshowPIN() {
+                                                    //checks if password hasn't been confirmed
+                                                    if (formmodal.value != '123') {
+                                                        $('#detailsbutton-modal').modal('show');
+                                                    }
+                                                    // else trigger the function
+                                                    else {
+                                                        let eyeicontbl = document.getElementById('eyeiconPIN');
+                                                        eyeicontbl.addEventListener("click", toggleshowPIN_table());
+
+                                                        function toggleshowPIN_table() {
+                                                            var show = document.getElementById('PIN');
+                                                            var show2 = document.getElementById('RepeatPIN');
+                                                            if (show.type === 'password') {
+                                                                show.type = 'text';
+                                                                show2.type = 'text';
+                                                                eyeicontbl.src = "/Elements/eye-slash-white.svg";
+                                                            } else {
+                                                                show.type = 'password';
+                                                                show2.type = 'password';
+                                                                eyeicontbl.src = "/Elements/eye-white.svg";
+                                                            }
+                                                            show.focus();
+                                                        }
+                                                    }
+                                                }
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--REPEAT PIN SHOWS ONLY ON EDIT-->
+                                <div class="mt-2 col-12 d-flex justify-content-center hidden" id="RepeatPINdiv">
+                                    <div class="tbl-details" style="width:80%;">
+                                        <div class="form-floating table-form" style="align-content: center">
+                                            <p style="margin-bottom:-2px;">Repeat PIN</p>
+                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--ICELock instruction-->
+                                <div class="mt-5 d-flex justify-content-center" style="margin-bottom:-30px;">
+                                    <div class="col-12">
+                                        <p align="center" style="font-size:20px;">
+                                            Idle timeout period.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--ICELock details-->
+                                <div class="mt-4 d-flex justify-content-center" style="margin-bottom:-30px;">
+                                    <div class="d-flex justify-content-center" style="width:80%;">
+                                        <div class="sub">
+                                            Duration:
+                                        </div>
+                                        <div class="value w-50">
+                                            1
+                                        </div>
+                                        <div class="min w-25">
+                                            min(s)
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--ICELock slider-->
+                                <div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
+                                    <input disabled type="range" min="1" max="30" step="1" value="@userDetails.TIMEOUT" id="timeSlider">
+                                </div>
+                                <script type="text/javascript">
+                                    //range selector
+                                    //get initial value
+                                    window.onload = function initialVal() {
+                                        var initialValue = document.querySelector('input[type="range"]')
+                                        var target = document.querySelector('.value');
+                                        target.innerHTML = initialValue.value;
+                                    }
+                                    //update value
+                                    var elem = document.querySelector('input[type="range"]');
+                                    rangeValue = function () {
+                                        var newValue = elem.value;
+                                        var target = document.querySelector('.value');
+                                        target.innerHTML = newValue;
+                                    }
+                                    elem.addEventListener("input", rangeValue);
+                                </script>
+                            </div>
+                            @*CONFIRM AND CANCEL BTNS FOR ICELOCK*@
+                            <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
+                                <div class="mt-2 mb-4" style="color:gray; display:none" id="editbtns-2">
+                                    <button class="btn btn-outline-secondary rounded-0" onclick="" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
+                                        CONFIRM
+                                    </button>
+                                    <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditICELock()" aria-pressed="true" id="editcancelbtn">
+                                        CANCEL
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
 </body>
 </html>
 
