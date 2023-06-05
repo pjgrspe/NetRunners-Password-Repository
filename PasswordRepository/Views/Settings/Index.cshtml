@@ -315,7 +315,7 @@
                                 <!--Deactivate acc btn-->
                                 <div class="d-flex justify-content-center" style="margin-bottom:10px; font-size:15px;" id="deactivateacc">
                                     <p>
-                                        <a href="@Url.Action("Deactivate","Settings")" id="signinprompt"><u>Deactivate Account</u></a>
+                                        <a style="cursor:pointer;" onclick="deactivateAccount()" id="signinprompt"><u>Deactivate Account</u></a>
                                     </p>
                                 </div>
                             </div>
@@ -883,5 +883,57 @@
                 }
             })
         }
+    }
+
+    //Function for updating UDetails
+    function deactivateAccount() {
+        //Confirmation message before deactivating
+        Swal.fire({
+            title: 'Are you sure you want to deactivate?',
+            text: "You can reactivate your account within 30 days, but after that, it will be permanently deleted.",
+            icon: 'warning',
+            iconColor: '#c40f2d',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                ////Packages the received variable
+                //var data = {
+                //    passwordID: passwordID
+                //}
+
+                var url = '@Url.Action("Deactivate", "Settings")';
+
+                ////Ajax function to prepare data to be sent to the controller
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/Dashboard/DeleteEntry",
+                //    dataType: "JSON",
+                //    data: JSON.stringify(data),
+                //    contentType: 'application/json; charset=utf8',
+                //    success: function () {
+
+                //    },
+                //    error: function () {
+                //        alert("An error occurred (Javascript)")
+                //    }
+                //})
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    background: '#1a1a1a',
+                    title: 'This account has been deactivated!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+                    .then(function () {
+                        window.location.href = url;
+                    }
+                    )
+            }
+        })
     }
 </script>
