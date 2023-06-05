@@ -43,19 +43,6 @@
 
         </div>
     </nav>
-    <style>
-        .swal2-title {
-            color: white; /* Change the title color to white */
-        }
-
-        .swal2-popup {
-            color: #bbbbbb; /* Change the text color to gray */
-        }
-
-        .swal2-background {
-            background: #1a1a1a !important;
-        }
-    </style>
     @{
         if (ViewBag.ErrorMessage != null)
         {
@@ -75,7 +62,7 @@
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5 d-flex justify-content-center">
-            <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
+            <div class="container d-flex justify-content-center" style="margin-top:80px;" id="maincontainer">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -104,13 +91,6 @@
                                         <img src="~/Elements/eye.svg" id="eyeicon-login" />
                                     </span>
                                 </div>
-                            </div>
-                        </div>
-                        <!--Remember me checkbox-->
-                        <div class="d-flex justify-content-center">
-                            <div class="form-check" style="text-align:left;margin-top:20px; width:410px;">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" style="text-align: center">
-                                <label class="form-check-label" for="exampleCheck1">Remember me</label>
                             </div>
                         </div>
                         <!--Login button-->

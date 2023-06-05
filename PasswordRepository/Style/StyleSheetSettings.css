@@ -74,7 +74,7 @@ footer {
     font-weight: bold;
 }
 
-#content, #list-tab, #additembtn, .item-table, #addmodalbtn, .form-floating {
+#content, #list-tab, #additembtn, .item-table, #editmodalbtn, #edit2modalbtn, .form-floating {
     font-family: 'JetBrains Mono', monospace;
 }
 
@@ -174,7 +174,7 @@ a:link {
 }
 
 #signinprompt {
-    color: #3e8285;
+    color: #9e215e;
     background-color: transparent;
     text-decoration: none;
 }
@@ -263,13 +263,53 @@ h1 {
     opacity: 1;
 }
 
-#eyeicon-login {
+#eyeicon-modal {
     position: absolute;
     right: 15px;
     transform: translate(0, -50%);
     top: 50%;
     cursor: pointer;
     width: 20px;
+    height: auto;
+}
+
+#eyeiconPassword {
+    position: absolute;
+    right: 15px;
+    transform: translate(0, -50%);
+    top: 68%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+#eyeiconPIN {
+    position: absolute;
+    right: 12px;
+    transform: translate(0, -50%);
+    top: 68%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+#editicon {
+    position: absolute;
+    right: 25px;
+    transform: translate(0, -50%);
+    top: 6.6%;
+    cursor: pointer;
+    width: 25px;
+    height: auto;
+}
+
+#gearicon {
+    position: absolute;
+    right: 25px;
+    transform: translate(0, -50%);
+    top: 14.5%;
+    cursor: pointer;
+    width: 25px;
     height: auto;
 }
 
@@ -288,7 +328,7 @@ h1 {
         outline: none !important;
     }
 
-#addmodalbtn {
+#editmodalbtn {
     width: 280px;
     height: 50px;
     font-size: 18px;
@@ -296,7 +336,17 @@ h1 {
     background-color: #4ca1a5;
 }
 
+#edit2modalbtn {
+    width: 280px;
+    height: 50px;
+    font-size: 18px;
+    color: white;
+    background-color: #4ca1a5;
+}
+
+
 #editacceptbtn, #editcancelbtn {
+    font-family:'JetBrains Mono';
     width: 100px;
     height: 50px;
     font-size: 18px;
@@ -323,12 +373,18 @@ h1 {
     background-color: #70cc72;
 }
 
-#addmodalbtn:hover {
+#mainbtn {
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+}
+
+#editmodalbtn:hover, #edit2modalbtn:hover {
     background-color: white;
     color: #4ca1a5;
 }
 
-#addmodalbtn:active, #addmodalbtn:focus {
+#editmodalbtn:active, #editmodalbtn:focus, #edit2modalbtn:active, #edit2modalbtn:focus {
     box-shadow: none;
     outline: none !important;
 }
@@ -349,9 +405,10 @@ h1 {
 
 #passrepotable {
     border: 0.4px solid rgba(255,255,255,.1);
-    background-color: rgba(255, 255, 255, .12);
+    background-color: #1a1a1a;
     backdrop-filter: blur(10px);
     border-radius: 10px;
+    width:600px;
 }
 
 .tab-content {
@@ -376,7 +433,7 @@ h1 {
     border: 1px solid white;
     padding: 5px 5px;
     width: 60%;
-    max-width: 90%;
+    max-width: 100%;
 }
 
 .form-control-notes {

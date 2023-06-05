@@ -8,7 +8,7 @@
 
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>ICELock Registration</title>
     <link href="~/Style/StyleSheetPINInterface.css" rel="stylesheet">
     <link href="~/Style/StyleSheetRangeInput.css" rel="stylesheet">
 </head>
@@ -35,20 +35,7 @@
 
         </div>
     </nav>
-    <!--doesnt work yet-->
-    <style>
-        .swal2-title {
-            color: white; /* Change the title color to white */
-        }
-
-        .swal2-popup {
-            color: #bbbbbb; /* Change the title color to gray */
-        }
-
-        .swal2-background {
-            background: #1a1a1a !important;
-        }
-    </style>
+    <!--Viewbag-->
     @{
         if (ViewBag.ErrorPIN != null)
         {
@@ -68,7 +55,7 @@
     <div id="outer">
         <!--Content-->
         <section class="text-light p-5 d-flex justify-content-center">
-            <div class="container d-flex justify-content-center vertical-center" id="maincontainer">
+            <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:30px;">
                 <div class="justify-content-center" id="content">
                     <!--Title-->
                     <div class="d-flex justify-content-center" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
@@ -81,128 +68,129 @@
                     </p>
                     <!--Form-->
                     @*@using (@Html.BeginForm("PinValidate", "PINInterface", FormMethod.Post))*@
-                        @*@Html.AntiForgeryToken()*@
-                        <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @*@Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })*@
-                                    <input type="password" minlenght="4" maxlength="16" class="form-control rounded-0 w-100" placeholder="PIN" style="margin:auto" required="required" id="floatingPIN" onkeypress="return isNumberKey(event)">
-                                    <label for="floatingPIN">PIN</label>
-                                    <span>
-                                        <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
-                                        <img src="~/Elements/eye.svg" id="eyeicon-pin" />
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                    @*@Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "PIN", style = "margin:auto", required = "required" })*@
-                                    <input type="password" minlenght="4" maxlength="16" class="form-control rounded-0 w-100" placeholder="Repeat PIN" style="margin:auto" required="required" id="floatingREPEATPIN" onkeypress="return isNumberKey(event)">
-                                    <label for="floatingREPEATPIN">Repeat PIN</label>
-                                </div>
-                            </div>
-                            <script type="text/javascript">
-                                function isNumberKey(evt) {
-                                    var charCode = (evt.which) ? evt.which : evt.keyCode
-                                    if (charCode > 31 && (charCode < 48 || charCode > 57))
-                                        return false;
-                                    return true;
-                                }
-
-                                let PINeyeicon = document.getElementById('eyeicon-pin');
-                                var PINform = document.getElementById('floatingPIN');
-                                var rePINform = document.getElementById('floatingREPEATPIN');
-
-                                PINeyeicon.style.display = "none";
-
-                                PINform.addEventListener("focusin", function () {
-                                    PINeyeicon.style.display = "block";
-                                });
-
-                                rePINform.addEventListener("focusin", function () {
-                                    PINeyeicon.style.display = "block";
-                                });
-
-                                PINform.addEventListener("focusout", function () {
-                                    if (Event.relatedTarget !== PINeyeicon) {
-                                        PINeyeicon.style.display = "none";
-                                    }
-                                });
-
-                                rePINform.addEventListener("focusout", function () {
-                                    if (Event.relatedTarget !== PINeyeicon) {
-                                        PINeyeicon.style.display = "none";
-                                    }
-                                });
-
-                                PINeyeicon.addEventListener("mousedown", function (event) {
-                                    event.preventDefault(); // prevent default action to avoid losing focus
-                                    toggleShowPIN();
-                                });
-
-                                function toggleShowPIN() {
-                                    var show = document.getElementById('floatingPIN');
-                                    var show2 = document.getElementById('floatingREPEATPIN');
-                                    if (show.type == 'password') {
-                                        show.type = 'text';
-                                        show2.type = 'text';
-                                        PINeyeicon.src = "/Elements/eye-slash.svg"
-                                    }
-                                    else {
-                                        show.type = 'password'
-                                        show2.type = 'password'
-                                        PINeyeicon.src = "/Elements/eye.svg"
-                                    }
-                                    show.focus();
-                                }
-                            </script>
-                        </div>
-
-                        <div class="mt-5 d-flex justify-content-center">
-                            <div class="col-6">
-                                <p align="center" style="font-size:20px;">
-                                    Set idle timeout period.
-                                </p>
+                    @*@Html.AntiForgeryToken()*@
+                    <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
+                        <div class="d-flex justify-content-center w-100">
+                            <div class="form-floating" style="margin-top: 10px; width: 350px;">
+                                @*@Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required" })*@
+                                <input type="password" minlenght="4" maxlength="16" class="form-control rounded-0 w-100" placeholder="PIN" style="margin:auto" required="required" id="floatingPIN" onkeypress="return isNumberKey(event)">
+                                <label for="floatingPIN">PIN</label>
+                                <span>
+                                    <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
+                                    <img src="~/Elements/eye.svg" id="eyeicon-pin" />
+                                </span>
                             </div>
                         </div>
-                        <!--NEED TO FIX-->
-                        <div class="d-flex justify-content-center" style="margin-bottom:-30px;">
-                            <div class="col-6 d-flex justify-content-center">
-                                <div class="sub">
-                                    Duration:
-                                </div>
-                                <div class="value w-50">
-                                    1
-                                </div>
-                                <div class="min w-25">
-                                    min(s)
-                                </div>
+                        <div class="d-flex justify-content-center w-100">
+                            <div class="form-floating" style="margin-top: 10px; width: 350px;">
+                                @*@Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingREPEATPIN", placeholder = "PIN", style = "margin:auto", required = "required" })*@
+                                <input type="password" minlenght="4" maxlength="16" class="form-control rounded-0 w-100" placeholder="Repeat PIN" style="margin:auto" required="required" id="floatingREPEATPIN" onkeypress="return isNumberKey(event)">
+                                <label for="floatingREPEATPIN">Repeat PIN</label>
                             </div>
-                        </div>
-
-                        <div class="col-12 d-flex justify-content-center">
-                            <input type="range" min="1" max="30" step="1" value="1" id="timeSlider">
                         </div>
                         <script type="text/javascript">
-                            var elem = document.querySelector('input[type="range"]');
-
-                            var rangeValue = function () {
-                                var newValue = elem.value;
-                                var target = document.querySelector('.value');
-                                target.innerHTML = newValue;
+                            function isNumberKey(evt) {
+                                var charCode = (evt.which) ? evt.which : evt.keyCode
+                                if (charCode > 31 && (charCode < 48 || charCode > 57))
+                                    return false;
+                                return true;
                             }
 
-                            elem.addEventListener("input", rangeValue);
-                        </script>
+                            let PINeyeicon = document.getElementById('eyeicon-pin');
+                            var PINform = document.getElementById('floatingPIN');
+                            var rePINform = document.getElementById('floatingREPEATPIN');
 
-                        <!--Enter button-->
-                        <div class="d-flex justify-content-center">
-                            <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
-                                <button class="btn btn-outline-secondary rounded-0" onclick="PINreg()" aria-pressed="true" id="getstartedbtn">
-                                    ENTER →
-                                </button>
+                            PINeyeicon.style.display = "none";
+
+                            PINform.addEventListener("focusin", function () {
+                                PINeyeicon.style.display = "block";
+                            });
+
+                            rePINform.addEventListener("focusin", function () {
+                                PINeyeicon.style.display = "block";
+                            });
+
+                            PINform.addEventListener("focusout", function () {
+                                if (Event.relatedTarget !== PINeyeicon) {
+                                    PINeyeicon.style.display = "none";
+                                }
+                            });
+
+                            rePINform.addEventListener("focusout", function () {
+                                if (Event.relatedTarget !== PINeyeicon) {
+                                    PINeyeicon.style.display = "none";
+                                }
+                            });
+
+                            PINeyeicon.addEventListener("mousedown", function (event) {
+                                event.preventDefault(); // prevent default action to avoid losing focus
+                                toggleShowPIN();
+                            });
+
+                            function toggleShowPIN() {
+                                var show = document.getElementById('floatingPIN');
+                                var show2 = document.getElementById('floatingREPEATPIN');
+                                if (show.type == 'password') {
+                                    show.type = 'text';
+                                    show2.type = 'text';
+                                    PINeyeicon.src = "/Elements/eye-slash.svg"
+                                }
+                                else {
+                                    show.type = 'password'
+                                    show2.type = 'password'
+                                    PINeyeicon.src = "/Elements/eye.svg"
+                                }
+                                show.focus();
+                            }
+                        </script>
+                    </div>
+                    <!--ICELOCK-->
+                    <!--ICELock instruction-->
+                    <div class="mt-5 d-flex justify-content-center">
+                        <div class="col-6">
+                            <p align="center" style="font-size:20px;">
+                                Set idle timeout period.
+                            </p>
+                        </div>
+                    </div>
+                    <!--ICELock details-->
+                    <div class="d-flex justify-content-center" style="margin-bottom:-30px;">
+                        <div class="col-6 d-flex justify-content-center">
+                            <div class="sub">
+                                Duration:
+                            </div>
+                            <div class="value w-50">
+                                1
+                            </div>
+                            <div class="min w-25">
+                                min(s)
                             </div>
                         </div>
+                    </div>
+                    <!--ICELock slider-->
+                    <div class="col-12 d-flex justify-content-center">
+                        <input type="range" min="1" max="30" step="1" value="1" id="timeSlider">
+                    </div>
+                    <script type="text/javascript">
+                        var elem = document.querySelector('input[type="range"]');
+
+                        var rangeValue = function () {
+                            var newValue = elem.value;
+                            var target = document.querySelector('.value');
+                            target.innerHTML = newValue;
+                        }
+
+                        elem.addEventListener("input", rangeValue);
+                    </script>
+
+                    <!--Enter button-->
+                    <div class="d-flex justify-content-center">
+                        <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
+                            <button class="btn btn-outline-secondary rounded-0" onclick="PINreg()" aria-pressed="true" id="mainbtn">
+                                ENTER →
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -215,6 +203,8 @@
         var entryPIN = $('#floatingPIN').val();
         var entryREPEATPIN = $('#floatingREPEATPIN').val();
         var sliderTIMEOUT = document.getElementById("timeSlider");
+        var PIN = document.getElementById('floatingPIN');
+        var REPIN = document.getElementById('floatingREPEATPIN');
 
         var data = {
             regPIN: entryPIN,
@@ -222,6 +212,48 @@
             regTIMEOUT: sliderTIMEOUT.value
         }
 
+        
+        //Checks if PIN input is null
+        if (!PIN.value.trim() && !REPIN.value.trim()) {
+            //error alert
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'PIN input is required!',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+        //Checks if PIN input is < 4
+        else if (PIN.value.length < 4 || REPIN.value.length < 4) {
+            //error alert
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'PIN must be at least 4 digits long!',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+        //Checks if PIN matches
+        else if (PIN.value != REPIN.value) {
+            //error alert
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'PIN does not match!',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+        //Success alert
+        else {
         $.ajax({
             type: "POST",
             url: "/PINRegistration/RegisterPIN",
@@ -229,22 +261,31 @@
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf8',
             success: function (data) {
-
-                alert(data.msg);
-
                 if (data.success) {
-                    var url = '@Url.Action("Index","Dashboard")';
-                    window.location.href = url;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        background: '#1a1a1a',
+                        iconColor: '#70cc72',
+                        title: 'Successfully registered!',
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
+                    .then(function () {
+                        var url = '@Url.Action("Index","Dashboard")';
+                        window.location.href = url;
+                    }
+                    )
                 }
                 else {
                     location.reload(true);
                 }
-
-
             },
             error: function () {
                 alert("An error occurred (AJAX)")
             }
         })
+        }
+
      }
 </script>
