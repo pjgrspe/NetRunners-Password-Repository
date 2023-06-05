@@ -125,7 +125,7 @@
                                         //triggered when enter button is pressed
                                         function enterPassword() {
                                             //checks if input form matches user password
-                                            if (formmodal.value == '@decryptedPIN') {
+                                            if (formmodal.value == '@decryptedPass') {
                                                 $('#detailsbutton-modal').modal('show');
                                                 Swal.fire({
                                                     position: 'top',
@@ -210,7 +210,7 @@
                                     <script>
                                         function openModalUDetails() {
                                             //checks if password hasn't been confirmed
-                                            if (formmodal.value != '123') {
+                                            if (formmodal.value != '@decryptedPass') {
                                                 $('#detailsbutton-modal').modal('show');
                                             }
                                             // else trigger the function
@@ -264,7 +264,7 @@
                                             // Show password function
                                             function openModalshowPass() {
                                                 //checks if password hasn't been confirmed
-                                                if (formmodal.value != '123') {
+                                                if (formmodal.value != '@decryptedPass') {
                                                     $('#detailsbutton-modal').modal('show');
                                                 }
                                                 // else trigger the function
@@ -295,7 +295,7 @@
                                 <div class="mt-3 tbl-details hidden" id="RepeatPasswordDiv">
                                     <div class="form-floating table-form">
                                         <p style="margin-bottom:-2px;">Repeat Password</p>
-                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPassword" spellcheck="false" value=" ">
+                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPassword" spellcheck="false" value="@decryptedPass">
                                     </div>
                                 </div>
                                 <!--DATE INPUT-->
@@ -322,7 +322,7 @@
                             @*CONFIRM AND CANCEL BTNS FOR DETAILS*@
                             <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
                                 <div class="mt-5 mb-4" style="color:gray; display:none" id="editbtns">
-                                    <button class="btn btn-outline-secondary rounded-0" onclick="" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
+                                    <button class="btn btn-outline-secondary rounded-0" onclick="updateUDetails()" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
                                         CONFIRM
                                     </button>
                                     <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditUDetails()" aria-pressed="true" id="editcancelbtn">
@@ -355,7 +355,7 @@
                                     <script>
                                         function openModalICELock() {
                                             //checks if password hasn't been confirmed
-                                            if (formmodal.value != '123') {
+                                            if (formmodal.value != '@decryptedPass') {
                                                 $('#detailsbutton-modal').modal('show');
                                             }
                                             else {
@@ -379,7 +379,7 @@
                                                 // Show PIN function
                                                 function openModalshowPIN() {
                                                     //checks if password hasn't been confirmed
-                                                    if (formmodal.value != '123') {
+                                                    if (formmodal.value != '@decryptedPass') {
                                                         $('#detailsbutton-modal').modal('show');
                                                     }
                                                     // else trigger the function
@@ -412,7 +412,7 @@
                                     <div class="tbl-details" style="width:80%;">
                                         <div class="form-floating table-form" style="align-content: center">
                                             <p style="margin-bottom:-2px;">Repeat PIN</p>
-                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false">
+                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false" value="@decryptedPIN">
                                         </div>
                                     </div>
                                 </div>
@@ -463,7 +463,7 @@
                             @*CONFIRM AND CANCEL BTNS FOR ICELOCK*@
                             <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
                                 <div class="mt-2 mb-4" style="color:gray; display:none" id="editbtns-2">
-                                    <button class="btn btn-outline-secondary rounded-0" onclick="" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
+                                    <button class="btn btn-outline-secondary rounded-0" onclick="updateICELock()" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
                                         CONFIRM
                                     </button>
                                     <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditICELock()" aria-pressed="true" id="editcancelbtn">
@@ -709,86 +709,179 @@
     //}
 
     //Function for updating UDetails
-    //function updateUDetails() {
+    function updateUDetails() {
 
-    //    var itemTITLE = document.getElementById('Title');
+        //user details
+        var itemFN = document.getElementById('Firstname');
+        var itemLN = document.getElementById('Lastname');
+        var itemUN = document.getElementById('Username');
+        var itemPW = document.getElementById('Password');
+        var itemREPW = document.getElementById('RepeatPassword');
+        var itemEMAIL = document.getElementById('Email');
 
-    //    //Sets variables to corresponding textboxes
-    //    //var pwID = passwordID;
-    //    //var pwTitle = $('#Title-' + passwordIDstring).val();
-    //    //var pwEmail = $('#Email-' + passwordIDstring).val();
-    //    //var pwUname = $('#Username-' + passwordIDstring).val();
-    //    //var pwPassword = $('#Password-' + passwordIDstring).val();
-    //    //var pwUrl = $('#URL-' + passwordIDstring).val();
-    //    //var pwNotes = $('#Notes-' + passwordIDstring).val()
+        //Sets variables to corresponding textboxes
+        //var pwID = passwordID;
+        //var pwTitle = $('#Title-' + passwordIDstring).val();
+        //var pwEmail = $('#Email-' + passwordIDstring).val();
+        //var pwUname = $('#Username-' + passwordIDstring).val();
+        //var pwPassword = $('#Password-' + passwordIDstring).val();
+        //var pwUrl = $('#URL-' + passwordIDstring).val();
+        //var pwNotes = $('#Notes-' + passwordIDstring).val()
 
-    //    //Packages the variables
-    //    //var data = {
-    //    //    passwordID: pwID,
-    //    //    passwordTitle: pwTitle,
-    //    //    passwordEmail: pwEmail,
-    //    //    passwordUname: pwUname,
-    //    //    passwordPassword: pwPassword,
-    //    //    passwordURL: pwUrl,
-    //    //    passwordNotes: pwNotes
-    //    //}
+        //Packages the variables
+        //var data = {
+        //    passwordID: pwID,
+        //    passwordTitle: pwTitle,
+        //    passwordEmail: pwEmail,
+        //    passwordUname: pwUname,
+        //    passwordPassword: pwPassword,
+        //    passwordURL: pwUrl,
+        //    passwordNotes: pwNotes
+        //}
 
-    //    if (!itemTITLE.value.trim()) {
-    //        //error alert
-    //        Swal.fire({
-    //            position: 'center',
-    //            icon: 'error',
-    //            iconColor: '#c40f2d',
-    //            background: '#1a1a1a',
-    //            title: 'Title is required!',
-    //            showConfirmButton: false,
-    //            timer: 2500
-    //        })
-    //    }
-    //    else {
-    //        //Confirmation message before updating entry
-    //        Swal.fire({
-    //            title: 'Update user details?',
-    //            text: "This will change your account details.",
-    //            icon: 'question',
-    //            iconColor: '#2973b9',
-    //            background: '#1a1a1a',
-    //            showCancelButton: true,
-    //            confirmButtonColor: '#70cc72',
-    //            cancelButtonColor: '#fe4365',
-    //            confirmButtonText: 'Confirm'
-    //        }).then((result) => {
-    //            if (result.isConfirmed) {
-    //                //Ajax function to prepare data to be sent to the controller
-    //                //$.ajax({
-    //                //    type: "POST",
-    //                //    url: "/Dashboard/UpdateEntry",
-    //                //    dataType: "JSON",
-    //                //    data: JSON.stringify(data),
-    //                //    contentType: 'application/json; charset=utf8',
-    //                //    success: function () {
+        //IF ALL FORMS ARE NOT NULL
+        if (!itemFN.value.trim() || !itemLN.value.trim() || !itemUN.value.trim() || !itemPW.value.trim() || !itemREPW.value.trim() || !itemEMAIL.value.trim()) {
+            //error alert
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'Complete all details!',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+        else {
+            //Confirmation message before updating entry
+            Swal.fire({
+                title: 'Update user details?',
+                text: "This will change your account details.",
+                icon: 'question',
+                iconColor: '#2973b9',
+                background: '#1a1a1a',
+                showCancelButton: true,
+                confirmButtonColor: '#70cc72',
+                cancelButtonColor: '#fe4365',
+                confirmButtonText: 'Confirm'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax function to prepare data to be sent to the controller
+                    //$.ajax({
+                    //    type: "POST",
+                    //    url: "/Dashboard/UpdateEntry",
+                    //    dataType: "JSON",
+                    //    data: JSON.stringify(data),
+                    //    contentType: 'application/json; charset=utf8',
+                    //    success: function () {
 
-    //                //    },
-    //                //    error: function () {
-    //                //        alert("An error occurred")
-    //                //    }
-    //                //})
-    //                Swal.fire({
-    //                    position: 'center',
-    //                    icon: 'success',
-    //                    background: '#1a1a1a',
-    //                    iconColor: '#70cc72',
-    //                    title: '"' + title + '" successfuly updated!',
-    //                    showConfirmButton: false,
-    //                    timer: 2500
-    //                })
-    //                    .then(function () {
-    //                        location.reload(true);
-    //                    }
-    //                    )
-    //            }
-    //        })
-    //    }
-    //}
+                    //    },
+                    //    error: function () {
+                    //        alert("An error occurred")
+                    //    }
+                    //})
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        background: '#1a1a1a',
+                        iconColor: '#70cc72',
+                        title: 'Your changes has been saved!',
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
+                        .then(function () {
+                            location.reload(true);
+                        }
+                        )
+                }
+            })
+        }
+    }
 
+    //Function for updating ICELock
+    function updateICELock() {
+
+        //user details
+        var itemPIN = document.getElementById('PIN');
+        var itemREPIN = document.getElementById('RepeatPIN');
+        var itemRange = document.getElementById('timeSlider');
+
+        //Sets variables to corresponding textboxes
+        //var pwID = passwordID;
+        //var pwTitle = $('#Title-' + passwordIDstring).val();
+        //var pwEmail = $('#Email-' + passwordIDstring).val();
+        //var pwUname = $('#Username-' + passwordIDstring).val();
+        //var pwPassword = $('#Password-' + passwordIDstring).val();
+        //var pwUrl = $('#URL-' + passwordIDstring).val();
+        //var pwNotes = $('#Notes-' + passwordIDstring).val()
+
+        //Packages the variables
+        //var data = {
+        //    passwordID: pwID,
+        //    passwordTitle: pwTitle,
+        //    passwordEmail: pwEmail,
+        //    passwordUname: pwUname,
+        //    passwordPassword: pwPassword,
+        //    passwordURL: pwUrl,
+        //    passwordNotes: pwNotes
+        //}
+
+        //IF PIN AND REPIN FORMS ARE NOT NULL
+        if (!itemPIN.value.trim() || !itemREPIN.value.trim()) {
+            //error alert
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'Complete all details!',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+        else {
+            //Confirmation message before updating entry
+            Swal.fire({
+                title: 'Update user details?',
+                text: "This will change your account details.",
+                icon: 'question',
+                iconColor: '#2973b9',
+                background: '#1a1a1a',
+                showCancelButton: true,
+                confirmButtonColor: '#70cc72',
+                cancelButtonColor: '#fe4365',
+                confirmButtonText: 'Confirm'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax function to prepare data to be sent to the controller
+                    //$.ajax({
+                    //    type: "POST",
+                    //    url: "/Dashboard/UpdateEntry",
+                    //    dataType: "JSON",
+                    //    data: JSON.stringify(data),
+                    //    contentType: 'application/json; charset=utf8',
+                    //    success: function () {
+
+                    //    },
+                    //    error: function () {
+                    //        alert("An error occurred")
+                    //    }
+                    //})
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        background: '#1a1a1a',
+                        iconColor: '#70cc72',
+                        title: 'Your changes has been saved!',
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
+                        .then(function () {
+                            location.reload(true);
+                        }
+                        )
+                }
+            })
+        }
+    }
 </script>
