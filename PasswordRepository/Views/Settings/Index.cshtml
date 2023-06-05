@@ -269,11 +269,14 @@
 
                                                 function toggleshowPW_table() {
                                                     var show = document.getElementById('Password');
+                                                    var show2 = document.getElementById('RepeatPassword');
                                                     if (show.type === 'password') {
                                                         show.type = 'text';
+                                                        show2.type = 'text';
                                                         eyeicontbl.src = "/Elements/eye-slash-white.svg";
                                                     } else {
                                                         show.type = 'password';
+                                                        show2.type = 'password';
                                                         eyeicontbl.src = "/Elements/eye-white.svg";
                                                     }
                                                     show.focus();
@@ -281,6 +284,13 @@
                                             }
                                         }
                                     </script>
+                                </div>
+                            </div>
+                            <!--REPEATPASSWORD INPUT-->
+                            <div class="mt-3 tbl-details hidden" id="RepeatPasswordDiv">
+                                <div class="form-floating table-form">
+                                    <p style="margin-bottom:-2px;">Repeat Password</p>
+                                    <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPassword" spellcheck="false" value="ThisIsATest">
                                 </div>
                             </div>
                             <!--DATE INPUT-->
@@ -370,15 +380,18 @@
                                                 // else trigger the function
                                                 else {
                                                     let eyeicontbl = document.getElementById('eyeiconPIN');
-                                                    eyeicontbl.addEventListener("click", toggleshowPW_table());
+                                                    eyeicontbl.addEventListener("click", toggleshowPIN_table());
 
-                                                    function toggleshowPW_table() {
+                                                    function toggleshowPIN_table() {
                                                         var show = document.getElementById('PIN');
+                                                        var show2 = document.getElementById('RepeatPIN');
                                                         if (show.type === 'password') {
                                                             show.type = 'text';
+                                                            show2.type = 'text';
                                                             eyeicontbl.src = "/Elements/eye-slash-white.svg";
                                                         } else {
                                                             show.type = 'password';
+                                                            show2.type = 'password';
                                                             eyeicontbl.src = "/Elements/eye-white.svg";
                                                         }
                                                         show.focus();
@@ -393,7 +406,7 @@
                             <div class="mt-2 col-12 d-flex justify-content-center hidden" id="RepeatPINdiv">
                                 <div class="tbl-details" style="width:80%;">
                                     <div class="form-floating table-form" style="align-content: center">
-                                        <p style="margin-bottom:-2px;">REPEAT PIN</p>
+                                        <p style="margin-bottom:-2px;">Repeat PIN</p>
                                         <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false" value="1234">
                                     </div>
                                 </div>
@@ -519,6 +532,8 @@
         var itemLN = document.getElementById('Lastname');
         var itemUN = document.getElementById('Username');
         var itemPW = document.getElementById('Password');
+        var itemREPW = document.getElementById('RepeatPassword');
+        var itemREPWdiv = document.getElementById('RepeatPasswordDiv');
         var itemEMAIL = document.getElementById('Email');
         //elements
         var editicon = document.getElementById('editicon');
@@ -552,6 +567,11 @@
             itemPW.readOnly = false;
             itemPW.className = "form-control-edit";
             itemPW.type = 'password';
+            //ITEM REPW
+            itemREPW.readOnly = false;
+            itemREPW.className = "form-control-edit";
+            itemREPWdiv.className = "mt-3 tbl-details";
+            itemPW.type = 'password';
             //ITEM EMAIL
             itemEMAIL.readOnly = false;
             itemEMAIL.className = "form-control-edit";
@@ -579,6 +599,11 @@
             itemPW.readOnly = true;
             itemPW.className = "form-control-plaintext";
             itemPW.type = 'password';
+            //ITEM REPIN
+            itemREPW.readOnly = true;
+            itemREPW.className = "form-control-plaintext";
+            itemREPWdiv.className = "hidden";
+            itemREPW.type = 'password';
             //ITEM EMAIL
             itemEMAIL.readOnly = true;
             itemEMAIL.className = "form-control-plaintext";
