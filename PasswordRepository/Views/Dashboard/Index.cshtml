@@ -18,12 +18,12 @@
 
     <div id="outer">
         <!-- Modal -->
-        <div class="modal fade" id="addbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addbutton-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="ModalLabel">ADD NEW ITEM</h1>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-close-white" onclick="discardChangesADDITEM()"></button>
                     </div>
                     <!--Form-->
                     <div class="modal-body modal-xl" style="margin-top:-10px;">
@@ -255,9 +255,27 @@
                                                                             // Copy the text inside the text field
                                                                             navigator.clipboard.writeText(copyText.value);
 
-                                                                            // Alert the copied text
-                                                                            alert("Copied the text: " + copyText.value);
-                                                                            ccicon.style.display = "none";
+                                                                             // Alert the copied text
+                                                                             /*alert("Copied the text: " + copyText.value);*/
+                                                                             const Toast = Swal.mixin({
+                                                                                 toast: true,
+                                                                                 position: 'top',
+                                                                                 showConfirmButton: false,
+                                                                                 timer: 3000,
+                                                                                 timerProgressBar: true,
+                                                                                 didOpen: (toast) => {
+                                                                                     toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                                                     toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                                                 }
+                                                                             })
+
+                                                                             Toast.fire({
+                                                                                 icon: 'success',
+                                                                                 iconColor: '#70cc72',
+                                                                                 title: 'Copied "Username"!',
+                                                                                 background: '#1a1a1a',
+                                                                             })
+                                                                             ccicon.style.display = "none";
                                                                         }
                                                                     }
                                                                 }
@@ -332,9 +350,27 @@
                                                                             // Copy the text inside the text field
                                                                             navigator.clipboard.writeText(copyText.value);
 
-                                                                            // Alert the copied text
-                                                                            alert("Copied the text: " + copyText.value);
-                                                                            ccicon.style.display = "none";
+                                                                             // Alert the copied text
+                                                                             /*alert("Copied the text: " + copyText.value);*/
+                                                                             const Toast = Swal.mixin({
+                                                                                 toast: true,
+                                                                                 position: 'top',
+                                                                                 showConfirmButton: false,
+                                                                                 timer: 3000,
+                                                                                 timerProgressBar: true,
+                                                                                 didOpen: (toast) => {
+                                                                                     toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                                                     toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                                                 }
+                                                                             })
+
+                                                                             Toast.fire({
+                                                                                 icon: 'success',
+                                                                                 iconColor: '#70cc72',
+                                                                                 title: 'Copied "Email"!',
+                                                                                 background: '#1a1a1a',
+                                                                             })
+                                                                             ccicon.style.display = "none";
                                                                         }
                                                                     }
                                                                 }
@@ -420,7 +456,25 @@
                                                                         navigator.clipboard.writeText(copyText.value);
 
                                                                         // Alert the copied text
-                                                                        alert("Copied the text: " + copyText.value);
+                                                                        /*alert("Copied the text: " + copyText.value);*/
+                                                                        const Toast = Swal.mixin({
+                                                                            toast: true,
+                                                                            position: 'top',
+                                                                            showConfirmButton: false,
+                                                                            timer: 3000,
+                                                                            timerProgressBar: true,
+                                                                            didOpen: (toast) => {
+                                                                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                                            }
+                                                                        })
+
+                                                                        Toast.fire({
+                                                                            icon: 'success',
+                                                                            iconColor: '#70cc72',
+                                                                            title: 'Copied "Password"!',
+                                                                            background: '#1a1a1a',
+                                                                        })
                                                                         ccicon.style.display = "none";
                                                                     }
 
@@ -505,14 +559,32 @@
                                                                             togglecc_table();
                                                                         });
 
-                                                                         function togglecc_table() {
+                                                                        function togglecc_table() {
                                                                             var copyText = formdisplay
 
                                                                             // Copy the text inside the text field
                                                                             navigator.clipboard.writeText(copyText.value);
 
                                                                             // Alert the copied text
-                                                                            alert("Copied the text: " + copyText.value);
+                                                                            /*alert("Copied the text: " + copyText.value);*/
+                                                                            const Toast = Swal.mixin({
+                                                                                toast: true,
+                                                                                position: 'top',
+                                                                                showConfirmButton: false,
+                                                                                timer: 3000,
+                                                                                timerProgressBar: true,
+                                                                                didOpen: (toast) => {
+                                                                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                                                }
+                                                                            })
+
+                                                                            Toast.fire({
+                                                                                icon: 'success',
+                                                                                iconColor: '#70cc72',
+                                                                                title: 'Copied "URL"!',
+                                                                                background: '#1a1a1a',
+                                                                            })
                                                                             ccicon.style.display = "none";
                                                                         }
                                                                     }
@@ -589,7 +661,25 @@
                                                                             navigator.clipboard.writeText(copyText.value);
 
                                                                             // Alert the copied text
-                                                                            alert("Copied the text: " + copyText.value);
+                                                                             /*alert("Copied the text: " + copyText.value);*/
+                                                                             const Toast = Swal.mixin({
+                                                                                 toast: true,
+                                                                                 position: 'top',
+                                                                                 showConfirmButton: false,
+                                                                                 timer: 3000,
+                                                                                 timerProgressBar: true,
+                                                                                 didOpen: (toast) => {
+                                                                                     toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                                                     toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                                                 }
+                                                                             })
+
+                                                                             Toast.fire({
+                                                                                 icon: 'success',
+                                                                                 iconColor: '#70cc72',
+                                                                                 title: 'Copied "Notes"!',
+                                                                                 background: '#1a1a1a',
+                                                                             })
                                                                             ccicon.style.display = "none";
                                                                         }
                                                                     }
@@ -612,10 +702,30 @@
                                                             <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@PassEntry.PID', '@PassEntry.PID.ToString()', '@PassEntry.PR_TITLE')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
                                                                 CONFIRM
                                                             </button>
-                                                            <button class="btn btn-outline-secondary rounded-0" onclick="checkInputemail(); checkInputusername(); checkInputpassword(); checkInputURL(); checkInputnotes(); toggleEdit('@PassEntry.PID'); resetform('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
+                                                            <button class="btn btn-outline-secondary rounded-0" onclick="cancelEdit('@PassEntry.PID','@PassEntry.PR_TITLE','@PassEntry.PR_USERNAME','@PassEntry.PR_EMAIL','@decryptedPassword','@PassEntry.PR_URL','@PassEntry.PR_NOTES')" aria-pressed="true" id="editcancelbtn">
                                                                 CANCEL
                                                             </button>
                                                         </div>
+                                                        <template id="my-template">
+                                                            <swal-title>
+                                                                Save changes to "Untitled 1" before closing?
+                                                            </swal-title>
+                                                            <swal-icon type="warning" color="red"></swal-icon>
+                                                            <swal-button type="confirm">
+                                                                Save As
+                                                            </swal-button>
+                                                            <swal-button type="cancel">
+                                                                Cancel
+                                                            </swal-button>
+                                                            <swal-button type="deny">
+                                                                Close without Saving
+                                                            </swal-button>
+                                                            <swal-param name="allowEscapeKey" value="false" />
+                                                            <swal-param name="customClass"
+                                                                        value='{ "popup": "my-popup" }' />
+                                                            <swal-function-param name="didOpen"
+                                                                                 value="popup => console.log(popup)" />
+                                                        </template>
                                                     </div>
                                                 </div>
                                                 <nav class="menu" id="edit-menu-@PassEntry.PID">
@@ -644,6 +754,53 @@
 </html>
 
 <script type="text/javascript">
+    function discardChangesADDITEM() {
+        Swal.fire({
+            title: 'Cancel changes?',
+            text: 'This will dismiss all changes.',
+            icon: 'error',
+            iconColor: '#c40f2d',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: 'Back'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Handle confirmed action
+                $('#addbutton-modal').modal('hide')
+            }
+        });
+    }
+
+    function cancelEdit(PID, Title, Username, Email, Password, URL, Notes) {
+        //Confirmation message before cancelling edit
+        Swal.fire({
+            title: 'Cancel changes?',
+            text: "This will dismiss all changes.",
+            icon: 'error',
+            iconColor: '#c40f2d',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: 'Back'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                checkInputemail();
+                checkInputusername();
+                checkInputpassword();
+                checkInputURL();
+                checkInputnotes();
+                toggleEdit(PID);
+                resetform(PID, Title, Username, Email, Password, URL, Notes);
+            }
+        })
+        
+    }
+
     function resetform(PID, Title, Username, Email, Password, URL, Notes) {
         document.getElementById('Title-' + PID).value = Title;
         document.getElementById('Username-' + PID).value = Username;
@@ -734,14 +891,14 @@
         }
         else {
             Swal.fire({
-                    position: 'top',
-                    icon: 'error',
-                    iconColor: '#c40f2d',
-                    background: '#1a1a1a',
-                    title: 'Title is required!',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
+                position: 'top',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'Title is required!',
+                showConfirmButton: false,
+                timer: 2500
+            })
         }
 
     }
@@ -754,9 +911,9 @@
         //Confirmation message before deleting entry
         Swal.fire({
             title: 'Delete item?',
-            text: "This will place the item in the trash." ,
+            text: "This will place the item in the trash.",
             icon: 'warning',
-            iconColor: '#f26f01',
+            iconColor: '#c40f2d',
             background: '#1a1a1a',
             showCancelButton: true,
             confirmButtonColor: '#70cc72',
@@ -788,14 +945,14 @@
                     icon: 'success',
                     background: '#1a1a1a',
                     iconColor: '#70cc72',
-                    title: '"'+title+'" successfuly deleted!',
+                    title: '"' + title + '" successfuly deleted!',
                     showConfirmButton: false,
                     timer: 2500
                 })
-                .then(function () {
-                    location.reload(true);
-                }
-                )
+                    .then(function () {
+                        location.reload(true);
+                    }
+                    )
             }
         })
     }
@@ -884,3 +1041,72 @@
         }
     }
 </script>
+
+<!-- Modal-->
+<div class="modal fade" id="detailsbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <!--Form-->
+            <div class="modal-body modal-xl">
+                <div class="d-flex justify-content-center w-100 mt-2">
+                    <h5 style="color:white; font-family:'JetBrains Mono'">Enter your password to proceed.</h5>
+                </div>
+                <div class="d-flex justify-content-center w-100">
+                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                        @*@Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-UserDetails", placeholder = "Password", required = "required" })*@
+                        <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-UserDetails" spellcheck="false" placeholder="Password" required="required">
+                        <label for="floatingPassword-UserDetails">Password</label>
+                        <span>
+                            <!--Eye icon-->
+                            <img src="~/Elements/eye.svg" id="eyeicon-UserDetails" />
+                        </span>
+                        <script type="text/javascript">
+                            //UserDetails MODAL SHOW PASSWORD
+                            let eyeiconudetails = document.getElementById('eyeicon-UserDetails');
+                            var formudetails = document.getElementById('floatingPassword-UserDetails');
+
+                            eyeiconudetails.style.display = "none";
+
+                            formudetails.addEventListener("focusin", function () {
+                                eyeiconudetails.style.display = "block";
+                            });
+
+                            formudetails.addEventListener("focusout", function () {
+                                if (Event.relatedTarget !== eyeiconudetails) {
+                                    eyeiconudetails.style.display = "none";
+                                }
+                            });
+
+                            eyeiconudetails.addEventListener("mousedown", function (event) {
+                                event.preventDefault(); // prevent default action to avoid losing focus
+                                togglePWUserDetails();
+                            });
+
+                            function togglePWUserDetails() {
+                                var show = document.getElementById('floatingPassword-UserDetails');
+                                if (show.type == 'password') {
+                                    show.type = 'text';
+                                    eyeiconudetails.src = "/Elements/eye-slash.svg"
+                                }
+                                else {
+                                    show.type = 'password'
+                                    eyeiconudetails.src = "/Elements/eye.svg"
+                                }
+                                show.focus();
+                            }
+                        </script>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                    <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center col-5">
+                            <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="">
+                                ENTER →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

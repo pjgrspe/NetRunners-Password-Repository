@@ -74,7 +74,7 @@ footer {
     font-weight: bold;
 }
 
-#content, #list-tab, #additembtn, .item-table, #addmodalbtn, .form-floating {
+#content, #list-tab, #additembtn, .item-table, #editmodalbtn, #edit2modalbtn, .form-floating {
     font-family: 'JetBrains Mono', monospace;
 }
 
@@ -263,6 +263,16 @@ h1 {
     opacity: 1;
 }
 
+#eyeicon-modal {
+    position: absolute;
+    right: 15px;
+    transform: translate(0, -50%);
+    top: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
 #eyeiconPassword {
     position: absolute;
     right: 15px;
@@ -318,7 +328,7 @@ h1 {
         outline: none !important;
     }
 
-#addmodalbtn {
+#editmodalbtn {
     width: 280px;
     height: 50px;
     font-size: 18px;
@@ -326,7 +336,17 @@ h1 {
     background-color: #4ca1a5;
 }
 
+#edit2modalbtn {
+    width: 280px;
+    height: 50px;
+    font-size: 18px;
+    color: white;
+    background-color: #4ca1a5;
+}
+
+
 #editacceptbtn, #editcancelbtn {
+    font-family:'JetBrains Mono';
     width: 100px;
     height: 50px;
     font-size: 18px;
@@ -359,12 +379,12 @@ h1 {
     font-size: 18px;
 }
 
-#addmodalbtn:hover {
+#editmodalbtn:hover, #edit2modalbtn:hover {
     background-color: white;
     color: #4ca1a5;
 }
 
-#addmodalbtn:active, #addmodalbtn:focus {
+#editmodalbtn:active, #editmodalbtn:focus, #edit2modalbtn:active, #edit2modalbtn:focus {
     box-shadow: none;
     outline: none !important;
 }
