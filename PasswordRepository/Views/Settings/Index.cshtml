@@ -712,32 +712,21 @@
     function updateUDetails() {
 
         //user details
-        var itemFN = document.getElementById('Firstname');
-        var itemLN = document.getElementById('Lastname');
-        var itemUN = document.getElementById('Username');
-        var itemPW = document.getElementById('Password');
-        var itemREPW = document.getElementById('RepeatPassword');
-        var itemEMAIL = document.getElementById('Email');
-
-        //Sets variables to corresponding textboxes
-        //var pwID = passwordID;
-        //var pwTitle = $('#Title-' + passwordIDstring).val();
-        //var pwEmail = $('#Email-' + passwordIDstring).val();
-        //var pwUname = $('#Username-' + passwordIDstring).val();
-        //var pwPassword = $('#Password-' + passwordIDstring).val();
-        //var pwUrl = $('#URL-' + passwordIDstring).val();
-        //var pwNotes = $('#Notes-' + passwordIDstring).val()
+        var itemFN = $('#Firstname').val();
+        var itemLN = $('#Lastname').val();
+        var itemUN = $('#Username').val();
+        var itemPW = $('#Password').val();
+        var itemREPW = $('#RepeatPassword').val();
+        var itemEMAIL = $('#Email').val();
 
         //Packages the variables
-        //var data = {
-        //    passwordID: pwID,
-        //    passwordTitle: pwTitle,
-        //    passwordEmail: pwEmail,
-        //    passwordUname: pwUname,
-        //    passwordPassword: pwPassword,
-        //    passwordURL: pwUrl,
-        //    passwordNotes: pwNotes
-        //}
+        var data = {
+            userFN: itemFN,
+            userLN: itemLN,
+            userUN: itemUN,
+            userPW: itemPW,
+            userEMAIL: itemEMAIL,
+        }
 
         //IF ALL FORMS ARE NOT NULL
         if (!itemFN.value.trim() || !itemLN.value.trim() || !itemUN.value.trim() || !itemPW.value.trim() || !itemREPW.value.trim() || !itemEMAIL.value.trim()) {
@@ -752,89 +741,14 @@
                 timer: 2500
             })
         }
-        else {
-            //Confirmation message before updating entry
-            Swal.fire({
-                title: 'Update user details?',
-                text: "This will change your account details.",
-                icon: 'question',
-                iconColor: '#2973b9',
-                background: '#1a1a1a',
-                showCancelButton: true,
-                confirmButtonColor: '#70cc72',
-                cancelButtonColor: '#fe4365',
-                confirmButtonText: 'Confirm'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //Ajax function to prepare data to be sent to the controller
-                    //$.ajax({
-                    //    type: "POST",
-                    //    url: "/Dashboard/UpdateEntry",
-                    //    dataType: "JSON",
-                    //    data: JSON.stringify(data),
-                    //    contentType: 'application/json; charset=utf8',
-                    //    success: function () {
-
-                    //    },
-                    //    error: function () {
-                    //        alert("An error occurred")
-                    //    }
-                    //})
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        background: '#1a1a1a',
-                        iconColor: '#70cc72',
-                        title: 'Your changes has been saved!',
-                        showConfirmButton: false,
-                        timer: 2500
-                    })
-                        .then(function () {
-                            location.reload(true);
-                        }
-                        )
-                }
-            })
-        }
-    }
-
-    //Function for updating ICELock
-    function updateICELock() {
-
-        //user details
-        var itemPIN = document.getElementById('PIN');
-        var itemREPIN = document.getElementById('RepeatPIN');
-        var itemRange = document.getElementById('timeSlider');
-
-        //Sets variables to corresponding textboxes
-        //var pwID = passwordID;
-        //var pwTitle = $('#Title-' + passwordIDstring).val();
-        //var pwEmail = $('#Email-' + passwordIDstring).val();
-        //var pwUname = $('#Username-' + passwordIDstring).val();
-        //var pwPassword = $('#Password-' + passwordIDstring).val();
-        //var pwUrl = $('#URL-' + passwordIDstring).val();
-        //var pwNotes = $('#Notes-' + passwordIDstring).val()
-
-        //Packages the variables
-        //var data = {
-        //    passwordID: pwID,
-        //    passwordTitle: pwTitle,
-        //    passwordEmail: pwEmail,
-        //    passwordUname: pwUname,
-        //    passwordPassword: pwPassword,
-        //    passwordURL: pwUrl,
-        //    passwordNotes: pwNotes
-        //}
-
-        //IF PIN AND REPIN FORMS ARE NOT NULL
-        if (!itemPIN.value.trim() || !itemREPIN.value.trim()) {
+        else if (itemPW.value != itemREPW.value) {
             //error alert
             Swal.fire({
                 position: 'center',
                 icon: 'error',
                 iconColor: '#c40f2d',
                 background: '#1a1a1a',
-                title: 'Complete all details!',
+                title: 'Passwords do not match!',
                 showConfirmButton: false,
                 timer: 2500
             })
@@ -854,25 +768,117 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     //Ajax function to prepare data to be sent to the controller
-                    //$.ajax({
-                    //    type: "POST",
-                    //    url: "/Dashboard/UpdateEntry",
-                    //    dataType: "JSON",
-                    //    data: JSON.stringify(data),
-                    //    contentType: 'application/json; charset=utf8',
-                    //    success: function () {
+                    $.ajax({
+                        type: "post",
+                        url: "/Settings/UpdateUser",
+                        datatype: "json",
+                        data: json.stringify(data),
+                        contenttype: 'application/json; charset=utf8',
+                        success: function () {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                background: '#1a1a1a',
+                                iconColor: '#70cc72',
+                                //title: 'Your changes has been saved!',
+                                title: msg,
+                                showConfirmButton: false,
+                                timer: 2500
+                            })
+                                .then(function () {
+                                    location.reload(true);
+                                }
+                                )
+                        },
+                        error: function () {
+                            alert("an error occurred")
+                        }
+                    })
+                    
+                }
+            })
+        }
+    }
 
-                    //    },
-                    //    error: function () {
-                    //        alert("An error occurred")
-                    //    }
-                    //})
+    //Function for updating ICELock
+    function updateICELock() {
+
+        //user details
+        //var itemPIN = document.getElementById('PIN');
+        //var itemREPIN = document.getElementById('RepeatPIN');
+        //var itemRange = document.getElementById('timeSlider');
+
+        var itemPIN = $('#PIN').val();
+        var itemREPIN = $('#RepeatPIN').val();
+        var itemRange = document.getElementById('timeSlider');
+
+
+        //Packages the variables
+        var data = {
+            userPIN: itemPIN,
+            userTO: itemRange.value,
+        }
+
+        //IF PIN AND REPIN FORMS ARE NOT NULL
+        if (!itemPIN.value.trim() || !itemREPIN.value.trim()) {
+            //error alert
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'Complete all details!',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+        else if (!itemPIN.value.trim() != !itemREPIN.value.trim()) {
+            //error alert
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: 'Complete all details!',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+        else {
+            //Confirmation message before updating entry
+            Swal.fire({
+                title: 'Update PIN details?',
+                text: "This will change your account details.",
+                icon: 'question',
+                iconColor: '#2973b9',
+                background: '#1a1a1a',
+                showCancelButton: true,
+                confirmButtonColor: '#70cc72',
+                cancelButtonColor: '#fe4365',
+                confirmButtonText: 'Confirm'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax function to prepare data to be sent to the controller
+                    $.ajax({
+                        type: "POST",
+                        url: "/Settings/UpdatePIN",
+                        dataType: "JSON",
+                        data: JSON.stringify(data),
+                        contentType: 'application/json; charset=utf8',
+                        success: function () {
+
+                        },
+                        error: function () {
+                            alert("An error occurred")
+                        }
+                    })
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
                         background: '#1a1a1a',
                         iconColor: '#70cc72',
-                        title: 'Your changes has been saved!',
+                        /*title: 'Your changes has been saved!',*/
+                        title: msg,
                         showConfirmButton: false,
                         timer: 2500
                     })

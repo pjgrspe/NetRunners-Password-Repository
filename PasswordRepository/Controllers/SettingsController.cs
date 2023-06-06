@@ -1,4 +1,5 @@
-﻿using PasswordRepository.Models;
+﻿using PasswordRepository.Helpers;
+using PasswordRepository.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,6 @@ namespace PasswordRepository.Controllers
 
                 //Updates the entry's data, flags the trash variable, updates the delete date and adds expiry date which is set to 1 month from now
                 user.STATUS = false;
-                //DEBUG CODE// Password.EXPIRY_DATE = DateTime.Now.AddSeconds(15);
 
                 entities.SaveChanges();
                 //Success Message
@@ -93,5 +93,89 @@ namespace PasswordRepository.Controllers
 
             }
         }
+
+
+        public ActionResult UpdateUser(string userFN, string userLN, string userUN, string userPW, string userEMAIL)
+        {
+            //Sets the entity object
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                //Sets password variable to the table entry that matches the given password ID to PID
+                var userID = (int)Session["ID"];
+                var userLogin = entities.TBL_LOGIN.Where(x => x.ID == userID).FirstOrDefault();
+                var userDetails = entities.TBL_USER_DETAILS.Where(x => x.UID == userID).FirstOrDefault();
+
+                //If entry login and details are not found (should be impossible)
+                if (userLogin == null)
+                {
+                    return Json(new { msg = "Entry not found (what?? how???)" });
+                }
+                if (userDetails == null)
+                {
+                    return Json(new { msg = "Entry not found (what?? how???)" });
+                }
+
+                //Encrypts entered password
+                var EncryptedPass = Encrypter.EncryptString(userPW);
+
+                //Sets selected entry's data to the information passed through the function
+                userLogin.USERNAME = userUN;
+                userLogin.PASSWORD = EncryptedPass;
+                userLogin.EMAIL = userEMAIL;
+                userDetails.FIRSTNAME = userFN;
+                userDetails.LASTNAME = userLN;
+
+                //Saves the changes
+                if (entities.SaveChanges() >= 1)
+                {
+                    //Success Message
+                    return Json(new { msg = "User entry updated" });
+                }
+                else
+                {
+                    //Error Message
+                    return Json(new { msg = "An error occurred(Controller)" });
+                }
+
+            }
+        }
+
+        public ActionResult UpdatePIN(string userPIN, int userTO)
+        {
+            //Sets the entity object
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                //Sets password variable to the table entry that matches the given password ID to UID
+                var userID = (int)Session["ID"];
+                var userDetails = entities.TBL_USER_DETAILS.Where(x => x.UID == userID).FirstOrDefault();
+
+                //If entry details are not found (should be impossible)
+                if (userDetails == null)
+                {
+                    return Json(new { msg = "Entry not found (what?? how???)" });
+                }
+
+                //Encrypts entered password
+                var EncryptedPIN = Encrypter.EncryptString(userPIN);
+
+                //Sets selected entry's data to the information passed through the function
+                userDetails.PIN = EncryptedPIN;
+                userDetails.TIMEOUT = userTO;
+
+                //Saves the changes
+                if (entities.SaveChanges() >= 1)
+                {
+                    //Success Message
+                    return Json(new { msg = "User entry updated" });
+                }
+                else
+                {
+                    //Error Message
+                    return Json(new { msg = "An error occurred(Controller)" });
+                }
+
+            }
+        }
+
     }
 }
