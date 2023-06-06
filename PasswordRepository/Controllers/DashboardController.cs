@@ -153,8 +153,6 @@ namespace PasswordRepository.Controllers
                 Password.isTrashed = true;
                 Password.ENTRY_DELETED = DateTime.Now;
                 Password.EXPIRY_DATE = DateTime.Now.AddMonths(1);
-                //DEBUG CODE// Password.EXPIRY_DATE = DateTime.Now.AddSeconds(15);
-
 
                 //Saves the changes
                 if (entities.SaveChanges() >= 1)
