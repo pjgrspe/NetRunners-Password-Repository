@@ -99,6 +99,12 @@ a:link {
     text-decoration: none;
 }
 
+#tandcprompt {
+    color: #c42974;
+    background-color: transparent;
+    text-decoration: none;
+}
+
 h1 {
     font-size: 100px;
 }
@@ -181,4 +187,37 @@ h1 {
     box-shadow: none;
     outline: none;
     border-color: darkgray;
+}
+
+#navmenu, thead {
+    font-family: 'Barlow', sans-serif;
+    font-size: 20px;
+    color: white !important;
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    font-family:'JetBrains Mono'
+}
+
+.modal-footer, .modal-header {
+    border: none !important;
+    height:50px!important;
+    margin:16px;
+    padding:0px!important;
+}
+
+.modal-lg {
+    width: 500px;
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 30px !important;
+    top: 10px !important;
+    color: #c42974!important;
+}
+
+h5 {
+    color: #4ca1a5 !important;
 }
