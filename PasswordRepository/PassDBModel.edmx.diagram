@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3f0500d8afb84387a55778b315f9a420" Name="Diagram1">
-        <EntityTypeShape EntityType="PassRepoDatabaseModel.TBL_LOGIN" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PassRepoDatabaseModel.TBL_LOGIN" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PassRepoDatabaseModel.TBL_USER_DETAILS" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="PassRepoDatabaseModel.FK_TBL_USER_DETAILS_TBL_USER_DETAILS" ManuallyRouted="false" />
         <EntityTypeShape EntityType="PassRepoDatabaseModel.TBL_PASSWORD_REPO" Width="1.5" PointX="0.875" PointY="3.875" />

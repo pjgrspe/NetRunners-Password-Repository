@@ -26,6 +26,9 @@ namespace PasswordRepository
         public string EMAIL { get; set; }
         public System.DateTime DATE_CREATED { get; set; }
         public bool STATUS { get; set; }
+        public bool ACCESSLVL { get; set; }
+        public Nullable<System.DateTime> DEACT_DATE { get; set; }
+        public Nullable<System.DateTime> EXPIRY_DATE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_USER_DETAILS> TBL_USER_DETAILS { get; set; }

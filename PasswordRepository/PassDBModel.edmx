@@ -15,6 +15,9 @@
           <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
           <Property Name="STATUS" Type="bit" Nullable="false" />
+          <Property Name="ACCESSLVL" Type="bit" Nullable="false" />
+          <Property Name="DEACT_DATE" Type="datetime" />
+          <Property Name="EXPIRY_DATE" Type="datetime" />
         </EntityType>
         <EntityType Name="TBL_PASSWORD_REPO">
           <Key>
@@ -84,6 +87,9 @@
           <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="STATUS" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TBL_USER_DETAILS" Relationship="Self.FK_TBL_USER_DETAILS_TBL_USER_DETAILS" FromRole="TBL_LOGIN" ToRole="TBL_USER_DETAILS" />
+          <Property Name="ACCESSLVL" Type="Boolean" Nullable="false" />
+          <Property Name="DEACT_DATE" Type="DateTime" Precision="3" />
+          <Property Name="EXPIRY_DATE" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="TBL_USER_DETAILS">
           <Key>
@@ -148,6 +154,9 @@
           <EntitySetMapping Name="TBL_LOGIN">
             <EntityTypeMapping TypeName="PassRepoDatabaseModel.TBL_LOGIN">
               <MappingFragment StoreEntitySet="TBL_LOGIN">
+                <ScalarProperty Name="EXPIRY_DATE" ColumnName="EXPIRY_DATE" />
+                <ScalarProperty Name="DEACT_DATE" ColumnName="DEACT_DATE" />
+                <ScalarProperty Name="ACCESSLVL" ColumnName="ACCESSLVL" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />

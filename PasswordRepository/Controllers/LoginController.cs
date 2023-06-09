@@ -74,16 +74,22 @@ namespace PasswordRepository.Controllers
                             //TimedOut flag is used for the pin timer system
                             Session["timedout"] = false;
                             Session["Status"] = eData.STATUS;
+                            Session["Access"] = eData.ACCESSLVL;
                             //Sets session timeout to three days
                             Session.Timeout = 1440;
 
                             //Cookie code
                             Response.Cookies.Add(httpCookie);
+                            
 
-                            if (eData.STATUS)
+                            if (eData.STATUS || eData.ACCESSLVL == false)
                             {
                                 //Redirects to Index Dashboard after everything is settled
                                 return RedirectToAction("Index", "Dashboard");
+                            }
+                            else if (eData.STATUS || eData.ACCESSLVL == true)
+                            {
+                                return RedirectToAction("Index", "AdminInterface");
                             }
                             else
                             {
@@ -118,6 +124,8 @@ namespace PasswordRepository.Controllers
             Session["PIN"] = null;
             Session["TO"] = null;
             Session["timedout"] = null;
+            Session["Status"] = null;
+            Session["Access"] = null;
 
             //Clears whole session altogether
             Session.Abandon();
