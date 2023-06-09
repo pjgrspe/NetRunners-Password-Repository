@@ -51,9 +51,12 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Trashboard", "Dashboard")">Trash</a></li>
+
+                                @if ((bool)Session["Access"] == false)
+                                {
+                                    <li><a class="dropdown-item" href="@Url.Action("Trashboard", "Dashboard")">Trash</a></li>
+                                }
                                 <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "Settings")">Settings</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
                             </ul>
                         </li>

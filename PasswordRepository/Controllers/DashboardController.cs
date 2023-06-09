@@ -40,6 +40,10 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("deactivated", "Account");
             }
 
+            if ((bool)Session["Access"] == true)
+            {
+                return RedirectToAction("index", "AdminInterface");
+            }
 
             //Sets the entity object
             //To display all the passwords for the specific user
@@ -233,6 +237,10 @@ namespace PasswordRepository.Controllers
                 return RedirectToAction("deactivated", "Account");
             }
 
+            if ((bool)Session["Access"] == true)
+            {
+                return RedirectToAction("index", "AdminInterface");
+            }
 
             //Sets the entity object
             //To display all the deleted passwords for the specific user

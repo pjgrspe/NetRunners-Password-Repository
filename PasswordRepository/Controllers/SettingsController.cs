@@ -72,6 +72,9 @@ namespace PasswordRepository.Controllers
 
                 //Updates the entry's data, flags the trash variable, updates the delete date and adds expiry date which is set to 1 month from now
                 user.STATUS = false;
+                user.DEACT_DATE = DateTime.Now;
+                user.EXPIRY_DATE = DateTime.Now.AddMonths(3); //PRODUCTION CODE
+                //user.EXPIRY_DATE = DateTime.Now.AddSeconds(15); //TEST CODE
 
                 entities.SaveChanges();
                 //Success Message
@@ -81,6 +84,8 @@ namespace PasswordRepository.Controllers
                 Session["PIN"] = null;
                 Session["TO"] = null;
                 Session["timedout"] = null;
+                Session["Status"] = null;
+                Session["Access"] = null;
 
                 //Clears whole session altogether
                 Session.Abandon();
