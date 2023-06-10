@@ -119,8 +119,8 @@
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ModalLabel">PASSWORD GENERATOR</h1>
-                        <button type="button" class="btn-close btn-close-white" onclick="discardChangesADDITEM()"></button>
+                        <h1 class="modal-title fs-5" id="ModalLabel">ICEPass™ Generator</h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!--Form-->
                     <div class="modal-body modal-xl" style="margin-top:-10px;">
@@ -293,11 +293,30 @@
                                     // Copy the text inside the text field
                                     navigator.clipboard.writeText(textarea.value);;
                                     textarea.remove();
-
                                     copyInfo.style.transform = "translateY(200%)";
                                     copyInfo.style.opacity = "0";
                                     copiedInfo.style.transform = "translateY(0%)";
                                     copiedInfo.style.opacity = "0.75";
+                                    // Alert the copied text
+                                    /*alert("Copied the text: " + copyText.value);*/
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        didOpen: (toast) => {
+                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                        }
+                                    })
+
+                                    Toast.fire({
+                                        icon: 'success',
+                                        iconColor: '#70cc72',
+                                        title: 'Copied "ICEPass"!',
+                                        background: '#1a1a1a',
+                                    })
                                 });
 
                                 // When Generate is clicked Password id generated.

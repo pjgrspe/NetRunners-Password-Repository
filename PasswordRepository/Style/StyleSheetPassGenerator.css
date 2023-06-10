@@ -9,6 +9,7 @@
   bottom: 4px;
   color: #fff;
   font-size: 0.8rem;
+  font-family:'JetBrains Mono'!important;
   transition: all 150ms ease-in-out;
   transform: translateY(200%);
   opacity: 0;
@@ -20,13 +21,14 @@
   left: 8px;
 }
 .result__viewbox {
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  color: #fff;
-  text-align: center;
-  line-height: 65px;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    font-family: 'JetBrains Mono' !important;
+    color: #fff;
+    text-align: center;
+    line-height: 65px;
 }
 .result #copy-btn {
   position: absolute;
@@ -243,6 +245,7 @@
     background-color: #4ca1a5;
     letter-spacing: 1px;
     font-weight: bold;
+    font-family: 'JetBrains Mono' !important;
     text-transform: uppercase;
     cursor: pointer;
     transition: all 150ms ease;

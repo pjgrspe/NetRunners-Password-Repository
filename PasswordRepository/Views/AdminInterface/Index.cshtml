@@ -27,78 +27,82 @@
                     </div>
                     <!--Form-->
                     <div class="modal-body modal-xl" style="margin-top:-10px;">
-                        <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                    @*@Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "First Name", required = "required" })*@
-                                    <input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingTitle" spellcheck="false" placeholder="First Name" required="required">
-                                    <label for="floatingTitle">First Name</label>
+                        @using (@Html.BeginForm("Entry", "Dashboard", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
+                                <div class="d-flex justify-content-center w-100">
+                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                                        @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "First Name", required = "required" })
+                                        @*<input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingTitle" spellcheck="false" placeholder="First Name" required="required">*@
+                                        <label for="floatingTitle">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center w-100">
+                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                                        @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Last Name", required = "required" })
+                                        @*<input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingTitle" spellcheck="false" placeholder="Last Name" required="required">*@
+                                        <label for="floatingTitle">Last Name</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center w-100">
+                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                                        @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Username" })
+                                        @*<input maxlength="50" class="form-control rounded-0 w-100" id="floatingUsername" spellcheck="false" placeholder="Username">*@
+                                        <label for="floatingUsername">Username</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center w-100">
+                                    <div class="form-floating" style="margin-top: 10px; width: 90%; ">
+                                        @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "First Name", placeholder = "Email" })
+                                        @*<input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder="Email">*@
+                                        <label for="floatingEmail">Email</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center w-100">
+                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                                        @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", required = "required" })
+                                        @*<input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-login" spellcheck="false" placeholder="Password" required="required">*@
+                                        <label for="floatingPassword-login">Password</label>
+                                        <span>
+                                            <!--Eye icon-->
+                                            <img src="~/Elements/eye.svg" id="eyeicon-login" />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                    @*@Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Last Name", required = "required" })*@
-                                    <input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingTitle" spellcheck="false" placeholder="Last Name" required="required">
-                                    <label for="floatingTitle">Last Name</label>
+                            <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                                <div class="d-flex justify-content-center">
+                                    <div class="d-flex justify-content-center col-5 mb-2 ">
+                                        <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
+                                            ADD +
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                    @*@Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Username" })*@
-                                    <input maxlength="50" class="form-control rounded-0 w-100" id="floatingUsername" spellcheck="false" placeholder="Username">
-                                    <label for="floatingUsername">Username</label>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 90%; ">
-                                    @*@Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "First Name", placeholder = "Email" })*@
-                                    <input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder="Email">
-                                    <label for="floatingEmail">Email</label>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                    @*@Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", required = "required" })*@
-                                    <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-login" spellcheck="false" placeholder="Password" required="required">
-                                    <label for="floatingPassword-login">Password</label>
-                                    <span>
-                                        <!--Eye icon-->
-                                        <img src="~/Elements/eye.svg" id="eyeicon-login" />
-                                    </span>
-                                </div>
-                            </div>
+                            <!--SAVE CHANGES FOR MODAL PROMPT-->
+                            <template id="my-template">
+                                <swal-title>
+                                    Save changes to "Untitled 1" before closing?
+                                </swal-title>
+                                <swal-icon type="warning" color="red"></swal-icon>
+                                <swal-button type="confirm">
+                                    Save As
+                                </swal-button>
+                                <swal-button type="cancel">
+                                    Cancel
+                                </swal-button>
+                                <swal-button type="deny">
+                                    Close without Saving
+                                </swal-button>
+                                <swal-param name="allowEscapeKey" value="false" />
+                                <swal-param name="customClass"
+                                            value='{ "popup": "my-popup" }' />
+                                <swal-function-param name="didOpen"
+                                                     value="popup => console.log(popup)" />
+                            </template>
+                        }
                         </div>
-                        <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
-                            <div class="d-flex justify-content-center">
-                                <div class="d-flex justify-content-center col-5 mb-2 ">
-                                    <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
-                                        ADD +
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!--SAVE CHANGES FOR MODAL PROMPT-->
-                        <template id="my-template">
-                            <swal-title>
-                                Save changes to "Untitled 1" before closing?
-                            </swal-title>
-                            <swal-icon type="warning" color="red"></swal-icon>
-                            <swal-button type="confirm">
-                                Save As
-                            </swal-button>
-                            <swal-button type="cancel">
-                                Cancel
-                            </swal-button>
-                            <swal-button type="deny">
-                                Close without Saving
-                            </swal-button>
-                            <swal-param name="allowEscapeKey" value="false" />
-                            <swal-param name="customClass"
-                                        value='{ "popup": "my-popup" }' />
-                            <swal-function-param name="didOpen"
-                                                 value="popup => console.log(popup)" />
-                        </template>
-                    </div>
                 </div>
             </div>
         </div>
