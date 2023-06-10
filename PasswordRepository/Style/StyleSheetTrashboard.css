@@ -123,6 +123,14 @@ small {
     width: 95%;
     height: 50px;
     font-size: 20px;
+    color: #ff2e2e;
+}
+
+#restoreallbtn {
+    width: 95%;
+    height: 50px;
+    font-size: 20px;
+    color: #00cc33;
 }
 
 .hidden {
@@ -454,6 +462,7 @@ h1 {
 
 .list-group {
     border-top: 0.4px solid rgba(255,255,255,.1);
+    border-bottom: 0.4px solid rgba(255,255,255,.1);
 }
 
 .list-group-item {

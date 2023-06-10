@@ -169,7 +169,9 @@
                     </div>
                     <!--ICELock slider-->
                     <div class="col-12 d-flex justify-content-center">
-                        <input type="range" min="1" max="30" step="1" value="1" id="timeSlider">
+                        <div class="length range__slider" data-min="4" data-max="32">
+                            <input type="range" min="1" max="30" step="1" value="1" id="timeSlider">
+                        </div>
                     </div>
                     <script type="text/javascript">
                         var elem = document.querySelector('input[type="range"]');
@@ -181,6 +183,37 @@
                         }
 
                         elem.addEventListener("input", rangeValue);
+
+                        // Range Slider Properties.
+                        // Fill : The trailing color that you see when you drag the slider.
+                        // background : Default Range Slider Background
+                        const sliderProps = {
+                            fill: "#9d205d",
+                            background: "rgba(255, 255, 255, 0.214)",
+                        };
+
+                        // Selecting the Range Slider container which will effect the LENGTH property of the password.
+                        const slider = document.querySelector(".range__slider");
+
+                        // Text which will show the value of the range slider.
+                        const sliderValue = document.querySelector("#timeSlider");
+
+                        // Using Event Listener to apply the fill and also change the value of the text.
+                        slider.querySelector("input").addEventListener("input", event => {
+                            sliderValue.setAttribute("data-length", event.target.value);
+                            applyFill(event.target);
+                        });
+                        // Selecting the range input and passing it in the applyFill func.
+                        applyFill(slider.querySelector("input"));
+                        // This function is responsible to create the trailing color and setting the fill.
+                        function applyFill(slider) {
+                            const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
+                            const bg = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
+                                0.1}%)`;
+                            slider.style.background = bg;
+                            sliderValue.setAttribute("data-length", slider.value);
+                        }
+
                     </script>
 
                     <!--Enter button-->

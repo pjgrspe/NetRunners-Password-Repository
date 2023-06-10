@@ -229,14 +229,14 @@
                                     <div class="mt-3 tbl-details w-100">
                                         <div class="form-floating table-form">
                                             <p style="margin-bottom:-2px;">First Name</p>
-                                            <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width:100%" id="Firstname" spellcheck="false" value="@userDetails.FIRSTNAME">
+                                            <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width: 100%; text-transform: capitalize;" id="Firstname" spellcheck="false" value="@userDetails.FIRSTNAME">
                                         </div>
                                     </div>
                                     <!--LASTNAME INPUT-->
                                     <div class="mt-3 tbl-details w-100">
                                         <div class="form-floating table-form">
                                             <p style="margin-bottom:-2px; margin-left:11px;">Last Name</p>
-                                            <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width:100%; margin-left:11px;" id="Lastname" spellcheck="false" value="@userDetails.LASTNAME">
+                                            <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width: 100%; margin-left: 11px; text-transform: capitalize;" id="Lastname" spellcheck="false" value="@userDetails.LASTNAME">
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +244,7 @@
                                 <div class="mt-3 tbl-details">
                                     <div class="form-floating table-form">
                                         <p style="margin-bottom:-2px;">Username</p>
-                                        <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Username" spellcheck="false" value="@userLogin.USERNAME">
+                                        <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width: 100%;" id="Username" spellcheck="false" value="@userLogin.USERNAME">
                                     </div>
                                 </div>
                                 <!--EMAIL INPUT-->
@@ -373,12 +373,19 @@
                                     <div class="tbl-details" style="width:80%;">
                                         <div class="form-floating table-form" style="align-content: center">
                                             <p style="margin-bottom:-2px;">PIN</p>
-                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="PIN" spellcheck="false" value="@decryptedPIN">
+                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="PIN" spellcheck="false" value="@decryptedPIN" onkeypress="return isNumberKey(event)">
                                             <span>
                                                 <!--Eye icon-->
-                                                <img src="~/Elements/eye-white.svg" class="eyeiconPIN" id="eyeiconPIN" onclick="openModalshowPIN()"/>
+                                                <img src="~/Elements/eye-white.svg" class="eyeiconPIN" id="eyeiconPIN" onclick="openModalshowPIN()" />
                                             </span>
                                             <script type="text/javascript">
+                                                function isNumberKey(evt) {
+                                                    var charCode = (evt.which) ? evt.which : evt.keyCode
+                                                    if (charCode > 31 && (charCode < 48 || charCode > 57))
+                                                        return false;
+                                                    return true;
+                                                }
+
                                                 // Show PIN function
                                                 function openModalshowPIN() {
                                                     //checks if password hasn't been confirmed
@@ -415,7 +422,7 @@
                                     <div class="tbl-details" style="width:80%;">
                                         <div class="form-floating table-form" style="align-content: center">
                                             <p style="margin-bottom:-2px;">Repeat PIN</p>
-                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false" value="@decryptedPIN">
+                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false" value="@decryptedPIN" onkeypress="return isNumberKey(event)">
                                         </div>
                                     </div>
                                 </div>
@@ -442,10 +449,48 @@
                                     </div>
                                 </div>
                                 <!--ICELock slider-->
-                                <div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
+                                @*<div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
                                     <input disabled type="range" min="1" max="30" step="1" value="@userDetails.TIMEOUT" id="timeSlider">
+                                </div>*@
+
+                                <div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
+                                    <div class="length range__slider" data-min="1" data-max="30">
+                                        @*<input type="range" min="1" max="30" step="1" value="1" id="timeSlider">*@
+                                        <input disabled type="range" min="1" max="30" step="1" value="@userDetails.TIMEOUT" id="timeSlider">
+                                    </div>
                                 </div>
+
                                 <script type="text/javascript">
+                                    // Range Slider Properties.
+                                    // Fill : The trailing color that you see when you drag the slider.
+                                    // background : Default Range Slider Background
+                                    const sliderProps = {
+                                        fill: "#9d205d",
+                                        background: "rgba(255, 255, 255, 0.214)",
+                                    };
+
+                                    // Selecting the Range Slider container which will effect the LENGTH property of the password.
+                                    const slider = document.querySelector(".range__slider");
+
+                                    // Text which will show the value of the range slider.
+                                    const sliderValue = document.querySelector("#timeSlider");
+
+                                    // Using Event Listener to apply the fill and also change the value of the text.
+                                    slider.querySelector("input").addEventListener("input", event => {
+                                        sliderValue.setAttribute("data-length", event.target.value);
+                                        applyFill(event.target);
+                                    });
+                                    // Selecting the range input and passing it in the applyFill func.
+                                    applyFill(slider.querySelector("input"));
+                                    // This function is responsible to create the trailing color and setting the fill.
+                                    function applyFill(slider) {
+                                        const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
+                                        const bg = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
+                                            0.1}%)`;
+                                        slider.style.background = bg;
+                                        sliderValue.setAttribute("data-length", slider.value);
+                                    }
+
                                     //range selector
                                     //get initial value
                                     window.onload = function initialVal() {
@@ -501,6 +546,7 @@
             if (result.isConfirmed) {
                 toggleEditICELock();
                 resetformICELock();
+                applyFill(slider.querySelector("input"));
             }
         })
     }
@@ -528,11 +574,12 @@
 
 
     function resetformUDetails() {
-        document.getElementById('Firstname').value = 'Firstname';
-        document.getElementById('Lastname').value = 'Lastname';
-        document.getElementById('Username').value = 'Username';
-        document.getElementById('Email').value = 'Email';
-        document.getElementById('Password').value = 'Password';
+        document.getElementById('Firstname').value = '@userDetails.FIRSTNAME';
+        document.getElementById('Lastname').value = '@userDetails.LASTNAME';
+        document.getElementById('Username').value = '@userLogin.USERNAME';
+        document.getElementById('Email').value = '@userLogin.EMAIL';
+        document.getElementById('Password').value = '@decryptedPass';
+        document.getElementById('RepeatPassword').value = '@decryptedPass';
     }
 
     function toggleEditUDetails() {
@@ -668,9 +715,9 @@
     }
 
     function resetformICELock() {
-        document.getElementById('PIN').value = '1234';
-        document.getElementById('RepeatPIN').value = '1234';
-        document.getElementById('timeSlider').value = '5';
+        document.getElementById('PIN').value = '@decryptedPIN';
+        document.getElementById('RepeatPIN').value = '@decryptedPIN';
+        document.getElementById('timeSlider').value = '@userDetails.TIMEOUT';
         var initialValue = document.querySelector('input[type="range"]')
         var target = document.querySelector('.value');
         target.innerHTML = initialValue.value;
@@ -679,37 +726,6 @@
 
 <!--LUIS-->
 <script type="text/javascript">
-
-    //Function for deleting given entry
-    //function deleteEntry(passwordID) {
-
-    //    //Confirmation message before deleting entry
-    //    if (confirm("Are you sure you want to delete this entry?")) {
-
-    //        //Packages the received variable
-    //        var data = {
-    //            passwordID: passwordID
-    //        }
-
-    //        //Ajax function to prepare data to be sent to the controller
-    //        $.ajax({
-    //            type: "POST",
-    //            url: "/Dashboard/DeleteEntry",
-    //            dataType: "JSON",
-    //            data: JSON.stringify(data),
-    //            contentType: 'application/json; charset=utf8',
-    //            success: function (res) {
-    //                alert(res.msg)
-    //                location.reload(true);
-    //            },
-    //            error: function () {
-    //                alert("An error occurred (Javascript)")
-    //            }
-    //        })
-
-    //    }
-
-    //}
 
     //Function for updating UDetails
     function updateUDetails() {
@@ -869,26 +885,25 @@
                         data: JSON.stringify(data),
                         contentType: 'application/json; charset=utf8',
                         success: function () {
-
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                background: '#1a1a1a',
+                                iconColor: '#70cc72',
+                                /*title: 'Your changes has been saved!',*/
+                                title: msg,
+                                showConfirmButton: false,
+                                timer: 2500
+                            })
+                                .then(function () {
+                                    location.reload(true);
+                                }
+                                )
                         },
                         error: function () {
                             alert("An error occurred")
                         }
                     })
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        background: '#1a1a1a',
-                        iconColor: '#70cc72',
-                        /*title: 'Your changes has been saved!',*/
-                        title: msg,
-                        showConfirmButton: false,
-                        timer: 2500
-                    })
-                        .then(function () {
-                            location.reload(true);
-                        }
-                        )
                 }
             })
         }
