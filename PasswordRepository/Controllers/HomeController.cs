@@ -69,13 +69,14 @@ namespace PasswordRepository.Controllers
                     //smtp.Credentials = new System.Net.NetworkCredential("netrunners.dev@gmail.com", "netrunner123");
 
                     smtp.Send(ContactUsEmail);
-
+                    ModelState.Clear();
                     //ModelState.Clear();
                     ViewBag.Message = "Email sent to the developers! Thanks for your feedback";
                 }
                 catch (Exception ex)
                 {
                     //ModelState.Clear();
+                    ModelState.Clear();
                     ViewBag.Message = $" Sorry we are facing Problem here {ex.Message}";
                 }
             }
