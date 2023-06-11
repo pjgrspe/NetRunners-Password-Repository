@@ -80,6 +80,38 @@
 
         </div>
     </nav>
+    <!--Viewbag-->
+    @{
+        if (ViewBag.SuccessMessage != null)
+        {
+        <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    background: '#1a1a1a',
+                    iconColor: '#70cc72',
+                    title: '@ViewBag.SuccessMessage',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+        </script>
+        }
+
+        if (ViewBag.ErrorMessage != null)
+        {
+            <script>
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    iconColor: '#c40f2d',
+                    background: '#1a1a1a',
+                    title: '@ViewBag.ErrorMessage',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            </script>
+        }
+    }
 
     <div id="outer">
         <!-- Modal for SENDING MESSAGE -->

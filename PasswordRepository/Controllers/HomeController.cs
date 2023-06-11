@@ -69,16 +69,16 @@ namespace PasswordRepository.Controllers
                     smtp.Send(ContactUsEmail);
                     ModelState.Clear();
                     //ModelState.Clear();
-                    ViewBag.Message = "Email sent to the developers! Thanks for your feedback";
+                    ViewBag.SuccessMessage = "Email sent to the developers! Thanks for your feedback";
                 }
                 catch (Exception ex)
                 {
                     //ModelState.Clear();
                     ModelState.Clear();
-                    ViewBag.Message = $" Sorry we are facing Problem here {ex.Message}";
+                    ViewBag.ErrorMessage = $" Sorry we are facing Problem here {ex.Message}";
                 }
             }
-            return View("Contact");
+            return View("Index");
         }
     }
 }
