@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PasswordRepository.Models.ContactViewModel
+
+@{
     Layout = null;
 
 }
@@ -90,42 +92,42 @@
                     </div>
                     <!--Form-->
                     <div class="modal-body modal-xl" style="margin-top:-10px;">
-                        @using (@Html.BeginForm("Entry", "Dashboard", FormMethod.Post))
+                        @using (@Html.BeginForm("SendEmail", "Home", FormMethod.Post))
                         {
                             <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @*@Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingName", placeholder = "Name", required = "required" })*@
-                                        <input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingName" spellcheck="false" placeholder="Name" required="required">
+                                        @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control rounded-0 w-100", id = "floatingName", placeholder = "Name", required = "required" })
+                                        @*<input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingName" spellcheck="false" placeholder = "Name" required = "required" asp-for="Name">*@
                                         <label for="floatingName">Name</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; ">
-                                        @*@Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email" })*@
-                                        <input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder="Email" required="required">
+                                        @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email" })
+                                        @*<input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder = "Email" required = "required" asp-for="Email">*@
                                         <label for="floatingEmail">Email</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @*@Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control rounded-0 w-100", id = "floatingSubject", placeholder = "Subject" })*@
-                                        <input maxlength="50" class="form-control rounded-0 w-100" id="floatingSubject" spellcheck="false" placeholder="Subject" required="required">
+                                        @Html.TextBoxFor(Model => Model.Subject, new { @class = "form-control rounded-0 w-100", id = "floatingSubject", placeholder = "Subject" })
+                                        @*<input maxlength="50" class="form-control rounded-0 w-100" id="floatingSubject" spellcheck="false" placeholder = "Subject" required = "required" asp-for="Subject">*@
                                         <label for="floatingSubject">Subject</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; height: auto;">
-                                        @*@Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })*@
-                                        <textarea type="text" maxlength="1000" style="height:200px" class="form-control rounded-0 w-100" id="floatingNotes" spellcheck="false" placeholder="Notes" required="required"></textarea>
-                                        <label for="floatingNotes">Notes</label>
+                                        @Html.TextAreaFor(Model => Model.Message, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
+                                        @*<textarea type="text" maxlength="1000" style = "height:110px" class="form-control rounded-0 w-100" id="floatingNotes" spellcheck="false" placeholder = "Notes" required = "required" asp-for="Message"></textarea>*@
+                                        <label for="floatingNotes">Message</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
                                 <div class="d-flex justify-content-center">
                                     <div class="d-flex justify-content-center col-5 mb-2 ">
-                                        <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn">
+                                        <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="addmodalbtn" button type="submit">
                                             SEND →
                                         </button>
                                     </div>
@@ -184,14 +186,14 @@
                             <br /><br />
                         <p style="font-size:16px;">
                             Email: <a style="color: #4ca1a5;">netrunners.dev@gmail.com</a><br />
-                            Phone: <a style="color: #9e215e; ">(123) 456-7890</a>
-                        </p>
-
+                            Phone: <a style="color: #9e215e; ">(123) 456-7890</a><br>
                         </p>
                         <div class="d-flex justify-content-center">
                             <button style="margin-top:30px" type="button" class="btn btn-outline-secondary rounded-0" id="getstartedbtn" data-bs-toggle="modal" data-bs-target="#addbutton-modal">
                                 CONTACT US →
                             </button>
+
+
                         </div>
 
                     </div>
