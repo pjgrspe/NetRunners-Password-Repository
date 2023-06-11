@@ -64,10 +64,21 @@ namespace PasswordRepository.Controllers
                     //DEBUG CODE// Password.EXPIRY_DATE = DateTime.Now.AddSeconds(15);
 
                     //Brings back to home
-                    return RedirectToAction("Index", "Dashboard");
-                }
 
+                    if (entities.SaveChanges() >= 1)
+                    {
+                        //Success Message
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    else
+                    {
+                        //Error Message
+                        return View("Deactivated");
+                    }
+                }
             }
         }
+
+        
     }
 }

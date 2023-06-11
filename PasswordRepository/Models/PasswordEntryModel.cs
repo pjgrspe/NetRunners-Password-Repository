@@ -14,11 +14,20 @@ namespace PasswordRepository.Models
         public List<TBL_USER_DETAILS> UserDetailsList { get; set; }
         public TBL_USER_DETAILS UserDetails { get; set; }
         public int PasswordID_Variable { get; set; }
+
+        //Password Repository 
         public string textbox_PR_TITLE { get; set; }
         public string textbox_PR_EMAIL { get; set; }
         public string textbox_PR_USERNAME { get; set; }
         public string textbox_PR_PASSWORD { get; set; }
         public string textbox_PR_URL { get; set; }
         public string textbox_PR_NOTES { get; set; }
+
+        //Admin Add User
+        public string textbox_UE_FNAME { get; set; }
+        public string textbox_UE_LNAME { get; set; }
+        public string textbox_UE_EMAIL { get; set; }
+        public string textbox_UE_USERNAME { get; set; }
+        public string textbox_UE_PASSWORD { get; set; }
     }
 }

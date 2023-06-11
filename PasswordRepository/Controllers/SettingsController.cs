@@ -129,6 +129,7 @@ namespace PasswordRepository.Controllers
                 userLogin.EMAIL = userEMAIL;
                 userDetails.FIRSTNAME = userFN;
                 userDetails.LASTNAME = userLN;
+                userDetails.DATE_MODIFIED = DateTime.Now;
 
                 //Saves the changes
                 if (entities.SaveChanges() >= 1)

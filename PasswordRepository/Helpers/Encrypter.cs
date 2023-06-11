@@ -43,23 +43,31 @@ namespace PasswordRepository.Helpers
 
         public static string DecryptString(string cipherText)
         {
-            byte[] initVectorBytes = Encoding.UTF8.GetBytes(INITVECTOR);
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
-            PasswordDeriveBytes password = new PasswordDeriveBytes(SALT, null);
-            byte[] keyBytes = password.GetBytes(KEYSIZE / 8);
+            if (cipherText != "Undefined")
+            {
+                byte[] initVectorBytes = Encoding.UTF8.GetBytes(INITVECTOR);
+                byte[] cipherBytes = Convert.FromBase64String(cipherText);
+                PasswordDeriveBytes password = new PasswordDeriveBytes(SALT, null);
+                byte[] keyBytes = password.GetBytes(KEYSIZE / 8);
 
-            RijndaelManaged symetricKey = new RijndaelManaged();
-            symetricKey.Mode = CipherMode.CBC;
+                RijndaelManaged symetricKey = new RijndaelManaged();
+                symetricKey.Mode = CipherMode.CBC;
 
-            ICryptoTransform decryptor = symetricKey.CreateDecryptor(keyBytes, initVectorBytes);
-            MemoryStream memory = new MemoryStream(cipherBytes);
-            CryptoStream crypto = new CryptoStream(memory, decryptor, CryptoStreamMode.Read);
-            byte[] plainTextBytes = new byte[cipherBytes.Length];
-            int decryptedByteCount = crypto.Read(plainTextBytes, 0, plainTextBytes.Length);
-            memory.Close();
-            crypto.Close();
+                ICryptoTransform decryptor = symetricKey.CreateDecryptor(keyBytes, initVectorBytes);
+                MemoryStream memory = new MemoryStream(cipherBytes);
+                CryptoStream crypto = new CryptoStream(memory, decryptor, CryptoStreamMode.Read);
+                byte[] plainTextBytes = new byte[cipherBytes.Length];
+                int decryptedByteCount = crypto.Read(plainTextBytes, 0, plainTextBytes.Length);
+                memory.Close();
+                crypto.Close();
 
-            return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+                return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+            }
+            else
+            {
+                var returnData = "Undefined";
+                return Convert.ToString(returnData);
+            }
 
         }
 
