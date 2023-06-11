@@ -12,20 +12,20 @@ footer {
     color: white;
 }
 
-.btn-outline-secondary:hover {
-    color: black;
-    background-color: white;
-}
+    .btn-outline-secondary:hover {
+        color: black;
+        background-color: white;
+    }
 
 .btn-primary2 {
     color: black;
     background-color: white;
 }
 
-.btn-primary2:hover {
-    color: black;
-    background-color: darkgray;
-}
+    .btn-primary2:hover {
+        color: black;
+        background-color: darkgray;
+    }
 
 .navbar {
     color: white;
@@ -74,7 +74,7 @@ footer {
     font-weight: bold;
 }
 
-#content, #list-tab, #additembtn, .item-table, #addmodalbtn, .form-floating{
+#content, #list-tab, #additembtn, .item-table, #addmodalbtn, .form-floating {
     font-family: 'JetBrains Mono', monospace;
 }
 
@@ -82,22 +82,26 @@ footer {
     font-family: 'JetBrains Mono', monospace !important;
     font-weight: 400 !important;
     color: #4ca1a5 !important;
-    background-color:none!important;
-    outline:none!important;
+    background-color: none !important;
+    outline: none !important;
 }
 
 .tbl-details {
     color: #4ca1a5;
 }
 
-#list-tab{
-    font-size:24px;
+.tbl-details-0 {
+    color: #9e215e !important;
 }
 
-small{
-    font-size:12px;
-    color:darkgray;
-    margin-bottom:20px;
+#list-tab {
+    font-size: 24px;
+}
+
+small {
+    font-size: 12px;
+    color: darkgray;
+    margin-bottom: 20px;
 }
 
 .table {
@@ -109,14 +113,14 @@ small{
     color: black !important;
 }
 
-.input-group-text{
-    background-color:white;
+.input-group-text {
+    background-color: white;
 }
 
 #searchform, #basic-addon1 {
     font-family: 'JetBrains Mono', monospace;
-    height:40px;
-    border:0;
+    height: 40px;
+    border: 0;
 }
 
 #additembtn {
@@ -126,19 +130,20 @@ small{
 }
 
 .hidden {
-    display: none!important;
+    display: none !important;
 }
 
-#searchicon{
-    height:20px;
+#searchicon {
+    height: 20px;
 }
 
 .modal-content {
-    background-color: #1a1a1a;
+    background-color: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(5px);
 }
 
-.form-control-plaintext, .form-control-edit{
-    color:white;
+.form-control-plaintext, .form-control-edit {
+    color: white;
 }
 
 .form-control-title {
@@ -147,9 +152,20 @@ small{
     padding: 5px 0px;
     background: none;
     outline: none !important;
-    margin:0px!important;
-    border:none!important;
-    height:50px;
+    margin: 0px !important;
+    border: none !important;
+    height: 50px;
+}
+
+.form-control-title-0 {
+    color: #9e215e !important;
+    max-width: 90% !important;
+    padding: 5px 0px;
+    background: none;
+    outline: none !important;
+    margin: 0px !important;
+    border: none !important;
+    height: 50px;
 }
 
 h2 {
@@ -160,10 +176,10 @@ h2 {
     background-color: transparent;
 }
 
-.form-control-edit, .form-control-edit:active{
-    background-color:transparent;
-    border-color:white;
-    outline-color:white;
+.form-control-edit, .form-control-edit:active {
+    background-color: transparent;
+    border-color: white;
+    outline-color: white;
 }
 
 a:link {
@@ -276,16 +292,16 @@ h1 {
     border: none !important;
 }
 
-.btn-close-white{
-    position:absolute;
-    right:20px
+.btn-close-white {
+    position: absolute;
+    right: 20px
 }
 
-.btn-close-white:active, .btn-close-white:focus {
-    box-shadow:none;
-    border:none;
-    outline:none!important;
-}
+    .btn-close-white:active, .btn-close-white:focus {
+        box-shadow: none;
+        border: none;
+        outline: none !important;
+    }
 
 #addmodalbtn {
     width: 280px;
@@ -299,18 +315,18 @@ h1 {
     width: 100px;
     height: 50px;
     font-size: 18px;
-    border:none!important;
+    border: none !important;
 }
 
-#editcancelbtn:hover {
-    color: white;
-    background-color: #b12e46;
-}
+    #editcancelbtn:hover {
+        color: white;
+        background-color: #b12e46;
+    }
 
-#editacceptbtn:hover {
-    color: white;
-    background-color: #549955;
-}
+    #editacceptbtn:hover {
+        color: white;
+        background-color: #549955;
+    }
 
 #editcancelbtn {
     color: white;
@@ -330,12 +346,12 @@ h1 {
 }
 
 #addmodalbtn:active, #addmodalbtn:focus {
-    box-shadow:none;
-    outline:none!important;
+    box-shadow: none;
+    outline: none !important;
 }
 
 .modal-lg {
-    width:500px;
+    width: 500px;
 }
 
 #table-leftcolumn {
@@ -353,7 +369,7 @@ h1 {
     border: 0.4px solid rgba(255,255,255,.1);
     background-color: rgba(255, 255, 255, .12);
     backdrop-filter: blur(10px);
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 .tab-content {
@@ -372,12 +388,12 @@ h1 {
 .form-control-edit {
     border: 1px solid white;
     padding: 5px 5px;
-    width:60%;
+    width: 60%;
     max-width: 90%;
 }
 
-.overflow-auto{
-    overflow-x:hidden;
+.overflow-auto {
+    overflow-x: hidden;
 }
 
 .form-control-notes {
@@ -399,9 +415,9 @@ h1 {
 }
 
 .form-control-plaintext:focus, .form-control-edit:focus, form-control-notes-edit:focus {
-    box-shadow: none!important;
-    outline: none!important;
-    background-color:none!important;
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: none !important;
 }
 
 .table-form:hover > .form-control-plaintext {
@@ -445,7 +461,7 @@ h1 {
 #searchform:focus, .form-control-edit:focus, .form-control-notes-edit:focus {
     box-shadow: none;
     outline: none;
-    border-color: #781947!important;
+    border-color: #781947 !important;
 }
 
 .list-group-item.active {
@@ -477,17 +493,7 @@ h1 {
     height: 100%;
 }
 
-.passgenicon {
-    position: absolute;
-    right: 5%;
-    transform: translate(0, -50%);
-    top: 65%;
-    cursor: pointer;
-    width: 20px;
-    height: auto;
-}
-
-#ccicon-username, #ccicon-email, #ccicon-URL {
+#ccicon-username, #ccicon-email, #ccicon-Fname, #ccicon-Lname {
     position: absolute;
     right: 11%;
     transform: translate(0, -50%);
@@ -527,7 +533,27 @@ img[class^=cciconpassword-] {
     height: auto;
 }
 
+img[class^=cciconPIN-] {
+    position: absolute;
+    right: 10%;
+    transform: translate(-170%, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
 img[class^=eyeiconpassword-] {
+    position: absolute;
+    right: 11%;
+    transform: translate(0, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+img[class^=eyeiconPIN-] {
     position: absolute;
     right: 11%;
     transform: translate(0, -50%);

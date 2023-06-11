@@ -82,21 +82,8 @@
                                         </div>
                                     </a>
                                 </div>
-
-                                <!-- Button trigger modal -->
-                                <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-secondary rounded-0" id="deleteallbtn" style="margin-top:10px;" onclick="DeleteAllEntry('@Session["ID"]')">
-                                        DELETE ALL
-                                    </button>
-                                </div>
-                                <div class="list-group rounded-0 overflow-auto flipped scroller" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
-                                    @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
-                                        {
-                                            <a class="list-group-item list-group-item-action" id="list-@PassEntry.PID-list" data-bs-toggle="list" href="#list-@PassEntry.PID" role="tab" aria-controls="list-@PassEntry.PID">@PassEntry.PR_TITLE</a>
-                                        }
-                                    }
-                                </div>
                                 <script>
+                                    //SEARCH FUNCTION SCRIPT
                                     $(document).ready(function () {
                                         $("#searchform").on("keyup", function () {
                                             var value = $(this).val().toLowerCase();
@@ -105,23 +92,47 @@
                                             });
                                         });
 
+                                        //WELCOME PAGE
                                         checkListVisibility(); // Call the function on page load
 
                                         function checkListVisibility() {
                                             var listItems = $(".list-group-item");
                                             var listWelcome = $("#list-welcome");
                                             var deletebtn = document.getElementById('deleteallbtn')
+                                            var restorebtn = document.getElementById('restoreallbtn')
 
                                             if (listItems.length > 0) {
                                                 listWelcome.hide();
                                                 deletebtn.classList.remove('disabled');
+                                                restorebtn.classList.remove('disabled');
                                             } else {
                                                 listWelcome.show();
                                                 deletebtn.classList.add('disabled');
+                                                restorebtn.classList.add('disabled');
                                             }
                                         }
                                     });
                                 </script>
+                                <!-- LIST OF USERS -->
+                                <div class="list-group rounded-0 overflow-auto flipped scroller" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
+                                    @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
+                                        {
+                                            <a class="list-group-item list-group-item-action" id="list-@PassEntry.PID-list" data-bs-toggle="list" href="#list-@PassEntry.PID" role="tab" aria-controls="list-@PassEntry.PID">@PassEntry.PR_TITLE</a>
+                                        }
+                                    }
+                                </div>
+                                <!-- RESTORE ALL BUTTON -->
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-outline-secondary rounded-0" id="restoreallbtn" style="margin-top: 10px;" onclick="">
+                                        RESTORE ALL
+                                    </button>
+                                </div>
+                                <!-- DELETE ALL BUTTON -->
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-outline-secondary rounded-0" id="deleteallbtn" style="margin-top: 10px; margin-bottom: 10px;" onclick="DeleteAllEntry('@Session["ID"]')">
+                                        DELETE ALL
+                                    </button>
+                                </div>
                             </div>
                             <!--ITEM DETAILS-->
                             <div class="col-8" id="table-rightcolumn">
