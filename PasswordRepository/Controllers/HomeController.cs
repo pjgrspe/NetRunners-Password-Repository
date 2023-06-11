@@ -69,7 +69,6 @@ namespace PasswordRepository.Controllers
                     smtp.Send(ContactUsEmail);
                     ModelState.Clear();
                     //ModelState.Clear();
-                    //ViewBag.SentMessage = "Email sent to the developers! Thanks for your feedback";
                     TempData["SentMessage"] = "Email sent to the developers! Thanks for your feedback";
                     return RedirectToAction("Contact", "Home");
                 }
@@ -78,11 +77,9 @@ namespace PasswordRepository.Controllers
                     //ModelState.Clear();
                     ModelState.Clear();
                     TempData["FailedMessage"] = "Sorry, we are facing problems in the connection.";
-                    //TempData["ErrorMessage"] = $" Sorry we are facing a problem here '{ex.Message}'";
                     return RedirectToAction("Contact", "Home");
                 }
             }
-            //ViewBag.SentMessage = "Email sent to the developers! Thanks for your feedback";
             return View("Index");
         }
     }
