@@ -114,7 +114,7 @@
         //A null Session ID means that there is no user currently logged in
         //While a false timedout session means this code will only run if the user isnt already timedout
         //this prevents the code from running on the PIN Interface page
-        if (@Session["ID"] != null || @Session["timedout"] == false || @Session["Status"] == true) {
+        if (@Session["ID"] != null || @Session["timedout"] == false || @Session["Status"] == true || @Session["TO"] != -1) {
 
 
             //This is the main action code which will be executed on timeout
