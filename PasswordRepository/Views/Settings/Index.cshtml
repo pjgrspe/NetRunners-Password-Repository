@@ -12,6 +12,9 @@
     <link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
     <link href="~/Style/StyleSheetSettings.css" rel="stylesheet">
     <link href="~/Style/StyleSheetRangeInput.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetPassGenerator.css" rel="stylesheet">
+
+
 
 </head>
 <body>
@@ -63,28 +66,310 @@
             </div>
         </nav>
 
-        <div id="outer">
-            <!-- Modal-->
-            <div class="modal fade" id="detailsbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <!--Form-->
-                        <div class="modal-header d-flex justify-content-center">
-                            <h1 style="font-weight: 800; color: #b32269!important; " class="modal-title fs-4" id="ModalLabel">CONFIRM PASSWORD</h1>
-                        </div>
-                        <div class="modal-body modal-xl" style="padding-top:0px;">
-                            <div class="d-flex justify-content-center w-100">
-                                <h6 style="color: white; font-family: 'JetBrains Mono'; text-align: center">To view your password or modify settings,<br> please enter your password.</h6>
+            <div id="outer">
+                <!-- Modal for PASSWORD GENERATOR -->
+                <div class="modal fade" id="passgen-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content modal-content-passgen">
+                            <div class="modal-header">
+                                <h1 class="modal-title modal-title-passgen fs-5" id="ModalLabel">ICEPass™ Generator</h1>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="d-flex justify-content-center w-100">
-                                <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                    <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-modal" spellcheck="false" placeholder = "Password" required = "required">
-                                    <label for="floatingPassword-modal">Password</label>
-                                    <span>
-                                        <!--Eye icon-->
-                                        <img src="~/Elements/eye.svg" id="eyeicon-modal" />
-                                    </span>
+                            <!--Form-->
+                            <div class="modal-body modal-xl" style="margin-top:-10px;">
+                                <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
+                                    <div class="result" id="resultform">
+                                        <div class="result__title field-title">Generated Password</div>
+                                        <div class="result__info right">click to copy</div>
+                                        <div class="result__info left">copied</div>
+                                        <div class="result__viewbox" id="result">CLICK GENERATE</div>
+                                        <button id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></button>
+                                    </div>
+                                    <div class="length range__slider" data-min="4" data-max="32">
+                                        <div class="length__title field-title" data-length='0'>length:</div>
+                                        <input id="slider1" type="range" min="4" max="32" value="16" style="margin-bottom:50px;"/>
+                                        @*<input type="range" min="4" max="32" value="16" id="timeSlider">*@
+                                    </div>
+
+                                    <div class="settings">
+                                        <span class="settings__title field-title">settings</span>
+                                        <div class="setting">
+                                            <input type="checkbox" id="uppercase" checked />
+                                            <label for="uppercase">Include Uppercase</label>
+                                        </div>
+                                        <div class="setting">
+                                            <input type="checkbox" id="lowercase" checked />
+                                            <label for="lowercase">Include Lowercase</label>
+                                        </div>
+                                        <div class="setting">
+                                            <input type="checkbox" id="number" checked />
+                                            <label for="number">Include Numbers</label>
+                                        </div>
+                                        <div class="setting">
+                                            <input type="checkbox" id="symbol" />
+                                            <label for="symbol">Include Symbols</label>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn generate" id="generate">Generate Password</button>
                                     <script type="text/javascript">
+                                        // Clear the concole on every refresh
+                                        console.clear();
+                                        // set the body to full height
+                                        // document.body.style.height = `${innerHeight}px`
+
+                                        // Range Slider Properties.
+                                        // Fill : The trailing color that you see when you drag the slider.
+                                        // background : Default Range Slider Background
+                                        const slider1Props = {
+                                            fill: "#9d205d",
+                                            background: "rgba(255, 255, 255, 0.214)",
+                                        };
+
+                                        // Selecting the Range Slider container which will effect the LENGTH property of the password.
+                                        const slider1 = document.querySelector(".range__slider");
+
+                                        // Text which will show the value of the range slider.
+                                        const slider1Value = document.querySelector(".length__title");
+
+                                        // Using Event Listener to apply the fill and also change the value of the text.
+                                        slider1.querySelector("input").addEventListener("input", event => {
+                                            slider1Value.setAttribute("data-length", event.target.value);
+                                            applyFill(event.target);
+                                        });
+                                        // Selecting the range input and passing it in the applyFill func.
+                                        applyFill(slider1.querySelector("input"));
+                                        // This function is responsible to create the trailing color and setting the fill.
+                                        function applyFill(slider1) {
+                                            const percentage = (100 * (slider1.value - slider1.min)) / (slider1.max - slider1.min);
+                                            const bg = `linear-gradient(90deg, ${slider1Props.fill} ${percentage}%, ${slider1Props.background} ${percentage +
+                                                0.1}%)`;
+                                            slider1.style.background = bg;
+                                            slider1Value.setAttribute("data-length", slider1.value);
+                                        }
+
+                                        // Object of all the function names that we will use to create random letters of password
+                                        const randomFunc = {
+                                            lower: getRandomLower,
+                                            upper: getRandomUpper,
+                                            number: getRandomNumber,
+                                            symbol: getRandomSymbol,
+                                        };
+
+                                        // Random more secure value
+                                        function secureMathRandom() {
+                                            return window.crypto.getRandomValues(new Uint32Array(1))[0] / (Math.pow(2, 32) - 1);
+                                        }
+
+                                        // Generator Functions
+                                        // All the functions that are responsible to return a random value taht we will use to create password.
+                                        function getRandomLower() {
+                                            return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+                                        }
+                                        function getRandomUpper() {
+                                            return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+                                        }
+                                        function getRandomNumber() {
+                                            return String.fromCharCode(Math.floor(secureMathRandom() * 10) + 48);
+                                        }
+                                        function getRandomSymbol() {
+                                            const symbols = '~!@@#$%^&*()_+{}":?><;.,';
+                                            return symbols[Math.floor(Math.random() * symbols.length)];
+                                        }
+
+                                        // Selecting all the DOM Elements that are necessary -->
+
+                                        // The Viewbox where the result will be shown
+                                        const resultEl = document.getElementById("result");
+                                        // The input slider, will use to change the length of the password
+                                        const lengthEl = document.getElementById("slider1");
+
+                                        // Checkboxes representing the options that is responsible to create differnt type of password based on user
+                                        const uppercaseEl = document.getElementById("uppercase");
+                                        const lowercaseEl = document.getElementById("lowercase");
+                                        const numberEl = document.getElementById("number");
+                                        const symbolEl = document.getElementById("symbol");
+
+                                        // Button to generate the password
+                                        const generateBtn = document.getElementById("generate");
+                                        // Button to copy the text
+                                        const copyBtn = document.getElementById("copy-btn");
+                                        // Result viewbox container
+                                        const resultContainer = document.querySelector(".result");
+                                        // Text info showed after generate button is clicked
+                                        const copyInfo = document.querySelector(".result__info.right");
+                                        // Text appear after copy button is clicked
+                                        const copiedInfo = document.querySelector(".result__info.left");
+
+                                        // if this variable is trye only then the copyBtn will appear, i.e. when the user first click generate the copyBth will interact.
+                                        let generatedPassword = false;
+
+                                        // Update Css Props of the COPY button
+                                        // Getting the bounds of the result viewbox container
+                                        let resultContainerBound = {
+                                            left: resultContainer.getBoundingClientRect().left,
+                                            top: resultContainer.getBoundingClientRect().top,
+                                        };
+                                        // This will update the position of the copy button based on mouse Position
+                                        resultContainer.addEventListener("mousemove", e => {
+                                            resultContainerBound = {
+                                                left: resultContainer.getBoundingClientRect().left,
+                                                top: resultContainer.getBoundingClientRect().top,
+                                            };
+                                            if (generatedPassword) {
+                                                copyBtn.style.opacity = '1';
+                                                copyBtn.style.pointerEvents = 'all';
+                                                copyBtn.style.setProperty("--x", `${e.x - resultContainerBound.left}px`);
+                                                copyBtn.style.setProperty("--y", `${e.y - resultContainerBound.top}px`);
+                                            } else {
+                                                copyBtn.style.opacity = '0';
+                                                copyBtn.style.pointerEvents = 'none';
+                                            }
+                                        });
+                                        window.addEventListener("resize", e => {
+                                            resultContainerBound = {
+                                                left: resultContainer.getBoundingClientRect().left,
+                                                top: resultContainer.getBoundingClientRect().top,
+                                            };
+                                        });
+
+                                        // Copy Password in clipboard
+                                        copyBtn.addEventListener("click", () => {
+                                            const textarea = document.createElement("textarea");
+                                            const password = resultEl.innerText;
+                                            if (!password || password == "CLICK GENERATE") {
+                                                return;
+                                            }
+                                            textarea.value = password;
+                                            document.body.appendChild(textarea);
+                                            textarea.select();
+                                            // Copy the text inside the text field
+                                            navigator.clipboard.writeText(textarea.value);;
+                                            textarea.remove();
+                                            copyInfo.style.transform = "translateY(200%)";
+                                            copyInfo.style.opacity = "0";
+                                            copiedInfo.style.transform = "translateY(0%)";
+                                            copiedInfo.style.opacity = "0.75";
+                                            // Alert the copied text
+                                            /*alert("Copied the text: " + copyText.value);*/
+                                            const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top',
+                                                showConfirmButton: false,
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                didOpen: (toast) => {
+                                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                }
+                                            })
+
+                                            Toast.fire({
+                                                icon: 'success',
+                                                iconColor: '#70cc72',
+                                                title: 'Copied "ICEPass"!',
+                                                background: '#1a1a1a',
+                                            })
+                                        });
+
+                                        // When Generate is clicked Password id generated.
+                                        generateBtn.addEventListener("click", () => {
+                                            const length = +lengthEl.value;
+                                            const hasLower = lowercaseEl.checked;
+                                            const hasUpper = uppercaseEl.checked;
+                                            const hasNumber = numberEl.checked;
+                                            const hasSymbol = symbolEl.checked;
+                                            generatedPassword = true;
+                                            resultEl.innerText = generatePassword(length, hasLower, hasUpper, hasNumber, hasSymbol);
+                                            copyInfo.style.transform = "translateY(0%)";
+                                            copyInfo.style.opacity = "0.75";
+                                            copiedInfo.style.transform = "translateY(200%)";
+                                            copiedInfo.style.opacity = "0";
+                                        });
+
+                                        // Function responsible to generate password and then returning it.
+                                        function generatePassword(length, lower, upper, number, symbol) {
+                                            let generatedPassword = "";
+                                            const typesCount = lower + upper + number + symbol;
+                                            const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]);
+                                            if (typesCount === 0) {
+                                                return "";
+                                            }
+                                            for (let i = 0; i < length; i++) {
+                                                typesArr.forEach(type => {
+                                                    const funcName = Object.keys(type)[0];
+                                                    generatedPassword += randomFunc[funcName]();
+                                                });
+                                            }
+                                            return generatedPassword.slice(0, length)
+                                                .split('').sort(() => Math.random() - 0.5)
+                                                .join('');
+                                        }
+
+                                        // function that handles the checkboxes state, so at least one needs to be selected. The last checkbox will be disabled.
+                                        function disableOnlyCheckbox() {
+                                            let totalChecked = [uppercaseEl, lowercaseEl, numberEl, symbolEl].filter(el => el.checked)
+                                            totalChecked.forEach(el => {
+                                                if (totalChecked.length == 1) {
+                                                    el.disabled = true;
+                                                } else {
+                                                    el.disabled = false;
+                                                }
+                                            })
+                                        }
+
+                                        [uppercaseEl, lowercaseEl, numberEl, symbolEl].forEach(el => {
+                                            el.addEventListener('click', () => {
+                                                disableOnlyCheckbox()
+                                            })
+                                        })
+                                    </script>
+                                </div>
+                                <template id="my-template">
+                                    <swal-title>
+                                        Save changes to "Untitled 1" before closing?
+                                    </swal-title>
+                                    <swal-icon type="warning" color="red"></swal-icon>
+                                    <swal-button type="confirm">
+                                        Save As
+                                    </swal-button>
+                                    <swal-button type="cancel">
+                                        Cancel
+                                    </swal-button>
+                                    <swal-button type="deny">
+                                        Close without Saving
+                                    </swal-button>
+                                    <swal-param name="allowEscapeKey" value="false" />
+                                    <swal-param name="customClass"
+                                                value='{ "popup": "my-popup" }' />
+                                    <swal-function-param name="didOpen"
+                                                         value="popup => console.log(popup)" />
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal-->
+                <div class="modal fade" id="detailsbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <!--Form-->
+                            <div class="modal-header d-flex justify-content-center">
+                                <h1 style="font-weight: 800; color: #b32269!important; " class="modal-title fs-4" id="ModalLabel">CONFIRM PASSWORD</h1>
+                            </div>
+                            <div class="modal-body modal-xl" style="padding-top:0px;">
+                                <div class="d-flex justify-content-center w-100">
+                                    <h6 style="color: white; font-family: 'JetBrains Mono'; text-align: center">To view your password or modify settings,<br> please enter your password.</h6>
+                                </div>
+                                <div class="d-flex justify-content-center w-100">
+                                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                                        <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-modal" spellcheck="false" placeholder="Password" required="required">
+                                        <label for="floatingPassword-modal">Password</label>
+                                        <span>
+                                            <!--Eye icon-->
+                                            <img src="~/Elements/eye.svg" id="eyeicon-modal" />
+                                        </span>
+                                        <script type="text/javascript">
                                         //MODAL SHOW PASSWORD
                                         let eyeiconmodal = document.getElementById('eyeicon-modal');
                                         var formmodal = document.getElementById('floatingPassword-modal');
@@ -118,7 +403,7 @@
                                             }
                                             show.focus();
                                         }
-                                      
+
                                         //password confirmation
                                         var modal = document.getElementById('detailsbutton-modal');
 
@@ -168,46 +453,46 @@
                                                 })
                                             }
                                         }
-                                    </script>
+                                        </script>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
-                                <div class="d-flex justify-content-center">
-                                    <div class="d-flex justify-content-center col-5">
-                                        <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="enterPassword()">
-                                            ENTER →
-                                        </button>
+                                <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="d-flex justify-content-center col-5">
+                                            <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="enterPassword()">
+                                                ENTER →
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--Content-->
-            <!--USER DETAILS MODULE-->
-            <section class="text-light p-3 d-flex justify-content-center">
-                <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:30px;">
-                    <!--Title-->
-                    <div class="mb-2 d-flex justify-content-center col-12 content" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
-                        <h2 style="font-family:'JetBrains Mono'" align="center">
-                            / SETTINGS /
-                        </h2>
-                    </div>
-                    <div class="justify-content-center" id="passrepotable">
-                        <!--Container-->
-                        <div class="container d-flex justify-content-center">
-                            <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
-                                <!--TITLE NAME-->
-                                <div class="tbl-details" style="text-align:center">
-                                    <h2 style="font-weight:400">
-                                        User Details
-                                    </h2>
-                                    <span>
-                                        <!--Edit icon-->
-                                        <img type="button" src="~/Elements/edit.svg" onclick="openModalUDetails()" class="editicon" id="editicon" />
-                                    </span>
-                                    <script>
+                <!--Content-->
+                <!--USER DETAILS MODULE-->
+                <section class="text-light p-3 d-flex justify-content-center">
+                    <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:30px;">
+                        <!--Title-->
+                        <div class="mb-2 d-flex justify-content-center col-12 content" id="title" style="display:block; white-space:nowrap; margin-left:auto; margin-right:auto;">
+                            <h2 style="font-family:'JetBrains Mono'" align="center">
+                                / SETTINGS /
+                            </h2>
+                        </div>
+                        <div class="justify-content-center" id="passrepotable">
+                            <!--Container-->
+                            <div class="container d-flex justify-content-center">
+                                <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
+                                    <!--TITLE NAME-->
+                                    <div class="tbl-details" style="text-align:center">
+                                        <h2 style="font-weight:400">
+                                            User Details
+                                        </h2>
+                                        <span>
+                                            <!--Edit icon-->
+                                            <img type="button" src="~/Elements/edit.svg" onclick="openModalUDetails()" class="editicon" id="editicon" />
+                                        </span>
+                                        <script>
                                         function openModalUDetails() {
                                             //checks if password hasn't been confirmed
                                             if (formmodal.value != '@decryptedPass') {
@@ -218,49 +503,50 @@
                                                 toggleEditUDetails();
                                             }
                                         }
-                                    </script>
-                                </div>
-                                <!--NAME INPUT-->
-                                <div class="d-flex justify-content-left w-100">
-                                    <!--FIRSTNAME INPUT-->
-                                    <div class="mt-3 tbl-details w-100">
-                                        <div class="form-floating table-form">
-                                            <p style="margin-bottom:-2px;">First Name</p>
-                                            <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width: 100%; text-transform: capitalize;" id="Firstname" spellcheck="false" value="@userDetails.FIRSTNAME">
+                                        </script>
+                                    </div>
+                                    <!--NAME INPUT-->
+                                    <div class="d-flex justify-content-left w-100">
+                                        <!--FIRSTNAME INPUT-->
+                                        <div class="mt-3 tbl-details w-100">
+                                            <div class="form-floating table-form">
+                                                <p style="margin-bottom:-2px;">First Name</p>
+                                                <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width: 100%; text-transform: capitalize;" id="Firstname" spellcheck="false" value="@userDetails.FIRSTNAME">
+                                            </div>
+                                        </div>
+                                        <!--LASTNAME INPUT-->
+                                        <div class="mt-3 tbl-details w-100">
+                                            <div class="form-floating table-form">
+                                                <p style="margin-bottom:-2px; margin-left:11px;">Last Name</p>
+                                                <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width: 100%; margin-left: 11px; text-transform: capitalize;" id="Lastname" spellcheck="false" value="@userDetails.LASTNAME">
+                                            </div>
                                         </div>
                                     </div>
-                                    <!--LASTNAME INPUT-->
-                                    <div class="mt-3 tbl-details w-100">
+                                    <!--USERNAME INPUT-->
+                                    <div class="mt-3 tbl-details">
                                         <div class="form-floating table-form">
-                                            <p style="margin-bottom:-2px; margin-left:11px;">Last Name</p>
-                                            <input type="text" maxlength="50" readonly class="form-control-plaintext form-control-name" style="width: 100%; margin-left: 11px; text-transform: capitalize;" id="Lastname" spellcheck="false" value="@userDetails.LASTNAME">
+                                            <p style="margin-bottom:-2px;">Username</p>
+                                            <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width: 100%;" id="Username" spellcheck="false" value="@userLogin.USERNAME">
                                         </div>
                                     </div>
-                                </div>
-                                <!--USERNAME INPUT-->
-                                <div class="mt-3 tbl-details">
-                                    <div class="form-floating table-form">
-                                        <p style="margin-bottom:-2px;">Username</p>
-                                        <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width: 100%;" id="Username" spellcheck="false" value="@userLogin.USERNAME">
+                                    <!--EMAIL INPUT-->
+                                    <div class="mt-3 tbl-details">
+                                        <div class="form-floating table-form">
+                                            <p style="margin-bottom:-2px;">Email</p>
+                                            <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email" spellcheck="false" value="@userLogin.EMAIL">
+                                        </div>
                                     </div>
-                                </div>
-                                <!--EMAIL INPUT-->
-                                <div class="mt-3 tbl-details">
-                                    <div class="form-floating table-form">
-                                        <p style="margin-bottom:-2px;">Email</p>
-                                        <input type="email" readonly class="form-control-plaintext" style="width:100%" id="Email" spellcheck="false" value="@userLogin.EMAIL">
-                                    </div>
-                                </div>
-                                <!--PASSWORD INPUT-->
-                                <div class="mt-3 tbl-details">
-                                    <div class="form-floating table-form">
-                                        <p style="margin-bottom:-2px;">Password</p>
-                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password" spellcheck="false" value="@decryptedPass">
-                                        <span>
-                                            <!--Eye icon-->
-                                            <img src="~/Elements/eye-white.svg" type="button" class="eyeiconPassword" id="eyeiconPassword" onclick="openModalshowPass()" />
-                                        </span>
-                                        <script type="text/javascript">
+                                    <!--PASSWORD INPUT-->
+                                    <div class="mt-3 tbl-details">
+                                        <div class="form-floating table-form">
+                                            <p style="margin-bottom:-2px;">Password</p>
+                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="Password" spellcheck="false" value="@decryptedPass">
+                                            <span>
+                                                <!--Eye icon-->
+                                                <img src="~/Elements/eye-white.svg" type="button" class="eyeiconPassword" id="eyeiconPassword" onclick="openModalshowPass()" />
+                                                <img src="~/Elements/passgen.svg" class="passgenicon" id="passgenicon" data-bs-toggle="modal" data-bs-target="#passgen-modal" style="cursor:pointer" />
+                                            </span>
+                                            <script type="text/javascript">
                                             // Show password function
                                             function openModalshowPass() {
                                                 //checks if password hasn't been confirmed
@@ -288,71 +574,71 @@
                                                     }
                                                 }
                                             }
-                                        </script>
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <!--REPEATPASSWORD INPUT-->
+                                    <div class="mt-3 tbl-details hidden" id="RepeatPasswordDiv">
+                                        <div class="form-floating table-form">
+                                            <p style="margin-bottom:-2px;">Repeat Password</p>
+                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPassword" spellcheck="false" value="@decryptedPass">
+                                        </div>
+                                    </div>
+                                    <!--DATE INPUT-->
+                                    <div class="col-12 d-flex justify-content-center" style="display:none;">
+                                        <div class="mt-4" style="color:gray;" id="dateinfo">
+                                            <p>Created on @userDetails.DATE_CREATED</p>
+                                        </div>
+                                    </div>
+                                    <!--Logout button-->
+                                    <div class="d-flex justify-content-center" style="margin-bottom:20px; margin-top:-20px;" id="logoutbtn">
+                                        <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
+                                            <button class="btn btn-outline-secondary rounded-0" id="mainbtn" onclick="window.location.href='@Url.Action("LogOut","Login")';">
+                                                LOGOUT
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--Deactivate acc btn-->
+                                    <div class="d-flex justify-content-center" style="margin-bottom:10px; font-size:15px;" id="deactivateacc">
+                                        <p>
+                                            <a style="cursor:pointer;" onclick="deactivateAccount()" id="signinprompt"><u>Deactivate Account</u></a>
+                                        </p>
                                     </div>
                                 </div>
-                                <!--REPEATPASSWORD INPUT-->
-                                <div class="mt-3 tbl-details hidden" id="RepeatPasswordDiv">
-                                    <div class="form-floating table-form">
-                                        <p style="margin-bottom:-2px;">Repeat Password</p>
-                                        <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPassword" spellcheck="false" value="@decryptedPass">
-                                    </div>
-                                </div>
-                                <!--DATE INPUT-->
-                                <div class="col-12 d-flex justify-content-center" style="display:none;">
-                                    <div class="mt-4" style="color:gray;" id="dateinfo">
-                                        <p>Created on @userDetails.DATE_CREATED</p>
-                                    </div>
-                                </div>
-                                <!--Logout button-->
-                                <div class="d-flex justify-content-center" style="margin-bottom:20px; margin-top:-20px;" id="logoutbtn">
-                                    <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 ">
-                                        <button class="btn btn-outline-secondary rounded-0" id="mainbtn" onclick="window.location.href='@Url.Action("LogOut","Login")';">
-                                            LOGOUT
+                                @*CONFIRM AND CANCEL BTNS FOR DETAILS*@
+                                <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
+                                    <div class="mt-5 mb-4" style="color:gray; display:none" id="editbtns">
+                                        <button class="btn btn-outline-secondary rounded-0" onclick="updateUDetails()" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
+                                            CONFIRM
+                                        </button>
+                                        <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditUDetails()" aria-pressed="true" id="editcancelbtn">
+                                            CANCEL
                                         </button>
                                     </div>
-                                </div>
-                                <!--Deactivate acc btn-->
-                                <div class="d-flex justify-content-center" style="margin-bottom:10px; font-size:15px;" id="deactivateacc">
-                                    <p>
-                                        <a style="cursor:pointer;" onclick="deactivateAccount()" id="signinprompt"><u>Deactivate Account</u></a>
-                                    </p>
-                                </div>
-                            </div>
-                            @*CONFIRM AND CANCEL BTNS FOR DETAILS*@
-                            <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
-                                <div class="mt-5 mb-4" style="color:gray; display:none" id="editbtns">
-                                    <button class="btn btn-outline-secondary rounded-0" onclick="updateUDetails()" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
-                                        CONFIRM
-                                    </button>
-                                    <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditUDetails()" aria-pressed="true" id="editcancelbtn">
-                                        CANCEL
-                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!--ICELOCK MODULE-->
-            <section class="text-light p-2 d-flex justify-content-center">
-                <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:10px;">
-                    <div class="justify-content-center" id="passrepotable">
-                        <!--Container-->
-                        <div class="container d-flex justify-content-center">
-                            <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
-                                <!--ICELOCK-->
-                                <!--TITLE NAME-->
-                                <div class="mt-3 tbl-details" style="text-align:center">
-                                    <h2 style="font-weight:400">
-                                        ICELock™ Options
-                                    </h2>
-                                    <span>
-                                        <!--Gear icon-->
-                                        <img src="~/Elements/gearicon.svg" class="gearicon" id="gearicon" onclick="openModalICELock()" />
-                                    </span>
-                                    <script>
+                <!--ICELOCK MODULE-->
+                <section class="text-light p-2 d-flex justify-content-center">
+                    <div class="container d-flex justify-content-center" id="maincontainer" style="margin-top:10px;">
+                        <div class="justify-content-center" id="passrepotable">
+                            <!--Container-->
+                            <div class="container d-flex justify-content-center">
+                                <div class="mt-3 item-table table-form-title" style="margin-top:-30px; width:80%;">
+                                    <!--ICELOCK-->
+                                    <!--TITLE NAME-->
+                                    <div class="mt-3 tbl-details" style="text-align:center">
+                                        <h2 style="font-weight:400">
+                                            ICELock™ Options
+                                        </h2>
+                                        <span>
+                                            <!--Gear icon-->
+                                            <img src="~/Elements/gearicon.svg" class="gearicon" id="gearicon" onclick="openModalICELock()" />
+                                        </span>
+                                        <script>
                                         function openModalICELock() {
                                             //checks if password hasn't been confirmed
                                             if (formmodal.value != '@decryptedPass') {
@@ -363,19 +649,19 @@
                                                 toggleEditICELock();
                                             }
                                         }
-                                    </script>
-                                </div>
-                                <!--PIN INPUT-->
-                                <div class="mt-4 col-12 d-flex justify-content-center">
-                                    <div class="tbl-details" style="width:80%;">
-                                        <div class="form-floating table-form" style="align-content: center">
-                                            <p style="margin-bottom:-2px;">PIN</p>
-                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="PIN" spellcheck="false" value="@decryptedPIN" onkeypress="return isNumberKey(event)">
-                                            <span>
-                                                <!--Eye icon-->
-                                                <img src="~/Elements/eye-white.svg" class="eyeiconPIN" id="eyeiconPIN" onclick="openModalshowPIN()" />
-                                            </span>
-                                            <script type="text/javascript">
+                                        </script>
+                                    </div>
+                                    <!--PIN INPUT-->
+                                    <div class="mt-4 col-12 d-flex justify-content-center">
+                                        <div class="tbl-details" style="width:80%;">
+                                            <div class="form-floating table-form" style="align-content: center">
+                                                <p style="margin-bottom:-2px;">PIN</p>
+                                                <input type="password" readonly class="form-control-plaintext" style="width:100%" id="PIN" spellcheck="false" value="@decryptedPIN" onkeypress="return isNumberKey(event)">
+                                                <span>
+                                                    <!--Eye icon-->
+                                                    <img src="~/Elements/eye-white.svg" class="eyeiconPIN" id="eyeiconPIN" onclick="openModalshowPIN()" />
+                                                </span>
+                                                <script type="text/javascript">
                                                 function isNumberKey(evt) {
                                                     var charCode = (evt.which) ? evt.which : evt.keyCode
                                                     if (charCode > 31 && (charCode < 48 || charCode > 57))
@@ -410,117 +696,116 @@
                                                         }
                                                     }
                                                 }
-                                            </script>
+                                                </script>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--REPEAT PIN SHOWS ONLY ON EDIT-->
-                                <div class="mt-2 col-12 d-flex justify-content-center hidden" id="RepeatPINdiv">
-                                    <div class="tbl-details" style="width:80%;">
-                                        <div class="form-floating table-form" style="align-content: center">
-                                            <p style="margin-bottom:-2px;">Repeat PIN</p>
-                                            <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false" value="@decryptedPIN" onkeypress="return isNumberKey(event)">
+                                    <!--REPEAT PIN SHOWS ONLY ON EDIT-->
+                                    <div class="mt-2 col-12 d-flex justify-content-center hidden" id="RepeatPINdiv">
+                                        <div class="tbl-details" style="width:80%;">
+                                            <div class="form-floating table-form" style="align-content: center">
+                                                <p style="margin-bottom:-2px;">Repeat PIN</p>
+                                                <input type="password" readonly class="form-control-plaintext" style="width:100%" id="RepeatPIN" spellcheck="false" value="@decryptedPIN" onkeypress="return isNumberKey(event)">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--ICELock instruction-->
-                                <div class="mt-5 d-flex justify-content-center" style="margin-bottom:-30px;">
-                                    <div class="col-12">
-                                        <p align="center" style="font-size:20px;">
-                                            Idle timeout period.
-                                        </p>
-                                    </div>
-                                </div>
-                                <!--ICELock details-->
-                                <div class="mt-4 d-flex justify-content-center" style="margin-bottom:-30px;">
-                                    <div class="d-flex justify-content-center" style="width:80%;">
-                                        <div class="sub">
-                                            Duration:
-                                        </div>
-                                        <div class="value w-50">
-                                            1
-                                        </div>
-                                        <div class="min w-25">
-                                            min(s)
+                                    <!--ICELock instruction-->
+                                    <div class="mt-5 d-flex justify-content-center" style="margin-bottom:-30px;">
+                                        <div class="col-12">
+                                            <p align="center" style="font-size:20px;">
+                                                Idle timeout period.
+                                            </p>
                                         </div>
                                     </div>
-                                </div>
-                                <!--ICELock slider-->
-                                @*<div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
-                                    <input disabled type="range" min="1" max="30" step="1" value="@userDetails.TIMEOUT" id="timeSlider">
-                                </div>*@
+                                    <!--ICELock details-->
+                                    <div class="mt-4 d-flex justify-content-center" style="margin-bottom:-30px;">
+                                        <div class="d-flex justify-content-center" style="width:80%;">
+                                            <div class="sub">
+                                                Duration:
+                                            </div>
+                                            <div class="value w-50">
+                                                1
+                                            </div>
+                                            <div class="min w-25">
+                                                min(s)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--ICELock slider-->
+                                    @*<div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
+                                <input disabled type="range" min="1" max="30" step="1" value="@userDetails.TIMEOUT" id="timeSlider">
+                            </div>*@
 
                                 <div class="col-12 d-flex justify-content-center" style="margin-bottom:60px">
-                                    <div class="length range__slider" data-min="1" data-max="30">
+                                    <div class="length range__slider2" data-min="1" data-max="30">
                                         @*<input type="range" min="1" max="30" step="1" value="1" id="timeSlider">*@
                                         <input disabled type="range" min="1" max="30" step="1" value="@userDetails.TIMEOUT" id="timeSlider">
                                     </div>
                                 </div>
+                                    <script type="text/javascript">
+                                        // Range Slider Properties.
+                                        // Fill : The trailing color that you see when you drag the slider.
+                                        // background : Default Range Slider Background
+                                        const sliderProps = {
+                                            fill: "#9d205d",
+                                            background: "rgba(255, 255, 255, 0.214)",
+                                        };
 
-                                <script type="text/javascript">
-                                    // Range Slider Properties.
-                                    // Fill : The trailing color that you see when you drag the slider.
-                                    // background : Default Range Slider Background
-                                    const sliderProps = {
-                                        fill: "#9d205d",
-                                        background: "rgba(255, 255, 255, 0.214)",
-                                    };
+                                        // Selecting the Range Slider container which will effect the LENGTH property of the password.
+                                        const slider = document.querySelector(".range__slider2");
 
-                                    // Selecting the Range Slider container which will effect the LENGTH property of the password.
-                                    const slider = document.querySelector(".range__slider");
+                                        // Text which will show the value of the range slider.
+                                        const sliderValue = document.querySelector("#timeSlider");
 
-                                    // Text which will show the value of the range slider.
-                                    const sliderValue = document.querySelector("#timeSlider");
+                                        // Using Event Listener to apply the fill and also change the value of the text.
+                                        slider.querySelector("input").addEventListener("input", event => {
+                                            sliderValue.setAttribute("data-length", event.target.value);
+                                            applyFill(event.target);
+                                        });
+                                        // Selecting the range input and passing it in the applyFill func.
+                                        applyFill(slider.querySelector("input"));
+                                        // This function is responsible to create the trailing color and setting the fill.
+                                        function applyFill(slider) {
+                                            const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
+                                            const bg = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
+                                                0.1}%)`;
+                                            slider.style.background = bg;
+                                            sliderValue.setAttribute("data-length", slider.value);
+                                        }
 
-                                    // Using Event Listener to apply the fill and also change the value of the text.
-                                    slider.querySelector("input").addEventListener("input", event => {
-                                        sliderValue.setAttribute("data-length", event.target.value);
-                                        applyFill(event.target);
-                                    });
-                                    // Selecting the range input and passing it in the applyFill func.
-                                    applyFill(slider.querySelector("input"));
-                                    // This function is responsible to create the trailing color and setting the fill.
-                                    function applyFill(slider) {
-                                        const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
-                                        const bg = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
-                                            0.1}%)`;
-                                        slider.style.background = bg;
-                                        sliderValue.setAttribute("data-length", slider.value);
-                                    }
-
-                                    //range selector
-                                    //get initial value
-                                    window.onload = function initialVal() {
-                                        var initialValue = document.querySelector('input[type="range"]')
-                                        var target = document.querySelector('.value');
-                                        target.innerHTML = initialValue.value;
-                                    }
-                                    //update value
-                                    var elem = document.querySelector('input[type="range"]');
-                                    rangeValue = function () {
-                                        var newValue = elem.value;
-                                        var target = document.querySelector('.value');
-                                        target.innerHTML = newValue;
-                                    }
-                                    elem.addEventListener("input", rangeValue);
-                                </script>
-                            </div>
-                            @*CONFIRM AND CANCEL BTNS FOR ICELOCK*@
-                            <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
-                                <div class="mt-2 mb-4" style="color:gray; display:none" id="editbtns-2">
-                                    <button class="btn btn-outline-secondary rounded-0" onclick="updateICELock()" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
-                                        CONFIRM
-                                    </button>
-                                    <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditICELock()" aria-pressed="true" id="editcancelbtn">
-                                        CANCEL
-                                    </button>
+                                        //range selector
+                                        //get initial value
+                                        window.onload = function initialVal() {
+                                            var initialValue = document.querySelector('#timeSlider')
+                                            var target = document.querySelector('.value');
+                                            target.innerHTML = initialValue.value;
+                                        }
+                                        //update value
+                                        var elem = document.querySelector('#timeSlider');
+                                        rangeValue = function () {
+                                            var newValue = elem.value;
+                                            var target = document.querySelector('.value');
+                                            target.innerHTML = newValue;
+                                        }
+                                        elem.addEventListener("input", rangeValue);
+                                    </script>
+                                </div>
+                                @*CONFIRM AND CANCEL BTNS FOR ICELOCK*@
+                                <div class="col-12 d-flex justify-content-center" id="editbtnsdiv">
+                                    <div class="mt-2 mb-4" style="color:gray; display:none" id="editbtns-2">
+                                        <button class="btn btn-outline-secondary rounded-0" onclick="updateICELock()" style="margin-right:10px;" aria-pressed="true" id="editacceptbtn">
+                                            CONFIRM
+                                        </button>
+                                        <button class="btn btn-outline-secondary rounded-0" onclick="cancelEditICELock()" aria-pressed="true" id="editcancelbtn">
+                                            CANCEL
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+                </section>
+            </div>
     }
 </body>
 </html>

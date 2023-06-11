@@ -222,6 +222,27 @@ h1 {
     color: #c42974!important;
 }
 
+.modal-title-passgen {
+    font-weight: bold;
+    font-size: 30px !important;
+    top: 10px !important;
+    color: #4ca1a5 !important;
+}
+
 h5 {
     color: #4ca1a5 !important;
+}
+
+.modal-content-passgen {
+    background-color: #1a1a1a !important;
+}
+
+.passgenicon {
+    position: absolute;
+    right: -10%;
+    transform: translate(0, -50%);
+    top: 50%;
+    cursor: pointer;
+    width: 25px;
+    height: auto;
 }

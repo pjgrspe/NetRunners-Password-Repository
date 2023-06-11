@@ -183,3 +183,7 @@ h1 {
     display: flex;
     flex-wrap: wrap;
 }
+
+textarea {
+    resize: none;
+}

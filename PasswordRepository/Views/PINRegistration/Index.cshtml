@@ -170,20 +170,25 @@
                     <!--ICELock slider-->
                     <div class="col-12 d-flex justify-content-center">
                         <div class="length range__slider" data-min="4" data-max="32">
-                            <input type="range" min="1" max="30" step="1" value="1" id="timeSlider">
+                            <input type="range" min="1" max="30" step="1" value="5" id="timeSlider">
                         </div>
                     </div>
                     <script type="text/javascript">
-                        var elem = document.querySelector('input[type="range"]');
-
-                        var rangeValue = function () {
+                        //range selector
+                        //get initial value
+                        window.onload = function initialVal() {
+                            var initialValue = document.querySelector('#timeSlider')
+                            var target = document.querySelector('.value');
+                            target.innerHTML = initialValue.value;
+                        }
+                        //update value
+                        var elem = document.querySelector('#timeSlider');
+                        rangeValue = function () {
                             var newValue = elem.value;
                             var target = document.querySelector('.value');
                             target.innerHTML = newValue;
                         }
-
                         elem.addEventListener("input", rangeValue);
-
                         // Range Slider Properties.
                         // Fill : The trailing color that you see when you drag the slider.
                         // background : Default Range Slider Background
