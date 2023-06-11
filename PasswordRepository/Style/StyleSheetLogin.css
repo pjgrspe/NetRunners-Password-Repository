@@ -2,6 +2,10 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-image: url(/Elements/background3.jpg)!important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 footer{
