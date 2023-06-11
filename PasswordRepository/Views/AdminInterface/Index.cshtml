@@ -15,6 +15,7 @@
 
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     @Html.Partial("_NavbarDashboard")
 
@@ -104,7 +105,7 @@
                                                      value="popup => console.log(popup)" />
                             </template>
                         }
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -214,7 +215,7 @@
                                                         <!--ACTIVATION SWITCH-->
                                                         <div class="settings hidden" style="width:90%; margin-top:20px;" id="activationswitch-@UserEntry.ID">
                                                             <div class="setting">
-                                                                <input type="checkbox" id="switch-@UserEntry.ID" checked/>
+                                                                <input type="checkbox" id="switch-@UserEntry.ID" checked />
                                                                 <label for="switch-@UserEntry.ID">Activated</label>
                                                             </div>
                                                         </div>
@@ -870,7 +871,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false)  && x.EXPIRY_DATE <= DateTime.Now))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false) && x.EXPIRY_DATE <= DateTime.Now))
                                         {
                                             var UserDetails = Model.UserDetailsList.Where(x => x.UID.Equals(UserEntry.ID)).FirstOrDefault();
                                             //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
@@ -1554,6 +1555,14 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 700);
+        };
+    </script>
 </body>
 </html>
 

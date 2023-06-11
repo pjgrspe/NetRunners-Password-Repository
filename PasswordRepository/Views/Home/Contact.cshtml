@@ -34,6 +34,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container" id="navcontainer">
@@ -58,7 +59,7 @@
                         if (Session["ID"] != null)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase; color:white;">
+                                <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase;">
 
                                     @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
                                     @Session["Username"].ToString()
@@ -72,6 +73,7 @@
                                         <li><a class="dropdown-item" href="@Url.Action("Trashboard", "Dashboard")">Trash</a></li>
                                     }
                                     <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", "Settings")">Settings</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
                                 </ul>
                             </li>
@@ -244,5 +246,13 @@
             </div>
         </footer>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 500);
+        };
+    </script>
 </body>
 </html>

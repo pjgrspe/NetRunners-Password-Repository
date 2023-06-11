@@ -1,0 +1,148 @@
+﻿.modal-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    min-height: 100%;
+    width: 100%;
+}
+
+.loading {
+    display: none;
+    position: fixed;
+    z-index: 999;
+}
+
+@keyframes black-hole {
+    0% {
+        transform: scale(1) translate3d(75px, 0, 0);
+    }
+
+    50% {
+        transform: scale(4) translate3d(55px, 0, 0);
+    }
+
+    100% {
+        transform: scale(1) translate3d(75px, 0, 0);
+    }
+}
+
+@keyframes black-hole-rotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) skew(3deg);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg) skew(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) skew(3deg);
+    }
+}
+
+.canvas {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(1, 1, 1, .5);
+    backdrop-filter: blur(5px);
+}
+
+.black-hole {
+    backface-visibility: hidden;
+    z-index: 20;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    padding: 0;
+    box-shadow: 0 0 30px 0 #c42974 inset;
+}
+
+    .black-hole .gooey-container {
+        overflow: hidden;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg) skew(5deg);
+        filter: url(#gooey-black-hole);
+        width: 300px;
+        height: 300px;
+        padding: 0;
+        margin: 0;
+        box-shadow: 0 0 0 22px #c42974 inset;
+        animation: black-hole-rotate 5s ease infinite;
+    }
+
+        .black-hole .gooey-container .bubble {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            text-align: right;
+        }
+
+            .black-hole .gooey-container .bubble:before {
+                content: "";
+                display: inline-block;
+                background: #c42974;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                transform: scale(1) translate3d(75px, 0, 0);
+                box-shadow: 0 0 10px 0 #c42974 inset, 0 0 10px 0 #c42974 inset;
+            }
+
+            .black-hole .gooey-container .bubble:nth-child(1) {
+                transform: translate(-50%, -50%) rotate(60deg);
+            }
+
+                .black-hole .gooey-container .bubble:nth-child(1):before {
+                    animation: black-hole 1s ease 0.5s infinite;
+                }
+
+            .black-hole .gooey-container .bubble:nth-child(2) {
+                transform: translate(-50%, -50%) rotate(120deg);
+            }
+
+                .black-hole .gooey-container .bubble:nth-child(2):before {
+                    animation: black-hole 2s ease 1s infinite;
+                }
+
+            .black-hole .gooey-container .bubble:nth-child(3) {
+                transform: translate(-50%, -50%) rotate(180deg);
+            }
+
+                .black-hole .gooey-container .bubble:nth-child(3):before {
+                    animation: black-hole 3s ease 1.5s infinite;
+                }
+
+            .black-hole .gooey-container .bubble:nth-child(4) {
+                transform: translate(-50%, -50%) rotate(240deg);
+            }
+
+                .black-hole .gooey-container .bubble:nth-child(4):before {
+                    animation: black-hole 4s ease 2s infinite;
+                }
+
+            .black-hole .gooey-container .bubble:nth-child(5) {
+                transform: translate(-50%, -50%) rotate(300deg);
+            }
+
+                .black-hole .gooey-container .bubble:nth-child(5):before {
+                    animation: black-hole 5s ease 2.5s infinite;
+                }
+
+            .black-hole .gooey-container .bubble:nth-child(6) {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+
+                .black-hole .gooey-container .bubble:nth-child(6):before {
+                    animation: black-hole 6s ease 3s infinite;
+                }

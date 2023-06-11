@@ -12,6 +12,7 @@
     <link href="~/Style/StyleSheetLogin.css" rel="stylesheet">
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container" id="navcontainer">
@@ -123,5 +124,13 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 0);
+        };
+    </script>
 </body>
 </html>

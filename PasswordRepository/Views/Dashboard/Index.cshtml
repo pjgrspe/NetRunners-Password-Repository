@@ -15,6 +15,7 @@
     <link href="~/Style/StyleSheetRangeInput.css" rel="stylesheet">
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     @Html.Partial("_NavbarDashboard")
 
@@ -91,27 +92,27 @@
                                 </div>
                             </div>
                         }
-                            <template id="my-template">
-                                <swal-title>
-                                    Save changes to "Untitled 1" before closing?
-                                </swal-title>
-                                <swal-icon type="warning" color="red"></swal-icon>
-                                <swal-button type="confirm">
-                                    Save As
-                                </swal-button>
-                                <swal-button type="cancel">
-                                    Cancel
-                                </swal-button>
-                                <swal-button type="deny">
-                                    Close without Saving
-                                </swal-button>
-                                <swal-param name="allowEscapeKey" value="false" />
-                                <swal-param name="customClass"
-                                            value='{ "popup": "my-popup" }' />
-                                <swal-function-param name="didOpen"
-                                                     value="popup => console.log(popup)" />
-                            </template>
-                        </div>
+                        <template id="my-template">
+                            <swal-title>
+                                Save changes to "Untitled 1" before closing?
+                            </swal-title>
+                            <swal-icon type="warning" color="red"></swal-icon>
+                            <swal-button type="confirm">
+                                Save As
+                            </swal-button>
+                            <swal-button type="cancel">
+                                Cancel
+                            </swal-button>
+                            <swal-button type="deny">
+                                Close without Saving
+                            </swal-button>
+                            <swal-param name="allowEscapeKey" value="false" />
+                            <swal-param name="customClass"
+                                        value='{ "popup": "my-popup" }' />
+                            <swal-function-param name="didOpen"
+                                                 value="popup => console.log(popup)" />
+                        </template>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,7 +136,7 @@
                             </div>
                             <div class="length range__slider" data-min="4" data-max="32">
                                 <div class="length__title field-title" data-length='0'>length:</div>
-                                <input id="slider1" type="range" min="4" max="32" value="16" style="margin-bottom:50px;"/>
+                                <input id="slider1" type="range" min="4" max="32" value="16" style="margin-bottom:50px;" />
                                 @*<input type="range" min="4" max="32" value="16" id="timeSlider">*@
                             </div>
 
@@ -693,7 +694,7 @@
                                                                     <!--Eye and CC icon-->
                                                                     <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@PassEntry.PID" id="eyeiconPassword-@PassEntry.PID" />
                                                                     <img src="~/Elements/copytoclipboard.svg" class="cciconpassword-@PassEntry.PID" id="cciconPassword-@PassEntry.PID" />
-                                                                    <img src="~/Elements/passgen.svg" class="passgenicon" id="passgenicon" data-bs-toggle="modal" data-bs-target="#passgen-modal" style="cursor:pointer"/>
+                                                                    <img src="~/Elements/passgen.svg" class="passgenicon" id="passgenicon" data-bs-toggle="modal" data-bs-target="#passgen-modal" style="cursor:pointer" />
                                                                 </span>
                                                                 <script type="text/javascript">
                                                                 //disappear if input is null
@@ -1063,6 +1064,14 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 700);
+        };
+    </script>
 </body>
 </html>
 
