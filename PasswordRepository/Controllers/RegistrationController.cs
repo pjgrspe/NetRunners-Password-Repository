@@ -95,6 +95,7 @@ namespace PasswordRepository.Controllers
                     //Adds a new entry in the TBL login with the appropriate details
                     entities.TBL_USER_DETAILS.Add(newUDetail);
                     //Saves changes and finalizes the entry
+                    ViewBag.SuccessMessage = "User successfully registered!";
                     entities.SaveChanges();
                 }
 

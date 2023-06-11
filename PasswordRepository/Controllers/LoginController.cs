@@ -105,7 +105,7 @@ namespace PasswordRepository.Controllers
                     //DOESNT WORK YET
                     else //Viewbag error for when the Username or Email does not exist in the database
                     {
-                        ViewBag.ErrorMessage = "Password is incorrect!";
+                        ViewBag.ErrorMessage = "User doesn't exist!";
                         return View("Index");
                     }
                 }
