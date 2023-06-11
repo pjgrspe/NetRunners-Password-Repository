@@ -1,0 +1,185 @@
+﻿html, body {
+    background-image: url(/Elements/background1.jpg) !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.btn-outline-secondary {
+    color: white;
+}
+
+    .btn-outline-secondary:hover {
+        color: black;
+        background-color: white;
+    }
+
+.navbar {
+    color: white;
+}
+
+.navbar-brand {
+    width: 150px;
+    padding-left: 0px;
+}
+
+.navbar-nav > li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-item {
+    color: white;
+    font-size: 24px;
+}
+
+#navcontainer {
+    padding-left: 50px;
+}
+
+#loginbtn {
+    font-size: 24px;
+}
+
+@media (max-width: 991px) {
+    #navlogin {
+        padding-top: 8px;
+    }
+}
+
+
+@media (max-width: 992px) {
+
+    #loginbtn {
+        font-size: 24px;
+        width: 100%;
+    }
+}
+
+#navcontact {
+    color: white;
+}
+
+#navmenu {
+    font-family: 'Barlow', sans-serif;
+}
+
+#content, h6 {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#getstartedbtn {
+    width: 300px;
+    height: 100px;
+    font-size: 30px;
+}
+
+h1 {
+    font-size: 90px;
+}
+
+.overlay-text {
+    position: relative;
+    right: 20px;
+    bottom: -70px;
+    width: auto;
+    z-index: 10;
+}
+
+#img {
+    margin-left: auto;
+    text-align: right;
+}
+
+#imgdiv {
+    height: 300px;
+    overflow: visible;
+}
+
+#title {
+    z-index: 20;
+}
+
+.nav-link {
+    position: relative;
+}
+
+    .nav-link::after {
+        opacity: 0;
+        content: '';
+        transition: all 0.2s;
+        height: 2px;
+        width: 100%;
+        background-color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .nav-link:hover::after {
+        opacity: 1;
+    }
+
+
+.modal-content {
+    background-color: #1a1a1a;
+}
+.modal-footer, .modal-header {
+    border: none !important;
+}
+
+#addmodalbtn {
+    width: 280px;
+    height: 50px;
+    font-size: 18px;
+    color: white;
+    background-color: #4ca1a5;
+}
+
+#addmodalbtn:hover {
+    background-color: white;
+    color: #4ca1a5;
+}
+
+#addmodalbtn:active, #addmodalbtn:focus {
+    box-shadow: none;
+    outline: none !important;
+}
+
+.modal-lg {
+    width: 600px;
+}
+
+#navmenu, thead, .modal-title {
+    font-family: 'Barlow', sans-serif;
+    font-size: 20px;
+    color: white !important;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+#content, #list-tab, #additembtn, .item-table, #addmodalbtn, .form-floating {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.form-control-plaintext {
+    border-bottom: 1px solid white;
+    width: 60%;
+    max-width: 90%;
+    padding: 5px 5px;
+}
+
+.registration-form {
+    color: black !important;
+}
+
+#floatingFirstName, #floatingUsername {
+    width: 500px
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
