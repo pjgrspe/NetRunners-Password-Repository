@@ -2,10 +2,7 @@
 
 @{
     Layout = null;
-    if (Session["ID"] != null)
-    {
-        Response.Redirect("~/Dashboard/index");
-    }
+
 }
 
 <!DOCTYPE html>
@@ -49,9 +46,35 @@
                     <li class="nav-item">
                         <a href="/Home/Contact" class="nav-link" id="navcontact">CONTACT</a>
                     </li>
-                    <li class="nav-item" id="navlogin">
-                        <button onclick="window.location.href='/Login/Index'" type="button" class="rounded-0 btn btn-outline-secondary" id="loginbtn">LOGIN</button>
-                    </li>
+                    @{
+                        if (Session["ID"] != null)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase; color:white;">
+
+                                    @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
+                                    @Session["Username"].ToString()
+
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+
+                                    @if ((bool)Session["Access"] == false)
+                                    {
+                                        <li><a class="dropdown-item" href="@Url.Action("Trashboard", "Dashboard")">Trash</a></li>
+                                    }
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item" id="navlogin">
+                                <button onclick="window.location.href='/Login/Index'" type="button" class="rounded-0 btn btn-outline-secondary" id="loginbtn">LOGIN</button>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
 
@@ -60,7 +83,7 @@
 
     <div id="outer">
         <!-- Modal for SENDING MESSAGE -->
-        <div class="modal fade" id="addbutton-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -71,7 +94,6 @@
                     <div class="modal-body modal-xl" style="margin-top:-10px;">
                         @using (@Html.BeginForm("SendEmail", "Home", FormMethod.Post))
                         {
-                            @Html.AntiForgeryToken()
                             <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">

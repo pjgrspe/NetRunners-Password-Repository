@@ -11,6 +11,8 @@
     <title>Home</title>
     <link href="~/Style/StyleSheetButtonEditTrash.css" rel="stylesheet">
     <link href="~/Style/StyleSheetAdminInterface.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetPassGenerator.css" rel="stylesheet">
+
 </head>
 <body>
     <!--Navbar-->
@@ -209,8 +211,16 @@
                                                                 <input type="text" minlength="1" maxlength="20" readonly style="width:100%" class="form-control-title" id="Title-@UserEntry.ID.ToString()" value="@UserEntry.USERNAME" spellcheck="false" placeholder="Title">
                                                             </h2>
                                                         </div>
+                                                        <!--ACTIVATION SWITCH-->
+                                                        <div class="settings hidden" style="width:90%; margin-top:20px;" id="activationswitch-@UserEntry.ID">
+                                                            <div class="setting">
+                                                                <input type="checkbox" id="switch-@UserEntry.ID" checked/>
+                                                                <label for="switch-@UserEntry.ID">Activated</label>
+                                                            </div>
+                                                        </div>
+
                                                         <!--FIRSTNAME INPUT-->
-                                                        <div class="mt-3 tbl-details" id="tbl-Lname-@UserEntry.ID.ToString()">
+                                                        <div class="mt-3 tbl-details" id="tbl-Fname-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">First Name</p>
                                                                 <input type="text" maxlength="50" readonly class="form-control-plaintext" style="width: 100%; text-transform: capitalize;" id="Fname-@UserEntry.ID.ToString()" value="@UserDetails.FIRSTNAME" spellcheck="false">
@@ -219,23 +229,6 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@UserEntry.ID" id="cciconFname-@UserEntry.ID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                //disappear if input is null
-                                                                window.addEventListener('load', function () {
-                                                                    checkInputFname();
-                                                                });
-
-                                                                function checkInputFName() {
-                                                                    const inputElement = document.getElementById('Fname-@UserEntry.ID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-Fname-@UserEntry.ID.ToString()')
-
-                                                                    // Check if the value is null or empty
-                                                                    if (!inputElement.value.trim()) {
-                                                                        tblDetail.style.display = 'none'; // Hide the input element
-                                                                    } else {
-                                                                        tblDetail.style.display = 'block'; // Show the input element
-                                                                    }
-                                                                }
-
                                                                 //copy to clipboard function
                                                                 function initializeCCIcon() {
                                                                     let ccicon = document.getElementById('cciconFname-@UserEntry.ID.ToString()');
@@ -304,7 +297,7 @@
                                                                 </script>
                                                             </div>
                                                         </div>
-                                                        <!--NAME INPUT-->
+                                                        <!--LASTNAME INPUT-->
                                                         <div class="mt-3 tbl-details" id="tbl-Lname-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">Last Name</p>
@@ -314,23 +307,6 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@UserEntry.ID" id="cciconLname-@UserEntry.ID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                //disappear if input is null
-                                                                window.addEventListener('load', function () {
-                                                                    checkInputLname();
-                                                                });
-
-                                                                function checkInputLname() {
-                                                                    const inputElement = document.getElementById('Lname-@UserEntry.ID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-Lname-@UserEntry.ID.ToString()')
-
-                                                                    // Check if the value is null or empty
-                                                                    if (!inputElement.value.trim()) {
-                                                                        tblDetail.style.display = 'none'; // Hide the input element
-                                                                    } else {
-                                                                        tblDetail.style.display = 'block'; // Show the input element
-                                                                    }
-                                                                }
-
                                                                 //copy to clipboard function
                                                                 function initializeCCIcon() {
                                                                     let ccicon = document.getElementById('cciconLname-@UserEntry.ID.ToString()');
@@ -409,23 +385,6 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@UserEntry.ID" id="cciconUsername-@UserEntry.ID.ToString()" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                //disappear if input is null
-                                                                window.addEventListener('load', function () {
-                                                                    checkInputusername();
-                                                                });
-
-                                                                function checkInputusername() {
-                                                                const inputElement = document.getElementById('Username-@UserEntry.ID.ToString()');
-                                                                const tblDetail = document.getElementById('tbl-username-@UserEntry.ID.ToString()')
-
-                                                                // Check if the value is null or empty
-                                                                    if (!inputElement.value.trim()) {
-                                                                        tblDetail.style.display = 'none'; // Hide the input element
-                                                                    } else {
-                                                                        tblDetail.style.display = 'block'; // Show the input element
-                                                                    }
-                                                                }
-
                                                                 //copy to clipboard function
                                                                 function initializeCCIcon() {
                                                                     let ccicon = document.getElementById('cciconUsername-@UserEntry.ID.ToString()');
@@ -504,23 +463,6 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="ccicon-@UserEntry.ID.ToString()" id="cciconEmail-@UserEntry.ID.ToString()" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                //disappear if input is null
-                                                                window.addEventListener('load', function () {
-                                                                    checkInputemail();
-                                                                });
-
-                                                                function checkInputemail() {
-                                                                    const inputElement = document.getElementById('Email-@UserEntry.ID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-email-@UserEntry.ID.ToString()')
-
-                                                                    // Check if the value is null or empty
-                                                                    if (!inputElement.value.trim()) {
-                                                                        tblDetail.style.display = 'none'; // Hide the input element
-                                                                    } else {
-                                                                        tblDetail.style.display = 'block'; // Show the input element
-                                                                    }
-                                                                }
-
                                                                 //copy to clipboard function
                                                                 function initializeCCIcon() {
                                                                     let ccicon = document.getElementById('cciconEmail-@UserEntry.ID.ToString()');
@@ -600,22 +542,6 @@
                                                                     <img src="~/Elements/copytoclipboard.svg" class="cciconpassword-@UserEntry.ID" id="cciconPassword-@UserEntry.ID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                //disappear if input is null
-                                                                window.addEventListener('load', function () {
-                                                                    checkInputpassword();
-                                                                });
-
-                                                                function checkInputpassword() {
-                                                                    const inputElement = document.getElementById('Password-@UserEntry.ID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-password-@UserEntry.ID.ToString()')
-
-                                                                    // Check if the value is null or empty
-                                                                    if (!inputElement.value.trim()) {
-                                                                        tblDetail.style.display = 'none'; // Hide the input element
-                                                                    } else {
-                                                                        tblDetail.style.display = 'block'; // Show the input element
-                                                                    }
-                                                                }
                                                                 //copy to clipboard and show password function
                                                                 function initializeCCIcon() {
                                                                     let eyeicontbl = document.getElementById('eyeiconPassword-@UserEntry.ID.ToString()');
@@ -713,29 +639,20 @@
                                                         <div class="mt-3 tbl-details" id="tbl-PIN-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">PIN</p>
-                                                                <input type="password" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="PIN-@UserEntry.ID.ToString()" value="@decryptedPIN" spellcheck="false">
+                                                                <input type="password" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="PIN-@UserEntry.ID.ToString()" value="@decryptedPIN" spellcheck="false" onkeypress="return isNumberKey(event)">
                                                                 <span>
                                                                     <!--Eye and CC icon-->
                                                                     <img src="~/Elements/eye-white.svg" class="eyeiconPIN-@UserEntry.ID" id="eyeiconPIN-@UserEntry.ID" />
                                                                     <img src="~/Elements/copytoclipboard.svg" class="cciconPIN-@UserEntry.ID" id="cciconPIN-@UserEntry.ID" />
                                                                 </span>
                                                                 <script type="text/javascript">
-                                                                //disappear if input is null
-                                                                window.addEventListener('load', function () {
-                                                                    checkInputPIN();
-                                                                });
-
-                                                                function checkInputPIN() {
-                                                                    const inputElement = document.getElementById('PIN-@UserEntry.ID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-PIN-@UserEntry.ID.ToString()')
-
-                                                                    // Check if the value is null or empty
-                                                                    if (!inputElement.value.trim()) {
-                                                                        tblDetail.style.display = 'none'; // Hide the input element
-                                                                    } else {
-                                                                        tblDetail.style.display = 'block'; // Show the input element
-                                                                    }
+                                                                function isNumberKey(evt) {
+                                                                    var charCode = (evt.which) ? evt.which : evt.keyCode
+                                                                    if (charCode > 31 && (charCode < 48 || charCode > 57))
+                                                                        return false;
+                                                                    return true;
                                                                 }
+
                                                                 //copy to clipboard and show PIN function
                                                                 function initializeCCIcon() {
                                                                     let eyeicontbl = document.getElementById('eyeiconPIN-@UserEntry.ID.ToString()');
@@ -833,7 +750,7 @@
                                                         <div class="mt-3 tbl-details" id="tbl-TimeOut-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">ICELock Timeout</p>
-                                                                <input type="text" maxlength="2" readonly class="form-control-plaintext readonly" style="width:100%" id="Timeout-@UserEntry.ID.ToString()" value="@UserDetails.TIMEOUT" spellcheck="false">
+                                                                <input type="text" maxlength="2" readonly class="form-control-plaintext readonly" style="width:100%" id="Timeout-@UserEntry.ID.ToString()" value="@UserDetails.TIMEOUT" spellcheck="false" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -849,7 +766,7 @@
                                                             <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@UserEntry.ID', '@UserEntry.ID.ToString()', '@UserEntry.USERNAME')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
                                                                 CONFIRM
                                                             </button>
-                                                            <button class="btn btn-outline-secondary rounded-0" onclick="cancelEdit()" aria-pressed="true" id="editcancelbtn">
+                                                            <button class="btn btn-outline-secondary rounded-0" onclick="cancelEdit('@UserEntry.ID', '@UserEntry.USERNAME','@UserEntry.EMAIL', '@decryptedPassword','@UserDetails.FIRSTNAME', '@UserDetails.LASTNAME', '@decryptedPIN','@UserDetails.TIMEOUT')" aria-pressed="true" id="editcancelbtn">
                                                                 CANCEL
                                                             </button>
                                                         </div>
@@ -862,8 +779,8 @@
                                                         <span class="lines line-2"></span>
                                                         <span class="lines line-3"></span>
                                                     </label>
-                                                    <a class="menu-item red" onclick="deleteUser('@UserEntry.ID','@UserEntry.USERNAME')"> <i class="fa fa-trash"></i> </a>
-                                                    <a class="menu-item green" onclick="toggleEdit()"> <i class="fa fa-pen"></i> </a>
+                                                    <a class="menu-item red" onclick="deleteUser('@UserEntry.ID','@UserEntry.USERNAME')"> <i class="fa fa-user-minus"></i> </a>
+                                                    <a class="menu-item green" onclick="toggleEdit('@UserEntry.ID')"> <i class="fa fa-pen"></i> </a>
                                                 </nav>
                                             </div>
                                         }
@@ -1661,7 +1578,7 @@
         });
     }
 
-    function cancelEdit(PID, Title, Username, Email, Password, Lname, Notes) {
+    function cancelEdit(PID, Username, Email, Password, FName, Lname, PIN, Timeout) {
         //Confirmation message before cancelling edit
         Swal.fire({
             title: 'Cancel changes?',
@@ -1676,46 +1593,47 @@
             cancelButtonText: 'Back'
         }).then((result) => {
             if (result.isConfirmed) {
-                checkInputemail();
-                checkInputusername();
-                checkInputpassword();
-                checkInputLname();
-                checkInputnotes();
                 toggleEdit(PID);
-                resetform(PID, Title, Username, Email, Password, Lname, Notes);
+                resetform(PID, Username, Email, Password, FName, Lname, PIN, Timeout);
             }
         })
 
     }
 
-    function resetform(PID, Title, Username, Email, Password, Lname, Notes) {
-        document.getElementById('Title-' + PID).value = Title;
+    function resetform(PID, Username, Email, Password, Fname, Lname, PIN, Timeout) {
         document.getElementById('Username-' + PID).value = Username;
         document.getElementById('Email-' + PID).value = Email;
         document.getElementById('Password-' + PID).value = Password;
+        document.getElementById('Fname-' + PID).value = Fname;
         document.getElementById('Lname-' + PID).value = Lname;
-        document.getElementById('Notes-' + PID).value = Notes;
+        document.getElementById('PIN-' + PID).value = PIN;
+        document.getElementById('Timeout-' + PID).value = Timeout;
     }
 
     function toggleEdit(PID) {
-        var itemTITLE = document.getElementById('Title-' + PID);
+        var itemSwitch = document.getElementById('switch-' + PID);
         var itemUN = document.getElementById('Username-' + PID);
         var itemPW = document.getElementById('Password-' + PID);
         var itemEMAIL = document.getElementById('Email-' + PID);
+        var itemFname = document.getElementById('Fname-' + PID);
         var itemLname = document.getElementById('Lname-' + PID);
-        var itemNOTES = document.getElementById('Notes-' + PID);
+        var itemPIN = document.getElementById('PIN-' + PID);
+        var itemICELock = document.getElementById('Timeout-' + PID);
         var editicon = document.getElementById('edit-menu-' + PID);
         var editbtns = document.getElementById('editbtns-' + PID);
         var dateinfo = document.getElementById('dateinfo-' + PID);
 
         //tbldetails
+        const SwitchtblDetail = document.getElementById('activationswitch-' + PID)
         const UNtblDetail = document.getElementById('tbl-username-' + PID)
         const PWtblDetail = document.getElementById('tbl-password-' + PID)
         const EMAILtblDetail = document.getElementById('tbl-email-' + PID)
+        const FnametblDetail = document.getElementById('tbl-Fname-' + PID)
         const LnametblDetail = document.getElementById('tbl-Lname-' + PID)
-        const NOTEStblDetail = document.getElementById('tbl-notes-' + PID)
+        const PINtblDetail = document.getElementById('tbl-PIN-' + PID)
+        const ICELocktblDetail = document.getElementById('tbl-TimeOut-' + PID)
 
-        if (itemTITLE.value != null) {
+        if (itemUN.value || itemPW.value || itemEMAIL.value || itemFName.value || itemLName.value || itemPIN.value || itemICELock.value != null) {
             //toggle
             if (itemUN.classList == 'form-control-plaintext readonly') {
                 //REMOVE MENU ICONS
@@ -1723,9 +1641,8 @@
                 dateinfo.style.display = "none";
                 //ADD CONFIRM AND CANCEL BUTTONS
                 editbtns.style.display = "block";
-                //ITEM TITLE
-                itemTITLE.readOnly = false;
-                itemTITLE.className = "form-control-edit";
+                //ITEM SWITCH
+                SwitchtblDetail.className = "settings";
                 //ITEM UN
                 itemUN.readOnly = false;
                 itemUN.className = "form-control-edit";
@@ -1739,14 +1656,23 @@
                 itemEMAIL.readOnly = false;
                 itemEMAIL.className = "form-control-edit";
                 EMAILtblDetail.style.display = "block";
+                //ITEM Fname
+                itemFname.readOnly = false;
+                itemFname.className = "form-control-edit";
+                FnametblDetail.style.display = "block";
                 //ITEM Lname
                 itemLname.readOnly = false;
                 itemLname.className = "form-control-edit";
                 LnametblDetail.style.display = "block";
-                //ITEM NOTES
-                itemNOTES.readOnly = false;
-                itemNOTES.className = "form-control-notes-edit form-control-edit";
-                NOTEStblDetail.style.display = "block";
+                //ITEM PIN
+                itemPIN.readOnly = false;
+                itemPIN.className = "form-control-edit";
+                PINtblDetail.style.display = "block";
+                itemPIN.type = 'password';
+                //ITEM ICELock
+                itemICELock.readOnly = false;
+                itemICELock.className = "form-control-edit";
+                ICELocktblDetail.style.display = "block";
             }
             else {
                 //ADD MENU ICONS
@@ -1754,9 +1680,8 @@
                 dateinfo.style.display = "block";
                 //REMOVE CONFIRM AND CANCEL BUTTONS
                 editbtns.style.display = "none";
-                //ITEM TITLE
-                itemTITLE.readOnly = true;
-                itemTITLE.className = "form-control-plaintext form-control-title";
+                //ITEM SWITCH
+                SwitchtblDetail.className = "hidden";
                 //ITEM UN
                 itemUN.readOnly = true;
                 itemUN.className = "form-control-plaintext readonly";
@@ -1767,13 +1692,19 @@
                 //ITEM EMAIL
                 itemEMAIL.readOnly = true;
                 itemEMAIL.className = "form-control-plaintext";
-                //itemEMAIL.value = Email;
+                //ITEM Fname
+                itemFname.readOnly = true;
+                itemFname.className = "form-control-plaintext";
                 //ITEM Lname
                 itemLname.readOnly = true;
                 itemLname.className = "form-control-plaintext";
-                //ITEM NOTES
-                itemNOTES.readOnly = true;
-                itemNOTES.className = "form-control-plaintext form-control-notes";
+                //ITEM PIN
+                itemPIN.readOnly = true;
+                itemPIN.className = "form-control-plaintext";
+                itemPIN.type = 'password';
+                //ITEM ICELock
+                itemICELock.readOnly = true;
+                itemICELock.className = "form-control-plaintext";
             }
         }
         else {
@@ -1782,7 +1713,7 @@
                 icon: 'error',
                 iconColor: '#c40f2d',
                 background: '#1a1a1a',
-                title: 'Title is required!',
+                title: 'Fill up all items!',
                 showConfirmButton: false,
                 timer: 2500
             })
@@ -1896,10 +1827,7 @@ LUIS
 
 
     //Function for updating given entry
-
     function updateEntry(userID, userIDstring, title) {
-
-        var itemTITLE = document.getElementById('Title-' + userID);
 
         //Sets variables to corresponding textboxes
         var uID = userID;
@@ -1944,25 +1872,25 @@ LUIS
                     data: JSON.stringify(data),
                     contentType: 'application/json; charset=utf8',
                     success: function () {
-
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            background: '#1a1a1a',
+                            iconColor: '#70cc72',
+                            title: '"' + title + '" successfuly updated!',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+                            .then(function () {
+                                location.reload(true);
+                            }
+                            )
                     },
                     error: function () {
                         alert("An error occurred")
                     }
                 })
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    background: '#1a1a1a',
-                    iconColor: '#70cc72',
-                    title: '"' + title + '" successfuly updated!',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-                    .then(function () {
-                        location.reload(true);
-                    }
-                    )
+                
             }
         })
     }
