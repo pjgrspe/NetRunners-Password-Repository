@@ -1,4 +1,11 @@
-﻿.btn-outline-secondary {
+﻿html, body {
+    background-image: url(/Elements/background1.jpg)!important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.btn-outline-secondary {
     color: white;
 }
 
