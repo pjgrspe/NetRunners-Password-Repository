@@ -1611,7 +1611,7 @@
     }
 
     function toggleEdit(PID) {
-        var itemSwitch = document.getElementById('uppercase-' + PID);
+        var itemSwitch = document.getElementById('switch-' + PID);
         var itemUN = document.getElementById('Username-' + PID);
         var itemPW = document.getElementById('Password-' + PID);
         var itemEMAIL = document.getElementById('Email-' + PID);
@@ -1872,25 +1872,25 @@ LUIS
                     data: JSON.stringify(data),
                     contentType: 'application/json; charset=utf8',
                     success: function () {
-
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            background: '#1a1a1a',
+                            iconColor: '#70cc72',
+                            title: '"' + title + '" successfuly updated!',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+                            .then(function () {
+                                location.reload(true);
+                            }
+                            )
                     },
                     error: function () {
                         alert("An error occurred")
                     }
                 })
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    background: '#1a1a1a',
-                    iconColor: '#70cc72',
-                    title: '"' + title + '" successfuly updated!',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-                    .then(function () {
-                        location.reload(true);
-                    }
-                    )
+                
             }
         })
     }
