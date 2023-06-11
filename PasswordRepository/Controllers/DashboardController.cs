@@ -358,7 +358,47 @@ namespace PasswordRepository.Controllers
                     if (entities.SaveChanges() >= 1)
                     {
                         //Success Message
-                        return Json(new { msg = "Entry deleted" });
+                        return Json(new { msg = "Entries deleted" });
+                    }
+                    else
+                    {
+                        //Error Message
+                        return Json(new { msg = "An error occurred(Controller)" });
+                    }
+                }
+
+            }
+        }
+
+        public ActionResult RestoreAllEntry(int userID)
+        {
+            //Sets the entity object
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                //Sets password variable to the table entry that matches the given password ID to PID
+                var Password = entities.TBL_PASSWORD_REPO.Where(x => x.UID.Equals(userID) && x.isTrashed.Equals(true) && x.isActive.Equals(true));
+                //If there are no entries found, returns an error message
+                if (Password == null)
+                {
+                    return Json(new { msg = "Table already empty" });
+                }
+                else
+                {
+                    //Loops for every entries in the list query
+                    foreach (var PasswordEntry in Password)
+                    {
+                        //updates isActive flag for every entry to false, updates the expiry date to now
+                        PasswordEntry.isTrashed = false;
+                        PasswordEntry.isActive = true;
+                        PasswordEntry.ENTRY_DELETED = null;
+                        PasswordEntry.EXPIRY_DATE = null;
+                    }
+
+                    //Saves the changes
+                    if (entities.SaveChanges() >= 1)
+                    {
+                        //Success Message
+                        return Json(new { msg = "Entries Restored!" });
                     }
                     else
                     {

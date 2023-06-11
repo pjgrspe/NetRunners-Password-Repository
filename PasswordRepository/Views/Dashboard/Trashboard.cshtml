@@ -123,7 +123,7 @@
                                 </div>
                                 <!-- RESTORE ALL BUTTON -->
                                 <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-secondary rounded-0" id="restoreallbtn" style="margin-top: 10px;" onclick="">
+                                    <button type="button" class="btn btn-outline-secondary rounded-0" id="restoreallbtn" style="margin-top: 10px;" onclick="RestoreAllEntry('@Session["ID"]')">
                                         RESTORE ALL
                                     </button>
                                 </div>
@@ -524,4 +524,52 @@
                 }
             })
     }
+    function RestoreAllEntry(userID) {
+
+        //Confirmation message before permanently deleting entry
+        Swal.fire({
+            title: 'Restore passwords?',
+            text: "Every deleted passwords will be restored!",
+            icon: 'warning',
+            iconColor: '#c40f2d',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var data = {
+                    userID: userID
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Dashboard/RestoreAllEntry",
+                    dataType: "JSON",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf8',
+                    success: function () {
+                    },
+                    error: function () {
+                        alert("An error occurred (Javascript)")
+                    }
+                })
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    iconColor: '#70cc72',
+                    background: '#1a1a1a',
+                    title: 'Passwords are successfully restored!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+                    .then(function () {
+                        location.reload(true);
+                    }
+                    )
+            }
+        })
+    }
+
 </script>

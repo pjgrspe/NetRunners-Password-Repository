@@ -1,4 +1,4 @@
-﻿@model PasswordRepository.Models.PasswordEntryModel
+﻿    @model PasswordRepository.Models.PasswordEntryModel
 @using PasswordRepository.Helpers;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,41 +27,41 @@
                     </div>
                     <!--Form-->
                     <div class="modal-body modal-xl" style="margin-top:-10px;">
-                        @using (@Html.BeginForm("Entry", "Dashboard", FormMethod.Post))
+                        @using (@Html.BeginForm("UserEntry", "AdminInterface", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
                             <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "First Name", required = "required" })
+                                        @Html.TextBoxFor(Model => Model.textbox_UE_FNAME, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "First Name", required = "required" })
                                         @*<input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingTitle" spellcheck="false" placeholder="First Name" required="required">*@
                                         <label for="floatingTitle">First Name</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Last Name", required = "required" })
+                                        @Html.TextBoxFor(Model => Model.textbox_UE_LNAME, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Last Name", required = "required" })
                                         @*<input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingTitle" spellcheck="false" placeholder="Last Name" required="required">*@
                                         <label for="floatingTitle">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Username" })
+                                        @Html.TextBoxFor(Model => Model.textbox_UE_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Username" })
                                         @*<input maxlength="50" class="form-control rounded-0 w-100" id="floatingUsername" spellcheck="false" placeholder="Username">*@
                                         <label for="floatingUsername">Username</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; ">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "First Name", placeholder = "Email" })
+                                        @Html.TextBoxFor(Model => Model.textbox_UE_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "First Name", placeholder = "Email" })
                                         @*<input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder="Email">*@
                                         <label for="floatingEmail">Email</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", required = "required" })
+                                        @Html.PasswordFor(Model => Model.textbox_UE_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", required = "required" })
                                         @*<input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-login" spellcheck="false" placeholder="Password" required="required">*@
                                         <label for="floatingPassword-login">Password</label>
                                         <span>
@@ -139,7 +139,7 @@
                                 </div>
 
                                 <div class="list-group rounded-0 overflow-auto flipped scroller" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(true)))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.EXPIRY_DATE > DateTime.Now || x.EXPIRY_DATE == null))
                                         {
                                             <a class="list-group-item list-group-item-action list-group-item-1" id="list-@UserEntry.ID-list" data-bs-toggle="list" href="#list-@UserEntry.ID" role="tab" aria-controls="list-@UserEntry.ID">@UserEntry.USERNAME</a>
                                         }
@@ -191,12 +191,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(true)))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.EXPIRY_DATE > DateTime.Now || x.EXPIRY_DATE == null))
                                         {
                                             var UserDetails = Model.UserDetailsList.Where(x => x.UID.Equals(UserEntry.ID)).FirstOrDefault();
                                             //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
                                             var decryptedPassword = Encrypter.DecryptString(UserEntry.PASSWORD);
                                             var decryptedPIN = Encrypter.DecryptString(UserDetails.PIN);
+
                                             //PER ITEM DETAILS
                                             <div class="tab-pane show" id="list-@UserEntry.ID" role="tabpanel" aria-labelledby="list-@UserEntry.ID-list">
                                                 <div class="container">
@@ -832,7 +833,7 @@
                                                         <div class="mt-3 tbl-details" id="tbl-TimeOut-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">ICELock Timeout</p>
-                                                                <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username-@UserEntry.ID.ToString()" value="@UserDetails.TIMEOUT" spellcheck="false">
+                                                                <input type="text" maxlength="2" readonly class="form-control-plaintext readonly" style="width:100%" id="Timeout-@UserEntry.ID.ToString()" value="@UserDetails.TIMEOUT" spellcheck="false">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -845,7 +846,7 @@
                                                     <!--HIDDEN CONFIRM AND CANCEL BTNS-->
                                                     <div class="col-11 d-flex justify-content-center">
                                                         <div class="mt-4 mb-4" style="color:gray; display:none;" id="editbtns-@UserEntry.ID">
-                                                            <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry()" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
+                                                            <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@UserEntry.ID', '@UserEntry.ID.ToString()', '@UserEntry.USERNAME')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
                                                                 CONFIRM
                                                             </button>
                                                             <button class="btn btn-outline-secondary rounded-0" onclick="cancelEdit()" aria-pressed="true" id="editcancelbtn">
@@ -861,7 +862,7 @@
                                                         <span class="lines line-2"></span>
                                                         <span class="lines line-3"></span>
                                                     </label>
-                                                    <a class="menu-item red" onclick="deleteEntry()"> <i class="fa fa-trash"></i> </a>
+                                                    <a class="menu-item red" onclick="deleteUser('@UserEntry.ID','@UserEntry.USERNAME')"> <i class="fa fa-trash"></i> </a>
                                                     <a class="menu-item green" onclick="toggleEdit()"> <i class="fa fa-pen"></i> </a>
                                                 </nav>
                                             </div>
@@ -900,7 +901,7 @@
                                 </div>
 
                                 <div class="list-group rounded-0 overflow-auto flipped scroller" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false)))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false) && x.EXPIRY_DATE <= DateTime.Now))
                                         {
                                             <a class="list-group-item list-group-item-action list-group-item-0" id="list-@UserEntry.ID-list" data-bs-toggle="list" href="#list-@UserEntry.ID" role="tab" aria-controls="list-@UserEntry.ID">@UserEntry.USERNAME</a>
                                         }
@@ -952,7 +953,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false)))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false)  && x.EXPIRY_DATE <= DateTime.Now))
                                         {
                                             var UserDetails = Model.UserDetailsList.Where(x => x.UID.Equals(UserEntry.ID)).FirstOrDefault();
                                             //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
@@ -1593,7 +1594,7 @@
                                                         <div class="mt-3 tbl-details-0" id="tbl-TimeOut-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
                                                                 <p style="margin-bottom:-2px;">ICELock Timeout</p>
-                                                                <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Username-@UserEntry.ID.ToString()" value="@UserDetails.TIMEOUT" spellcheck="false">
+                                                                <input type="text" maxlength="50" readonly class="form-control-plaintext readonly" style="width:100%" id="Timeout-@UserEntry.ID.ToString()" value="@UserDetails.TIMEOUT" spellcheck="false">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1622,8 +1623,8 @@
                                                         <span class="lines line-2"></span>
                                                         <span class="lines line-3"></span>
                                                     </label>
-                                                    <a class="menu-item red" onclick="deleteEntry()"> <i class="fa fa-trash"></i> </a>
-                                                    <a class="menu-item green" onclick="toggleEdit()"> <i class="fa fa-undo"></i> </a>
+                                                    @*<a class="menu-item red" onclick="deleteEntry()"> <i class="fa fa-trash"></i> </a>*@
+                                                    <a class="menu-item green" onclick="restoreUser('@UserEntry.ID','@UserEntry.USERNAME')"> <i class="fa fa-undo"></i> </a>
                                                 </nav>
                                             </div>
                                         }
@@ -1793,11 +1794,11 @@ LUIS
 <script type="text/javascript">
 
     //Function for deleting given entry
-    function deleteEntry(passwordID, title) {
+    function deleteUser(userID, title) {
         //Confirmation message before deleting entry
         Swal.fire({
-            title: 'Delete item?',
-            text: "This will place the item in the trash.",
+            title: 'Ban User?',
+            text: "This will permanently disable this user (Until an admin reactives this account)",
             icon: 'warning',
             iconColor: '#c40f2d',
             background: '#1a1a1a',
@@ -1809,13 +1810,13 @@ LUIS
             if (result.isConfirmed) {
                 //Packages the received variable
                 var data = {
-                    passwordID: passwordID
+                    userID: userID
                 }
 
                 //Ajax function to prepare data to be sent to the controller
                 $.ajax({
                     type: "POST",
-                    Lname: "/Dashboard/DeleteEntry",
+                    url: "/AdminInterface/BanUser",
                     dataType: "JSON",
                     data: JSON.stringify(data),
                     contentType: 'application/json; charset=utf8',
@@ -1825,7 +1826,7 @@ LUIS
                             icon: 'success',
                             background: '#1a1a1a',
                             iconColor: '#70cc72',
-                            title: '"' + title + '" successfuly deleted!',
+                            title: '"' + title + '" successfuly banned!',
                             showConfirmButton: false,
                             timer: 2500
                         })
@@ -1842,87 +1843,127 @@ LUIS
         })
     }
 
+    //Function for restoring user
+    function restoreUser(userID, title) {
+        //Confirmation message before deleting entry
+        Swal.fire({
+            title: 'Unban User?',
+            text: "This will restore this user's account",
+            icon: 'warning',
+            iconColor: '#c40f2d',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //Packages the received variable
+                var data = {
+                    userID: userID
+                }
+
+                //Ajax function to prepare data to be sent to the controller
+                $.ajax({
+                    type: "POST",
+                    url: "/AdminInterface/UnbanUser",
+                    dataType: "JSON",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf8',
+                    success: function () {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            background: '#1a1a1a',
+                            iconColor: '#70cc72',
+                            title: '"' + title + '" successfuly unbanned!',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+                            .then(function () {
+                                location.reload(true);
+                            }
+                            )
+                    },
+                    error: function () {
+                        alert("An error occurred (Javascript)")
+                    }
+                })
+            }
+        })
+    }
+
+
+
     //Function for updating given entry
 
-    function updateEntry(passwordID, passwordIDstring, title) {
+    function updateEntry(userID, userIDstring, title) {
 
-        var itemTITLE = document.getElementById('Title-' + passwordID);
+        var itemTITLE = document.getElementById('Title-' + userID);
 
         //Sets variables to corresponding textboxes
-        var pwID = passwordID;
-        var pwTitle = $('#Title-' + passwordIDstring).val();
-        var pwEmail = $('#Email-' + passwordIDstring).val();
-        var pwUname = $('#Username-' + passwordIDstring).val();
-        var pwPassword = $('#Password-' + passwordIDstring).val();
-        var pwLname = $('#Lname-' + passwordIDstring).val();
-        var pwNotes = $('#Notes-' + passwordIDstring).val()
+        var uID = userID;
+        var uFname = $('#Fname-' + userIDstring).val();
+        var uLname = $('#Lname-' + userIDstring).val();
+        var uUname = $('#Username-' + userIDstring).val();
+        var uEmail = $('#Email-' + userIDstring).val();
+        var uPassword = $('#Password-' + userIDstring).val();
+        var uPIN = $('#PIN-' + userIDstring).val();
+        var uTO = $('#Timeout-' + userIDstring).val()
 
         //Packages the variables
         var data = {
-            passwordID: pwID,
-            passwordTitle: pwTitle,
-            passwordEmail: pwEmail,
-            passwordUname: pwUname,
-            passwordPassword: pwPassword,
-            passwordLname: pwLname,
-            passwordNotes: pwNotes
+            userID: uID,
+            userFname: uFname,
+            userLname: uLname,
+            userUsername: uUname,
+            userEmail: uEmail,
+            userPassword: uPassword,
+            userPIN: uPIN,
+            userTO: uTO
         }
 
-        if (!itemTITLE.value.trim()) {
-            //error alert
-            Swal.fire({
-                position: 'center',
-                icon: 'error',
-                iconColor: '#c40f2d',
-                background: '#1a1a1a',
-                title: 'Title is required!',
-                showConfirmButton: false,
-                timer: 2500
-            })
-        }
-        else {
-            //Confirmation message before updating entry
-            Swal.fire({
-                title: 'Update item?',
-                text: "This will update the item.",
-                icon: 'question',
-                iconColor: '#2973b9',
-                background: '#1a1a1a',
-                showCancelButton: true,
-                confirmButtonColor: '#70cc72',
-                cancelButtonColor: '#fe4365',
-                confirmButtonText: 'Confirm'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //Ajax function to prepare data to be sent to the controller
-                    $.ajax({
-                        type: "POST",
-                        Lname: "/Dashboard/UpdateEntry",
-                        dataType: "JSON",
-                        data: JSON.stringify(data),
-                        contentType: 'application/json; charset=utf8',
-                        success: function () {
+        //Confirmation message before updating entry
+        Swal.fire({
+            title: 'Update item?',
+            text: "This will update the item.",
+            icon: 'question',
+            iconColor: '#2973b9',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //Ajax function to prepare data to be sent to the controller
+                $.ajax({
+                    type: "POST",
+                    Lname: "/AdminInterface/UpdateEntry",
+                    dataType: "JSON",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf8',
+                    success: function () {
 
-                        },
-                        error: function () {
-                            alert("An error occurred")
-                        }
-                    })
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        background: '#1a1a1a',
-                        iconColor: '#70cc72',
-                        title: '"' + title + '" successfuly updated!',
-                        showConfirmButton: false,
-                        timer: 2500
-                    })
-                        .then(function () {
-                            location.reload(true);
-                        }
-                        )
-                }
-            })
-        }
+                    },
+                    error: function () {
+                        alert("An error occurred")
+                    }
+                })
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    background: '#1a1a1a',
+                    iconColor: '#70cc72',
+                    title: '"' + title + '" successfuly updated!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+                    .then(function () {
+                        location.reload(true);
+                    }
+                    )
+            }
+        })
     }
 </script>
