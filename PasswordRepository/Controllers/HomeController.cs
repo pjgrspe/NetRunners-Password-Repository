@@ -37,8 +37,6 @@ namespace PasswordRepository.Controllers
         }
 
         [HttpPost]
-        //Prevents hacking and tampering of data
-        [ValidateAntiForgeryToken]
         //Main login function
         public ActionResult SendEmail(ContactViewModel model)
         {
