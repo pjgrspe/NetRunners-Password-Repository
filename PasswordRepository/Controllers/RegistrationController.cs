@@ -100,11 +100,13 @@ namespace PasswordRepository.Controllers
                 }
 
                 //Sends them directly to the login page after registering
-                return RedirectToAction("Index", "Login");  // Temporary
+                TempData["Message"] = "Registration complete! Please sign in.";
+                return RedirectToAction("Index", "Login");
+                /*return View("Index", "Login");*/  // Temporary
             }
 
             //If model state is invalid, it would throw them back to Registration index with an error message
-            ViewBag.ErrorMessage = "Invalid";
+            ViewBag.ErrorMessage = "Error!";
             return View("Index");
         }
     }
