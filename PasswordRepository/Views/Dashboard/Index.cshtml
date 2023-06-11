@@ -41,17 +41,17 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
-                                    <div class="form-floating" style="margin-top: 10px; width: 90%; ">
-                                        @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email" })
-                                        @*<input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder = "Email">*@
-                                        <label for="floatingEmail">Email</label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
                                         @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Username" })
                                         @*<input maxlength="50" class="form-control rounded-0 w-100" id="floatingUsername" spellcheck="false" placeholder = "Username">*@
                                         <label for="floatingUsername">Username</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center w-100">
+                                    <div class="form-floating" style="margin-top: 10px; width: 90%; ">
+                                        @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email" })
+                                        @*<input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder = "Email">*@
+                                        <label for="floatingEmail">Email</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
@@ -62,6 +62,7 @@
                                         <span>
                                             <!--Eye icon-->
                                             <img src="~/Elements/eye.svg" id="eyeicon-login" />
+                                            <img src="~/Elements/passgen.svg" class="passgenicon1" id="passgenicon1" data-bs-toggle="modal" data-bs-target="#passgen-modal" style="cursor:pointer" />
                                         </span>
                                     </div>
                                 </div>
@@ -117,9 +118,9 @@
         <!-- Modal for PASSWORD GENERATOR -->
         <div class="modal fade" id="passgen-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
+                <div class="modal-content modal-content-passgen">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ModalLabel">ICEPass™ Generator</h1>
+                        <h1 class="modal-title modal-title-passgen fs-5" id="ModalLabel">ICEPass™ Generator</h1>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!--Form-->
@@ -134,7 +135,7 @@
                             </div>
                             <div class="length range__slider" data-min="4" data-max="32">
                                 <div class="length__title field-title" data-length='0'>length:</div>
-                                <input id="slider" type="range" min="4" max="32" value="16" />
+                                <input id="slider1" type="range" min="4" max="32" value="16" style="margin-bottom:50px;"/>
                                 @*<input type="range" min="4" max="32" value="16" id="timeSlider">*@
                             </div>
 
@@ -168,31 +169,31 @@
                                 // Range Slider Properties.
                                 // Fill : The trailing color that you see when you drag the slider.
                                 // background : Default Range Slider Background
-                                const sliderProps = {
+                                const slider1Props = {
                                     fill: "#9d205d",
                                     background: "rgba(255, 255, 255, 0.214)",
                                 };
 
                                 // Selecting the Range Slider container which will effect the LENGTH property of the password.
-                                const slider = document.querySelector(".range__slider");
+                                const slider1 = document.querySelector(".range__slider");
 
                                 // Text which will show the value of the range slider.
-                                const sliderValue = document.querySelector(".length__title");
+                                const slider1Value = document.querySelector(".length__title");
 
                                 // Using Event Listener to apply the fill and also change the value of the text.
-                                slider.querySelector("input").addEventListener("input", event => {
-                                    sliderValue.setAttribute("data-length", event.target.value);
+                                slider1.querySelector("input").addEventListener("input", event => {
+                                    slider1Value.setAttribute("data-length", event.target.value);
                                     applyFill(event.target);
                                 });
                                 // Selecting the range input and passing it in the applyFill func.
-                                applyFill(slider.querySelector("input"));
+                                applyFill(slider1.querySelector("input"));
                                 // This function is responsible to create the trailing color and setting the fill.
-                                function applyFill(slider) {
-                                    const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
-                                    const bg = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
+                                function applyFill(slider1) {
+                                    const percentage = (100 * (slider1.value - slider1.min)) / (slider1.max - slider1.min);
+                                    const bg = `linear-gradient(90deg, ${slider1Props.fill} ${percentage}%, ${slider1Props.background} ${percentage +
                                         0.1}%)`;
-                                    slider.style.background = bg;
-                                    sliderValue.setAttribute("data-length", slider.value);
+                                    slider1.style.background = bg;
+                                    slider1Value.setAttribute("data-length", slider1.value);
                                 }
 
                                 // Object of all the function names that we will use to create random letters of password
@@ -229,7 +230,7 @@
                                 // The Viewbox where the result will be shown
                                 const resultEl = document.getElementById("result");
                                 // The input slider, will use to change the length of the password
-                                const lengthEl = document.getElementById("slider");
+                                const lengthEl = document.getElementById("slider1");
 
                                 // Checkboxes representing the options that is responsible to create differnt type of password based on user
                                 const uppercaseEl = document.getElementById("uppercase");
@@ -372,26 +373,6 @@
                                 })
                             </script>
                         </div>
-                        <template id="my-template">
-                            <swal-title>
-                                Save changes to "Untitled 1" before closing?
-                            </swal-title>
-                            <swal-icon type="warning" color="red"></swal-icon>
-                            <swal-button type="confirm">
-                                Save As
-                            </swal-button>
-                            <swal-button type="cancel">
-                                Cancel
-                            </swal-button>
-                            <swal-button type="deny">
-                                Close without Saving
-                            </swal-button>
-                            <swal-param name="allowEscapeKey" value="false" />
-                            <swal-param name="customClass"
-                                        value='{ "popup": "my-popup" }' />
-                            <swal-function-param name="didOpen"
-                                                 value="popup => console.log(popup)" />
-                        </template>
                     </div>
                 </div>
             </div>

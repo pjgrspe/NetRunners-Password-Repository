@@ -142,6 +142,10 @@ small {
     backdrop-filter: blur(5px);
 }
 
+.modal-content-passgen {
+    background-color: #1a1a1a!important;
+}
+
 .form-control-plaintext, .form-control-edit {
     color: white;
 }
@@ -589,4 +593,21 @@ img[class^=eyeiconpassword-] {
 
 textarea {
     resize: none;
+}
+
+.passgenicon {
+    position: absolute;
+    right: -8%;
+    transform: translate(0, -50%);
+    top: 65%;
+    cursor: pointer;
+    width: 25px;
+    height: auto;
+}
+
+.modal-title-passgen {
+    font-weight: bold !important;
+    font-size: 30px !important;
+    top: 10px !important;
+    color: #4ca1a5 !important;
 }
