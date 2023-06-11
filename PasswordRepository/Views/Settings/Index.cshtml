@@ -731,20 +731,27 @@
     function updateUDetails() {
 
         //user details
-        var itemFN = $('#Firstname').val();
-        var itemLN = $('#Lastname').val();
-        var itemUN = $('#Username').val();
-        var itemPW = $('#Password').val();
-        var itemREPW = $('#RepeatPassword').val();
-        var itemEMAIL = $('#Email').val();
+        //var itemFN = $('#Firstname').val();
+        //var itemLN = $('#Lastname').val();
+        //var itemUN = $('#Username').val();
+        //var itemPW = $('#Password').val();
+        //var itemREPW = $('#RepeatPassword').val();
+        //var itemEMAIL = $('#Email').val();
+        var itemFN = document.getElementById('Firstname');
+        var itemLN = document.getElementById('Lastname');
+        var itemUN = document.getElementById('Username');
+        var itemPW = document.getElementById('Password');
+        var itemREPW = document.getElementById('RepeatPassword');
+        var itemEMAIL = document.getElementById('Email');
+
 
         //Packages the variables
         var data = {
-            userFN: itemFN,
-            userLN: itemLN,
-            userUN: itemUN,
-            userPW: itemPW,
-            userEMAIL: itemEMAIL,
+            userFN: itemFN.value,
+            userLN: itemLN.value,
+            userUN: itemUN.value,
+            userPW: itemPW.value,
+            userEMAIL: itemEMAIL.value,
         }
 
         //IF ALL FORMS ARE NOT NULL
@@ -788,19 +795,19 @@
                 if (result.isConfirmed) {
                     //Ajax function to prepare data to be sent to the controller
                     $.ajax({
-                        type: "post",
+                        type: "POST",
                         url: "/Settings/UpdateUser",
-                        datatype: "json",
-                        data: json.stringify(data),
-                        contenttype: 'application/json; charset=utf8',
+                        dataType: "JSON",
+                        data: JSON.stringify(data),
+                        contentType: 'application/json; charset=utf8',
                         success: function () {
                             Swal.fire({
                                 position: 'center',
                                 icon: 'success',
                                 background: '#1a1a1a',
                                 iconColor: '#70cc72',
-                                //title: 'Your changes has been saved!',
-                                title: msg,
+                                title: 'Your changes has been saved!',
+                                //title: msg,
                                 showConfirmButton: false,
                                 timer: 2500
                             })
@@ -823,18 +830,18 @@
     function updateICELock() {
 
         //user details
-        //var itemPIN = document.getElementById('PIN');
-        //var itemREPIN = document.getElementById('RepeatPIN');
-        //var itemRange = document.getElementById('timeSlider');
-
-        var itemPIN = $('#PIN').val();
-        var itemREPIN = $('#RepeatPIN').val();
+        var itemPIN = document.getElementById('PIN');
+        var itemREPIN = document.getElementById('RepeatPIN');
         var itemRange = document.getElementById('timeSlider');
+
+        //var itemPIN = $('#PIN').val();
+        //var itemREPIN = $('#RepeatPIN').val();
+        //var itemRange = document.getElementById('timeSlider');
 
 
         //Packages the variables
         var data = {
-            userPIN: itemPIN,
+            userPIN: itemPIN.value,
             userTO: itemRange.value,
         }
 
@@ -851,14 +858,14 @@
                 timer: 2500
             })
         }
-        else if (!itemPIN.value.trim() != !itemREPIN.value.trim()) {
+        else if (itemPIN.value != itemREPIN.value) {
             //error alert
             Swal.fire({
                 position: 'center',
                 icon: 'error',
                 iconColor: '#c40f2d',
                 background: '#1a1a1a',
-                title: 'Complete all details!',
+                title: 'PIN does not match!',
                 showConfirmButton: false,
                 timer: 2500
             })
@@ -890,8 +897,8 @@
                                 icon: 'success',
                                 background: '#1a1a1a',
                                 iconColor: '#70cc72',
-                                /*title: 'Your changes has been saved!',*/
-                                title: msg,
+                                title: 'Your changes has been saved!',
+                                /*title: msg,*/
                                 showConfirmButton: false,
                                 timer: 2500
                             })
