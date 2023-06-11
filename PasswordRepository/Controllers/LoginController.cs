@@ -102,11 +102,12 @@ namespace PasswordRepository.Controllers
                             return View("Index");
                         }
                     }
+                    //DOESNT WORK YET
                     else //Viewbag error for when the Username or Email does not exist in the database
                     {
-                        return RedirectToAction("Index", "Dashboard");
+                        ViewBag.ErrorMessage = "Password is incorrect!";
+                        return View("Index");
                     }
-                    
                 }
             }
             //Viewbag error for when the model is invalid
