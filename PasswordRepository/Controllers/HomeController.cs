@@ -69,7 +69,7 @@ namespace PasswordRepository.Controllers
                     smtp.Send(ContactUsEmail);
                     ModelState.Clear();
                     //ModelState.Clear();
-                    TempData["SentMessage"] = "Email sent to the developers! Thanks for your feedback";
+                    TempData["SentMessage"] = "Email sent to the developers! Thanks for your feedback.";
                     return RedirectToAction("Contact", "Home");
                 }
                 catch (Exception)
