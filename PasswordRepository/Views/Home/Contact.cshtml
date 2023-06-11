@@ -94,6 +94,7 @@
                     <div class="modal-body modal-xl" style="margin-top:-10px;">
                         @using (@Html.BeginForm("SendEmail", "Home", FormMethod.Post))
                         {
+                            @Html.AntiForgeryToken()
                             <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
