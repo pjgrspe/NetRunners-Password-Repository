@@ -10,11 +10,11 @@ namespace PasswordRepository.Helpers
 {
     public class Encrypter
     {
-        private const string SALT = "TeamAwesomeAlwaysEatsAtThisIsEat";
-        //private const string SALT = "RiviaCintraVengerberg";
+        //private const string SALT = "TeamAwesomeAlwaysEatsAtThisIsEat";
+        private const string SALT = "//ИET.RUNNERS_";
         //KEYSIZE divided by 8
-        private const string INITVECTOR = "ThisIsInItVector";
-        //private const string INITVECTOR = "NetRunnersSystems";
+        //private const string INITVECTOR = "ThisIsInItVector";
+        private const string INITVECTOR = "NetRunnersSystems";
         private const int KEYSIZE = 256;
         
         public static string EncryptString(string text)

@@ -3,6 +3,7 @@ using PasswordRepository.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -97,6 +98,7 @@ namespace PasswordRepository.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         //Main function for inserting a password entry
         public ActionResult Entry(PasswordEntryModel model)
         {
@@ -126,6 +128,7 @@ namespace PasswordRepository.Controllers
                     //Sends data to the database
                     entities.TBL_PASSWORD_REPO.Add(newUData);
                     entities.SaveChanges();
+
 
                 }
                 //Redirects to dashboard index
@@ -175,6 +178,7 @@ namespace PasswordRepository.Controllers
 
         //Main function for updating an entry
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult UpdateEntry(int passwordID, string passwordTitle, string passwordEmail, string passwordUname, string passwordPassword, string passwordURL, string passwordNotes)
         {
             //Sets the entity object
