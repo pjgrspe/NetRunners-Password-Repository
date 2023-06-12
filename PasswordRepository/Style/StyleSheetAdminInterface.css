@@ -292,6 +292,26 @@ h1 {
     height: auto;
 }
 
+#eyeicon-modal {
+    position: absolute;
+    right: 15px;
+    transform: translate(0, -50%);
+    top: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+}
+
+#editmodalbtn {
+    width: 280px;
+    height: 50px;
+    font-size: 18px;
+    color: white;
+    background-color: #4ca1a5;
+    font-family:'JetBrains Mono';
+}
+
+
 .modal-footer, .modal-header {
     border: none !important;
 }
