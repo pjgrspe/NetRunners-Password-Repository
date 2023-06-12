@@ -411,9 +411,9 @@
                                         function enterPassword() {
                                             //checks if input form matches user password
                                             if (formmodal.value == '@decryptedPass') {
-                                                $('#detailsbutton-modal').modal('show');
+                                                $('#detailsbutton-modal').modal('hide');
                                                 Swal.fire({
-                                                    position: 'top',
+                                                    position: 'center',
                                                     icon: 'success',
                                                     background: '#1a1a1a',
                                                     iconColor: '#70cc72',
@@ -421,10 +421,6 @@
                                                     showConfirmButton: false,
                                                     timer: 2500
                                                 })
-                                                    .then(function () {
-                                                        $('#detailsbutton-modal').modal('hide');
-                                                    }
-                                                    )
                                             }
                                             //else if no input
                                             else if (!formmodal.value.trim()) {
@@ -453,13 +449,19 @@
                                                 })
                                             }
                                         }
+                                        //ENTER ON KEYBOARD FUNCTION
+                                        $("#floatingPassword-modal").keyup(function (event) {
+                                            if (event.keyCode == 13) {
+                                                $("#editmodalbtn").click();
+                                            }
+                                        });
                                     </script>
                                 </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
                                 <div class="d-flex justify-content-center">
                                     <div class="d-flex justify-content-center col-5">
-                                        <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="enterPassword()">
+                                        <button type="submit" aria-label="submit" class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="enterPassword()">
                                             ENTER →
                                         </button>
                                     </div>

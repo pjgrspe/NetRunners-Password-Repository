@@ -498,12 +498,11 @@
                                                                     } else {
                                                                         tblDetail.style.display = 'block'; // Show the input element
                                                                     }
-                                                                    checkInputusername();
                                                                 });
 
-                                                                function checkInputusername() {
-                                                                    const inputElement = document.getElementById('Username-@PassEntry.PID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-username-@PassEntry.PID.ToString()')
+                                                                function checkInputusername(PID) {
+                                                                    const inputElement = document.getElementById('Username-'+PID);
+                                                                    const tblDetail = document.getElementById('tbl-username-' + PID);
 
                                                                     // Check if the value is null or empty
                                                                     if (!inputElement.value.trim()) {
@@ -602,12 +601,11 @@
                                                                     } else {
                                                                         tblDetail.style.display = 'block'; // Show the input element
                                                                     }
-                                                                    checkInputemail();
                                                                 });
 
-                                                                function checkInputemail() {
-                                                                    const inputElement = document.getElementById('Email-@PassEntry.PID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-email-@PassEntry.PID.ToString()')
+                                                                function checkInputemail(PID) {
+                                                                    const inputElement = document.getElementById('Email-'+PID);
+                                                                    const tblDetail = document.getElementById('tbl-email-' +PID)
 
                                                                     // Check if the value is null or empty
                                                                     if (!inputElement.value.trim()) {
@@ -708,12 +706,11 @@
                                                                     } else {
                                                                         tblDetail.style.display = 'block'; // Show the input element
                                                                     }
-                                                                    checkInputpassword();
                                                                 });
 
-                                                                function checkInputpassword() {
-                                                                    const inputElement = document.getElementById('Password-@PassEntry.PID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-password-@PassEntry.PID.ToString()')
+                                                                function checkInputpassword(PID) {
+                                                                    const inputElement = document.getElementById('Password-'+PID);
+                                                                    const tblDetail = document.getElementById('tbl-password-' +PID)
 
                                                                     // Check if the value is null or empty
                                                                     if (!inputElement.value.trim()) {
@@ -836,12 +833,11 @@
                                                                     } else {
                                                                         tblDetail.style.display = 'block'; // Show the input element
                                                                     }
-                                                                    checkInputURL();
                                                                 });
 
-                                                                function checkInputURL() {
-                                                                    const inputElement = document.getElementById('URL-@PassEntry.PID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-url-@PassEntry.PID.ToString()')
+                                                                function checkInputURL(PID) {
+                                                                    const inputElement = document.getElementById('URL-'+PID);
+                                                                    const tblDetail = document.getElementById('tbl-url-'+PID);
 
                                                                     // Check if the value is null or empty
                                                                     if (!inputElement.value.trim()) {
@@ -940,12 +936,11 @@
                                                                     } else {
                                                                         tblDetail.style.display = 'block'; // Show the input element
                                                                     }
-                                                                    checkInputnotes();
                                                                 });
 
-                                                                function checkInputnotes() {
-                                                                    const inputElement = document.getElementById('Notes-@PassEntry.PID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-notes-@PassEntry.PID.ToString()')
+                                                                function checkInputnotes(PID) {
+                                                                    const inputElement = document.getElementById('Notes-'+PID);
+                                                                    const tblDetail = document.getElementById('tbl-notes-'+PID)
 
                                                                     // Check if the value is null or empty
                                                                     if (!inputElement.value.trim()) {
@@ -1112,13 +1107,13 @@
             cancelButtonText: 'Back'
         }).then((result) => {
             if (result.isConfirmed) {
-                checkInputemail();
-                checkInputusername();
-                checkInputpassword();
-                checkInputURL();
-                checkInputnotes();
-                toggleEdit(PID);
                 resetform(PID, Title, Username, Email, Password, URL, Notes);
+                checkInputemail(PID);
+                checkInputusername(PID);
+                checkInputpassword(PID);
+                checkInputURL(PID);
+                checkInputnotes(PID);
+                toggleEdit(PID);
             }
         })
         
