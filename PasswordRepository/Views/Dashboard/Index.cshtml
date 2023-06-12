@@ -37,28 +37,24 @@
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
                                         @Html.TextBoxFor(Model => Model.textbox_PR_TITLE, new { @class = "form-control rounded-0 w-100", id = "floatingTitle", placeholder = "Title", required = "required" })
-                                        @*<input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingTitle" spellcheck="false" placeholder = "Title" required = "required">*@
                                         <label for="floatingTitle">Title</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
                                         @Html.TextBoxFor(Model => Model.textbox_PR_USERNAME, new { @class = "form-control rounded-0 w-100", id = "floatingUsername", placeholder = "Username" })
-                                        @*<input maxlength="50" class="form-control rounded-0 w-100" id="floatingUsername" spellcheck="false" placeholder = "Username">*@
                                         <label for="floatingUsername">Username</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; ">
                                         @Html.TextBoxFor(Model => Model.textbox_PR_EMAIL, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email" })
-                                        @*<input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder = "Email">*@
                                         <label for="floatingEmail">Email</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
                                         @Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-login", placeholder = "Password", required = "required" })
-                                        @*<input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-login" spellcheck="false" placeholder = "Password" required = "required">*@
                                         <label for="floatingPassword-login">Password</label>
                                         <span>
                                             <!--Eye icon-->
@@ -70,14 +66,12 @@
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
                                         @Html.TextBoxFor(Model => Model.textbox_PR_URL, new { @class = "form-control rounded-0 w-100", id = "floatingURL", placeholder = "URL" })
-                                        @*<input maxlength="50" class="form-control rounded-0 w-100" id="floatingURL" spellcheck="false" placeholder = "URL">*@
                                         <label for="floatingURL">URL</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; height: auto;">
                                         @Html.TextAreaFor(Model => Model.textbox_PR_NOTES, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
-                                        @*<textarea type="text" maxlength="1000" style = "height:110px" class="form-control rounded-0 w-100" id="floatingNotes" spellcheck="false" placeholder = "Notes"></textarea>*@
                                         <label for="floatingNotes">Notes</label>
                                     </div>
                                 </div>
@@ -137,7 +131,6 @@
                             <div class="length range__slider" data-min="4" data-max="30">
                                 <div class="length__title field-title" data-length='0'>length:</div>
                                 <input id="slider1" type="range" min="4" max="30" value="10" style="margin-bottom:50px;" />
-                                @*<input type="range" min="4" max="32" value="16" id="timeSlider">*@
                             </div>
 
                             <div class="settings">
@@ -164,9 +157,6 @@
                             <script type="text/javascript">
                                 // Clear the concole on every refresh
                                 console.clear();
-                                // set the body to full height
-                                // document.body.style.height = `${innerHeight}px`
-
                                 // Range Slider Properties.
                                 // Fill : The trailing color that you see when you drag the slider.
                                 // background : Default Range Slider Background
@@ -464,7 +454,6 @@
                                     </div>
                                     @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(false) && x.isActive.Equals(true)))
                                         {
-                                            //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
                                             var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
                                             <!--PER ITEM DETAILS-->
                                             <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
@@ -1358,72 +1347,3 @@
         }
     }
 </script>
-
-<!-- Modal-->
-<div class="modal fade" id="detailsbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <!--Form-->
-            <div class="modal-body modal-xl">
-                <div class="d-flex justify-content-center w-100 mt-2">
-                    <h5 style="color:white; font-family:'JetBrains Mono'">Enter your password to proceed.</h5>
-                </div>
-                <div class="d-flex justify-content-center w-100">
-                    <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                        @*@Html.PasswordFor(Model => Model.textbox_PR_PASSWORD, new { @class = "form-control rounded-0 w-100", id = "floatingPassword-UserDetails", placeholder = "Password", required = "required" })*@
-                        <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-UserDetails" spellcheck="false" placeholder="Password" required="required">
-                        <label for="floatingPassword-UserDetails">Password</label>
-                        <span>
-                            <!--Eye icon-->
-                            <img src="~/Elements/eye.svg" id="eyeicon-UserDetails" />
-                        </span>
-                        <script type="text/javascript">
-                            //UserDetails MODAL SHOW PASSWORD
-                            let eyeiconudetails = document.getElementById('eyeicon-UserDetails');
-                            var formudetails = document.getElementById('floatingPassword-UserDetails');
-
-                            eyeiconudetails.style.display = "none";
-
-                            formudetails.addEventListener("focusin", function () {
-                                eyeiconudetails.style.display = "block";
-                            });
-
-                            formudetails.addEventListener("focusout", function () {
-                                if (Event.relatedTarget !== eyeiconudetails) {
-                                    eyeiconudetails.style.display = "none";
-                                }
-                            });
-
-                            eyeiconudetails.addEventListener("mousedown", function (event) {
-                                event.preventDefault(); // prevent default action to avoid losing focus
-                                togglePWUserDetails();
-                            });
-
-                            function togglePWUserDetails() {
-                                var show = document.getElementById('floatingPassword-UserDetails');
-                                if (show.type == 'password') {
-                                    show.type = 'text';
-                                    eyeiconudetails.src = "/Elements/eye-slash.svg"
-                                }
-                                else {
-                                    show.type = 'password'
-                                    eyeiconudetails.src = "/Elements/eye.svg"
-                                }
-                                show.focus();
-                            }
-                        </script>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
-                    <div class="d-flex justify-content-center">
-                        <div class="d-flex justify-content-center col-5">
-                            <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="">
-                                ENTER →
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

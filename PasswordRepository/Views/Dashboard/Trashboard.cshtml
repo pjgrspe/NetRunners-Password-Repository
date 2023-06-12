@@ -151,7 +151,6 @@
                                     </div>
                                     @{foreach (var PassEntry in Model.Passwords.Where(x => x.UID.Equals((int)Session["ID"]) && x.isTrashed.Equals(true) && x.isActive.Equals(true)))
                                         {
-                                            //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
                                             var decryptedPassword = Encrypter.DecryptString(PassEntry.PR_PASSWORD);
                                             <!--PER ITEM DETAILS-->
                                             <div class="tab-pane show" id="list-@PassEntry.PID" role="tabpanel" aria-labelledby="list-@PassEntry.PID-list">
