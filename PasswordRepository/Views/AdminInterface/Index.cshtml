@@ -20,85 +20,6 @@
     @Html.Partial("_NavbarDashboard")
 
     <div id="outer">
-        <!--LUIS BACKEND NEEDED-->
-        <!-- Reset Pass Modal-->
-        <div class="modal fade" id="resetpass-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <!--Form-->
-                    <div class="modal-header d-flex justify-content-center">
-                        <h1 style="font-weight: 800; color: #b32269!important; " class="modal-title fs-4" id="ModalLabel">RESET PASSWORD</h1>
-                    </div>
-                    <div class="modal-body modal-xl" style="padding-top:0px;">
-                        <div class="d-flex justify-content-center w-100">
-                            <h6 style="color: white; font-family: 'JetBrains Mono'; text-align: center">Enter new password to reset.</h6>
-                        </div>
-                        <div class="d-flex justify-content-center w-100">
-                            <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-modal" spellcheck="false" placeholder="Password" required="required">
-                                <label for="floatingPassword-modal">Password</label>
-                                <span>
-                                    <!--Eye icon-->
-                                    <img src="~/Elements/eye.svg" id="eyeicon-modal" />
-                                </span>
-                                <script type="text/javascript">
-                                        /*LUIS BACKEND NEEDED*/
-                                        function OpenMODAL(PID) {
-                                            //OPEN MODAL
-                                            $('#resetpass-modal').modal('show');
-                                            //UPDATE PASSWORD FUNCTION
-
-                                        }
-
-                                        //MODAL SHOW PASSWORD
-                                        let eyeiconmodal = document.getElementById('eyeicon-modal');
-                                        var formmodal = document.getElementById('floatingPassword-modal');
-
-                                        eyeiconmodal.style.display = "none";
-
-                                        formmodal.addEventListener("focusin", function () {
-                                            eyeiconmodal.style.display = "block";
-                                        });
-
-                                        formmodal.addEventListener("focusout", function () {
-                                            if (Event.relatedTarget !== eyeiconmodal) {
-                                                eyeiconmodal.style.display = "none";
-                                            }
-                                        });
-
-                                        eyeiconmodal.addEventListener("mousedown", function (event) {
-                                            event.preventDefault(); // prevent default action to avoid losing focus
-                                            togglePWmodal();
-                                        });
-
-                                        function togglePWmodal() {
-                                            var show = document.getElementById('floatingPassword-modal');
-                                            if (show.type == 'password') {
-                                                show.type = 'text';
-                                                eyeiconmodal.src = "/Elements/eye-slash.svg"
-                                            }
-                                            else {
-                                                show.type = 'password'
-                                                eyeiconmodal.src = "/Elements/eye.svg"
-                                            }
-                                            show.focus();
-                                        }
-                                </script>
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
-                            <div class="d-flex justify-content-center">
-                                <div class="d-flex justify-content-center col-5">
-                                    <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn">
-                                        ENTER →
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Add User Modal -->
         <div class="modal fade" id="addbutton-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -220,7 +141,7 @@
                                 </div>
 
                                 <div class="list-group rounded-0 overflow-auto flipped scroller" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.EXPIRY_DATE > DateTime.Now || x.EXPIRY_DATE == null))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.EXPIRY_DATE > DateTime.Now || x.EXPIRY_DATE == null && x.ACCESSLVL == false))
                                         {
                                             <a class="list-group-item list-group-item-action list-group-item-1" id="list-@UserEntry.ID-list" data-bs-toggle="list" href="#list-@UserEntry.ID" role="tab" aria-controls="list-@UserEntry.ID">@UserEntry.USERNAME</a>
                                         }
@@ -272,7 +193,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.EXPIRY_DATE > DateTime.Now || x.EXPIRY_DATE == null))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.EXPIRY_DATE > DateTime.Now || x.EXPIRY_DATE == null && x.ACCESSLVL == false))
                                         {
                                             var UserDetails = Model.UserDetailsList.Where(x => x.UID.Equals(UserEntry.ID)).FirstOrDefault();
                                             //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
@@ -293,9 +214,121 @@
                                                         <!--ACTIVATION SWITCH-->
                                                         <div class="settings hidden" style="width:90%; margin-top:20px;" id="activationswitch-@UserEntry.ID">
                                                             <div class="setting">
-                                                                <input type="checkbox" id="switch-@UserEntry.ID" checked />
+                                                                @{if (UserEntry.STATUS != false)
+                                                                    {
+                                                                        <input type="checkbox" id="switch-@UserEntry.ID.ToString()" checked />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input type="checkbox" id="switch-@UserEntry.ID.ToString()" />
+                                                                    }
+                                                                }
                                                                 <label for="switch-@UserEntry.ID">Activated</label>
                                                             </div>
+
+
+
+
+
+
+
+
+
+
+
+                                                            <!--LUIS BACKEND NEEDED-->
+                                                            <!-- Reset Pass Modal-->
+                                                            <div class="modal fade" id="resetpass-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <!--Form-->
+                                                                        <div class="modal-header d-flex justify-content-center">
+                                                                            <h1 style="font-weight: 800; color: #b32269!important; " class="modal-title fs-4" id="ModalLabel">RESET PASSWORD</h1>
+                                                                        </div>
+                                                                        <div class="modal-body modal-xl" style="padding-top:0px;">
+                                                                            <div class="d-flex justify-content-center w-100">
+                                                                                <h6 style="color: white; font-family: 'JetBrains Mono'; text-align: center">Enter new password to reset.</h6>
+                                                                            </div>
+                                                                            <div class="d-flex justify-content-center w-100">
+                                                                                <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                                                                                    <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="ChPass-@UserEntry.ID.ToString()" spellcheck="false" placeholder="Password" required="required">
+                                                                                    <label for="floatingPassword-modal">Password</label>
+                                                                                    <span>
+                                                                                        <!--Eye icon-->
+                                                                                        <img src="~/Elements/eye.svg" id="eyeicon-modal" />
+                                                                                    </span>
+                                                                                    <script type="text/javascript">
+                                                                                        /*LUIS BACKEND NEEDED*/
+                                                                                        function OpenMODAL(PID) {
+                                                                                            //OPEN MODAL
+                                                                                            $('#resetpass-modal').modal('show');
+                                                                                            //UPDATE PASSWORD FUNCTION
+
+                                                                                        }
+
+                                                                                        //MODAL SHOW PASSWORD
+                                                                                        let eyeiconmodal = document.getElementById('eyeicon-modal');
+                                                                                        var formmodal = document.getElementById('floatingPassword-modal');
+
+                                                                                        eyeiconmodal.style.display = "none";
+
+                                                                                        formmodal.addEventListener("focusin", function () {
+                                                                                            eyeiconmodal.style.display = "block";
+                                                                                        });
+
+                                                                                        formmodal.addEventListener("focusout", function () {
+                                                                                            if (Event.relatedTarget !== eyeiconmodal) {
+                                                                                                eyeiconmodal.style.display = "none";
+                                                                                            }
+                                                                                        });
+
+                                                                                        eyeiconmodal.addEventListener("mousedown", function (event) {
+                                                                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                                                                            togglePWmodal();
+                                                                                        });
+
+                                                                                        function togglePWmodal() {
+                                                                                            var show = document.getElementById('floatingPassword-modal');
+                                                                                            if (show.type == 'password') {
+                                                                                                show.type = 'text';
+                                                                                                eyeiconmodal.src = "/Elements/eye-slash.svg"
+                                                                                            }
+                                                                                            else {
+                                                                                                show.type = 'password'
+                                                                                                eyeiconmodal.src = "/Elements/eye.svg"
+                                                                                            }
+                                                                                            show.focus();
+                                                                                        }
+                                                                                    </script>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                                                                                <div class="d-flex justify-content-center">
+                                                                                    <div class="d-flex justify-content-center col-5">
+                                                                                        <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn" onclick="updatePass(@UserEntry.ID, @UserEntry.ID.ToString())">
+                                                                                            ENTER →
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                            <!--PASSWORD BUTTON-->
                                                             <button style="color: #b32269 !important; margin-top: 10px; width: 30%; align-self:center " type="button" class="btn btn-outline-secondary rounded-0" id="getstartedbtn" onclick="OpenMODAL(@UserEntry.ID)">
                                                                 RESET PASSWORD
                                                             </button>
@@ -312,47 +345,47 @@
                                                                 <script type="text/javascript">
                                                                 //copy to clipboard function
                                                                 function initializeCCIcon() {
-                                                                    let ccicon = document.getElementById('cciconFname-@UserEntry.ID.ToString()');
-                                                                    var formdisplay = document.getElementById('Fname-@UserEntry.ID.ToString()');
+                                                                                       let ccicon = document.getElementById('cciconFname-@UserEntry.ID.ToString()');
+                                                                                       var formdisplay = document.getElementById('Fname-@UserEntry.ID.ToString()');
 
-                                                                    // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay) {
+                                                                                       // Make sure the elements are not null before accessing their properties
+                                                                                       if (ccicon && formdisplay) {
 
-                                                                        ccicon.style.display = "none";
+                                                                                           ccicon.style.display = "none";
 
-                                                                        formdisplay.addEventListener("mouseenter", function () {
-                                                                            ccicon.style.display = "block";
-                                                                            formdisplay.classlist.add("hover");
-                                                                            //ccicon.classList.add = "hidden";
+                                                                                           formdisplay.addEventListener("mouseenter", function () {
+                                                                                               ccicon.style.display = "block";
+                                                                                               formdisplay.classlist.add("hover");
+                                                                                               //ccicon.classList.add = "hidden";
 
-                                                                        });
+                                                                                           });
 
-                                                                        formdisplay.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
+                                                                                           formdisplay.addEventListener("mouseleave", function () {
+                                                                                               const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
                                                                             if (!isTargetIcon) {
                                                                                 ccicon.style.display = "none";
                                                                             }
-                                                                        });
+                                                                           });
 
-                                                                        ccicon.addEventListener("mouseenter", function () {
-                                                                            formdisplay.classList.add("hover");
-                                                                        });
+                                                                           ccicon.addEventListener("mouseenter", function () {
+                                                                               formdisplay.classList.add("hover");
+                                                                           });
 
-                                                                        ccicon.addEventListener("mousedown", function (event) {
+                                                                           ccicon.addEventListener("mousedown", function (event) {
                                                                             event.preventDefault(); // prevent default action to avoid losing focus
-                                                                            togglecc_table();
-                                                                        });
+                                                                               togglecc_table();
+                                                                           });
 
-                                                                        function togglecc_table() {
-                                                                            var copyText = formdisplay
-
+                                                                           function togglecc_table() {
+                                                                               var copyText = formdisplay
+   
                                                                             // Copy the text inside the text field
                                                                             navigator.clipboard.writeText(copyText.value);
 
-                                                                            // Alert the copied text
-                                                                            /*alert("Copied the text: " + copyText.value);*/
-                                                                            const Toast = Swal.mixin({
-                                                                                toast: true,
+                                                                               // Alert the copied text
+                                                                               /*alert("Copied the text: " + copyText.value);*/
+                                                                               const Toast = Swal.mixin({
+                                                                               toast: true,
                                                                                 position: 'top',
                                                                                 showConfirmButton: false,
                                                                                 timer: 3000,
@@ -361,10 +394,10 @@
                                                                                     toast.addEventListener('mouseenter', Swal.stopTimer)
                                                                                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                                                                                 }
-                                                                            })
+                                                                               })
 
                                                                             Toast.fire({
-                                                                                icon: 'success',
+                                                                           icon: 'success',
                                                                                 iconColor: '#70cc72',
                                                                                 title: 'Copied "First name"!',
                                                                                 background: '#1a1a1a',
@@ -795,7 +828,7 @@
                                 </div>
 
                                 <div class="list-group rounded-0 overflow-auto flipped scroller" id="list-tab" role="tablist" style="margin-top:10px; height:500px;">
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false) && x.EXPIRY_DATE <= DateTime.Now))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false) && x.EXPIRY_DATE <= DateTime.Now && x.ACCESSLVL == false))
                                         {
                                             <a class="list-group-item list-group-item-action list-group-item-0" id="list-@UserEntry.ID-list" data-bs-toggle="list" href="#list-@UserEntry.ID" role="tab" aria-controls="list-@UserEntry.ID">@UserEntry.USERNAME</a>
                                         }
@@ -847,7 +880,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false) && x.EXPIRY_DATE <= DateTime.Now))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false) && x.EXPIRY_DATE <= DateTime.Now && x.ACCESSLVL == false))
                                         {
                                             var UserDetails = Model.UserDetailsList.Where(x => x.UID.Equals(UserEntry.ID)).FirstOrDefault();
                                             //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
@@ -1689,6 +1722,7 @@ LUIS
         var uEmail = $('#Email-' + userIDstring).val();
         var uPIN = $('#PIN-' + userIDstring).val();
         var uTO = $('#Timeout-' + userIDstring).val()
+        var uStatus = document.getElementById('switch-' + userIDstring).checked;
 
         //Packages the variables
         var data = {
@@ -1698,7 +1732,8 @@ LUIS
             userUsername: uUname,
             userEmail: uEmail,
             userPIN: uPIN,
-            userTO: uTO
+            userTO: uTO,
+            userStatus: uStatus
         }
 
         //Confirmation message before updating entry
@@ -1717,7 +1752,7 @@ LUIS
                 //Ajax function to prepare data to be sent to the controller
                 $.ajax({
                     type: "POST",
-                    Lname: "/AdminInterface/UpdateEntry",
+                    url: "/AdminInterface/UpdateEntry",
                     dataType: "JSON",
                     data: JSON.stringify(data),
                     contentType: 'application/json; charset=utf8',
@@ -1744,4 +1779,62 @@ LUIS
             }
         })
     }
+
+    //Change Pass
+    function updatePass(userID, userIDstring) {
+
+        //Sets variables to corresponding textboxes
+        var uID = userID;
+        var uPass = $('#ChPass-' + userIDstring).val()
+
+        //Packages the variables
+        var data = {
+            userID: uID,
+            userPass: uPass,
+        }
+
+        //Confirmation message before updating entry
+        Swal.fire({
+            title: 'Update Password?',
+            text: "This will update this user's password.",
+            icon: 'question',
+            iconColor: '#2973b9',
+            background: '#1a1a1a',
+            showCancelButton: true,
+            confirmButtonColor: '#70cc72',
+            cancelButtonColor: '#fe4365',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //Ajax function to prepare data to be sent to the controller
+                $.ajax({
+                    type: "POST",
+                    url: "/AdminInterface/UpdatePassUserEntry",
+                    dataType: "JSON",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf8',
+                    success: function () {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            background: '#1a1a1a',
+                            iconColor: '#70cc72',
+                            title: '"' + title + '" successfuly updated!',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+                            .then(function () {
+                                location.reload(true);
+                            }
+                            )
+                    },
+                    error: function () {
+                        alert("An error occurred")
+                    }
+                })
+
+            }
+        })
+    }
+
 </script>
