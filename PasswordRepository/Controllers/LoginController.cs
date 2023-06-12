@@ -68,6 +68,8 @@ namespace PasswordRepository.Controllers
                             //Sets the Session ID and Session username to the logged in user data
                             Session["ID"] = eData.ID;
                             Session["UserName"] = eData.USERNAME;
+                            Session["Email"] = eData.EMAIL;
+
 
                             //sets eData to selected the entry that matches the current UID in TBL_USER_DETAILS
                             var dData = entities.TBL_USER_DETAILS.Where(x => x.UID.Equals(eData.ID)).FirstOrDefault();
@@ -79,6 +81,10 @@ namespace PasswordRepository.Controllers
                             Session["timedout"] = false;
                             Session["Status"] = eData.STATUS;
                             Session["Access"] = eData.ACCESSLVL;
+
+                            Session["FullName"] = dData.FIRSTNAME + " " + dData.LASTNAME;
+
+
                             //Sets session timeout to three days
                             Session.Timeout = 1440;
 
@@ -131,6 +137,9 @@ namespace PasswordRepository.Controllers
             Session["timedout"] = null;
             Session["Status"] = null;
             Session["Access"] = null;
+            Session["Email"] = null;
+            Session["FullName"] = null;
+
 
             //Clears whole session altogether
             Session.Abandon();

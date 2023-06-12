@@ -196,7 +196,7 @@ namespace PasswordRepository.Controllers
             }
         }
 
-        public ActionResult UpdateEntry(int userID, string userFname, string userLname, string userUsername, string userEmail, string userPassword, string userPIN, int userTO)
+        public ActionResult UpdateEntry(int userID, string userFname, string userLname, string userUsername, string userEmail, string userPIN, int userTO, bool userStatus)
         {
             //Sets the entity object
             using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
@@ -211,7 +211,6 @@ namespace PasswordRepository.Controllers
                 }
 
                 //Encrypts entered password
-                var EncryptedPass = Encrypter.EncryptString(userPassword);
                 var EncryptedPIN = Encrypter.EncryptString(userPIN);
 
                 //Sets selected entry's data to the information passed through the function
@@ -219,9 +218,43 @@ namespace PasswordRepository.Controllers
                 UserDetail.LASTNAME = userLname;
                 UserLogin.USERNAME = userUsername;
                 UserLogin.EMAIL = userEmail;
-                UserLogin.PASSWORD = EncryptedPass;
                 UserDetail.PIN = EncryptedPIN;
                 UserDetail.TIMEOUT = userTO;
+                UserLogin.STATUS = userStatus;
+
+                //Saves the changes
+                if (entities.SaveChanges() >= 1)
+                {
+                    //Success Message
+                    return Json(new { msg = "Entry updated" });
+                }
+                else
+                {
+                    //Error Message
+                    return Json(new { msg = "An error occurred(Controller)" });
+                }
+
+            }
+        }
+
+        public ActionResult UpdatePassUserEntry(int userID, string userPassword)
+        {
+            //Sets the entity object
+            using (PassRepoDatabaseEntities entities = new PassRepoDatabaseEntities())
+            {
+                //Sets password variable to the table entry that matches the given password ID to PID
+                var UserLogin = entities.TBL_LOGIN.Where(x => x.ID == userID).FirstOrDefault();
+                //If entry not found (should be impossible)
+                if (UserLogin == null)
+                {
+                    return Json(new { msg = "Entry not found (what?? how???)" });
+                }
+
+                //Encrypts entered password
+                var EncryptedPASS = Encrypter.EncryptString(userPassword);
+
+                //Sets selected entry's data to the information passed through the function
+                UserLogin.PASSWORD = EncryptedPASS;
 
                 //Saves the changes
                 if (entities.SaveChanges() >= 1)
