@@ -25,6 +25,10 @@ namespace PasswordRepository.Controllers
             {
                 return RedirectToAction("Index", "Dashboard");
             }
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Message = TempData["Message"].ToString();
+            }
             //Otherwise load the Login index page
             return View();
             

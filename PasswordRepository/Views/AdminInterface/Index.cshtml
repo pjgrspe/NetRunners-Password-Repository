@@ -1,4 +1,4 @@
-﻿    @model PasswordRepository.Models.PasswordEntryModel
+﻿@model PasswordRepository.Models.PasswordEntryModel
 @using PasswordRepository.Helpers;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,11 +15,91 @@
 
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     @Html.Partial("_NavbarDashboard")
 
     <div id="outer">
-        <!-- Modal -->
+        <!--LUIS BACKEND NEEDED-->
+        <!-- Reset Pass Modal-->
+        <div class="modal fade" id="resetpass-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <!--Form-->
+                    <div class="modal-header d-flex justify-content-center">
+                        <h1 style="font-weight: 800; color: #b32269!important; " class="modal-title fs-4" id="ModalLabel">RESET PASSWORD</h1>
+                    </div>
+                    <div class="modal-body modal-xl" style="padding-top:0px;">
+                        <div class="d-flex justify-content-center w-100">
+                            <h6 style="color: white; font-family: 'JetBrains Mono'; text-align: center">Enter new password to reset.</h6>
+                        </div>
+                        <div class="d-flex justify-content-center w-100">
+                            <div class="form-floating" style="margin-top: 10px; width: 90%;">
+                                <input type="password" maxlength="50" class="form-control rounded-0 w-100" id="floatingPassword-modal" spellcheck="false" placeholder="Password" required="required">
+                                <label for="floatingPassword-modal">Password</label>
+                                <span>
+                                    <!--Eye icon-->
+                                    <img src="~/Elements/eye.svg" id="eyeicon-modal" />
+                                </span>
+                                <script type="text/javascript">
+                                        /*LUIS BACKEND NEEDED*/
+                                        function OpenMODAL(PID) {
+                                            //OPEN MODAL
+                                            $('#resetpass-modal').modal('show');
+                                            //UPDATE PASSWORD FUNCTION
+
+                                        }
+
+                                        //MODAL SHOW PASSWORD
+                                        let eyeiconmodal = document.getElementById('eyeicon-modal');
+                                        var formmodal = document.getElementById('floatingPassword-modal');
+
+                                        eyeiconmodal.style.display = "none";
+
+                                        formmodal.addEventListener("focusin", function () {
+                                            eyeiconmodal.style.display = "block";
+                                        });
+
+                                        formmodal.addEventListener("focusout", function () {
+                                            if (Event.relatedTarget !== eyeiconmodal) {
+                                                eyeiconmodal.style.display = "none";
+                                            }
+                                        });
+
+                                        eyeiconmodal.addEventListener("mousedown", function (event) {
+                                            event.preventDefault(); // prevent default action to avoid losing focus
+                                            togglePWmodal();
+                                        });
+
+                                        function togglePWmodal() {
+                                            var show = document.getElementById('floatingPassword-modal');
+                                            if (show.type == 'password') {
+                                                show.type = 'text';
+                                                eyeiconmodal.src = "/Elements/eye-slash.svg"
+                                            }
+                                            else {
+                                                show.type = 'password'
+                                                eyeiconmodal.src = "/Elements/eye.svg"
+                                            }
+                                            show.focus();
+                                        }
+                                </script>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center" style="margin-top:10px">
+                            <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center col-5">
+                                    <button class="btn btn-outline-secondary rounded-0" id="editmodalbtn">
+                                        ENTER →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add User Modal -->
         <div class="modal fade" id="addbutton-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
@@ -104,7 +184,7 @@
                                                      value="popup => console.log(popup)" />
                             </template>
                         }
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,11 +212,10 @@
                                         </div>
                                     </a>
                                 </div>
-
                                 <!-- Button trigger modal -->
                                 <div class="d-flex justify-content-center">
                                     <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#addbutton-modal" id="additembtn" style="margin-top:10px;">
-                                        ADD ITEM +
+                                        ADD USER +
                                     </button>
                                 </div>
 
@@ -214,11 +293,13 @@
                                                         <!--ACTIVATION SWITCH-->
                                                         <div class="settings hidden" style="width:90%; margin-top:20px;" id="activationswitch-@UserEntry.ID">
                                                             <div class="setting">
-                                                                <input type="checkbox" id="switch-@UserEntry.ID" checked/>
+                                                                <input type="checkbox" id="switch-@UserEntry.ID" checked />
                                                                 <label for="switch-@UserEntry.ID">Activated</label>
                                                             </div>
+                                                            <button style="color: #b32269 !important; margin-top: 10px; width: 30%; align-self:center " type="button" class="btn btn-outline-secondary rounded-0" id="getstartedbtn" onclick="OpenMODAL(@UserEntry.ID)">
+                                                                RESET PASSWORD
+                                                            </button>
                                                         </div>
-
                                                         <!--FIRSTNAME INPUT-->
                                                         <div class="mt-3 tbl-details" id="tbl-Fname-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
@@ -531,110 +612,6 @@
                                                                 </script>
                                                             </div>
                                                         </div>
-                                                        <!--PASSWORD INPUT-->
-                                                        <div class="mt-3 tbl-details" id="tbl-password-@UserEntry.ID.ToString()">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-2px;">Password</p>
-                                                                <input type="password" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Password-@UserEntry.ID.ToString()" value="@decryptedPassword" spellcheck="false">
-                                                                <span>
-                                                                    <!--Eye and CC icon-->
-                                                                    <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@UserEntry.ID" id="eyeiconPassword-@UserEntry.ID" />
-                                                                    <img src="~/Elements/copytoclipboard.svg" class="cciconpassword-@UserEntry.ID" id="cciconPassword-@UserEntry.ID" />
-                                                                </span>
-                                                                <script type="text/javascript">
-                                                                //copy to clipboard and show password function
-                                                                function initializeCCIcon() {
-                                                                    let eyeicontbl = document.getElementById('eyeiconPassword-@UserEntry.ID.ToString()');
-                                                                    let ccicon = document.getElementById('cciconPassword-@UserEntry.ID.ToString()');
-                                                                    var formdisplay = document.getElementById('Password-@UserEntry.ID.ToString()');
-
-                                                                    // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay && eyeicontbl) {
-
-                                                                    eyeicontbl.style.display = "block";
-                                                                    ccicon.style.display = "none";
-
-                                                                    formdisplay.addEventListener("mouseenter", function () {
-                                                                        ccicon.style.display = "block";
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    formdisplay.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
-
-                                                                        if (!isTargetIcon) {
-                                                                            ccicon.style.display = "none";
-                                                                        }
-                                                                    });
-
-                                                                    eyeicontbl.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    ccicon.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    eyeicontbl.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        toggleshowPW_table();
-                                                                    });
-
-                                                                    ccicon.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        togglecc_table();
-                                                                    });
-
-                                                                    function togglecc_table() {
-                                                                        var copyText = formdisplay
-
-                                                                        // Copy the text inside the text field
-                                                                        navigator.clipboard.writeText(copyText.value);
-
-                                                                        // Alert the copied text
-                                                                        /*alert("Copied the text: " + copyText.value);*/
-                                                                        const Toast = Swal.mixin({
-                                                                            toast: true,
-                                                                            position: 'top',
-                                                                            showConfirmButton: false,
-                                                                            timer: 3000,
-                                                                            timerProgressBar: true,
-                                                                            didOpen: (toast) => {
-                                                                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                                                            }
-                                                                        })
-
-                                                                        Toast.fire({
-                                                                            icon: 'success',
-                                                                            iconColor: '#70cc72',
-                                                                            title: 'Copied "Password"!',
-                                                                            background: '#1a1a1a',
-                                                                        })
-                                                                        ccicon.style.display = "none";
-                                                                    }
-
-                                                                    function toggleshowPW_table() {
-                                                                        var show = document.getElementById('Password-@UserEntry.ID.ToString()');
-                                                                        if (show.type == 'password') {
-                                                                            show.type = 'text';
-                                                                            eyeicontbl.src = "/Elements/eye-slash-white.svg"
-                                                                        }
-                                                                        else {
-                                                                            show.type = 'password'
-                                                                            eyeicontbl.src = "/Elements/eye-white.svg"
-
-                                                                        }
-                                                                        show.focus();
-                                                                        }
-                                                                    }
-
-                                                                }
-                                                                // Call the function after the document has finished loading
-                                                                window.addEventListener('load', initializeCCIcon);
-                                                                </script>
-                                                            </div>
-                                                        </div>
                                                         <!--PIN INPUT-->
                                                         <div class="mt-3 tbl-details" id="tbl-PIN-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
@@ -766,7 +743,7 @@
                                                             <button class="btn btn-outline-secondary rounded-0" onclick="updateEntry('@UserEntry.ID', '@UserEntry.ID.ToString()', '@UserEntry.USERNAME')" style="margin-right:8px;" aria-pressed="true" id="editacceptbtn">
                                                                 CONFIRM
                                                             </button>
-                                                            <button class="btn btn-outline-secondary rounded-0" onclick="cancelEdit('@UserEntry.ID', '@UserEntry.USERNAME','@UserEntry.EMAIL', '@decryptedPassword','@UserDetails.FIRSTNAME', '@UserDetails.LASTNAME', '@decryptedPIN','@UserDetails.TIMEOUT')" aria-pressed="true" id="editcancelbtn">
+                                                            <button class="btn btn-outline-secondary rounded-0" onclick="cancelEdit('@UserEntry.ID', '@UserEntry.USERNAME','@UserEntry.EMAIL','@UserDetails.FIRSTNAME', '@UserDetails.LASTNAME', '@decryptedPIN','@UserDetails.TIMEOUT')" aria-pressed="true" id="editcancelbtn">
                                                                 CANCEL
                                                             </button>
                                                         </div>
@@ -870,11 +847,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false)  && x.EXPIRY_DATE <= DateTime.Now))
+                                    @{foreach (var UserEntry in Model.UserCredList.Where(x => x.STATUS.Equals(false) && x.EXPIRY_DATE <= DateTime.Now))
                                         {
                                             var UserDetails = Model.UserDetailsList.Where(x => x.UID.Equals(UserEntry.ID)).FirstOrDefault();
                                             //using (@Html.BeginForm("Index", "Login", FormMethod.Post)) { };
-                                            var decryptedPassword = Encrypter.DecryptString(UserEntry.PASSWORD);
                                             var decryptedPIN = Encrypter.DecryptString(UserDetails.PIN);
                                             //PER ITEM DETAILS
                                             <div class="tab-pane show" id="list-@UserEntry.ID" role="tabpanel" aria-labelledby="list-@UserEntry.ID-list">
@@ -1267,126 +1243,6 @@
                                                                 </script>
                                                             </div>
                                                         </div>
-                                                        <!--PASSWORD INPUT-->
-                                                        <div class="mt-3 tbl-details-0" id="tbl-password-@UserEntry.ID.ToString()">
-                                                            <div class="form-floating table-form">
-                                                                <p style="margin-bottom:-2px;">Password</p>
-                                                                <input type="password" maxlength="50" readonly class="form-control-plaintext" style="width:100%" id="Password-@UserEntry.ID.ToString()" value="@decryptedPassword" spellcheck="false">
-                                                                <span>
-                                                                    <!--Eye and CC icon-->
-                                                                    <img src="~/Elements/eye-white.svg" class="eyeiconpassword-@UserEntry.ID" id="eyeiconPassword-@UserEntry.ID" />
-                                                                    <img src="~/Elements/copytoclipboard.svg" class="cciconpassword-@UserEntry.ID" id="cciconPassword-@UserEntry.ID" />
-                                                                </span>
-                                                                <script type="text/javascript">
-                                                                //disappear if input is null
-                                                                window.addEventListener('load', function () {
-                                                                    checkInputpassword();
-                                                                });
-
-                                                                function checkInputpassword() {
-                                                                    const inputElement = document.getElementById('Password-@UserEntry.ID.ToString()');
-                                                                    const tblDetail = document.getElementById('tbl-password-@UserEntry.ID.ToString()')
-
-                                                                    // Check if the value is null or empty
-                                                                    if (!inputElement.value.trim()) {
-                                                                        tblDetail.style.display = 'none'; // Hide the input element
-                                                                    } else {
-                                                                        tblDetail.style.display = 'block'; // Show the input element
-                                                                    }
-                                                                }
-                                                                //copy to clipboard and show password function
-                                                                function initializeCCIcon() {
-                                                                    let eyeicontbl = document.getElementById('eyeiconPassword-@UserEntry.ID.ToString()');
-                                                                    let ccicon = document.getElementById('cciconPassword-@UserEntry.ID.ToString()');
-                                                                    var formdisplay = document.getElementById('Password-@UserEntry.ID.ToString()');
-
-                                                                    // Make sure the elements are not null before accessing their properties
-                                                                    if (ccicon && formdisplay && eyeicontbl) {
-
-                                                                    eyeicontbl.style.display = "block";
-                                                                    ccicon.style.display = "none";
-
-                                                                    formdisplay.addEventListener("mouseenter", function () {
-                                                                        ccicon.style.display = "block";
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    formdisplay.addEventListener("mouseleave", function () {
-                                                                        const isTargetIcon = event.relatedTarget === ccicon || ccicon.contains(event.relatedTarget);
-
-                                                                        if (!isTargetIcon) {
-                                                                            ccicon.style.display = "none";
-                                                                        }
-                                                                    });
-
-                                                                    eyeicontbl.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    ccicon.addEventListener("mouseenter", function () {
-                                                                        formdisplay.classList.add("hover");
-                                                                    });
-
-                                                                    eyeicontbl.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        toggleshowPW_table();
-                                                                    });
-
-                                                                    ccicon.addEventListener("mousedown", function (event) {
-                                                                        event.preventDefault(); // prevent default action to avoid losing focus
-                                                                        togglecc_table();
-                                                                    });
-
-                                                                    function togglecc_table() {
-                                                                        var copyText = formdisplay
-
-                                                                        // Copy the text inside the text field
-                                                                        navigator.clipboard.writeText(copyText.value);
-
-                                                                        // Alert the copied text
-                                                                        /*alert("Copied the text: " + copyText.value);*/
-                                                                        const Toast = Swal.mixin({
-                                                                            toast: true,
-                                                                            position: 'top',
-                                                                            showConfirmButton: false,
-                                                                            timer: 3000,
-                                                                            timerProgressBar: true,
-                                                                            didOpen: (toast) => {
-                                                                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                                                            }
-                                                                        })
-
-                                                                        Toast.fire({
-                                                                            icon: 'success',
-                                                                            iconColor: '#70cc72',
-                                                                            title: 'Copied "Password"!',
-                                                                            background: '#1a1a1a',
-                                                                        })
-                                                                        ccicon.style.display = "none";
-                                                                    }
-
-                                                                    function toggleshowPW_table() {
-                                                                        var show = document.getElementById('Password-@UserEntry.ID.ToString()');
-                                                                        if (show.type == 'password') {
-                                                                            show.type = 'text';
-                                                                            eyeicontbl.src = "/Elements/eye-slash-white.svg"
-                                                                        }
-                                                                        else {
-                                                                            show.type = 'password'
-                                                                            eyeicontbl.src = "/Elements/eye-white.svg"
-
-                                                                        }
-                                                                        show.focus();
-                                                                        }
-                                                                    }
-
-                                                                }
-                                                                // Call the function after the document has finished loading
-                                                                window.addEventListener('load', initializeCCIcon);
-                                                                </script>
-                                                            </div>
-                                                        </div>
                                                         <!--PIN INPUT-->
                                                         <div class="mt-3 tbl-details-0" id="tbl-PIN-@UserEntry.ID.ToString()">
                                                             <div class="form-floating table-form">
@@ -1554,6 +1410,14 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 700);
+        };
+    </script>
 </body>
 </html>
 
@@ -1578,7 +1442,7 @@
         });
     }
 
-    function cancelEdit(PID, Username, Email, Password, FName, Lname, PIN, Timeout) {
+    function cancelEdit(PID, Username, Email, FName, Lname, PIN, Timeout) {
         //Confirmation message before cancelling edit
         Swal.fire({
             title: 'Cancel changes?',
@@ -1594,16 +1458,15 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 toggleEdit(PID);
-                resetform(PID, Username, Email, Password, FName, Lname, PIN, Timeout);
+                resetform(PID, Username, Email, FName, Lname, PIN, Timeout);
             }
         })
 
     }
 
-    function resetform(PID, Username, Email, Password, Fname, Lname, PIN, Timeout) {
+    function resetform(PID, Username, Email, Fname, Lname, PIN, Timeout) {
         document.getElementById('Username-' + PID).value = Username;
         document.getElementById('Email-' + PID).value = Email;
-        document.getElementById('Password-' + PID).value = Password;
         document.getElementById('Fname-' + PID).value = Fname;
         document.getElementById('Lname-' + PID).value = Lname;
         document.getElementById('PIN-' + PID).value = PIN;
@@ -1613,7 +1476,6 @@
     function toggleEdit(PID) {
         var itemSwitch = document.getElementById('switch-' + PID);
         var itemUN = document.getElementById('Username-' + PID);
-        var itemPW = document.getElementById('Password-' + PID);
         var itemEMAIL = document.getElementById('Email-' + PID);
         var itemFname = document.getElementById('Fname-' + PID);
         var itemLname = document.getElementById('Lname-' + PID);
@@ -1626,7 +1488,6 @@
         //tbldetails
         const SwitchtblDetail = document.getElementById('activationswitch-' + PID)
         const UNtblDetail = document.getElementById('tbl-username-' + PID)
-        const PWtblDetail = document.getElementById('tbl-password-' + PID)
         const EMAILtblDetail = document.getElementById('tbl-email-' + PID)
         const FnametblDetail = document.getElementById('tbl-Fname-' + PID)
         const LnametblDetail = document.getElementById('tbl-Lname-' + PID)
@@ -1647,11 +1508,6 @@
                 itemUN.readOnly = false;
                 itemUN.className = "form-control-edit";
                 UNtblDetail.style.display = "block";
-                //ITEM PW
-                itemPW.readOnly = false;
-                itemPW.className = "form-control-edit";
-                itemPW.type = 'password';
-                PWtblDetail.style.display = "block";
                 //ITEM EMAIL
                 itemEMAIL.readOnly = false;
                 itemEMAIL.className = "form-control-edit";
@@ -1685,10 +1541,6 @@
                 //ITEM UN
                 itemUN.readOnly = true;
                 itemUN.className = "form-control-plaintext readonly";
-                //ITEM PW
-                itemPW.readOnly = true;
-                itemPW.className = "form-control-plaintext";
-                itemPW.type = 'password';
                 //ITEM EMAIL
                 itemEMAIL.readOnly = true;
                 itemEMAIL.className = "form-control-plaintext";
@@ -1835,7 +1687,6 @@ LUIS
         var uLname = $('#Lname-' + userIDstring).val();
         var uUname = $('#Username-' + userIDstring).val();
         var uEmail = $('#Email-' + userIDstring).val();
-        var uPassword = $('#Password-' + userIDstring).val();
         var uPIN = $('#PIN-' + userIDstring).val();
         var uTO = $('#Timeout-' + userIDstring).val()
 
@@ -1846,7 +1697,6 @@ LUIS
             userLname: uLname,
             userUsername: uUname,
             userEmail: uEmail,
-            userPassword: uPassword,
             userPIN: uPIN,
             userTO: uTO
         }

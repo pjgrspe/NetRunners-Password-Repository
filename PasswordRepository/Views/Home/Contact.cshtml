@@ -12,20 +12,29 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Contact</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
-    <title>Frontend Bootcamp</title>
-    <link href="~/Style/StyleSheetContact.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <!--CSS-->
     <link href="~/Style/StyleSheetGlobal.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetSweetAlert.css" rel="stylesheet">
+    <link href="~/Style/StyleSheetContact.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/66285578cf.js" crossorigin="anonymous"></script>
+    <!-- Include a required theme -->
+    <link rel="stylesheet" href="@Html.Raw("@")sweetalert2/theme-dark/dark.css">
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
     <!--Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container" id="navcontainer">
@@ -50,7 +59,7 @@
                         if (Session["ID"] != null)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase; color:white;">
+                                <a class="nav-link nav-link-dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-transform:uppercase;">
 
                                     @*USERNAME DISPlAY FOR THE RESPECTIVE USERID*@
                                     @Session["Username"].ToString()
@@ -64,6 +73,7 @@
                                         <li><a class="dropdown-item" href="@Url.Action("Trashboard", "Dashboard")">Trash</a></li>
                                     }
                                     <li><a class="dropdown-item" href="@Url.Action("Index", "PINInterface")">Lock</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", "Settings")">Settings</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Logout</a></li>
                                 </ul>
                             </li>
@@ -80,39 +90,37 @@
 
         </div>
     </nav>
-    <!--Viewbag-->
+    <!--VIEWBAG-->
     @{
         if (ViewBag.SuccessMessage != null)
         {
-        <script>
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    background: '#1a1a1a',
-                    iconColor: '#70cc72',
-                    title: '@ViewBag.SuccessMessage',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-        </script>
+            <script>
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                background: '#1a1a1a',
+                iconColor: '#70cc72',
+                title: '@ViewBag.SuccessMessage',
+                showConfirmButton: false,
+                timer: 2500
+            })
+            </script>
         }
-
-        if (ViewBag.ErrorMessage != null)
+        if (ViewBag.FailedMessage != null)
         {
             <script>
-                Swal.fire({
-                    position: 'top',
-                    icon: 'error',
-                    iconColor: '#c40f2d',
-                    background: '#1a1a1a',
-                    title: '@ViewBag.ErrorMessage',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
+            Swal.fire({
+                position: 'top',
+                icon: 'error',
+                iconColor: '#c40f2d',
+                background: '#1a1a1a',
+                title: '@ViewBag.FailedMessage',
+                showConfirmButton: false,
+                timer: 2500
+            })
             </script>
         }
     }
-
     <div id="outer">
         <!-- Modal for SENDING MESSAGE -->
         <div class="modal fade" id="addbutton-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -214,7 +222,7 @@
                             /CONTACT/
                         </h1>
                         <p align="justify" class="paragraph">
-                            Thank you for your interest in NetRunners! We're excited to hear from you and would be happy to answer any questions you have or discuss potential projects. You can also fill out the contact form by clicking the ‘Contact’ button below, and we'll get back to you as soon as possible.
+                            Thank you for your interest in NetRunners! We're excited to hear from you and would be happy to answer any questions you have or discuss potential projects. You can also fill out the contact form by clicking the ‘Contact Us’ button below, and we'll get back to you as soon as possible.
                             <br /><br />
                         <p style="font-size:16px;">
                             Email: <a style="color: #4ca1a5;">netrunners.dev@gmail.com</a><br />
@@ -224,8 +232,6 @@
                             <button style="margin-top:30px" type="button" class="btn btn-outline-secondary rounded-0" id="getstartedbtn" data-bs-toggle="modal" data-bs-target="#addbutton-modal">
                                 CONTACT US →
                             </button>
-
-
                         </div>
 
                     </div>
@@ -238,5 +244,13 @@
             </div>
         </footer>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 500);
+        };
+    </script>
 </body>
 </html>

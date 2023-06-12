@@ -13,6 +13,7 @@
     <link href="~/Style/StyleSheetRangeInput.css" rel="stylesheet">
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container" id="navcontainer">
@@ -72,7 +73,7 @@
                     <p style="text-align: justify;">Welcome to ICE Password Repository. These terms and conditions outline the rules and regulations for the use of our password repository service. By accessing and using our password repository, you agree to comply with these terms and conditions. If you do not agree with any part of these terms, please refrain from using our service.</p>
 
                     <h5>1. Account Registration and Security</h5>
-                    <p style="margin-left: 12px; text-align: justify;" >a. You must create an account to access and use our password repository service. The information you provide during registration must be accurate and complete.</p>
+                    <p style="margin-left: 12px; text-align: justify;">a. You must create an account to access and use our password repository service. The information you provide during registration must be accurate and complete.</p>
                     <p style="margin-left: 12px; text-align: justify;">b. You are responsible for maintaining the confidentiality of your account credentials, including your username and password. You agree to notify us immediately of any unauthorized use of your account or any other security breach.</p>
                     <br />
 
@@ -457,5 +458,13 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 0);
+        };
+    </script>
 </body>
 </html>

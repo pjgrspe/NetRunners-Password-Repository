@@ -27,6 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container" id="navcontainer">
@@ -91,5 +92,13 @@
             </div>
         </footer>
     </div>
+    <script type="text/javascript">
+    window.onload = function () {
+        setTimeout(function () {
+            document.body.removeChild(modal);
+            loading.style.display = "none";
+        }, 0);
+    };
+    </script>
 </body>
 </html>

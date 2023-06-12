@@ -14,16 +14,12 @@ namespace PasswordRepository.Controllers
         //Launches index homepage
         public ActionResult Index()
         {
-            ViewBag.Message = "Your home page.";
-
             return View();
         }
 
         //Launches About homepage
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
@@ -31,8 +27,14 @@ namespace PasswordRepository.Controllers
         //Launches Contact homepage
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
+            if (TempData["SentMessage"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["SentMessage"].ToString();
+            }
+            if (TempData["FailedMessage"] != null)
+            {
+                ViewBag.FailedMessage = TempData["FailedMessage"].ToString();
+            }
             return View();
         }
 
@@ -40,10 +42,11 @@ namespace PasswordRepository.Controllers
         //Main login function
         public ActionResult SendEmail(ContactViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
+                    TempData["SentMessage"] = "Email sent to the developers! Thanks for your feedback.";
                     MailMessage ContactUsEmail = new MailMessage();
                     ContactUsEmail.From = new MailAddress(model.Email);
                     //var NREmail = "";
@@ -62,20 +65,19 @@ namespace PasswordRepository.Controllers
                     smtp.UseDefaultCredentials = true;
                     smtp.Credentials = nc;
 
-
-
                     //smtp.Credentials = new System.Net.NetworkCredential("netrunners.dev@gmail.com", "netrunner123");
-
                     smtp.Send(ContactUsEmail);
                     ModelState.Clear();
                     //ModelState.Clear();
-                    ViewBag.SuccessMessage = "Email sent to the developers! Thanks for your feedback";
+                    TempData["SentMessage"] = "Email sent to the developers! Thanks for your feedback.";
+                    return RedirectToAction("Contact", "Home");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //ModelState.Clear();
                     ModelState.Clear();
-                    ViewBag.ErrorMessage = $" Sorry we are facing Problem here {ex.Message}";
+                    TempData["FailedMessage"] = "Sorry, we are facing problems in the connection.";
+                    return RedirectToAction("Contact", "Home");
                 }
             }
             return View("Index");

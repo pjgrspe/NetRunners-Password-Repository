@@ -13,6 +13,7 @@
     <link href="~/Style/StyleSheetAlerts.css" rel="stylesheet">
 </head>
 <body>
+    @Html.Partial("_LoadingPage")
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container" id="navcontainer">
@@ -42,7 +43,7 @@
                         <!--Enter button-->
                         <div class="d-flex justify-content-center">
                             <div style="margin-top:25px" class="d-flex justify-content-center col-xl-5 col-lg-12 mb-2 ">
-                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="mainbtn"onclick="window.location.href='@Url.Action("LogOut","Login")';">
+                                <button class="btn btn-outline-secondary rounded-0" aria-pressed="true" id="mainbtn" onclick="window.location.href='@Url.Action("LogOut","Login")';">
                                     LOGOUT
                                 </button>
                             </div>
@@ -52,5 +53,13 @@
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 500);
+        };
+    </script>
 </body>
 </html>
