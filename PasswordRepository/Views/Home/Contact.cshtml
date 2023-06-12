@@ -138,28 +138,24 @@
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
                                         @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control rounded-0 w-100", id = "floatingName", placeholder = "Name", required = "required" })
-                                        @*<input type="text" maxlength="50" class="form-control rounded-0 w-100" id="floatingName" spellcheck="false" placeholder = "Name" required = "required" asp-for="Name">*@
                                         <label for="floatingName">Name</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; ">
                                         @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email" })
-                                        @*<input type="email" maxlength="50" class="form-control rounded-0 w-100" id="floatingEmail" spellcheck="false" placeholder = "Email" required = "required" asp-for="Email">*@
                                         <label for="floatingEmail">Email</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
                                         @Html.TextBoxFor(Model => Model.Subject, new { @class = "form-control rounded-0 w-100", id = "floatingSubject", placeholder = "Subject" })
-                                        @*<input maxlength="50" class="form-control rounded-0 w-100" id="floatingSubject" spellcheck="false" placeholder = "Subject" required = "required" asp-for="Subject">*@
                                         <label for="floatingSubject">Subject</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; height: auto;">
                                         @Html.TextAreaFor(Model => Model.Message, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
-                                        @*<textarea type="text" maxlength="1000" style = "height:110px" class="form-control rounded-0 w-100" id="floatingNotes" spellcheck="false" placeholder = "Notes" required = "required" asp-for="Message"></textarea>*@
                                         <label for="floatingNotes">Message</label>
                                     </div>
                                 </div>

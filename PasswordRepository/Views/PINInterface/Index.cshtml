@@ -76,11 +76,9 @@
                             <div class="registration-form container d-flex justify-content-center" style="text-align:center;">
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 350px;">
-                                        @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required", onkeypress = "return isNumberKey(event)" })
-                                        @*<input type="password" minlenght="4" maxlength="16" class="form-control rounded-0 w-100" placeholder="PIN" style="margin:auto" required="required" id="floatingPIN" onkeypress="return isNumberKey(event)">*@
+                                        @Html.Password("pinCode", null, new { @class = "form-control rounded-0 w-100", minlength="4", id = "floatingPIN", placeholder = "PIN", style = "margin:auto", required = "required", onkeypress = "return isNumberKey(event)" })
                                         <label for="floatingPIN">PIN</label>
                                         <span>
-                                            <!--<i class="bi bi-eye-slash" id="eyeicon" onclick="togglePW()"></i>-->
                                             <img src="~/Elements/eye.svg" id="eyeicon-pin" />
                                         </span>
                                     </div>
