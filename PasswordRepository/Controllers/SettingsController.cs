@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Xml.Linq;
 
 namespace PasswordRepository.Controllers
 {
@@ -167,6 +168,7 @@ namespace PasswordRepository.Controllers
                 //Sets selected entry's data to the information passed through the function
                 userDetails.PIN = EncryptedPIN;
                 userDetails.TIMEOUT = userTO;
+                Session["TO"] = userDetails.TIMEOUT;
 
                 //Saves the changes
                 if (entities.SaveChanges() >= 1)
