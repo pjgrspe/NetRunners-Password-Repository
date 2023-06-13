@@ -11,7 +11,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="USERNAME" Type="varchar" MaxLength="16" Nullable="false" />
-          <Property Name="PASSWORD" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar(max)" Nullable="false" />
           <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
           <Property Name="STATUS" Type="bit" Nullable="false" />
@@ -28,7 +28,7 @@
           <Property Name="PR-TITLE" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="PR-EMAIL" Type="varchar" MaxLength="50" />
           <Property Name="PR-USERNAME" Type="varchar" MaxLength="50" />
-          <Property Name="PR-PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PR-PASSWORD" Type="varchar(max)" Nullable="false" />
           <Property Name="PR-URL" Type="varchar" MaxLength="50" />
           <Property Name="PR-NOTES" Type="varchar(max)" />
           <Property Name="isTrashed" Type="bit" Nullable="false" />
@@ -51,7 +51,7 @@
           <Property Name="PIN" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TIMEOUT" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_TBL_USER_DETAILS_TBL_USER_DETAILS">
+        <Association Name="FK_TBL_USER_DETAILS_TBL_LOGIN">
           <End Role="TBL_LOGIN" Type="Self.TBL_LOGIN" Multiplicity="1" />
           <End Role="TBL_USER_DETAILS" Type="Self.TBL_USER_DETAILS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -67,7 +67,7 @@
           <EntitySet Name="TBL_LOGIN" EntityType="Self.TBL_LOGIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_PASSWORD_REPO" EntityType="Self.TBL_PASSWORD_REPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_USER_DETAILS" EntityType="Self.TBL_USER_DETAILS" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_TBL_USER_DETAILS_TBL_USER_DETAILS" Association="Self.FK_TBL_USER_DETAILS_TBL_USER_DETAILS">
+          <AssociationSet Name="FK_TBL_USER_DETAILS_TBL_LOGIN" Association="Self.FK_TBL_USER_DETAILS_TBL_LOGIN">
             <End Role="TBL_LOGIN" EntitySet="TBL_LOGIN" />
             <End Role="TBL_USER_DETAILS" EntitySet="TBL_USER_DETAILS" />
           </AssociationSet>
@@ -82,7 +82,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="USERNAME" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="STATUS" Type="Boolean" Nullable="false" />
@@ -135,7 +135,7 @@
           <Property Name="PR_TITLE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PR_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PR_USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PR_PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PR_PASSWORD" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="PR_URL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PR_NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="isTrashed" Type="Boolean" Nullable="false" />
