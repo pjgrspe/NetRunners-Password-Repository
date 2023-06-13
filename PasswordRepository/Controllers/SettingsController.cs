@@ -132,6 +132,11 @@ namespace PasswordRepository.Controllers
                 userDetails.LASTNAME = userLN;
                 userDetails.DATE_MODIFIED = DateTime.Now;
 
+                //Sets the Session variables to the corresponding data on the table
+                Session["UserName"] = userLogin.USERNAME;
+                Session["FullName"] = userDetails.FIRSTNAME + " " + userDetails.LASTNAME;
+                Session["Email"] = userLogin.EMAIL;
+
                 //Saves the changes
                 if (entities.SaveChanges() >= 1)
                 {
@@ -168,6 +173,10 @@ namespace PasswordRepository.Controllers
                 //Sets selected entry's data to the information passed through the function
                 userDetails.PIN = EncryptedPIN;
                 userDetails.TIMEOUT = userTO;
+
+
+                //Sets the Session variables PIN and TO to the corresponding data on the table
+                Session["PIN"] = userDetails.PIN;
                 Session["TO"] = userDetails.TIMEOUT;
 
                 //Saves the changes
