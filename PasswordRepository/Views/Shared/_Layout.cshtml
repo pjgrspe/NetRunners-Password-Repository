@@ -128,7 +128,6 @@
             //initializes the idleTime counter to 0
             //the idleTimout is determined by the user, this sets the timeout timer limit
             var idleTime = 0;
-            //var idleTimeout = 5 * 60 * 1000; // 5 minutes (in milliseconds) For temporary use
             var idleTimeout = @Session["TO"] * 60 * 1000; // PRODUCTION CODE, will be used once the timeout registration is implemented
             //var idleTimeout = 15 * 1000; // 5 minutes (in milliseconds) for TESTING
 
