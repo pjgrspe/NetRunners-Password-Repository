@@ -143,19 +143,19 @@
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; ">
-                                        @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email" })
+                                        @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control rounded-0 w-100", id = "floatingEmail", type = "email", placeholder = "Email", required = "required" })
                                         <label for="floatingEmail">Email</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%;">
-                                        @Html.TextBoxFor(Model => Model.Subject, new { @class = "form-control rounded-0 w-100", id = "floatingSubject", placeholder = "Subject" })
+                                        @Html.TextBoxFor(Model => Model.Subject, new { @class = "form-control rounded-0 w-100", id = "floatingSubject", placeholder = "Subject", required = "required" })
                                         <label for="floatingSubject">Subject</label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center w-100">
                                     <div class="form-floating" style="margin-top: 10px; width: 90%; height: auto;">
-                                        @Html.TextAreaFor(Model => Model.Message, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500" })
+                                        @Html.TextAreaFor(Model => Model.Message, new { @class = "form-control rounded-0 w-100", rows = "10", id = "floatingNotes", placeholder = "Notes", style = "height:110px", maxlength = "500", required = "required" })
                                         <label for="floatingNotes">Message</label>
                                     </div>
                                 </div>
