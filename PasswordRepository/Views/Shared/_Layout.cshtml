@@ -135,8 +135,7 @@
             //This block of code will be executed on page load
             $(document).ready(function () {
                 // Increment the idle time counter every minute
-                var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
-
+                var idleInterval = setInterval(timerIncrement, 30000); // 30  seconds
                 // Reset the idle time counter on user activity
                 $(this).on('mousemove click keydown scroll', function () {
                     idleTime = 0;
@@ -146,7 +145,7 @@
                 function timerIncrement() {
                     idleTime = idleTime + 1;
                     // User has been inactive for idleTimeout minutes, show the pin page and reset the timer
-                    if (idleTime * 60000 >= idleTimeout) {
+                    if (idleTime * 30000 >= idleTimeout) {
                         clearInterval(idleInterval);
                         timeoutAction();
                     }
